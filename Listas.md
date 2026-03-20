@@ -1,4 +1,3 @@
-### Listas
 Esto imprime la lista completa con los corchetes y las comillas, es la representación de la lista en Python.
 
 ```python
