@@ -55,7 +55,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Functions.md",
+                "file": "python/Functions.md",
                 "mode": "source",
                 "source": false
               },
@@ -234,10 +234,10 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "59045a2539f30188",
+  "active": "1f11224da7f566a3",
   "lastOpenFiles": [
     "python/inputs y while loops.md",
-    "Functions.md",
+    "python/Functions.md",
     "python/Dictionaries.md",
     "python/If Statments.md",
     "2026-03-20.md",
