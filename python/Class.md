@@ -1,3 +1,5 @@
+## Abstracción 
+
 ![[Pasted image 20260321144939.png]]
 
 Para declarar clases
@@ -152,3 +154,12 @@ mi_personaje.atacar(mi_enemigo)
 mi_enemigo.atributos()
 
 ```
+
+Encapsulaciones, le agrego __ métodos y atributos para que no se pueda acceder del exterior, pero si puedo acceder si llamo a otra función que la llama
+
+![[Pasted image 20260321163602.png]]
+
+![[Pasted image 20260321163533.png]]
+
+
+Para mostrar y cambiar atributos se utilizan las funciones set y get
