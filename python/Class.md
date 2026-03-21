@@ -212,7 +212,7 @@ class Personaje:
 			
 
 class Guerrero(Personaje): #creo una clase heredando sus caracteristicas
-
+	pass
 
 mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
 mi_enemigo = Personaje("ruiu", 8, 5, 3, 100)
@@ -225,6 +225,22 @@ guts = Guerrero() #esto da error, ya que le tengo que pasar personajes, y person
  print(guts.esta_vivo()) #puedo acceder a los metodos
  guts.atributos
 
-si yo
+#si yo quiero agregar un atributo mas
+guts = Guerrero("Guts", 20, 10, 100, 5) 
+#tengo que definir un nuevo init
 
+class Guerrero(Personaje)
+	def __init__(self, nombre, fuerza, inteligencia, defensa, vida, espada)
+		#hay que inicializar los atributos heredados
+		Personaje.__init__(self, nombre, fuerza, inteligencia, defensa, vida)
+		#sino super llama a los atributos y metodos de la super clase
+		super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+		#no hace falta anadir self
+		#super ayuda a que si cambio el nombre de la supercalse no lo tengo que 
+		#cambiar en el codigo actual
+	
+	
+guts = Guerrero("guts", 20, 10, 10, 100, 5) 
+get.atributos() #ahora esto anda
+print(guts.espada)
 ```
