@@ -62,3 +62,31 @@ mi_personaje.nombre = "loocakoo"
 
 El __init__() hace esto, reemplaza los ya declarados y los modifica, pero si lo uso no hace falta volverlos a declarar
 ![[Pasted image 20260321151030.png]]
+Para declarar métodos que muestren el valor de sus atributos hago:
+
+```python
+
+class Personaje:
+
+	def __init__(self, nombre, fuerza, inteligencia, defensa, vida)
+	
+		
+		self.nombre = nombre  
+		self.fuerza = fuerza
+		self.inteligencia = inteligencia
+		self.defensa = defensa 
+		self.vida = vida
+	
+	def atributos(self):
+		print(self.nombre, ":", sep="")
+		print("fuerza", self.fuerza)
+		print(")
+	
+
+
+mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
+print(mi_personaje) 
+print("el nombre del jugador es", mi_personaje.nombre) 
+print("el nombre del jugador es", mi_personaje.fuerza)  
+mi_personaje.nombre = "loocakoo" 
+```
