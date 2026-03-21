@@ -77,16 +77,52 @@ class Personaje:
 		self.defensa = defensa 
 		self.vida = vida
 	
-	def atributos(self):
+	def atributos(self): #creo esto para mostrar los atributos
 		print(self.nombre, ":", sep="")
 		print("fuerza", self.fuerza)
-		print(")
+		print("inteligencia", self.inteligencia)
+		print("defensa", self.defensa)
+		print("vida", seld.vida)
 	
 
 
 mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
-print(mi_personaje) 
-print("el nombre del jugador es", mi_personaje.nombre) 
-print("el nombre del jugador es", mi_personaje.fuerza)  
-mi_personaje.nombre = "loocakoo" 
+mi_personaje.atributos() #asi accedo a todos los atributos
+
+```
+
+Puedo hacer un método para modificar los atributos:
+
+```python
+
+class Personaje:
+	def __init__(self, nombre, fuerza, inteligencia, defensa, vida):
+		self.nombre = nombre  
+		self.fuerza = fuerza
+		self.inteligencia = inteligencia
+		self.defensa = defensa 
+		self.vida = vida
+	
+	def atributos(self): 
+		print(self.nombre, ":", sep="")
+		print("fuerza", self.fuerza)
+		print("inteligencia", self.inteligencia)
+		print("defensa", self.defensa)
+		print("vida", seld.vida)
+	
+	def subir_nivel(self, fuerza, inteligencia, defensa):
+		self.fuerza = self.fuerza + fuerza
+		self.inteligencia = self.inteligencia + inteligencia
+		self.defensa = self.defensa + defensa
+	
+	def esta_vivo(self)
+		return self.vida > 0
+
+
+mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
+ 
+mi.personaje.subir_nivel(1, 2, 0)
+mi_personaje.atributos()
+
+
 ```
