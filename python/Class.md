@@ -126,7 +126,14 @@ class Personaje:
 		#voy a poder sacar datos
 		return self.fuerza - enemigo.defensa
 		
-	def atacar(self)
+	def atacar(self, enemigo)
+		danio = self.danio(enemigo)
+		enemigo.vida = enemigo.vida - danio
+		print(self.nombre, "ha realizado", danio, "puntos de danio a", enemigo.nombre)
+		if enemigo.esta_vivo():
+			print("la vida de", enemigo.nombre, "es", enemigo.vida)
+		else:
+			enemigo.morir()
 
 
 mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
@@ -140,5 +147,8 @@ mi_personaje.morir()
 print(mi_personaje.esta_vivo())
 
 print(mi_personaje.danio(mi_enemigo))
+
+mi_personaje.atacar(mi_enemigo)
+mi_enemigo.atributos()
 
 ```
