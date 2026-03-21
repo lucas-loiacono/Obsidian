@@ -162,4 +162,6 @@ Encapsulaciones, le agrego __ métodos y atributos para que no se pueda acceder 
 ![[Pasted image 20260321163533.png]]
 
 
-Para mostrar y cambiar atributos se utilizan las funciones set y get
+Para mostrar y cambiar atributos con codigo de control  se utilizan las funciones set y get
+
+![[Pasted image 20260321163735.png]]
