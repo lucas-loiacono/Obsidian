@@ -238,9 +238,28 @@ class Guerrero(Personaje)
 		#no hace falta anadir self
 		#super ayuda a que si cambio el nombre de la supercalse no lo tengo que 
 		#cambiar en el codigo actual
-	
+		self.espada = espada #agrego el nuevo atributo
+		
+	def cambiar_arma(self)
+		opcion = int(input("elige un arma: (1) acero valyrio, danio 8, (2)..."))
+		if opcion == 1:
+			self.espada = 8
+		elif opcion == 2: 
+			self.espada = 10
+		else:
+			 print("Numero de arma incorrecto") 
+			 
+	def atributos(self):
+		super().atributos() #traigo de la superclase el metodo atributos
+		print("Espada: ", self.espada)
+		
+	def danio(self, enemigo):
+		return self.fuerza*self.espada - enemigo.defensa
 	
 guts = Guerrero("guts", 20, 10, 10, 100, 5) 
 get.atributos() #ahora esto anda
 print(guts.espada)
+
+guts.cambiar_arma()
+gut.atributos()
 ```
