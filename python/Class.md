@@ -115,14 +115,30 @@ class Personaje:
 		self.inteligencia = self.inteligencia + inteligencia
 		self.defensa = self.defensa + defensa
 	
-	def esta_vivo(self)
+	def esta_vivo(self): #este metodo devuelve true si el personaje esta vivo 
 		return self.vida > 0
+	
+	def morir(self):  #este metodo modifica la vida a 0
+		self.vida = 0
+		print(self.nombre, "ha muerto")
+		
+	def danio(self, enemigo) #aca agrego otra class personaje, enemigo, de donde
+		#voy a poder sacar datos
+		return self.fuerza - enemigo.defensa
+		
+	def atacar(self)
 
 
 mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
+mi_enemigo = Personaje("ruiu", 8, 5, 3, 100)
  
 mi.personaje.subir_nivel(1, 2, 0)
 mi_personaje.atributos()
 
+print(mi_personaje.esta_vivo())
+mi_personaje.morir()
+print(mi_personaje.esta_vivo())
+
+print(mi_personaje.danio(mi_enemigo))
 
 ```
