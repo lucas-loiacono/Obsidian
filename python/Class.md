@@ -165,3 +165,66 @@ Encapsulaciones, le agrego __ métodos y atributos para que no se pueda acceder 
 Para mostrar y cambiar atributos con codigo de control  se utilizan las funciones set y get
 
 ![[Pasted image 20260321163735.png]]
+
+Herencia
+
+```python
+
+class Personaje:
+	def __init__(self, nombre, fuerza, inteligencia, defensa, vida):
+		self.nombre = nombre  
+		self.fuerza = fuerza
+		self.inteligencia = inteligencia
+		self.defensa = defensa 
+		self.vida = vida
+	
+	def atributos(self): 
+		print(self.nombre, ":", sep="")
+		print("fuerza", self.fuerza)
+		print("inteligencia", self.inteligencia)
+		print("defensa", self.defensa)
+		print("vida", seld.vida)
+	
+	def subir_nivel(self, fuerza, inteligencia, defensa):
+		self.fuerza = self.fuerza + fuerza
+		self.inteligencia = self.inteligencia + inteligencia
+		self.defensa = self.defensa + defensa
+	
+	def esta_vivo(self):  
+		return self.vida > 0
+	
+	def morir(self):  
+		self.vida = 0
+		print(self.nombre, "ha muerto")
+		
+	def danio(self, enemigo) 
+		return self.fuerza - enemigo.defensa
+		
+	def atacar(self, enemigo)
+		danio = self.danio(enemigo)
+		enemigo.vida = enemigo.vida - danio
+		print(self.nombre, "ha realizado", danio, "puntos de danio a", enemigo.nombre)
+		if enemigo.esta_vivo():
+			print("la vida de", enemigo.nombre, "es", enemigo.vida)
+		else:
+			enemigo.morir()
+			
+			
+
+class Guerrero(Personaje): #creo una clase heredando sus caracteristicas
+
+
+mi_personaje = Personaje("loocakoo", 10, 50, 20, 10) 
+mi_enemigo = Personaje("ruiu", 8, 5, 3, 100)
+ 
+guts = Guerrero() #esto da error, ya que le tengo que pasar personajes, y personajes inicializa con init()
+
+#inicializo los atributos de personaje
+ guts = Guerrero("Guts", 20, 10, 100) #hereda el constructor de personaje
+ print(guts.nombre) #puedo acceder a los atributos
+ print(guts.esta_vivo()) #puedo acceder a los metodos
+ guts.atributos
+
+si yo
+
+```
