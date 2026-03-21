@@ -263,3 +263,14 @@ print(guts.espada)
 guts.cambiar_arma()
 gut.atributos()
 ```
+
+
+![[Pasted image 20260321172947.png]]
+
+
+# Polimorfismo
+
+![[Pasted image 20260321173549.png]]
+
+
+![[Pasted image 20260321173657.png]]
