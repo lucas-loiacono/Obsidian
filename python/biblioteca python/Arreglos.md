@@ -18,3 +18,15 @@ for i in range():
 	suma += arreglo[i]
 
 ```
+
+# Para hacer un intercambio de valores
+Siempre que yo quiera intercambiar valores entre si voy a tener que llamar a un auxiliar 
+
+```python
+for i in range(tope):
+    for j in range(i+1, tope): #esto hace que cuente el triangulo superior o inferior, asi no volvemos a modificar las que ya modificamos
+
+        aux = matriz[i][j]
+        matriz[i][j] = matriz[j][i]
+        matriz[j][i] = aux
+```
