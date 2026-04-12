@@ -30,3 +30,16 @@ for i in range(tope):
         matriz[i][j] = matriz[j][i]
         matriz[j][i] = aux
 ```
+
+# Como recorrer una matriz
+
+Para recorrer una matriz tengo que entender que quiero recorrer, si filas o columnas, ósea que es lo que quiero hacer que cicle o cambie mas tarde, si quiero hacer el promedio de meses a través de los años voy a tener que rotar mas rápido los años que los meses
+
+```python
+
+suma_anio_mayor = 0
+for i in range(len(anios)):
+	suma_anio = 0
+	for j in range(len(meses)):
+
+```
