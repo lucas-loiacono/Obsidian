@@ -41,5 +41,10 @@ suma_anio_mayor = 0
 for i in range(len(anios)):
 	suma_anio = 0
 	for j in range(len(meses)):
+		suma_anio += meses[j]
+	
+	if suma_anio > suma_anio_mayor:
+		suma_anio_mayor = suma_anio
+		anio_mayor = i
 
 ```
