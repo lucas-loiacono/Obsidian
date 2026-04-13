@@ -63,3 +63,29 @@ for i in range(len(meses)):
     if suma_en_anios > suma_mes_mayor:
         suma_en_anios_mayor = suma_en_anios # Aquí corriges el nombre
         mes_mayor = i
+```
+
+La estructura `matriz[i][j]` (donde `i` es fila y `j` es columna) se mantiene estática como un mapa de coordenadas. Lo que determina qué estás analizando es **cuál ciclo pones afuera**.
+
+### 1. Para analizar FILA por FILA (Análisis de Meses)
+
+Si quieres saber cuánto se sumó en "Enero" a través de todos los años, dejas la **i (fila)** fija en el ciclo externo y mueves la **j (columna)** en el interno.
+
+```Python
+for i in range(len(meses)): # Me quedo parado en una fila (Mes)
+    suma_del_mes = 0
+    for j in range(len(anios)): # Recorro todas las columnas de esa fila
+        suma_del_mes += matriz[i][j]
+    # Aquí ya tengo el total de ese mes
+```
+### 2. Para analizar COLUMNA por COLUMNA (Análisis de Años)
+
+Si quieres saber cuánto se sumó en el "Año 2024" sumando todos sus meses, dejas la **j (columna)** fija en el ciclo externo y mueves la **i (fila)** en el interno.
+
+```Python
+for j in range(len(anios)): # Me quedo parado en una columna (Año)
+    suma_del_anio = 0
+    for i in range(len(meses)): # Recorro todas las filas de esa columna
+        suma_del_anio += matriz[i][j]
+    # Aquí ya tengo el total de ese año
+```
