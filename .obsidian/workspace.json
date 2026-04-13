@@ -8,104 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "54f3c468335ae652",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/If Statments.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "If Statments"
-            }
-          },
-          {
-            "id": "501c126ada76104e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/Dictionaries.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Dictionaries"
-            }
-          },
-          {
-            "id": "97b302fc0730b465",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/inputs y while loops.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "inputs y while loops"
-            }
-          },
-          {
-            "id": "59045a2539f30188",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/Listas.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Listas"
-            }
-          },
-          {
-            "id": "0d9df80e1de33afd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/2. Listas.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "2. Listas"
-            }
-          },
-          {
-            "id": "b98e335e358fd101",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/1. Strings.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1. Strings"
-            }
-          },
-          {
-            "id": "2e18ffd94d59c806",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "python/8. Files and exceptions.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "8. Files and exceptions"
-            }
-          },
-          {
             "id": "498f5293b39c3f65",
             "type": "leaf",
             "state": {
@@ -119,8 +21,7 @@
               "title": "Arreglos"
             }
           }
-        ],
-        "currentTab": 7
+        ]
       }
     ],
     "direction": "vertical"

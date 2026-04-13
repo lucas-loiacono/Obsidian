@@ -41,10 +41,19 @@ suma_anio_mayor = 0
 for i in range(len(anios)):
 	suma_anio = 0
 	for j in range(len(meses)):
-		suma_anio += meses[j]
+		suma_anio += meses[i][j]
 	
 	if suma_anio > suma_anio_mayor:
 		suma_anio_mayor = suma_anio
 		anio_mayor = i
 
+
+for i in range(len(meses)):
+	suma_en_anios = 0
+	for j in range(len(anios)):
+		suma_en_anios += matriz[i][j]
+		
+		if suma_en_anios > suma_en_anios_mayor:
+			suma_en_anios_mayor = suma_en_anios
+			
 ```
