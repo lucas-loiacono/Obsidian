@@ -89,3 +89,89 @@ for j in range(len(anios)): # Me quedo parado en una columna (Año)
         suma_del_anio += matriz[i][j]
     # Aquí ya tengo el total de ese año
 ```
+
+
+# 3 Dimensiones
+
+1. **Países (Capa $k$)**: Argentina, Chile, Uruguay.
+    
+2. **Meses (Fila $i$)**: Enero, Febrero, Marzo.
+    
+3. **Años (Columna $j$)**: 2023, 2024.
+    
+
+La estructura sería: `ventas[pais][mes][anio]`
+
+---
+
+### 1. Recorrido por Capas (Total por País)
+
+Aquí queremos saber cuánto vendió cada país sumando todos sus meses y años. El ciclo de **países** va afuera.
+
+
+``` python
+# k = países, i = meses, j = años
+for k in range(len(paises)):
+    total_pais = 0
+    for i in range(len(meses)):
+        for j in range(len(anios)):
+            total_pais += ventas[k][i][j]
+    print(f"Total vendido en el país {k}: {total_pais}")
+```
+
+- **Qué hace:** Entra al "archivador" de Argentina, suma todas sus hojas y filas, luego pasa al "archivador" de Chile.
+    
+
+---
+
+### 2. Recorrido por Filas (Total por Mes Global)
+
+Queremos saber cuánto se vendió en "Enero" sumando todos los países y todos los años. El ciclo de **meses** va afuera.
+
+
+```Python
+for i in range(len(meses)):
+    total_mes_global = 0
+    for k in range(len(paises)):
+        for j in range(len(anios)):
+            total_mes_global += ventas[k][i][j]
+    print(f"Venta total global del mes {i}: {total_mes_global}")
+```
+
+- **Qué hace:** Busca la fila "Enero" en el país 1, luego la fila "Enero" en el país 2... termina y pasa a "Febrero".
+    
+
+---
+
+### 3. Recorrido por Columnas (Total por Año Global)
+
+Queremos saber cuánto se vendió en el "2024" en todo el mundo y en todos los meses. El ciclo de **años** va afuera.
+
+
+```Python
+for j in range(len(anios)):
+    total_anio_global = 0
+    for k in range(len(paises)):
+        for i in range(len(meses)):
+            total_anio_global += ventas[k][i][j]
+    print(f"Venta total del año {j} en todos los países: {total_anio_global}")
+```
+
+- **Qué hace:** Se "clava" en la columna del año 2024 y recorre todos los países y meses solo para esa columna.
+    
+
+---
+
+### 4. Recorrido "Capa-Fila" (Total de un Mes en un País específico)
+
+Si quisieras ver el comportamiento de los meses dentro de cada país (promedio mensual por país), dejas **país** y **mes** en los dos ciclos externos.
+
+
+```Python
+for k in range(len(paises)):
+    for i in range(len(meses)):
+        suma_mes_pais = 0
+        for j in range(len(anios)):
+            suma_mes_pais += ventas[k][i][j]
+        print(f"País {k}, Mes {i} sumó: {suma_mes_pais}")
+```
