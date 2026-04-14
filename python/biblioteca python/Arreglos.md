@@ -1,6 +1,8 @@
 # Encontrar máximo valor
 
-nosotros siempre que querramos encontrar algun valor maximo o minimo y el numero del indice, siempre tenemos que declarar afuera del bucle, ya que adentro se tendra que comparar con algo para que pase a ser el nuevo valor
+Siempre dejo el ultimo que cicla hacia afuera como ancla
+
+Nosotros siempre que queramos encontrar algún valor máximo o mínimo y el numero del índice, siempre tenemos que declarar afuera del bucle, ya que adentro se tendrá que comparar con algo para que pase a ser el nuevo valor
 
 ``` python
 arreglo = [0 for _ in range(10)]
