@@ -23,3 +23,19 @@ lista = []
 ```
 
 .items()
+
+Si tenés este diccionario: `dic = { 101: [8, 9], 102: [4, 7] }`
+`dic.items()` se ve internamente algo así: `[(101, [8, 9]), (102, [4, 7])]`
+
+```python
+# Así sería con índices (más complejo):
+for p, notas in diccionario.items():
+    for i in range(len(notas)):
+        nota_actual = notas[i]
+        print(f"El alumno {p} sacó un {nota_actual}")
+
+# Así es como lo estamos haciendo (más simple):
+for p, notas in diccionario.items():
+    for n in notas:
+        print(f"El alumno {p} sacó un {n}")
+```
