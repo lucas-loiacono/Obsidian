@@ -177,3 +177,21 @@ for k in range(len(paises)):
             suma_mes_pais += ventas[k][i][j]
         print(f"País {k}, Mes {i} sumó: {suma_mes_pais}")
 ```
+
+
+recorrer letras de una lista de palabras
+
+```python
+lista = ["Hola!", "Mundo,", "Python."]
+
+for palabra in lista:
+    # CAPA 1: 'palabra' es el elemento completo (ej: "Hola!")
+    palabra_limpia = ""
+    
+    for letra in palabra:
+        # CAPA 2: 'letra' es cada carácter individual (ej: "H", "o", "l"...)
+        if letra.isalpha():
+            palabra_limpia += letra
+            
+    print(palabra_limpia)
+```
