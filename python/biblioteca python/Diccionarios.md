@@ -39,3 +39,24 @@ for p, notas in diccionario.items():
     for n in notas:
         print(f"El alumno {p} sacó un {n}")
 ```
+
+si yo tengo solo un par que no tenga listas
+
+```python
+ for part, vots in partidos_en_prov.items():
+            if vots > ganador_votos:
+                ganador_votos = vots
+                ganador_nombre = part
+```
+
+.keys()
+```python
+for padron in alumnos.keys(): #esto devuelve una lista de las keys, una pegada de la otra, como ya es una lista, lo puedo ordenar
+    print(padron)
+```
+
+.values()
+```python
+for padron in alumnos.values(): #esto devuelve una lista de los values de las keys
+    print(padron)
+```

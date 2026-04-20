@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "python/biblioteca python/Diccionarios.md",
+                "file": "python/biblioteca python/Arreglos.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Diccionarios"
+              "title": "Arreglos"
             }
           }
         ],
@@ -208,8 +208,8 @@
   },
   "active": "160932ace281a318",
   "lastOpenFiles": [
-    "python/biblioteca python/Arreglos.md",
     "python/biblioteca python/Diccionarios.md",
+    "python/biblioteca python/Arreglos.md",
     "python/8. Files and exceptions.md",
     "python/biblioteca python",
     "python/1. Strings.md",
