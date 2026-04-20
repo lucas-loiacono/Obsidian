@@ -48,9 +48,23 @@
               "icon": "lucide-file",
               "title": "Diccionarios"
             }
+          },
+          {
+            "id": "aa767bdddd708624",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Booleanos.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Booleanos"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -220,10 +234,11 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "996834601f3d30fb",
+  "active": "aa767bdddd708624",
   "lastOpenFiles": [
-    "python/biblioteca python/Métodos.md",
     "python/biblioteca python/Diccionarios.md",
+    "Booleanos.md",
+    "python/biblioteca python/Métodos.md",
     "python/biblioteca python/Arreglos.md",
     "python/8. Files and exceptions.md",
     "python/biblioteca python",
