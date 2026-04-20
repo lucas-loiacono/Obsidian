@@ -70,3 +70,38 @@ ranking = []
     # Ordenamos de mayor a menor por cantidad (índice 1 de la tupla)
     ranking.sort(key=lambda par: par[1], reverse=True)
 ```
+
+```python
+registro_notas = {
+    "Esteban": [8, 9, 10, 7],
+    "Micaela": [10, 10, 9],
+    "Julian": [4, 5, 6, 4, 8]
+}
+
+# Queremos sumar TODAS las notas de TODOS los alumnos para un promedio general
+suma_total_notas = 0
+cantidad_total_notas = 0
+
+for lista_notas in registro_notas.values():
+    # CAPA 1: lista_notas es, por ejemplo, [8, 9, 10, 7]
+    for nota in lista_notas:
+        # CAPA 2: nota es 8, luego 9, luego 10...
+        suma_total_notas += nota
+        cantidad_total_notas += 1
+
+promedio_general = suma_total_notas / cantidad_total_notas
+print(f"El promedio de toda la escuela es: {promedio_general}")
+
+
+
+
+
+for nombre, lista_notas in registro_notas.items():
+    # 'nombre' recibe "Esteban", "Micaela", etc.
+    # 'lista_notas' sigue siendo [8, 9, 10, 7]
+    print(f"Procesando notas de {nombre}...")
+    
+    for nota in lista_notas:
+        # ¡Esta parte es idéntica!
+        suma_total_notas += nota
+```
