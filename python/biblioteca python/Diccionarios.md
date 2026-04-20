@@ -105,3 +105,23 @@ for nombre, lista_notas in registro_notas.items():
         # ¡Esta parte es idéntica!
         suma_total_notas += nota
 ```
+
+```python
+
+lista_palabras = ["Python", "Java"]
+
+for palabra in lista_palabras:
+    # Entramos a la palabra
+    for letra in palabra:
+        # Entramos a la letra
+        print(letra)
+registro = {"Esteban": [8, 9], "Ana": [10, 10]}
+
+
+
+for notas in registro.values():
+    # Entramos a la lista de notas
+    for n in notas:
+        # Entramos a la nota individual
+        print(n)
+```
