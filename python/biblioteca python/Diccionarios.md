@@ -125,3 +125,16 @@ for notas in registro.values():
         # Entramos a la nota individual
         print(n)
 ```
+
+
+ordenar diccionario
+
+```python
+mi_dic = {'VOX': 30, 'PP': 54, 'PSOE': 50}
+
+# Creamos un nuevo diccionario basado en la lista ordenada
+dic_ordenado = dict(sorted(mi_dic.items(), key=lambda item: item[1], reverse=True))
+
+print(dic_ordenado)
+# Resultado: {'PP': 54, 'PSOE': 50, 'VOX': 30}
+```
