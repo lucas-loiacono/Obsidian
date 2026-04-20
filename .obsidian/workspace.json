@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "python/biblioteca python/Métodos.md",
+                "file": "python/biblioteca python/Diccionarios.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Métodos"
+              "title": "Diccionarios"
             }
           }
         ],
@@ -222,8 +222,8 @@
   },
   "active": "996834601f3d30fb",
   "lastOpenFiles": [
-    "python/biblioteca python/Arreglos.md",
     "python/biblioteca python/Métodos.md",
+    "python/biblioteca python/Arreglos.md",
     "python/biblioteca python/Diccionarios.md",
     "python/8. Files and exceptions.md",
     "python/biblioteca python",

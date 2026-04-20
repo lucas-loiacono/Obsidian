@@ -60,3 +60,13 @@ for padron in alumnos.keys(): #esto devuelve una lista de las keys, una pegada d
 for padron in alumnos.values(): #esto devuelve una lista de los values de las keys
     print(padron)
 ```
+
+si yo quiero pasar key-valor de un diccionario a una lista para despues ordenarlo
+```python
+ranking = []
+
+    for clave, valor in diccionario.items():
+        ranking.append((clave, valor))
+    # Ordenamos de mayor a menor por cantidad (índice 1 de la tupla)
+    ranking.sort(key=lambda par: par[1], reverse=True)
+```
