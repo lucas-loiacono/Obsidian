@@ -120,9 +120,9 @@ Es cuando creas una "super tecla" combinando otras que ya declaraste.
 
 ### Resumen visual de declaraciones
 
-|**Forma**|**Ejemplo de Código**|**¿Cuándo conviene?**|
-|---|---|---|
-|**Método**|`es_mayus = carac.isupper()`|Cuando Python ya tiene la función hecha.|
-|**Pertenencia**|`es_vocal = carac in "aeiou"`|Cuando el grupo es pequeño y específico.|
-|**Comparación**|`es_fin = carac == "$"`|Para límites o caracteres de corte.|
-|**Lógica**|`es_error = not (es_letra or es_num)`|Para agrupar varias reglas en una sola bandera.|
+| **Forma**       | **Ejemplo de Código**                 | **¿Cuándo conviene?**                           |
+| --------------- | ------------------------------------- | ----------------------------------------------- |
+| **Método**      | `es_mayus = carac.isupper()`          | Cuando Python ya tiene la función hecha.        |
+| **Pertenencia** | `es_vocal = carac in "aeiou"`         | Cuando el grupo es pequeño y específico.        |
+| **Comparación** | `es_fin = carac == "$"`               | Para límites o caracteres de corte.             |
+| **Lógica**      | `es_error = not (es_letra or es_num)` | Para agrupar varias reglas en una sola bandera. |
