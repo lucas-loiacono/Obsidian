@@ -72,3 +72,57 @@ if precio > MAX_CUOTA:
 ```
 
 **Resumen:** Si estás contando cosas para llegar a una meta (como las 2 actividades), inicia en `False`. Si estás verificando que nada falle, inicia en `True`.
+
+
+
+
+### 1. Por Métodos de Tipo (`letra.isalpha()`)
+
+Es cuando le preguntas al objeto mismo qué es.
+
+- **Ejemplos:** `.isupper()`, `.islower()`, `.isdigit()`, `.isspace()`.
+    
+- **Uso:** Ideal para clasificaciones rápidas de caracteres.
+    
+
+### 2. Por Pertenencia (`letra in "0123456789"`)
+
+Es cuando te fijas si un elemento está dentro de un "grupo de amigos" (una cadena, lista o tupla).
+
+- **Ejemplos:** `letra in "aeiou"`, `color in ["rojo", "azul"]`, `letra not in tildes`.
+    
+- **Uso:** Perfecto para grupos personalizados (como los símbolos permitidos o los números).
+    
+
+### 3. Por Comparación Directa (`letra == "."`)
+
+Es la más básica: comparas dos valores usando operadores relacionales.
+
+- **Operadores:** `==` (igual), `!=` (distinto), `>`, `<`, `>=`, `<=`.
+    
+- **Ejemplo:** `es_largo_ok = len(palabra) >= 8`.
+    
+- **Uso:** Para tamaños, valores exactos o límites numéricos.
+    
+
+### 4. Por Combinación Lógica (`es_letra or es_num`)
+
+Es cuando creas una "super tecla" combinando otras que ya declaraste.
+
+- **Operadores:** `and`, `or`, `not`.
+    
+- **Ejemplo:** `es_valido = es_letra and not es_tilde`.
+    
+- **Uso:** Para limpiar los `if` y que el código se lea como una oración.
+    
+
+---
+
+### Resumen visual de declaraciones
+
+|**Forma**|**Ejemplo de Código**|**¿Cuándo conviene?**|
+|---|---|---|
+|**Método**|`es_mayus = carac.isupper()`|Cuando Python ya tiene la función hecha.|
+|**Pertenencia**|`es_vocal = carac in "aeiou"`|Cuando el grupo es pequeño y específico.|
+|**Comparación**|`es_fin = carac == "$"`|Para límites o caracteres de corte.|
+|**Lógica**|`es_error = not (es_letra or es_num)`|Para agrupar varias reglas en una sola bandera.|
