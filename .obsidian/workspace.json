@@ -161,7 +161,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "0cf3ef9b28b5686c",
@@ -276,19 +277,18 @@
   },
   "active": "7ac0fc4b20b0061a",
   "lastOpenFiles": [
+    "C/Cap1.md",
+    "Python/Funda Guarna/Archivos.md",
     "Pasted image 20260428181623.png",
     "Pasted image 20260428181502.png",
     "Pasted image 20260428181203.png",
     "Pasted image 20260428181044.png",
-    "C/Cap1.md",
-    "Python/Funda Guarna/Archivos.md",
     "Pasted image 20260428180908.png",
     "Pasted image 20260428180818.png",
     "Pasted image 20260428180731.png",
     "Pasted image 20260428180704.png",
     "Pasted image 20260428180606.png",
     "Pasted image 20260428180532.png",
-    "Pasted image 20260428180500.png",
     "C",
     "Python/biblioteca python/Impresion.md",
     "Python/Funda Guarna",
