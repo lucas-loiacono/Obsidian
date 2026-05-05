@@ -193,12 +193,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Messagebox.md",
+                "file": "Python/Funda Guarna/interfaz grafica/Generales.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Messagebox"
+              "title": "Generales"
             }
           }
         ],
@@ -374,8 +374,8 @@
   },
   "active": "86d2dade8ccee1c4",
   "lastOpenFiles": [
+    "Python/Funda Guarna/interfaz grafica/Messagebox.md",
     "Python/Funda Guarna/interfaz grafica/Generales.md",
-    "Messagebox.md",
     "Python/Funda Guarna/interfaz grafica/Buttons.md",
     "Python/Funda Guarna/interfaz grafica/Label.md",
     "Python/Funda Guarna/interfaz grafica/Entry.md",

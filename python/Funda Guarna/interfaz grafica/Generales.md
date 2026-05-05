@@ -1,4 +1,26 @@
+# Sticky vs Anchor
 
+Sticky
+sticky pega el widget completo a la direccion que le marque
+``` python
+# El texto está centrado en el cartel por defecto
+cartel = Label(miframe, text="Hola", width=50, bg="red")
+
+# Empujamos TODO EL CARTEL ROJO contra la pared derecha de la celda
+cartel.grid(row=0, column=0, sticky="e") 
+```
+
+_Resultado:_ Ves un bloque rojo entero pegado a la derecha, y la palabra "Hola" en el medio de ese bloque rojo.
+
+**Caso 2: Usando solo `anchor`**
+
+``` python
+# El cartel está fijo, pero empujamos el texto hacia la derecha DEL CARTEL
+cartel = Label(miframe, text="Hola", width=50, bg="blue", anchor="e")
+
+# El cartel se queda en el centro de la celda por defecto
+cartel.grid(row=0, column=0) 
+```
 
 
 # yo siempre que quiero interactuar con la variable de un entry tengo que llamar a un boton para que tome "una fotografía" del momento y saque los datos de ahi

@@ -17,16 +17,13 @@ Acá está la verdadera magia. Estos te **devuelven un valor** según el botón 
 
 - **`messagebox.askyesno("Título", "¿Mensaje?")`**: Tiene botones "Sí" y "No". Devuelve `True` si toca Sí, y `False` si toca No. **¡Es el que más vas a usar!**
 - **`messagebox.askokcancel("Título", "¿Mensaje?")`**: Tiene botones "Aceptar" y "Cancelar". Devuelve `True` o `False`.
-    
 - **`messagebox.askretrycancel("Título", "¿Mensaje?")`**: Tiene botones "Reintentar" y "Cancelar". Devuelve `True` o `False`.
-    
 
 **Las excepciones tramposas (¡Ojo acá!):**
 
 - **`messagebox.askquestion("Título", "¿Mensaje?")`**: Aunque parezca igual al `askyesno`, este NO devuelve booleanos. Devuelve un texto: el string **`"yes"`** o el string **`"no"`**.
-    
 - **`messagebox.askyesnocancel("Título", "¿Mensaje?")`**: Tiene TRES botones: "Sí", "No" y "Cancelar". Devuelve `True` (Sí), `False` (No) y **`None`** (Cancelar). Es ideal para cuando vas a cerrar un archivo sin guardar.
-    
+
 
 ---
 
