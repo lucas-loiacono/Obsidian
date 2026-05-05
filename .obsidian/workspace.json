@@ -193,12 +193,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Funda Guarna/interfaz grafica/Raiz y frames.md",
+                "file": "Python/Funda Guarna/interfaz grafica/Label.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Raiz y frames"
+              "title": "Label"
             }
           }
         ],
@@ -374,8 +374,8 @@
   },
   "active": "86d2dade8ccee1c4",
   "lastOpenFiles": [
-    "Python/Funda Guarna/interfaz grafica/Messagebox.md",
     "Python/Funda Guarna/interfaz grafica/Raiz y frames.md",
+    "Python/Funda Guarna/interfaz grafica/Messagebox.md",
     "Python/Funda Guarna/interfaz grafica/Label.md",
     "Python/Funda Guarna/interfaz grafica/Generales.md",
     "Python/Funda Guarna/interfaz grafica/Entry.md",
