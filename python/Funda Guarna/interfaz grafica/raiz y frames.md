@@ -38,5 +38,4 @@ Hay algo que vuelve locos a todos cuando empiezan con Tkinter: si vos creás un 
 Tkinter hace esto por defecto (se llama "propagación"). Si alguna vez querés que tu Frame mantenga su tamaño fijo de 500x500 sin importar qué le metas adentro, tenés que apagarle esa propagación con esta línea mágica:
 
 - `miframe.pack_propagate(False)` (si usaste pack)
-    
 - `miframe.grid_propagate(False)` (si usaste grid)
