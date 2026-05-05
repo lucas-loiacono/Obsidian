@@ -22,7 +22,14 @@ cartel = Label(miframe, text="Hola", width=50, bg="blue", anchor="e")
 cartel.grid(row=0, column=0) 
 ```
 
+# anchor
+Es literal y matemáticamente así. El `anchor` necesita que haya **espacio libre** adentro de la caja para que el texto tenga hacia dónde moverse. Y ese espacio libre solo se consigue de las dos formas que acabas de deducir:
 
+1. **Con tamaño predefinido:** Cuando le ponés un `width=50` al crearlo.
+2. **Haciendo que se estire:** Cuando lo obligás a ocupar toda la celda gigante usando `sticky="ew"` en el grid.
+
+
+Si no hacés ninguna de esas dos cosas, la caja le queda "pintada" al texto (sin un milímetro de espacio de sobra), y el `anchor` no hace efecto porque el texto ya está chocando contra todas las paredes de su propio marco.
 # yo siempre que quiero interactuar con la variable de un entry tengo que llamar a un boton para que tome "una fotografía" del momento y saque los datos de ahi
 
 ¡Qué buena analogía! Me encantó lo de "tomar una fotografía". Sí, para el 90% de los casos funciona exactamente así.
@@ -56,3 +63,5 @@ Fijate la diferencia:
     
 
 **El dato extra (la operación inversa):** Así como usás `.get()` para "sacar" la foto y leer el dato, si alguna vez querés que el código escriba algo automáticamente adentro de ese recuadro, usás su hermano gemelo: **`.set()`**. Por ejemplo: `nombre.set("Escriba aquí")` llenaría el recuadro con ese texto.
+
+
