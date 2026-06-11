@@ -151,4 +151,54 @@ Dependiendo de cómo jueguen, la fórmula de la probabilidad de victoria cambia:
 * **Dinámica:** Hay riesgo de empate en la misma ronda.
 * **Fórmula:** $$P(X < Y) = \frac{p_A \cdot q_B}{1 - (q_A \cdot q_B)}$$
 
-#### 🔹 Caso B: Juegan por TURNOS ALTERNADOS (Tira A
+#### 🔹 Caso B: Juegan por TURNOS ALTERNADOS (Tira A, luego B) * **Dinámica:** Como tiran en momentos separados del tiempo, **no se pueden empatar**. Si A tira primero y falla, recién ahí B tiene la chance de tirar. * **Fórmula:** $$P(\text{Gana A tirando primero}) = \frac{p_A}{1 - (q_A \cdot q_B)}$$ *(Fijate que arriba no lleva el $q_B$, porque si A mete el éxito en su primer turno, el juego se termina ahí mismo sin importar qué iba a hacer B después).*
+
+
+
+
+
+# Propiedad de Uniformidad Condicional (De Poisson a Binomial)
+
+¡EXACTAMENTE! Te acabás de meter con una de las propiedades más espectaculares y contraintuitivas del Proceso de Poisson, que en los libros de texto avanzados se conoce como la **Propiedad de Uniformidad (o el Teorema de los Estadísticos de Orden)**.
+
+Lo que estás diciendo es 100% real: cuando condicionás un proceso de Poisson a que ocurrieron exactamente $n$ arribos en un intervalo grande de tiempo $T$, **el tiempo se "olvida" de Poisson** y esos $n$ puntos se desparraman por el intervalo de forma **completamente uniforme**.
+
+---
+
+### 1. El Caso de 1 solo arribo ($n=1$)
+
+Imaginá que tenés un intervalo de tiempo que va desde $0$ hasta $T$ (por ejemplo, de 0 a 60 minutos). El enunciado te dice: *"Sabiendo que llegó **exactamente 1 cliente** en esa hora, ¿cuál es la probabilidad de que haya llegado en los primeros $s$ minutos (con $s < T$)?"*.
+
+Como el proceso de Poisson tiene una tasa constante ($\lambda$), no hay ningún minuto que sea "especial" o que tenga más peso que otro. Por lo tanto, si sabés que cayó uno solo, la probabilidad de que haya caído en ese subintervalo $s$ es simplemente la **proporción del tamaño de los intervalos**:
+
+$$P(\text{Caer en } s \mid N(T) = 1) = \frac{s}{T}$$
+
+> [!NOTE] **Conclusión del caso base**
+> ¡Es una distribución **Uniforme Continua**! Es literalmente "casos favorables sobre casos totales" pero medido en longitud de tiempo.
+
+---
+
+### 2. El Caso General: El puente hacia la Binomial ($n$ arribos)
+
+¿Qué pasa si ahora el enunciado te dice: *"Sabiendo que llegaron **$n$ clientes** en el intervalo $T$, ¿cuál es la probabilidad de que exactamente $k$ de ellos hayan llegado en los primeros $s$ minutos?"*?
+
+Acá es donde ocurre la magia y todo se une:
+1. Como los arribos son independientes entre sí, cada uno de los $n$ clientes va a elegir dónde caer de forma Uniforme con probabilidad $p = \frac{s}{T}$ para el primer tramo, y $q = 1 - \frac{s}{T}$ para el tramo restante.
+2. El problema se transformó en: *"Tengo $n$ personas (intentos fijos), cada una tiene una probabilidad de elegir la primera parte del intervalo. Quiero saber la probabilidad de que $k$ de ellas lo hagan"*.
+
+> [!SUCCESS] **¡Esto es, por definición, una Distribución Binomial!**
+> * **Cantidad de intentos ($n_{\text{binom}}$):** $n$ *(el total de arribos que te dieron como dato)*.
+> * **Probabilidad de éxito ($p$):** $\frac{s}{T}$ *(la proporción del intervalo de interés)*.
+> * **Probabilidad de fracaso ($q$):** $1 - \frac{s}{T}$ *(la proporción del intervalo restante)*.
+
+#### 🧮 Fórmula Final de Examen
+La ecuación definitiva para resolver este tipo de ejercicios condicionales es:
+
+$$P(k \text{ arribos en } s \mid n \text{ arribos en } T) = \binom{n}{k} \cdot \left(\frac{s}{T}\right)^k \cdot \left(1 - \frac{s}{T}\right)^{n-k}$$
+
+---
+
+### 💡 Resumen para el Machete Mental
+
+> [!TIP] **La Clave Teórica**
+> Al congelar el total de eventos, la tasa $\lambda$ de Poisson **desaparece de la fórmula** porque ya no importa qué tan rápido lleguen las cosas en promedio; lo único que importa es la geometría del intervalo ($\frac{s}{T}$).
