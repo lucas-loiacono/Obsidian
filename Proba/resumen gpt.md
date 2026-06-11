@@ -219,3 +219,108 @@ $$P(k \text{ arribos en } s \mid n \text{ arribos en } T) = \binom{n}{k} \cdot \
 > 🎯 **Traducción:** Calcular la probabilidad de que $k$ eventos ocurran en una zona específica es equivalente a calcular $P(X=k)$ en una distribución $X \sim Bi(n, p)$.
 
 
+
+
+# Ejercicio Resuelto: Poisson Condicionado a $n$ arribos
+
+¡Este ejercicio tiene una trampa clásica de parcial!
+
+> [!WARNING] La trampa de la Tasa ($\lambda$)
+> El dato de $\lambda = 4$ es un señuelo para confundir. Como ya nos condicionaron diciéndote que en total *"arribaron exactamente 3 llamadas"* en esa hora ($n=3$, en $T=1$), la tasa original del proceso de Poisson desaparece. Esto es puramente geometría y Binomial.
+
+---
+
+### 🛠️ Preparando el Terreno (Nuestra Binomial)
+
+Ya sabemos que estamos condicionados a $N(1) = 3$. Esto significa que vamos a usar una distribución Binomial donde:
+* **Tiros totales ($n$):** $3$ llamadas aseguradas.
+* **Tiempo total ($T$):** $1$ hora (de 9:00 a 10:00).
+
+---
+
+### 🅰️ Resolución del inciso (a)
+
+* **El Enunciado:** La primera llamada arribó antes de las 9:15.
+* **En lenguaje continuo:** $S_1 < 1/4$ *(porque 15 minutos es 1/4 de hora)*.
+* **Traducción al "Hack" discreto:** ¿Qué significa lógicamente que la primera llamada haya llegado antes de los 15 minutos? Significa que, si yo miro la ventana de tiempo de los primeros 15 minutos, **al menos 1 llamada** tiene que haber entrado ahí.
+
+$$S_1 < 1/4 \iff N(1/4) \ge 1$$
+
+¡Magia! Se volvió una Binomial:
+* Nuestra moneda ($p$) es la zona objetivo sobre la zona total: $p = \frac{1/4}{1} = 1/4$.
+* Queremos calcular $P(X \ge 1)$ en una $X \sim Bi(n=3, p=1/4)$.
+
+Usamos la regla del complemento para no calcular de más:
+$$P(X \ge 1) = 1 - P(X = 0)$$
+$$P(X \ge 1) = 1 - \left[ \binom{3}{0} \cdot \left(\frac{1}{4}\right)^0 \cdot \left(\frac{3}{4}\right)^3 \right]$$
+$$P(X \ge 1) = 1 - \left( 1 \cdot 1 \cdot \frac{27}{64} \right) = 1 - \frac{27}{64} = \mathbf{\frac{37}{64}} \approx \mathbf{0.578}$$
+
+---
+
+### 🅱️ Resolución del inciso (b)
+
+* **Planteo inicial:** $S_2 < 1/2$.
+* **Traducción al "Hack" discreto:** ¿Qué significa que la *segunda* llamada haya caído antes de la media hora (9:30)? Significa que, en esa primera media hora, tienen que haber entrado **2 llamadas o más** (podrían ser 2, o podrían ser las 3).
+
+$$S_2 < 1/2 \iff N(1/2) \ge 2$$
+
+¡De nuevo a la Binomial!
+* Nuestra nueva moneda ($p$): $p = \frac{1/2}{1} = 1/2$.
+* Queremos calcular $P(X \ge 2)$ en una $X \sim Bi(n=3, p=1/2)$.
+
+Acá simplemente sumamos los casos posibles (que son poquitos): $X = 2$ o $X = 3$.
+$$P(X \ge 2) = P(X = 2) + P(X = 3)$$
+
+Calculamos cada término:
+$$P(X = 2) = \binom{3}{2} \cdot \left(\frac{1}{2}\right)^2 \cdot \left(\frac{1}{2}\right)^1 = 3 \cdot \frac{1}{4} \cdot \frac{1}{2} = \frac{3}{8}$$
+$$P(X = 3) = \binom{3}{3} \cdot \left(\frac{1}{2}\right)^3 \cdot \left(\frac{1}{2}\right)^0 = 1 \cdot \frac{1}{8} \cdot 1 = \frac{1}{8}$$
+
+Sumamos los resultados:
+$$P(X \ge 2) = \frac{3}{8} + \frac{1}{8} = \frac{4}{8} = \mathbf{0.5}$$
+
+---
+
+> [!SUCCESS] Conclusión
+> Desarmamos un ejercicio de examen entero reduciéndolo a probabilidad de secundario (una Binomial). Literalmente esquivamos todas las integrales de funciones Gamma y las condicionales confusas simplemente razonando la línea de tiempo.
+
+
+
+# El Atajo Definitivo: De Tiempo ($S_n$) a Conteo ($N(t)$)
+
+Existe un puente directo entre el mundo continuo (tiempos de espera) y el mundo discreto (cantidad de arribos) que nos ahorra trabajar con densidades continuas.
+
+> [!TIP] La Equivalencia de la Pared
+> Condicionar por un evento continuo en un instante exacto ($S_n = t$) es **estrictamente equivalente** a decir que en ese intervalo de tiempo entraron exactamente $n-1$ arribos:
+> 
+> $$S_n = t \iff N(t) = n - 1$$
+
+---
+
+### 🚗 La Lógica Visual: "El choque contra la pared"
+
+Tomemos como ejemplo la condición $S_3 = 1/2$ (el tercer arribo ocurre exactamente a los 30 minutos). 
+
+¿Por qué esto equivale matemáticamente a $N(1/2) = 2$? La clave está en la definición de los **intervalos exclusivos**:
+
+1. **La pared ($t = 1/2$):** El 3er auto está parado exactamente sobre la línea divisoria temporal.
+2. **El interior del intervalo $[0, 1/2)$:** Si miramos estrictamente el tiempo *antes* de chocar contra la pared (intervalo abierto), ese 3er auto queda afuera del conteo.
+3. **El Resultado:** Obligatoriamente, adentro de ese espacio de tiempo tienen que haber quedado atrapados exactamente **2 autos** ($n-1$).
+
+---
+
+### 🚀 ¿Por qué usar este atajo en el examen?
+
+Este cambio de variable te permite transformar un problema de probabilidad continua (integrales) en un problema discreto (álgebra simple):
+
+* **Sin el atajo (Mundo Continuo):** Tenés que plantear la probabilidad condicional usando la función de densidad **Gamma/Erlang** ($f_{S_n}(t)$), manejar exponenciales complejas y hacer divisiones de densidades continuas.
+* **Con el atajo (Mundo Discreto):** Pasás todo a la variable $N(t)$, donde usás pura y exclusivamente la fórmula básica de **Poisson**. Al dividir las probabilidades, todos los términos $e^{-\lambda t}$ y las tasas $\lambda$ se cancelan mágicamente, dejando solo números puros y fracciones simples.
+
+> [!EXAMPLE] Aplicación Práctica
+> En lugar de calcular:
+> $$P(N(1/4)=1 \mid S_3=1/2)$$
+> Calculamos su equivalente discreto:
+> $$P(N(1/4)=1 \mid N(1/2)=2)$$
+> *(Lo cual nos permite separar los intervalos por la propiedad de incrementos independientes y resolver multiplicando Poissons).*
+
+
+
