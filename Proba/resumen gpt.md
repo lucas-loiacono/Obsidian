@@ -202,3 +202,20 @@ $$P(k \text{ arribos en } s \mid n \text{ arribos en } T) = \binom{n}{k} \cdot \
 
 > [!TIP] **La Clave Teórica**
 > Al congelar el total de eventos, la tasa $\lambda$ de Poisson **desaparece de la fórmula** porque ya no importa qué tan rápido lleguen las cosas en promedio; lo único que importa es la geometría del intervalo ($\frac{s}{T}$).
+
+
+
+
+> [!TIP] Intuición Visual: Poisson Espacial como un "Tiro al Blanco"
+> Imagina que el **Proceso de Poisson condicionado** es como lanzar pelotas a un rectángulo.
+> 
+> Si sabemos que cayeron exactamente $n$ pelotas en total, el problema continuo se convierte en un problema discreto (Binomial):
+> 
+> * **Intentos ($n$):** La cantidad de pelotas totales.
+> * **Probabilidad de éxito ($p$):** Es la geometría de la zona objetivo dividida por el espacio total.
+> 
+> $$p = \frac{\text{Área Objetivo}}{\text{Área Total}}$$
+> 
+> 🎯 **Traducción:** Calcular la probabilidad de que $k$ eventos ocurran en una zona específica es equivalente a calcular $P(X=k)$ en una distribución $X \sim Bi(n, p)$.
+
+
