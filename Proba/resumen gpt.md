@@ -369,3 +369,31 @@ $$X \le 5 \iff Y \ge 3$$
 * **La lógica:** Estás tirando dados. Ya hiciste 5 tiros y el 3er éxito todavía NO apareció (venís con mala racha). Si el 3ro no llegó dentro de esa ventana de 5 tiros, es imposible que tengas 3 éxitos anotados. Tu techo es lo que está justo antes del 3. Es decir, tenés 0, 1 o 2 éxitos.
 * **La traducción matemática ($r=3, n=5$):**
 $$X > 5 \iff Y < 3 \quad (\text{que es lo mismo que } Y \le 2)$$
+
+
+
+# Ejercicio Híbrido: Pasado Condicionado y Futuro Libre
+
+¡Estás un 50% en lo correcto con lo de las exponenciales! Tu instinto no falla, pero hay una trampa teórica.
+
+> [!WARNING] La Trampa Teórica
+> Acá tenés un problema híbrido que mezcla **pasado condicionado** y **futuro libre**.
+> * **Futuro (después de los 30 min):** Sí la podés pensar como una exponencial pura, porque el proceso no tiene memoria y arranca de cero.
+> * **Pasado (primeros 10 min):** Está atrapada adentro de la "pared" de la media hora donde ya sabés que cayeron exactamente 3 partículas. Como vimos, al estar condicionada, la exponencial se rompe y se transforma en la **Binomial**.
+
+Vamos a destrozar este ejercicio usando el **"Traductor Universal"**. Es la prueba definitiva de que la lógica funciona.
+
+---
+
+### 1. Traducir el Enunciado a Conteos Discretos ($N$)
+
+* **🎯 El Dato (La Pared):** En 30 min ($1/2$ hora) hay 3 partículas.
+  $$N(1/2) = 3$$
+
+* **🅰️ Condición A:** La 1ra partícula sale después del min 10 ($1/6$ hora).
+  * *Regla del "Como Máximo":* Si la primera no llegó a los 10 min, entonces a los 10 min tengo 0 partículas.
+  * *Traducción:* $$S_1 > 1/6 \iff N(1/6) = 0$$
+
+* **🅱️ Condición B:** La 4ta partícula sale después del min 40 ($2/3$ hora).
+  * *Regla del "Como Máximo":* Si la cuarta no llegó a los 40 min, entonces a los 40 min tengo como máximo 3 partículas.
+  * *Traducción:* $$S_4 > 2/3 \iff N(2/3) \le 3$$
