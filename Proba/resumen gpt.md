@@ -324,3 +324,48 @@ Este cambio de variable te permite transformar un problema de probabilidad conti
 
 
 
+# Relación entre Tiempos ($S_n$) y Conteos ($N(t)$)
+
+### ⏩ 1. El "Como Mínimo" ($S_2 < 3$)
+
+> *"Si el 2do llegó antes del minuto 3, entonces en el minuto 3 tengo como mínimo 2."*
+
+* **La lógica:** El reloj marca el minuto 3. Como el 2do auto ya pasó (llegó rápido), en tu cuaderno ya tenés anotados 2 autos. ¿Podría haber llegado un 3ro o un 4to? Sí, totalmente. Pero tu piso está asegurado.
+* **La traducción matemática:**
+$$S_2 < 3 \iff N(3) \ge 2$$
+
+---
+
+### ⏪ 2. El "Como Máximo" ($S_2 > 3$)
+
+> *"Si el 2do llegó después del minuto 3, entonces en el minuto 3 tengo como máximo 1."*
+
+* **La lógica:** El reloj marca el minuto 3. El 2do auto todavía NO apareció (viene lento). Si el 2do no llegó, es imposible que tengas 2 autos anotados. Tu techo es lo que está justo antes del 2. Es decir, tenés 0 autos o tenés 1 auto.
+* **La traducción matemática:**
+$$S_2 > 3 \iff N(3) < 2 \quad (\text{que es lo mismo que } N(3) \le 1)$$
+
+
+
+# Relación entre Tiros de Espera ($X$) y Conteos de Éxitos ($Y$) en Bernoulli
+
+> [!INFO] Variables
+> * **$X$ (Pascal):** Cantidad de tiros totales necesarios para alcanzar el $r$-ésimo éxito.
+> * **$Y$ (Binomial):** Cantidad de éxitos obtenidos en una ventana fija de $n$ tiros.
+
+### ⏩ 1. El "Como Mínimo" (Éxito Rápido: $X \le n$)
+
+> *"Si mi 3er éxito llegó en el tiro 5 o antes, entonces en esos 5 tiros tengo como mínimo 3 éxitos."*
+
+* **La lógica:** Estás tirando dados. Si para el tiro 5 ya habías conseguido tu 3er éxito (llegaste rápido), entonces si miramos la foto completa de esos 5 tiros, obligatoriamente tenés anotados 3 éxitos. ¿Podrías tener 4 o 5 éxitos si seguiste tirando? Sí. Pero tu piso de 3 está asegurado.
+* **La traducción matemática ($r=3, n=5$):**
+$$X \le 5 \iff Y \ge 3$$
+
+---
+
+### ⏪ 2. El "Como Máximo" (Éxito Lento: $X > n$)
+
+> *"Si mi 3er éxito llegó después del tiro 5, entonces en los primeros 5 tiros tengo como máximo 2 éxitos."*
+
+* **La lógica:** Estás tirando dados. Ya hiciste 5 tiros y el 3er éxito todavía NO apareció (venís con mala racha). Si el 3ro no llegó dentro de esa ventana de 5 tiros, es imposible que tengas 3 éxitos anotados. Tu techo es lo que está justo antes del 3. Es decir, tenés 0, 1 o 2 éxitos.
+* **La traducción matemática ($r=3, n=5$):**
+$$X > 5 \iff Y < 3 \quad (\text{que es lo mismo que } Y \le 2)$$
