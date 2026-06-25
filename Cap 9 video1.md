@@ -7,3 +7,5 @@ Muestra: conjunto de datos que se obtiene al realizar el experimento una cierta 
 
 
 Muestra: resultados de cierta VA X con Fx(x) = P(X<=x)
+
+X --> observable del experimento
