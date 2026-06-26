@@ -111,3 +111,27 @@ $$\underline{x} = (x_1, \dots, x_n)$$
 - **El cambio a minúscula:** Al pasar de $\underline{X}$ a $\underline{x}$, la matemática te está avisando que se acabó la incertidumbre. Adentro de ese vector ya no hay variables aleatorias, hay constantes (datos empíricos).
     
 - **En términos de programación:** Es el array o lista alojada en memoria con los valores reales (los _integers_ o _floats_) una vez que el script ya corrió.
+
+
+**1. La Muestra Aleatoria ($\underline{X}$)**
+
+Es como armar un array o una tupla con llamadas a una función, pero **antes de ejecutar el script**. Tenés la estructura armada y sabés qué tipo de dato va a devolver cada posición (por ejemplo, sabés que todas van a devolver un entero regido por las reglas de tu variable original), pero todavía son "promesas" de un resultado. Hay incertidumbre.
+
+
+```PYTHON
+X = (experimento(), experimento(), experimento()) 
+# Aún no hay datos empíricos, son Variables Aleatorias.
+```
+
+**2. La Muestra Observada ($\underline{x}$)**
+
+Es el estado de la memoria **después de correr el programa**. Las funciones ya se ejecutaron, hicieron su trabajo y devolvieron su valor. La aleatoriedad desapareció por completo. Ahora tenés una tupla de _integers_ puros y duros para analizar o guardar en una base de datos.
+
+
+```python
+x = (4, 1, 6) 
+# Son datos reales y constantes. Cero incertidumbre.
+```
+
+
+
