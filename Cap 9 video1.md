@@ -184,3 +184,7 @@ Es el modelo continuo por excelencia para variables como altura, errores de medi
 - **Los Parámetros ($\theta$):** En este caso, el parámetro es un vector de dos valores: la media ($\mu$) y la varianza ($\sigma^2$).
     
 - **El Espacio Paramétrico ($\Theta$):** La media puede ser cualquier número real ($\mu \in \mathbb{R}$), pero la varianza obligatoriamente debe ser positiva ($\sigma^2 > 0$).
+
+![[Pasted image 20260625232305.png]]
+
+![[Pasted image 20260625232915.png]]
