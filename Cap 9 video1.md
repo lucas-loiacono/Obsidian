@@ -121,3 +121,66 @@ $$F_{X_1, \dots, X_n}(x_1, \dots, x_n) = P(X_1 \le x_1, \dots, X_n \le x_n) = \p
 ![[Pasted image 20260625214900.png]]
 
 ![[Pasted image 20260625220745.png]]
+
+# Modelos Paramétricos y Familias de Distribuciones
+
+**Concepto Central:** Asumir un modelo paramétrico significa que **conocemos la forma matemática** que rige a nuestra población (sabemos a qué "familia" pertenece), pero **desconocemos su configuración exacta** (su parámetro). Nuestro objetivo en estadística inferencial será usar una muestra empírica para estimar ese parámetro faltante.
+
+### Glosario de Notación
+
+- **La Familia ($\mathcal{F}$):** Es el conjunto de distribuciones que comparten la misma regla matemática base. _Analogía: Es como saber que vamos a usar una Campana de Gauss, pero sin saber dónde está el centro._
+    
+- **El Parámetro Desconocido ($\theta$):** Es el valor específico (o vector de valores) que configura a esa distribución. Es nuestra incógnita principal.
+    
+- **El Espacio Paramétrico ($\Theta$):** (El "Titón"). Es el universo o catálogo de todos los valores matemáticamente legales y posibles que puede tomar $\theta$.
+    
+
+### Identificabilidad (Correspondencia uno a uno)
+
+$$F_{\theta_1}(x) \neq F_{\theta_2}(x) \quad \text{si} \quad \theta_1 \neq \theta_2$$
+
+Cada configuración de $\theta$ genera una distribución única. Si cambiás el valor del parámetro, la curva cambia obligatoriamente. No existen dos parámetros distintos que generen exactamente el mismo modelo poblacional.
+
+## Ejemplos de Familias Paramétricas
+
+En los apuntes, cuando pasamos a hablar de un modelo paramétrico, la función de probabilidad o densidad deja de escribirse genéricamente como $f(x)$ y **pasa a escribirse indicando el parámetro del cual depende: $f_\theta(x)$**.
+
+A continuación, los ejemplos más comunes:
+
+### 1. Familia Bernoulli (Éxito / Fracaso)
+
+Se usa para experimentos con solo dos resultados posibles (ej: un booleano `True/False`, o si un request a una base de datos falla o pasa).
+
+- **Notación:** $X \sim Ber(p)$
+    
+- **Función:** $f_p(x) = p^x(1-p)^{1-x}$
+    
+- **El Parámetro ($\theta$):** Es $p$ (la probabilidad de éxito).
+    
+- **El Espacio Paramétrico ($\Theta$):** Como es una probabilidad, solo puede valer entre 0 y 1. $\Theta = (0, 1)$.
+    
+
+### 2. Familia Exponencial (Tiempos de espera)
+
+Se usa muchísimo para modelar el tiempo que transcurre hasta que ocurre un evento (ej: el tiempo de respuesta de un servidor o el tiempo entre fallas de un disco SSD).
+
+- **Notación:** $T \sim \mathcal{E}(\lambda)$
+    
+- **Función:** $f_\lambda(t) = \lambda e^{-\lambda t}$
+    
+- **El Parámetro ($\theta$):** Es $\lambda$ (la tasa de ocurrencia del evento).
+    
+- **El Espacio Paramétrico ($\Theta$):** Como representa una tasa o frecuencia, tiene que ser un valor estrictamente positivo. $\lambda > 0$.
+    
+
+### 3. Familia Normal (La Campana de Gauss)
+
+Es el modelo continuo por excelencia para variables como altura, errores de medición o métricas promediadas.
+
+- **Notación:** $Y \sim \mathcal{N}(\mu, \sigma^2)$
+    
+- **Función:** $f_{\mu, \sigma^2}(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$
+    
+- **Los Parámetros ($\theta$):** En este caso, el parámetro es un vector de dos valores: la media ($\mu$) y la varianza ($\sigma^2$).
+    
+- **El Espacio Paramétrico ($\Theta$):** La media puede ser cualquier número real ($\mu \in \mathbb{R}$), pero la varianza obligatoriamente debe ser positiva ($\sigma^2 > 0$).
