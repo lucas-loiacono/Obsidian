@@ -220,3 +220,6 @@ Es el modelo continuo por excelencia para variables como altura, errores de medi
 ![[Pasted image 20260626005220.png]]
 
 ![[Pasted image 20260626005355.png]]
+
+![[Pasted image 20260626010503.png]]
+
