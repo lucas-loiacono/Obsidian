@@ -68,3 +68,46 @@ Acá es donde la matemática encastra todo. En teoría de probabilidades, cuando
 Por eso, en la última línea de tu apunte, la función de distribución conjunta de toda la muestra ($X_1 \dots X_n$) se escribe utilizando la notación de productoria ($\prod$):
 
 $$F_{X_1, \dots, X_n}(x_1, \dots, x_n) = P(X_1 \le x_1, \dots, X_n \le x_n) = \prod_{i=1}^n F_X(x_i), \quad \forall n \in \mathbb{N}$$
+
+
+
+
+Pensalo con la misma lógica que usás al programar. Las matemáticas en esta unidad se comportan exactamente igual que definir funciones y arreglos (arrays) en código:
+
+- **La Población ($X$):** Es la definición de la función misma. Imaginate una función `tirar_dado()` que tiene la lógica de devolver un entero del 1 al 6. Conoces la lógica, pero la función en sí no es un valor.
+    
+- **La Muestra Teórica ($X_1, X_2, X_3, X_4, X_5, X_6$):** Es como inicializar un arreglo de 6 posiciones, donde en cada posición ponés un llamado a la función, pero **todavía no ejecutaste el código**.
+    
+    `muestra_teorica = [tirar_dado(), tirar_dado(), tirar_dado(), ...]`
+    
+    Sabés que son variables independientes entre sí y que todas usan la misma lógica poblacional (son iid a $X$), pero aún están "en suspenso". Son promesas de un valor.
+    
+- **La Muestra Observada ($x_1, x_2, x_3, x_4, x_5, x_6$):** Es el resultado después de correr el script. Las funciones se evaluaron y ahora tenés un vector de valores reales en memoria.
+    
+    `muestra_observada = [4, 1, 6, 2, 2, 5]`
+
+
+
+![[Pasted image 20260625211538.png]]
+
+
+### . La Muestra Teórica ($\underline{X}$)
+
+$$\underline{X} = (X_1, \dots, X_n)$$
+
+- **¿Qué es?** Es el vector que contiene la "promesa" de las $n$ observaciones. Representa a la **muestra aleatoria** teórica antes de hacer el experimento.
+    
+- **El símbolo $\sim$ (Distribuye como):** El apunte dice $X_1, \dots, X_n \overset{iid}{\sim} X$. Esto se lee como: "Las variables $X_1$ a $X_n$ _distribuyen_ de forma Independiente e Idénticamente Distribuida a la variable $X$". Es la forma elegante y resumida de decir que todas siguen la misma función de distribución $F_X(x)$ que tu población original.
+    
+- **En términos de programación:** Es como declarar la estructura de un array en C o una lista en Python de $n$ posiciones, donde cada posición contiene el llamado a una función, pero el código todavía no se ejecutó.
+    
+
+### 2. La Muestra Observada ($\underline{x}$)
+
+$$\underline{x} = (x_1, \dots, x_n)$$
+
+- **¿Qué es?** Es el vector con los números fijos y concretos. Son las **$n$ observaciones** reales que obtuviste después de realizar las repeticiones del experimento.
+    
+- **El cambio a minúscula:** Al pasar de $\underline{X}$ a $\underline{x}$, la matemática te está avisando que se acabó la incertidumbre. Adentro de ese vector ya no hay variables aleatorias, hay constantes (datos empíricos).
+    
+- **En términos de programación:** Es el array o lista alojada en memoria con los valores reales (los _integers_ o _floats_) una vez que el script ya corrió.
