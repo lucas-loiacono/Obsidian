@@ -85,6 +85,26 @@ $$\underline{x} = (x_1, x_2, x_3, x_4, x_5, x_6) = (5, 2, 6, 1, 4, 2)$$
 
 
 
+
+### La diferencia letal: $X_i$ vs $x_i$
+
+- **$X$ (Mayúscula):** Es tu VA del experimento general (La Población). ¡Esto lo dijiste perfecto!
+    
+- **$X_i$ (Mayúscula):** **NO** es el resultado. Es la **Variable Aleatoria** de la repetición $i$. Es el experimento "en suspenso", antes de que lo realices. Es la caja vacía donde va a caer el dato.
+    
+- **$x_i$ (Minúscula):** Este sí es el **resultado** real y concreto del experimento $i$. Es el número que anotaste cuando ya terminó esa repetición.
+    
+
+### El machete visual para Obsidian:
+
+> - **$X$** = Las reglas del juego (La Población).
+>     
+> - **$X_i$** = La promesa de jugar la partida $i$ (La Muestra Teórica).
+>     
+> - **$x_i$** = El puntaje que sacaste en la partida $i$ (La Muestra Observada / El resultado).
+>
+
+
 ## La Distribución Conjunta: De la Intersección a la Multiplicación
 
 Cuando tomamos una muestra aleatoria de tamaño $n$, no nos importa solo lo que pasa con un elemento aislado, sino que queremos saber **la probabilidad de que toda la muestra ocurra exactamente como ocurrió**.
@@ -196,3 +216,7 @@ Es el modelo continuo por excelencia para variables como altura, errores de medi
 ![[Pasted image 20260626004805.png]]
 
 ![[Pasted image 20260626004857.png]]
+
+![[Pasted image 20260626005220.png]]
+
+![[Pasted image 20260626005355.png]]
