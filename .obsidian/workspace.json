@@ -249,7 +249,7 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "imagenes/Pasted image 20260321144905.png"
+                "file": "!imagenes/Pasted image 20260321144905.png"
               },
               "icon": "lucide-image",
               "title": "Pasted image 20260321144905"
@@ -261,7 +261,7 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "imagenes/Pasted image 20260321144939.png"
+                "file": "!imagenes/Pasted image 20260321144939.png"
               },
               "icon": "lucide-image",
               "title": "Pasted image 20260321144939"
@@ -271,12 +271,14 @@
             "id": "5ea2d00372f3e9d1",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "imagenes/Pasted image 20260321144905.png"
+                "file": "estadistica/2. Cap 9 video 2.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20260321144905"
+              "icon": "lucide-file",
+              "title": "2. Cap 9 video 2"
             }
           }
         ],
@@ -453,20 +455,20 @@
   },
   "active": "1f11224da7f566a3",
   "lastOpenFiles": [
-    "imagenes/Pasted image 20260321151030.png",
-    "imagenes/Pasted image 20260321144939.png",
-    "imagenes/Pasted image 20260321144905.png",
+    "!imagenes/Pasted image 20260627162649.png",
     "estadistica/2. Cap 9 video 2.md",
-    "imagenes",
+    "!imagenes/Pasted image 20260321144905.png",
+    "Sin título.md",
+    "!imagenes/Pasted image 20260321151030.png",
+    "!imagenes/Pasted image 20260321144939.png",
+    "!imagenes",
     "estadistica/1. Cap 9 video1.md",
-    "Pasted image 20260626014013.png",
-    "Pasted image 20260626013912.png",
-    "Pasted image 20260626013548.png",
-    "Pasted image 20260626013342.png",
-    "Pasted image 20260626011518.png",
-    "Pasted image 20260626011330.png",
-    "Pasted image 20260626010503.png",
-    "Pasted image 20260626005355.png",
+    "!imagenes/Pasted image 20260626014013.png",
+    "!imagenes/Pasted image 20260626013912.png",
+    "!imagenes/Pasted image 20260626013548.png",
+    "!imagenes/Pasted image 20260626013342.png",
+    "!imagenes/Pasted image 20260626011518.png",
+    "!imagenes/Pasted image 20260626011330.png",
     "Proba/resumen gpt.md",
     "estadistica",
     "C/Cap1.md",
@@ -478,7 +480,6 @@
     "Python/Funda Guarna/interfaz grafica/Entry.md",
     "Python/Funda Guarna/interfaz grafica/Buttons.md",
     "Python/Funda Guarna/Archivos.md",
-    "Sin título.md",
     "Python/Funda Guarna/interfaz grafica",
     "C",
     "Python/biblioteca python/Impresion.md",
