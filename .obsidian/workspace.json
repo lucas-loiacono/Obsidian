@@ -235,16 +235,52 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "estadistica/1. Cap 9 video1.md",
+                "file": "estadistica/2. Cap 9 video 2.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1. Cap 9 video1"
+              "title": "2. Cap 9 video 2"
+            }
+          },
+          {
+            "id": "ba3ff1d470e8e4b6",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "imagenes/Pasted image 20260321144905.png"
+              },
+              "icon": "lucide-image",
+              "title": "Pasted image 20260321144905"
+            }
+          },
+          {
+            "id": "f6ff4b12354ea568",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "imagenes/Pasted image 20260321144939.png"
+              },
+              "icon": "lucide-image",
+              "title": "Pasted image 20260321144939"
+            }
+          },
+          {
+            "id": "5ea2d00372f3e9d1",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "imagenes/Pasted image 20260321144905.png"
+              },
+              "icon": "lucide-image",
+              "title": "Pasted image 20260321144905"
             }
           }
         ],
-        "currentTab": 16
+        "currentTab": 19
       }
     ],
     "direction": "vertical"
@@ -415,9 +451,13 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "bf945a62942fc78d",
+  "active": "1f11224da7f566a3",
   "lastOpenFiles": [
+    "imagenes/Pasted image 20260321151030.png",
+    "imagenes/Pasted image 20260321144939.png",
+    "imagenes/Pasted image 20260321144905.png",
     "estadistica/2. Cap 9 video 2.md",
+    "imagenes",
     "estadistica/1. Cap 9 video1.md",
     "Pasted image 20260626014013.png",
     "Pasted image 20260626013912.png",
@@ -427,8 +467,6 @@
     "Pasted image 20260626011330.png",
     "Pasted image 20260626010503.png",
     "Pasted image 20260626005355.png",
-    "Pasted image 20260626005220.png",
-    "Pasted image 20260626004857.png",
     "Proba/resumen gpt.md",
     "estadistica",
     "C/Cap1.md",
@@ -458,7 +496,6 @@
     "Python/5. inputs y while loops.md",
     "Python/4. Dictionaries.md",
     "Python/3. If Statments.md",
-    "2026-03-20.md",
     "Sin título.canvas",
     "Sin título.base",
     "Sin título 3.canvas",
