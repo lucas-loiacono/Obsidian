@@ -124,3 +124,147 @@ Acá se rompe la matrix:
 - ¿Lo metemos en $h(\underline{x})$? **No podés**, porque tiene la letra $p$, y $h$ tiene prohibido tener el parámetro.
     
 - ¿Lo metemos en $g(T, p)$? **Tampoco podés**, porque tiene las letras $x_2$ y $x_3$ sueltas. La función $g$ es "ciega" a la muestra original, solo entiende el idioma de $T$ y de $p$.
+
+
+
+
+
+
+
+
+![[Pasted image 20260708004802.png]]
+
+### 1. Armar la función conjunta (La Productoria)
+
+Como tenemos una muestra aleatoria $X_1, \dots, X_n$, tenemos que multiplicar la función de densidad individual $n$ veces:
+
+$$f(\underline{x}; \theta) = \prod_{i=1}^n \left( e^{-(x_i - \theta)} \mathbf{1}\{x_i > \theta\} \right)$$
+
+### 2. Trabajar los exponentes (Tu especialidad)
+
+Como todo se está multiplicando, separamos la parte del número $e$ de la indicadora.
+
+Si multiplicamos bases iguales, **los exponentes se suman**:
+
+$$\prod_{i=1}^n e^{-(x_i - \theta)} = e^{-\sum_{i=1}^n (x_i - \theta)}$$
+
+Ahora distribuimos esa sumatoria adentro del paréntesis. ¡Ojo acá! Sumar $x_i$ te da $\sum x_i$, pero sumar una constante $\theta$ un total de $n$ veces, te da $n\theta$:
+
+$$e^{-(\sum x_i - n\theta)} = e^{-\sum x_i + n\theta}$$
+
+Por último, separamos esto en dos bases multiplicadas para tener las cosas bien limpitas:
+
+$$e^{-\sum x_i} \cdot e^{n\theta}$$
+
+### 3. La magia de la Indicadora
+
+Acá aplicamos la misma lógica que vimos antes con la distribución Uniforme, pero al revés.
+
+Tenemos un montón de indicadoras multiplicándose:
+
+$$\prod_{i=1}^n \mathbf{1}\{x_i > \theta\}$$
+
+Para que esta multiplicación no dé cero, **todas** las $x_i$ tienen que ser mayores a $\theta$. Pensalo con lógica: si querés garantizar que absolutamente todos los alumnos de una clase midan más de $1.50m$ (tu $\theta$), te alcanza con agarrar al más bajito de todos (el **mínimo**) y ver si él pasa la marca. Si el mínimo es mayor a $\theta$, ¡todos los demás también lo son!
+
+Entonces, toda esa productoria gigante colapsa en una sola indicadora:
+
+$$\mathbf{1}\{\min(x_1, \dots, x_n) > \theta\}$$
+
+### 4. Aplicar el Teorema de Factorización
+
+Juntemos el resultado del Paso 2 y el Paso 3 en un solo renglón:
+
+$$f(\underline{x}; \theta) = e^{-\sum x_i} \cdot e^{n\theta} \cdot \mathbf{1}\{\min(x_1, \dots, x_n) > \theta\}$$
+
+Llegó el momento de armar las "cajas":
+
+- **La caja de la información ($g(T, \theta)$):** Metemos acá todo lo que tenga nuestro parámetro $\theta$ y el estadístico $T$ que nos propone el ejercicio.
+    
+    $$g(T, \theta) = e^{n\theta} \cdot \mathbf{1}\{\min(x_1, \dots, x_n) > \theta\}$$
+    
+- **La caja del "ruido" ($h(\underline{x})$):** Metemos acá lo que sobró, que solo depende de la muestra y **no tiene** a la letra $\theta$.
+    
+    $$h(\underline{x}) = e^{-\sum x_i}$$
+    
+
+Como logramos desarmar la función original en $g(T, \theta) \cdot h(\underline{x})$ de forma perfecta y sin romper ninguna regla matemática, **queda verificado por el Teorema de Factorización que $T = \min(X_1, \dots, X_n)$ es un estadístico suficiente para $\theta$.**
+
+
+
+![[Pasted image 20260708005115.png]]
+
+### 1. Planteamos la condicional
+
+Por definición, la probabilidad condicional de la muestra dado el estadístico es:
+
+$$P(\mathbf{X}_n = \mathbf{x} \mid T = t) = \frac{P(\mathbf{X}_n = \mathbf{x} \text{ y } T = t)}{P(T = t)}$$
+
+Si la suma de nuestra muestra no da $t$ ($\sum x_i \neq t$), la probabilidad es $0$.
+
+Si la suma sí da $t$ ($\sum x_i = t$), la intersección de arriba es simplemente la probabilidad conjunta de la muestra. Vamos a enfocarnos en este caso.
+
+### 2. El Numerador (La Muestra Conjunta)
+
+Tenemos $n$ variables independientes que siguen una distribución Poisson($\lambda$). La probabilidad conjunta es la productoria de todas ellas:
+
+$$P(\mathbf{X}_n = \mathbf{x}) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{x_i}}{x_i!}$$
+
+Acá aplicamos las propiedades que ya dominás:
+
+- Multiplicar la base $e^{-\lambda}$ un total de $n$ veces es sumar sus exponentes: $e^{-n\lambda}$.
+    
+- Multiplicar las bases $\lambda^{x_i}$ es sumar sus exponentes: $\lambda^{\sum x_i}$.
+    
+- Abajo queda la productoria de los factoriales.
+    
+
+$$P(\mathbf{X}_n = \mathbf{x}) = \frac{e^{-n\lambda} \lambda^{\sum x_i}}{x_1! \cdot x_2! \dots x_n!}$$
+
+Como estamos bajo la condición de que la suma de todos los valores da $t$ ($\sum x_i = t$), reemplazamos esa suma en el exponente de $\lambda$:
+
+$$\text{Numerador} = \frac{e^{-n\lambda} \lambda^t}{\prod_{i=1}^n x_i!}$$
+
+### 3. El Denominador (La distribución de $T$)
+
+Necesitamos saber qué distribución tiene la suma de $n$ variables Poisson.
+
+Por propiedad reproductiva, la suma de variables Poisson independientes también es una Poisson, pero sus parámetros se suman.
+
+Como sumamos $n$ variables idénticas con parámetro $\lambda$, nuestro estadístico $T$ se distribuye así:
+
+$$T \sim \text{Poisson}(n\lambda)$$
+
+Escribimos la fórmula de la probabilidad para este estadístico $T=t$:
+
+$$\text{Denominador} = P(T = t) = \frac{e^{-n\lambda} (n\lambda)^t}{t!}$$
+
+_Nota: Fijate que en el paréntesis del numerador agrupamos el parámetro completo de la nueva distribución, que es $(n\lambda)$. Al distribuir ese exponente nos queda $n^t \cdot \lambda^t$._
+
+### 4. La División (La "Masacre" Algebraica)
+
+Ahora juntamos numerador y denominador:
+
+$$P(\mathbf{X}_n = \mathbf{x} \mid T = t) = \frac{ \frac{e^{-n\lambda} \lambda^t}{\prod_{i=1}^n x_i!} }{ \frac{e^{-n\lambda} n^t \lambda^t}{t!} }$$
+
+¡Empieza la limpieza!
+
+- El término $e^{-n\lambda}$ está arriba y abajo $\rightarrow$ **Se cancela.**
+    
+- El término $\lambda^t$ está arriba y abajo $\rightarrow$ **Se cancela.**
+    
+
+Acomodamos las fracciones (el $t!$ sube multiplicando y el $n^t$ queda abajo junto con la productoria de los factoriales):
+
+$$P(\mathbf{X}_n = \mathbf{x} \mid T = t) = \frac{t!}{x_1! \cdot x_2! \dots x_n!} \cdot \frac{1}{n^t}$$
+
+_(Dato de color para lucirte: esta fórmula final que quedó es la de una famosa distribución llamada "Distribución Multinomial")._
+
+### La Conclusión (Lo que el profe quiere leer)
+
+Observá detenidamente la fórmula final a la que llegamos. ¿Ves el parámetro $\lambda$ por algún lado?
+
+**No, desapareció por completo.**
+
+El texto de conclusión que tenés que escribir en el parcial es:
+
+> _"Como la distribución condicional de la muestra $\mathbf{X}_n$ dado $T=t$ depende únicamente de los datos muestrales ($x_i, n$ y $t$) y **no depende del parámetro $\lambda$**, deducimos por definición que $T = \sum_{i=1}^n X_i$ es un estadístico suficiente para $\lambda$."_
