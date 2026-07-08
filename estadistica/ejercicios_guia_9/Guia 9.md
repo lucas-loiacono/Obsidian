@@ -1271,3 +1271,76 @@ Y los 3 parámetros de la familia exponencial:
     
 
 Como pudimos reescribir toda la función usando únicamente 3 estadísticos ($x_1, x_2, x_3$) acompañados de 3 funciones del parámetro, **queda demostrado que pertenece a una familia exponencial a 3 parámetros.**
+
+![[Pasted image 20260708201127.png]]
+
+
+### 1. Ordenar los datos de la muestra
+
+Tenemos n=1200 ciudadanos en total, divididos en tres grupos:
+
+- **Oficialistas (x1​):** 414 ciudadanos. (Probabilidad = p1​)
+    
+- **Neutrales (x3​):** 196 ciudadanos. (Probabilidad = p3​)
+    
+- **Opositores (x2​):** El resto. Calculamos la resta: 1200−414−196=590 ciudadanos. (Probabilidad = p2​)
+    
+
+Como la suma de las probabilidades tiene que dar el 100% (1), sabemos que la probabilidad de los neutrales no es un parámetro nuevo, sino que es: p3​=1−p1​−p2​.
+
+### 2. Armar la Función de Verosimilitud
+
+La función conjunta para la Multinomial con estas 3 categorías es:
+
+L(p1​,p2​)=C⋅p1x1​​⋅p2x2​​⋅(1−p1​−p2​)x3​
+
+_(Nota: La C representa a la combinatoria x1​!x2​!x3​!n!​. Como no tiene parámetros adentro, la dejamos como una constante C porque al derivar va a desaparecer)._
+
+### 3. Aplicar logaritmo (ln)
+
+Transformamos las multiplicaciones en sumas para poder derivar fácil:
+
+lnL(p1​,p2​)=ln(C)+x1​ln(p1​)+x2​ln(p2​)+x3​ln(1−p1​−p2​)
+
+### 4. Derivadas Parciales (Máxima Verosimilitud)
+
+Como nos piden estimar un vector de dos parámetros (p1​,p2​), tenemos que hacer dos derivadas parciales e igualar ambas a cero.
+
+**Derivamos respecto a p1​:**
+
+∂p1​∂lnL​=p1​x1​​+0+x3​⋅1−p1​−p2​−1​=0
+
+p1​x1​​=1−p1​−p2​x3​​
+
+**Derivamos respecto a p2​:**
+
+∂p2​∂lnL​=0+p2​x2​​+x3​⋅1−p1​−p2​−1​=0
+
+p2​x2​​=1−p1​−p2​x3​​
+
+### 5. El remate del sistema de ecuaciones
+
+Fijate que si igualamos los dos resultados que obtuvimos (porque ambos son iguales al término de x3​), nos queda que las proporciones se mantienen constantes:
+
+p1​x1​​=p2​x2​​=p3​x3​​
+
+Sin tener que hacer todo el álgebra pesada del sistema de ecuaciones, en la materia de Estadística esta demostración te lleva directo a una conclusión teórica universal: **El estimador de máxima verosimilitud para cualquier probabilidad en una distribución Multinomial es simplemente su proporción en la muestra.** Es decir:
+
+p^​i​=nxi​​
+
+### 6. El cálculo final
+
+Sabiendo esto, el ejercicio se reduce a calcular los promedios muestrales con los numeritos que averiguamos al principio:
+
+- **Estimador para p1​ (Oficialistas):**
+    
+    p^​1​=1200414​=0.345
+    
+- **Estimador para p2​ (Opositores):**
+    
+    p^​2​=1200590​=0.4916...
+    
+    (O podés dejarlo como fracción irreducible: 12059​)
+    
+
+**Respuesta final:** El estimador por máxima verosimilitud para el vector pedido es (p^​1​,p^​2​)=(0.345, 0.4916).
