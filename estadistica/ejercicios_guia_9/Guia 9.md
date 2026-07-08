@@ -881,3 +881,146 @@ Si tomamos $\lim_{n \to \infty} \text{ECM}$:
 $$\lim_{n \to \infty} \frac{2\theta^2}{(3n-1)(3n-2)} = \frac{\text{Constante}}{\infty} = 0$$
 
 Como el límite del ECM es $0$, **queda matemáticamente demostrado que el estimador converge en media cuadrática al verdadero valor de $\theta$.**
+
+
+
+
+
+![[Pasted image 20260708192522.png]]
+
+
+
+### (a) Criterio de Factorización (Neyman-Fisher)
+
+Armamos la función de probabilidad conjunta de la muestra (productoria) y separamos las cajas:
+
+$$L(\theta, \underline{x}) = \prod_{i=1}^n \theta x_i^{-(\theta+1)} \mathbf{1}\{x_i > 1\}$$
+
+Agrupamos aplicando las propiedades de siempre:
+
+$$L(\theta, \underline{x}) = \theta^n \left( \prod_{i=1}^n x_i \right)^{-(\theta+1)} \prod_{i=1}^n \mathbf{1}\{x_i > 1\}$$
+
+Desarmamos la potencia para aislar la $\theta$:
+
+$$L(\theta, \underline{x}) = \theta^n \left( \prod_{i=1}^n x_i \right)^{-\theta} \cdot \left( \prod_{i=1}^n x_i \right)^{-1} \cdot \mathbf{1}\{\min(x_i) > 1\}$$
+
+¡Listo el pollo! Armamos las cajas:
+
+- **Caja $g(T, \theta)$:** Tiene el parámetro y a la muestra agrupada.
+    
+    $$g(T, \theta) = \theta^n \left( \prod_{i=1}^n x_i \right)^{-\theta}$$
+    
+- **Caja $h(\underline{x})$:** Todo lo que sobró sin $\theta$.
+    
+    $$h(\underline{x}) = \left( \prod_{i=1}^n x_i \right)^{-1} \cdot \mathbf{1}\{\min(x_i) > 1\}$$
+    
+
+Por lo tanto, **$T = \prod_{i=1}^n X_i$ es un estadístico suficiente.**
+
+_(Dato: si aplicás propiedades de logaritmos en la caja $g$, vas a ver que escribir $T = \sum \ln(X_i)$ también es un estadístico suficiente y totalmente válido)._
+
+### (b) Familia Exponencial y su Distribución
+
+Agarramos la función de densidad original (para un solo disco) y usamos el truco de $e^{\ln(\dots)}$ en la parte donde la $x$ y la $\theta$ se están mezclando:
+
+$$f_\theta(x) = \mathbf{1}\{x > 1\} \cdot \theta \cdot x^{-(\theta+1)}$$
+
+Separamos el exponente:
+
+$$f_\theta(x) = \mathbf{1}\{x > 1\} \cdot \frac{1}{x} \cdot \theta \cdot x^{-\theta}$$
+
+Le aplicamos el logaritmo a la $x^{-\theta}$:
+
+$$f_\theta(x) = \left( \mathbf{1}\{x > 1\} \frac{1}{x} \right) \cdot \theta \cdot \exp\{-\theta \ln(x)\}$$
+
+¡Encaja perfecto en el molde de la Familia Exponencial $h(x) \cdot A(\theta) \cdot \exp\{c(\theta)T(x)\}$!
+
+- $h(x) = \mathbf{1}\{x > 1\} \frac{1}{x}$
+    
+- $A(\theta) = \theta$
+    
+- $c(\theta) = -\theta$
+    
+- **$T(x) = \ln(x)$**
+    
+
+Como la muestra es de tamaño $n$, la teoría de Familias Exponenciales nos dice que **el estadístico suficiente global es la suma de los individuales**:
+
+$$T(\underline{X}) = \sum_{i=1}^n \ln(X_i)$$
+
+**¿Cuál es su distribución?**
+
+El profe te tira el centro perfecto con el _hint_: $\ln(X) \sim \text{Exponencial}(\theta)$.
+
+Tu estadístico $T$ es la suma de $n$ variables Exponenciales independientes. Por propiedad reproductiva, la suma de $n$ exponenciales de parámetro $\theta$ forma una distribución **Gamma**:
+
+$$T \sim \Gamma(n, \theta)$$
+
+### (c) Máxima Verosimilitud (MLE) y Propiedades Asintóticas
+
+¡Vuelve nuestra amiga la derivada!
+
+1. **Log-Verosimilitud ($\ln L$):** Agarramos la productoria del punto A, descartamos la indicadora y aplicamos logaritmo.
+    
+    $$\ln L(\theta) = n \ln(\theta) - (\theta+1) \sum_{i=1}^n \ln(x_i)$$
+    
+2. **Derivamos respecto a $\theta$ e igualamos a 0:**
+    
+    $$\frac{\partial \ln L}{\partial \theta} = \frac{n}{\theta} - \sum_{i=1}^n \ln(x_i) = 0$$
+    
+3. **Despejamos:**
+    
+    $$\frac{n}{\theta} = \sum_{i=1}^n \ln(x_i) \implies \hat{\theta} = \frac{n}{\sum_{i=1}^n \ln(X_i)}$$
+    
+    Fijate que nos quedó exactamente nuestro estadístico en el denominador: **$\hat{\theta} = \frac{n}{T}$**
+    
+
+**Mostrar que es asintóticamente insesgado:**
+
+Tenemos que calcular la Esperanza de $\hat{\theta}$. Como $T \sim \Gamma(n, \theta)$, hacer $E[\frac{n}{T}]$ requiere saber la esperanza de una Gamma invertida. Hay una propiedad de tabla que dice que si $T \sim \Gamma(n, \theta)$, entonces $E[T^{-1}] = \frac{\theta}{n-1}$.
+
+$$E[\hat{\theta}] = E\left[ \frac{n}{T} \right] = n \cdot E[T^{-1}] = n \cdot \frac{\theta}{n-1} = \frac{n}{n-1}\theta$$
+
+Si tomamos el límite cuando $n \to \infty$:
+
+$$\lim_{n \to \infty} \frac{n}{n-1}\theta = 1 \cdot \theta = \theta$$
+
+Como en el infinito la esperanza da $\theta$, **es asintóticamente insesgado.**
+
+**Mostrar que la varianza tiende a 0:**
+
+Por tabla de Gamma invertida, $E[T^{-2}] = \frac{\theta^2}{(n-1)(n-2)}$.
+
+Calculamos la varianza: $Var(\hat{\theta}) = E[\hat{\theta}^2] - (E[\hat{\theta}])^2$
+
+$$Var(\hat{\theta}) = n^2 \frac{\theta^2}{(n-1)(n-2)} - \left( \frac{n}{n-1}\theta \right)^2$$
+
+Buscando denominador común te queda:
+
+$$Var(\hat{\theta}) = \frac{n^2 \theta^2}{(n-1)^2 (n-2)}$$
+
+Si tomamos el límite cuando $n \to \infty$, arriba tenés un polinomio de grado 2 ($n^2$) y abajo uno de grado 3 ($n^3$). El denominador crece más rápido, así que:
+
+$$\lim_{n \to \infty} Var(\hat{\theta}) = 0$$
+
+### (d) Distribución Asintótica de $\hat{\theta}$
+
+Acá tenés que usar un teorema fundamental de los estimadores de Máxima Verosimilitud (EMV).
+
+El teorema dice que para muestras grandes ($n \to \infty$), cualquier EMV "se porta" como una distribución Normal centrada en el valor real del parámetro ($\theta$) y con una varianza que se calcula usando la **Información de Fisher ($I(\theta)$)**.
+
+La fórmula de la distribución asintótica es siempre esta:
+
+$$\hat{\theta} \approx \mathcal{N}\left( \mu = \theta, \ \sigma^2 = \frac{1}{n \cdot I(\theta)} \right)$$
+
+El profe te regala la Información de Fisher en el hint: $I(\theta) = \theta^{-2} = \frac{1}{\theta^2}$.
+
+Reemplazamos eso en nuestra fórmula de la varianza asintótica:
+
+$$\sigma^2 = \frac{1}{n \cdot \left(\frac{1}{\theta^2}\right)} = \frac{\theta^2}{n}$$
+
+Escribimos la respuesta final:
+
+**La distribución asintótica del estimador de máxima verosimilitud es:**
+
+$$\hat{\theta} \sim \mathcal{N}\left( \theta, \frac{\theta^2}{n} \right)$$
