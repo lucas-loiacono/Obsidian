@@ -382,6 +382,7 @@ Este es el caso más directo porque las cosas ya están en su lugar. No hace fal
     
 - $T(x) = x$
 
+
 ![[Pasted image 20260708010651.png]]
 
 ¿Por qué? Porque tu parámetro $p$ **no es continuo**. El enunciado te dice explícitamente que $p$ solo puede tomar dos valores concretos: $2/5$ o $4/5$.
@@ -446,3 +447,7 @@ $$\widehat{\tau(p)} = \frac{54}{125} = 0.432$$
 ¡Y listo! El resultado final es $54/125$.
 
 **Moraleja para el parcial:** Si te dan el parámetro entre llaves con números sueltos (ej: $p \in \{a, b\}$), guardá las derivadas en el cajón. Calculá las probabilidades a mano, agarrá la más grande, y si te piden estimar una función extra, mandale la propiedad de invarianza.
+
+- **Buscás qué $p$ es más probable:** Mirás la realidad (lo que ya pasó, tu muestra) y te preguntás: _"¿Qué parámetro hace que este resultado sea el más lógico?"_. En tu caso, sacar 3 caras en 10 tiros es mucho más lógico para una moneda del **40%** ($2/5$) que para una del **80%** ($4/5$). Gana el $2/5$.
+    
+- **Calculás con ese $p$:** Una vez que coronás al ganador como tu estimador oficial ($\hat{p}$), lo usás como si fuera la verdad absoluta para calcular cualquier evento futuro o función que te pidan (esto es lo que formalmente se llama Propiedad de Invarianza).
