@@ -750,3 +750,134 @@ $$\mathbf{1}\{x_1 < \theta\}$$
 Ahí sí se pudre todo. Eso no es un máximo ni un mínimo de toda la muestra, es **una $x_i$ específica (la primera) que quedó suelta** interactuando directamente con $\theta$. No podés reemplazarla por $T$, no la podés mandar a la otra caja porque tiene a $\theta$, y te traba la factorización.
 
 Así que tu conclusión es impecable: mientras la indicadora use a las $x_i$ coordinadas como un bloque único que representa a tu $T$ (ya sea sumadas, multiplicadas, como máximo o como mínimo), la función $g(T, \theta)$ es perfectamente legal y el estadístico es suficiente. ¡Te vas al examen con el concepto pesadísimo!
+
+
+
+
+![[Pasted image 20260708191948.png]]
+
+
+### (a) Hallar el Estimador de Máxima Verosimilitud (EMV)
+
+**1. Armamos la Función de Verosimilitud $L(\theta)$**
+
+Como tenemos una muestra de tamaño $n$, multiplicamos la función de densidad original $n$ veces:
+
+$$L(\theta) = \prod_{i=1}^n 3\theta^3 x_i^{-4} \mathbf{1}\{x_i \ge \theta\}$$
+
+Agrupamos todo usando las propiedades de siempre:
+
+- Multiplicar el $3$ $n$ veces es $3^n$.
+    
+- Multiplicar $\theta^3$ $n$ veces es $(\theta^3)^n = \theta^{3n}$.
+    
+- Y para la indicadora, si queremos que **todas** las $x_i$ sean mayores o iguales a $\theta$, nos alcanza con que la más chica de todas (**el mínimo**) le gane a $\theta$.
+    
+
+$$L(\theta) = 3^n \theta^{3n} \left( \prod_{i=1}^n x_i^{-4} \right) \mathbf{1}\{\min(X_i) \ge \theta\}$$
+
+**2. El razonamiento visual (sin derivadas):**
+
+Nosotros queremos que el resultado de $L(\theta)$ sea **lo más grande posible**.
+
+Fijate dónde está la $\theta$ en tu ecuación principal: está arriba en el numerador como $\theta^{3n}$. A diferencia del ejercicio de la Uniforme (donde estaba dividiendo), acá **cuanto más grande sea $\theta$, más grande es la probabilidad**.
+
+Entonces, queremos "inflar" el valor de $\theta$ lo máximo que podamos.
+
+Pero la indicadora nos pone un techo: nos obliga sí o sí a que $\theta \le \min(X_i)$. Si probamos un $\theta$ más grande que el mínimo, la indicadora da cero y arruina todo.
+
+Por lo tanto, el valor más grande posible que le podemos dar a $\theta$ sin romper la regla es exactamente el mínimo de la muestra:
+
+$$\hat{\theta} = \min(X_1, \dots, X_n)$$
+
+### (b) Esperanza y Varianza del EMV
+
+Como nuestro estimador es un mínimo, necesitamos armar su función de densidad ($f_{min}(x)$) para poder integrarlo.
+
+**1. Calculamos la densidad del mínimo:**
+
+Por teoría de estadística de orden, la función de distribución acumulada del mínimo es $F_{min}(x) = 1 - [1 - F_X(x)]^n$.
+
+Primero buscamos $F_X(x)$ integrando la densidad original:
+
+$$F_X(x) = \int_\theta^x 3\theta^3 t^{-4} dt = 3\theta^3 \left[ \frac{t^{-3}}{-3} \right]_\theta^x = -\theta^3 \left( \frac{1}{x^3} - \frac{1}{\theta^3} \right) = 1 - \left(\frac{\theta}{x}\right)^3$$
+
+Reemplazamos esto en la fórmula del mínimo:
+
+$$F_{min}(x) = 1 - \left[ 1 - \left( 1 - \left(\frac{\theta}{x}\right)^3 \right) \right]^n = 1 - \left(\frac{\theta}{x}\right)^{3n}$$
+
+Derivamos para obtener nuestra nueva función de densidad $f_{min}(x)$:
+
+$$f_{min}(x) = \frac{d}{dx} \left( 1 - \theta^{3n} x^{-3n} \right) = - \theta^{3n} (-3n) x^{-3n-1} = 3n \theta^{3n} x^{-(3n+1)}$$
+
+_(Válido para $x \ge \theta$)._
+
+**2. Esperanza ($E[\hat{\theta}]$):**
+
+$$E[\hat{\theta}] = \int_\theta^\infty x \cdot f_{min}(x) dx = \int_\theta^\infty x \cdot 3n \theta^{3n} x^{-3n-1} dx$$
+
+Agrupamos las $x$ y sacamos las constantes afuera:
+
+$$E[\hat{\theta}] = 3n \theta^{3n} \int_\theta^\infty x^{-3n} dx$$
+
+Integramos:
+
+$$E[\hat{\theta}] = 3n \theta^{3n} \left[ \frac{x^{-3n+1}}{-3n+1} \right]_\theta^\infty$$
+
+Evaluado en infinito da $0$ (porque el exponente es negativo), y le restamos lo evaluado en $\theta$:
+
+$$E[\hat{\theta}] = 3n \theta^{3n} \left( 0 - \frac{\theta^{-3n+1}}{-3n+1} \right) = \frac{3n \theta^{3n} \theta^{-3n+1}}{3n-1} = \frac{3n}{3n-1}\theta$$
+
+**3. Varianza ($Var(\hat{\theta})$):**
+
+Primero calculamos $E[\hat{\theta}^2]$ repitiendo el proceso pero poniendo una $x^2$:
+
+$$E[\hat{\theta}^2] = \int_\theta^\infty x^2 \cdot 3n \theta^{3n} x^{-3n-1} dx = 3n \theta^{3n} \int_\theta^\infty x^{-3n+1} dx$$
+
+$$E[\hat{\theta}^2] = 3n \theta^{3n} \left[ \frac{x^{-3n+2}}{-3n+2} \right]_\theta^\infty = 3n \theta^{3n} \left( 0 - \frac{\theta^{-3n+2}}{-3n+2} \right) = \frac{3n}{3n-2}\theta^2$$
+
+Ahora sí, aplicamos $Var(X) = E[X^2] - (E[X])^2$:
+
+$$Var(\hat{\theta}) = \frac{3n}{3n-2}\theta^2 - \left( \frac{3n}{3n-1}\theta \right)^2 = \theta^2 \left( \frac{3n}{3n-2} - \frac{9n^2}{(3n-1)^2} \right)$$
+
+Buscando denominador común te queda una cuenta algebraica un poco densa que se simplifica a:
+
+$$Var(\hat{\theta}) = \frac{3n \theta^2}{(3n-2)(3n-1)^2}$$
+
+### (c) Convergencia en Media Cuadrática
+
+Para probar esto, el **Error Cuadrático Medio (ECM) tiene que tender a $0$ cuando $n \to \infty$.**
+
+Sabemos que $\text{ECM} = \text{Varianza} + \text{Sesgo}^2$.
+
+**1. Calculamos el Sesgo:**
+
+$$\text{Sesgo} = E[\hat{\theta}] - \theta = \frac{3n}{3n-1}\theta - \theta$$
+
+$$\text{Sesgo} = \frac{3n\theta - \theta(3n-1)}{3n-1} = \frac{3n\theta - 3n\theta + \theta}{3n-1} = \frac{\theta}{3n-1}$$
+
+**2. Armamos el ECM total:**
+
+Sumamos la Varianza y el Sesgo al cuadrado:
+
+$$\text{ECM} = \frac{3n \theta^2}{(3n-2)(3n-1)^2} + \left( \frac{\theta}{(3n-1)} \right)^2$$
+
+Sacamos factor común $\frac{\theta^2}{(3n-1)^2}$:
+
+$$\text{ECM} = \frac{\theta^2}{(3n-1)^2} \left( \frac{3n}{3n-2} + 1 \right)$$
+
+Sumamos la fracción del paréntesis:
+
+$$\text{ECM} = \frac{\theta^2}{(3n-1)^2} \left( \frac{3n + 3n - 2}{3n-2} \right) = \frac{\theta^2 (6n-2)}{(3n-1)^2 (3n-2)}$$
+
+Podemos sacar un 2 de factor común arriba para emprolijar:
+
+$$\text{ECM} = \frac{2\theta^2 (3n-1)}{(3n-1)^2 (3n-2)} = \frac{2\theta^2}{(3n-1)(3n-2)}$$
+
+**3. El límite final:**
+
+Si tomamos $\lim_{n \to \infty} \text{ECM}$:
+
+$$\lim_{n \to \infty} \frac{2\theta^2}{(3n-1)(3n-2)} = \frac{\text{Constante}}{\infty} = 0$$
+
+Como el límite del ECM es $0$, **queda matemáticamente demostrado que el estimador converge en media cuadrática al verdadero valor de $\theta$.**
