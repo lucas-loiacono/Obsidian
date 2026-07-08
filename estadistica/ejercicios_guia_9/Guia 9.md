@@ -275,107 +275,174 @@ El texto de conclusión que tenés que escribir en el parcial es:
 
 ### (a) Bernoulli($p$)
 
-La función de probabilidad es:
+Partimos de la función original:
 
 $$f(x; p) = p^x (1-p)^{1-x} \cdot \mathbf{1}_{\{0, 1\}}(x)$$
 
-Aplicamos el truco de $e^{\ln(\dots)}$ a la parte que tiene el parámetro:
+1. **Separar términos:** Rompemos la resta en el exponente de $(1-p)$ para aislar lo que tiene $x$ de lo que no.
+    
+    $$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot p^x \cdot (1-p)^1 \cdot (1-p)^{-x}$$
+    
+2. **Agrupar lo suelto y juntar las $x$:** Movemos el $(1-p)$ para adelante (será nuestro $A$) y juntamos las bases que están elevadas a la $x$.
+    
+    $$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot (1-p) \cdot \left( \frac{p}{1-p} \right)^x$$
+    
+3. **Aplicar el truco a la mezcla:** Ahora sí, metemos el último término en un exponente usando el logaritmo para bajar la $x$.
+    
+    $$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot (1-p) \cdot \exp\left\{ x \ln\left( \frac{p}{1-p} \right) \right\}$$
+    
 
-$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\{ \ln\left( p^x (1-p)^{1-x} \right) \}$$
-
-El logaritmo separa la multiplicación en suma y baja las $x$:
-
-$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\{ x \ln(p) + (1-x) \ln(1-p) \}$$
-
-Distribuimos y agrupamos todo lo que tiene $x$:
-
-$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\{ x \ln(p) + \ln(1-p) - x \ln(1-p) \}$$
-
-$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\left\{ x \left[ \ln(p) - \ln(1-p) \right] + \ln(1-p) \right\}$$
-
-Por propiedad de logaritmos, la resta es una división. Identificamos las partes:
+**Identificamos las partes:**
 
 - $h(x) = \mathbf{1}_{\{0, 1\}}(x)$
+    
+- **$A(p) = 1-p$**
     
 - $c(p) = \ln\left(\frac{p}{1-p}\right)$
     
 - $T(x) = x$
     
-- $d(p) = \ln(1-p)$
-    
-
-¡Pertenece a la familia exponencial!
 
 ### (b) Pascal($4, p$)
 
-La distribución de Pascal (también conocida como Binomial Negativa) nos dice la probabilidad de necesitar $x$ intentos para lograr $4$ éxitos:
+Partimos de la función original:
 
-$$f(x; p) = \binom{x-1}{4-1} p^4 (1-p)^{x-4} \cdot \mathbf{1}_{\{x \ge 4\}}(x)$$
+$$f(x; p) = \binom{x-1}{3} p^4 (1-p)^{x-4} \cdot \mathbf{1}_{\{x \ge 4\}}(x)$$
 
-Dejamos la combinatoria afuera y le aplicamos el truco a la parte de la probabilidad:
+1. **Separar términos:** Rompemos la resta en el exponente de $(1-p)$.
+    
+    $$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot p^4 \cdot (1-p)^{-4} \cdot (1-p)^x$$
+    
+2. **Agrupar lo suelto:** Juntamos todas las $p$ que no tienen ninguna $x$ al lado para armar nuestro $A(p)$.
+    
+    $$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \left( \frac{p}{1-p} \right)^4 \cdot (1-p)^x$$
+    
+3. **Aplicar el truco a la mezcla:** Usamos el logaritmo solo para el término $(1-p)^x$.
+    
+    $$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \left( \frac{p}{1-p} \right)^4 \cdot \exp\{ x \ln(1-p) \}$$
+    
 
-$$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \exp\{ \ln\left( p^4 (1-p)^{x-4} \right) \}$$
-
-$$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \exp\{ 4 \ln(p) + (x-4) \ln(1-p) \}$$
-
-$$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \exp\{ x \ln(1-p) + 4 \ln(p) - 4 \ln(1-p) \}$$
-
-Identificamos las partes:
+**Identificamos las partes:**
 
 - $h(x) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x)$
+    
+- **$A(p) = \left(\frac{p}{1-p}\right)^4$**
     
 - $c(p) = \ln(1-p)$
     
 - $T(x) = x$
     
-- $d(p) = 4 \ln(p) - 4 \ln(1-p)$
-    
-
-¡Pertenece a la familia exponencial!
 
 ### (c) Poisson($\lambda$)
 
-La función de probabilidad es:
+Partimos de la función original:
 
 $$f(x; \lambda) = \frac{e^{-\lambda} \lambda^x}{x!} \cdot \mathbf{1}_{\{x \ge 0\}}(x)$$
 
-Separamos el denominador y aplicamos el truco arriba:
+1. **Separar términos y agrupar:** Sacamos el $e^{-\lambda}$ (que no tiene $x$) y lo mandamos al frente.
+    
+    $$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot e^{-\lambda} \cdot \lambda^x$$
+    
+2. **Aplicar el truco a la mezcla:** Transformamos solo la $\lambda^x$.
+    
+    $$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot e^{-\lambda} \cdot \exp\{ x \ln(\lambda) \}$$
+    
 
-$$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot \exp\{ \ln\left( e^{-\lambda} \lambda^x \right) \}$$
-
-$$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot \exp\{ -\lambda + x \ln(\lambda) \}$$
-
-Identificamos las partes:
+**Identificamos las partes:**
 
 - $h(x) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x)$
+    
+- **$A(\lambda) = e^{-\lambda}$**
     
 - $c(\lambda) = \ln(\lambda)$
     
 - $T(x) = x$
     
-- $d(\lambda) = -\lambda$
-    
-
-¡Pertenece a la familia exponencial!
 
 ### (d) Exponencial($\lambda$)
 
-Acá la función ya es una exponencial por naturaleza, así que el trabajo es casi nulo:
+Partimos de la función original:
 
 $$f(x; \lambda) = \lambda e^{-\lambda x} \cdot \mathbf{1}_{\{x > 0\}}(x)$$
 
-Aplicamos el truco para meter esa $\lambda$ inicial adentro del exponente general:
+Este es el caso más directo porque las cosas ya están en su lugar. No hace falta usar ningún truco de logaritmos porque la $x$ ya está adentro de una función $e$.
 
-$$f(x; \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \exp\{ \ln\left( \lambda e^{-\lambda x} \right) \}$$
+1. **Acomodar visualmente:** Simplemente reordenamos para que quede igual al molde que te piden.
+    
+    $$f(x; \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \lambda \cdot \exp\{ -\lambda x \}$$
+    
 
-$$f(x; \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \exp\{ \ln(\lambda) - \lambda x \}$$
-
-Identificamos las partes:
+**Identificamos las partes:**
 
 - $h(x) = \mathbf{1}_{\{x > 0\}}(x)$
+    
+- **$A(\lambda) = \lambda$**
     
 - $c(\lambda) = -\lambda$
     
 - $T(x) = x$
+
+![[Pasted image 20260708010651.png]]
+
+¿Por qué? Porque tu parámetro $p$ **no es continuo**. El enunciado te dice explícitamente que $p$ solo puede tomar dos valores concretos: $2/5$ o $4/5$.
+
+Cuando el parámetro es discreto (un conjunto cerrado de opciones), el Método de Máxima Verosimilitud vuelve a su definición más básica: simplemente hay que evaluar la probabilidad de cada caso y **elegir el que dé el número más grande**.
+
+Vamos a resolverlo en dos etapas muy claras:
+
+### Paso 1: Encontrar el Estimador de Máxima Verosimilitud (EMV) de $p$
+
+Primero tenemos que descubrir cuál de las dos monedas es la que estamos usando, basándonos en nuestra muestra (sacamos 3 caras en 10 tiros).
+
+Nuestra variable $X$ (cantidad de caras) tiene una distribución Binomial con $n=10$.
+
+La Función de Verosimilitud (que es la probabilidad de observar lo que observamos) es:
+
+$$L(p) = P(X=3) = \binom{10}{3} p^3 (1-p)^{10-3} = 120 \cdot p^3 (1-p)^7$$
+
+Ahora, simplemente evaluamos esta función para los dos candidatos que tenemos:
+
+**Candidato A: $p = 2/5$**
+
+$$L(2/5) = 120 \cdot \left(\frac{2}{5}\right)^3 \cdot \left(1 - \frac{2}{5}\right)^7 = 120 \cdot \left(\frac{2}{5}\right)^3 \cdot \left(\frac{3}{5}\right)^7$$
+
+**Candidato B: $p = 4/5$**
+
+$$L(4/5) = 120 \cdot \left(\frac{4}{5}\right)^3 \cdot \left(1 - \frac{4}{5}\right)^7 = 120 \cdot \left(\frac{4}{5}\right)^3 \cdot \left(\frac{1}{5}\right)^7$$
+
+No hace falta calcular todo el número con decimales; podés ver visualmente o con la calculadora que la primera opción es muchísimo más grande (tiene un $(3/5)^7$ contra un $(1/5)^7$).
+
+- _Intuición rápida:_ Sacamos 3 caras en 10 tiros, una proporción del $30\%$. Tiene todo el sentido del mundo que el parámetro real esté más cerca de $2/5$ ($40\%$) que de $4/5$ ($80\%$).
     
-- $d(\lambda) = \ln(\lambda)$
+
+Como $L(2/5) > L(4/5)$, nuestro estimador de máxima verosimilitud para el parámetro es:
+
+$$\hat{p} = \frac{2}{5}$$
+
+### Paso 2: La Propiedad de Invarianza (El verdadero truco del ejercicio)
+
+El problema no termina ahí. No te pide estimar $p$, te pide estimar **la probabilidad de un evento futuro** (sacar exactamente 1 cara en 3 nuevos tiros).
+
+Llamemos $\tau(p)$ a esa probabilidad que queremos calcular. Como son 3 tiros nuevos, es otra Binomial:
+
+$$\tau(p) = P(Y=1) = \binom{3}{1} p^1 (1-p)^{3-1} = 3p(1-p)^2$$
+
+Acá es donde usás la **Propiedad de Invarianza de los EMV**. Esta propiedad te dice que si vos tenés el EMV de un parámetro ($\hat{p}$) y querés calcular el EMV de una función que depende de ese parámetro, **simplemente tenés que meter tu $\hat{p}$ adentro de esa función**.
+
+Es decir:
+
+$$\widehat{\tau(p)} = \tau(\hat{p})$$
+
+Como ya descubrimos que $\hat{p} = 2/5$, lo reemplazamos en nuestra nueva ecuación:
+
+$$\widehat{\tau(p)} = 3 \cdot \left(\frac{2}{5}\right) \cdot \left(1 - \frac{2}{5}\right)^2$$
+
+$$\widehat{\tau(p)} = 3 \cdot \left(\frac{2}{5}\right) \cdot \left(\frac{3}{5}\right)^2$$
+
+$$\widehat{\tau(p)} = \frac{6}{5} \cdot \frac{9}{25}$$
+
+$$\widehat{\tau(p)} = \frac{54}{125} = 0.432$$
+
+¡Y listo! El resultado final es $54/125$.
+
+**Moraleja para el parcial:** Si te dan el parámetro entre llaves con números sueltos (ej: $p \in \{a, b\}$), guardá las derivadas en el cajón. Calculá las probabilidades a mano, agarrá la más grande, y si te piden estimar una función extra, mandale la propiedad de invarianza.
