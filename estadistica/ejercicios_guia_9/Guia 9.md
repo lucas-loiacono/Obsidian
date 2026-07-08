@@ -726,3 +726,5 @@ Si le tomamos el límite cuando $n \to \infty$ a esa expresión:
     
 
 Como $\lim_{n \to \infty} ECM(\hat{\theta}_n) = 0$, **queda demostrado que $\hat{\theta}_n$ converge en media cuadrática a $\theta$.**
+
+
