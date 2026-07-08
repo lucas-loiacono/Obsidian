@@ -268,3 +268,114 @@ Observá detenidamente la fórmula final a la que llegamos. ¿Ves el parámetro 
 El texto de conclusión que tenés que escribir en el parcial es:
 
 > _"Como la distribución condicional de la muestra $\mathbf{X}_n$ dado $T=t$ depende únicamente de los datos muestrales ($x_i, n$ y $t$) y **no depende del parámetro $\lambda$**, deducimos por definición que $T = \sum_{i=1}^n X_i$ es un estadístico suficiente para $\lambda$."_
+
+
+
+![[Pasted image 20260708005927.png]]
+
+### (a) Bernoulli($p$)
+
+La función de probabilidad es:
+
+$$f(x; p) = p^x (1-p)^{1-x} \cdot \mathbf{1}_{\{0, 1\}}(x)$$
+
+Aplicamos el truco de $e^{\ln(\dots)}$ a la parte que tiene el parámetro:
+
+$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\{ \ln\left( p^x (1-p)^{1-x} \right) \}$$
+
+El logaritmo separa la multiplicación en suma y baja las $x$:
+
+$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\{ x \ln(p) + (1-x) \ln(1-p) \}$$
+
+Distribuimos y agrupamos todo lo que tiene $x$:
+
+$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\{ x \ln(p) + \ln(1-p) - x \ln(1-p) \}$$
+
+$$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot \exp\left\{ x \left[ \ln(p) - \ln(1-p) \right] + \ln(1-p) \right\}$$
+
+Por propiedad de logaritmos, la resta es una división. Identificamos las partes:
+
+- $h(x) = \mathbf{1}_{\{0, 1\}}(x)$
+    
+- $c(p) = \ln\left(\frac{p}{1-p}\right)$
+    
+- $T(x) = x$
+    
+- $d(p) = \ln(1-p)$
+    
+
+¡Pertenece a la familia exponencial!
+
+### (b) Pascal($4, p$)
+
+La distribución de Pascal (también conocida como Binomial Negativa) nos dice la probabilidad de necesitar $x$ intentos para lograr $4$ éxitos:
+
+$$f(x; p) = \binom{x-1}{4-1} p^4 (1-p)^{x-4} \cdot \mathbf{1}_{\{x \ge 4\}}(x)$$
+
+Dejamos la combinatoria afuera y le aplicamos el truco a la parte de la probabilidad:
+
+$$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \exp\{ \ln\left( p^4 (1-p)^{x-4} \right) \}$$
+
+$$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \exp\{ 4 \ln(p) + (x-4) \ln(1-p) \}$$
+
+$$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \exp\{ x \ln(1-p) + 4 \ln(p) - 4 \ln(1-p) \}$$
+
+Identificamos las partes:
+
+- $h(x) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x)$
+    
+- $c(p) = \ln(1-p)$
+    
+- $T(x) = x$
+    
+- $d(p) = 4 \ln(p) - 4 \ln(1-p)$
+    
+
+¡Pertenece a la familia exponencial!
+
+### (c) Poisson($\lambda$)
+
+La función de probabilidad es:
+
+$$f(x; \lambda) = \frac{e^{-\lambda} \lambda^x}{x!} \cdot \mathbf{1}_{\{x \ge 0\}}(x)$$
+
+Separamos el denominador y aplicamos el truco arriba:
+
+$$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot \exp\{ \ln\left( e^{-\lambda} \lambda^x \right) \}$$
+
+$$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot \exp\{ -\lambda + x \ln(\lambda) \}$$
+
+Identificamos las partes:
+
+- $h(x) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x)$
+    
+- $c(\lambda) = \ln(\lambda)$
+    
+- $T(x) = x$
+    
+- $d(\lambda) = -\lambda$
+    
+
+¡Pertenece a la familia exponencial!
+
+### (d) Exponencial($\lambda$)
+
+Acá la función ya es una exponencial por naturaleza, así que el trabajo es casi nulo:
+
+$$f(x; \lambda) = \lambda e^{-\lambda x} \cdot \mathbf{1}_{\{x > 0\}}(x)$$
+
+Aplicamos el truco para meter esa $\lambda$ inicial adentro del exponente general:
+
+$$f(x; \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \exp\{ \ln\left( \lambda e^{-\lambda x} \right) \}$$
+
+$$f(x; \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \exp\{ \ln(\lambda) - \lambda x \}$$
+
+Identificamos las partes:
+
+- $h(x) = \mathbf{1}_{\{x > 0\}}(x)$
+    
+- $c(\lambda) = -\lambda$
+    
+- $T(x) = x$
+    
+- $d(\lambda) = \ln(\lambda)$
