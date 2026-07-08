@@ -728,3 +728,25 @@ Si le tomamos el límite cuando $n \to \infty$ a esa expresión:
 Como $\lim_{n \to \infty} ECM(\hat{\theta}_n) = 0$, **queda demostrado que $\hat{\theta}_n$ converge en media cuadrática a $\theta$.**
 
 
+
+
+
+### El caso que SÍ vale (Tu ejemplo):
+
+$$\mathbf{1}\{\max(x_1, \dots, x_n) < \theta\}$$
+
+Acá las $x_i$ no están libres haciendo de las suyas. Están empaquetadas bajo el concepto de "el máximo". Como tu estadístico es justamente $T = \max(X_i)$, esto para la matemática es exactamente lo mismo que escribir:
+
+$$\mathbf{1}\{T < \theta\}$$
+
+La función $g$ solo ve a la variable $T$ y al parámetro $\theta$. Las $x_i$ individuales desaparecieron de la vista. Factorización exitosa.
+
+### El caso que NO vale (Para que veas la diferencia):
+
+Imaginate que haciendo un ejercicio te quedara esto en la caja de la $\theta$:
+
+$$\mathbf{1}\{x_1 < \theta\}$$
+
+Ahí sí se pudre todo. Eso no es un máximo ni un mínimo de toda la muestra, es **una $x_i$ específica (la primera) que quedó suelta** interactuando directamente con $\theta$. No podés reemplazarla por $T$, no la podés mandar a la otra caja porque tiene a $\theta$, y te traba la factorización.
+
+Así que tu conclusión es impecable: mientras la indicadora use a las $x_i$ coordinadas como un bloque único que representa a tu $T$ (ya sea sumadas, multiplicadas, como máximo o como mínimo), la función $g(T, \theta)$ es perfectamente legal y el estadístico es suficiente. ¡Te vas al examen con el concepto pesadísimo!
