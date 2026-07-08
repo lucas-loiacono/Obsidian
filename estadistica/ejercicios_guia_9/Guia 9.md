@@ -451,3 +451,278 @@ $$\widehat{\tau(p)} = \frac{54}{125} = 0.432$$
 - **Buscás qué $p$ es más probable:** Mirás la realidad (lo que ya pasó, tu muestra) y te preguntás: _"¿Qué parámetro hace que este resultado sea el más lógico?"_. En tu caso, sacar 3 caras en 10 tiros es mucho más lógico para una moneda del **40%** ($2/5$) que para una del **80%** ($4/5$). Gana el $2/5$.
     
 - **Calculás con ese $p$:** Una vez que coronás al ganador como tu estimador oficial ($\hat{p}$), lo usás como si fuera la verdad absoluta para calcular cualquier evento futuro o función que te pidan (esto es lo que formalmente se llama Propiedad de Invarianza).
+
+
+
+
+![[Pasted image 20260708012546.png]]
+
+### Parte (a): La Construcción Teórica
+
+#### 1. Hallar el Estimador de Máxima Verosimilitud (EMV)
+
+Nuestra muestra es $X_1, \dots, X_n \sim \text{Poisson}(\lambda)$. La función de probabilidad individual es $\frac{e^{-\lambda} \lambda^x}{x!}$.
+
+**Paso 1: Armar la Función de Verosimilitud $L(\lambda)$**
+
+Multiplicamos la función $n$ veces (acordate del truco de sumar exponentes para la $e$ y para la $\lambda$):
+
+$$L(\lambda) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{x_i}}{x_i!} = \frac{e^{-n\lambda} \lambda^{\sum x_i}}{\prod x_i!}$$
+
+**Paso 2: Aplicar logaritmo natural ($\ln$)**
+
+Esto baja los exponentes y convierte las multiplicaciones/divisiones en sumas y restas:
+
+$$\ln(L(\lambda)) = -n\lambda + \left(\sum_{i=1}^n x_i\right) \ln(\lambda) - \ln\left(\prod_{i=1}^n x_i!\right)$$
+
+**Paso 3: Derivar respecto a $\lambda$ e igualar a cero**
+
+La derivada del último término es $0$ porque no tiene $\lambda$.
+
+$$\frac{d}{d\lambda} \ln(L(\lambda)) = -n + \frac{\sum x_i}{\lambda}$$
+
+Igualamos a cero para encontrar el máximo:
+
+$$-n + \frac{\sum x_i}{\lambda} = 0$$
+
+$$n = \frac{\sum x_i}{\lambda}$$
+
+Despejamos $\lambda$ y le ponemos el "sombrerito" porque ya es nuestro estimador oficial:
+
+$$\hat{\lambda} = \frac{\sum X_i}{n} = \bar{X}$$
+
+_(¡Magia! El método matemático nos confirma que la mejor forma de estimar la media de una Poisson es, literalmente, calculando el promedio de la muestra)._
+
+#### 2. Mostrar que es Insesgado
+
+Un estimador es insesgado si su Esperanza es exactamente igual al parámetro real: $E[\hat{\lambda}] = \lambda$.
+
+$$E[\hat{\lambda}] = E\left[ \frac{\sum X_i}{n} \right]$$
+
+Sacamos la constante $1/n$ afuera:
+
+$$E[\hat{\lambda}] = \frac{1}{n} \sum_{i=1}^n E[X_i]$$
+
+Como cada $X_i$ es una Poisson($\lambda$), sabemos por tabla que su esperanza $E[X_i] = \lambda$. Si sumamos $\lambda$ un total de $n$ veces, tenemos $n\lambda$:
+
+$$E[\hat{\lambda}] = \frac{1}{n} (n\lambda) = \lambda$$
+
+**¡Queda demostrado que es insesgado!**
+
+#### 3. Hallar el Error Cuadrático Medio (ECM)
+
+La fórmula del ECM es: $\text{ECM} = \text{Varianza} + \text{Sesgo}^2$.
+
+Como recién demostramos que es insesgado, el Sesgo es $0$. Por lo tanto, $\text{ECM} = V(\hat{\lambda})$.
+
+$$V(\hat{\lambda}) = V\left[ \frac{\sum X_i}{n} \right]$$
+
+Ojo acá: las constantes salen de la varianza **al cuadrado**:
+
+$$V(\hat{\lambda}) = \frac{1}{n^2} \sum_{i=1}^n V(X_i)$$
+
+En una distribución Poisson, la varianza también vale $\lambda$. Sumamos $\lambda$ un total de $n$ veces:
+
+$$V(\hat{\lambda}) = \frac{1}{n^2} (n\lambda) = \frac{\lambda}{n}$$
+
+Esa es tu expresión final del Error Cuadrático Medio.
+
+### Parte (b): La Aplicación Práctica
+
+Ahora pasamos a la realidad. Tenemos números.
+
+#### 1. Calcular el estimador con la muestra
+
+Nos piden aplicar la fórmula que descubrimos recién ($\hat{\lambda} = \bar{X}$) a la tabla de frecuencias de $n=100$ semanas.
+
+Tenemos que calcular el promedio. Ojo, no sumes los números del 0 al 5 directamente. Tenés que multiplicar la cantidad de accidentes por la cantidad de semanas que ocurrió (Frecuencia):
+
+- $\sum x_i = (0 \cdot 10) + (1 \cdot 29) + (2 \cdot 25) + (3 \cdot 17) + (4 \cdot 13) + (5 \cdot 6)$
+    
+- $\sum x_i = 0 + 29 + 50 + 51 + 52 + 30 = 212$ accidentes totales.
+    
+
+Ahora calculamos nuestro $\hat{\lambda}$ numérico (estimación puntual):
+
+$$\hat{\lambda}_{obs} = \frac{212}{100} = 2.12$$
+
+#### 2. Estimar la probabilidad de ningún accidente
+
+Nos piden estimar la probabilidad de que $X=0$.
+
+La fórmula teórica de la Poisson para $0$ accidentes es:
+
+$$P(X=0) = \frac{e^{-\lambda} \lambda^0}{0!} = e^{-\lambda}$$
+
+¿Te acordás del ejercicio de la moneda? ¡Acá entra la **Propiedad de Invarianza** para salvarte la vida! Si nos piden estimar una función del parámetro, simplemente agarramos la función e inyectamos nuestro $\hat{\lambda}$:
+
+$$\widehat{P(X=0)} = e^{-\hat{\lambda}}$$
+
+$$\widehat{P(X=0)} = e^{-2.12}$$
+
+Y si lo pasás por la calculadora:
+
+$$\widehat{P(X=0)} \approx 0.1199$$
+
+¡Listo! Hay un **11.99%** de probabilidades estimadas de que pases una semana tranquila en Paseo Colón y Estados Unidos.
+
+
+Todo el esfuerzo que hiciste en la **Parte (a)** despejando ecuaciones, aplicando logaritmos y derivando, tenía un único objetivo: **fabricar la receta perfecta** para calcular $\lambda$.
+
+Esa receta (tu estimador) te dio como resultado final:
+
+$$\hat{\lambda} = \frac{\sum x_i}{n}$$
+
+Si mirás bien esa fórmula, $\frac{\text{suma de todos los valores}}{\text{cantidad de valores}}$ es la definición matemática literal del **promedio** (o media muestral, $\bar{X}$).
+
+Entonces, cuando llegás a la **Parte (b)** y te dan datos reales, no tenés que adivinar o intuir qué hacer. Simplemente le hacés caso a la fórmula que vos mismo demostraste que era la mejor. Tu receta dice "calculá el promedio", así que vas a la tabla y calculás el promedio.
+
+### El detalle de la tabla (¿Por qué multiplicamos?)
+
+Quizás te hizo un poco de ruido cómo calculamos ese promedio. Como los datos te los dieron agrupados en una tabla de frecuencias, no podíamos simplemente sumar $0+1+2+3+4+5$ y dividir por $6$. ¡Estarías ignorando que son 100 semanas en total!
+
+Tenías que sumar los 100 datos reales, que es lo mismo que sumar grupos:
+
+- Hubo 10 semanas con $0$ accidentes: $(0+0+0...+0) \rightarrow 0 \cdot 10 = 0$
+    
+- Hubo 29 semanas con $1$ accidente: $(1+1+1...+1) \rightarrow 1 \cdot 29 = 29$
+    
+- ...y así sucesivamente.
+    
+
+Sumaste la cantidad **total** de accidentes que ocurrieron a lo largo de toda la historia ($212$ accidentes) y lo dividiste por la cantidad **total** de semanas observadas ($100$ semanas).
+
+$$\hat{\lambda}_{obs} = \frac{212 \text{ accidentes}}{100 \text{ semanas}} = 2.12 \text{ accidentes por semana}$$
+
+**En resumen:** Buscás el promedio única y exclusivamente porque el Método de Máxima Verosimilitud te gritó algebraicamente que esa era la forma correcta de estimar el parámetro para una distribución Poisson. ¡La matemática te dibujó el mapa y vos solo lo seguiste a la perfección!
+
+
+![[Pasted image 20260708013254.png]]
+
+### (a) Hallar un estadístico suficiente para $\theta$
+
+Este es casi idéntico al de la segunda foto que me mandaste. Vamos a aplicar el **Teorema de Factorización**.
+
+**1. Armamos la conjunta (Productoria):**
+
+Nuestra función de densidad es $f(x; \theta) = \frac{1}{\theta} \mathbf{1}\{0 < x < \theta\}$.
+
+$$f(\underline{x}; \theta) = \prod_{i=1}^n \left( \frac{1}{\theta} \mathbf{1}\{0 < x_i < \theta\} \right)$$
+
+$$f(\underline{x}; \theta) = \frac{1}{\theta^n} \prod_{i=1}^n \mathbf{1}\{0 < x_i < \theta\}$$
+
+**2. La magia de la Indicadora:**
+
+Para que todas las $x_i$ sean menores a $\theta$, alcanza con que el **máximo** de la muestra sea menor a $\theta$.
+
+Y para que todas las $x_i$ sean mayores a 0, alcanza con que el **mínimo** sea mayor a 0.
+
+$$f(\underline{x}; \theta) = \frac{1}{\theta^n} \mathbf{1}\{\max(X_i) < \theta\} \cdot \mathbf{1}\{\min(X_i) > 0\}$$
+
+**3. Aplicamos Factorización:**
+
+Separamos en las dos "cajas":
+
+- $g(T, \theta) = \frac{1}{\theta^n} \mathbf{1}\{\max(X_i) < \theta\}$
+    
+- $h(\underline{x}) = \mathbf{1}\{\min(X_i) > 0\}$
+    
+
+Como logramos aislar $\theta$ en una función que solo depende del máximo, **queda demostrado que $T = \max(X_1, \dots, X_n)$ es un estadístico suficiente.**
+
+### (b) Hallar el estimador de Máxima Verosimilitud (EMV)
+
+**¡Alerta de trampa gigante!** Veníamos de derivar e igualar a cero en la distribución Poisson. Acá **NO PODÉS DERIVAR**.
+
+¿Por qué? Porque tu parámetro $\theta$ está metido adentro de la condición de la indicadora (es el límite del dominio). Si derivás, te da negativo y no llegás a nada.
+
+Tenemos que usar la lógica visual:
+
+La función de verosimilitud es $L(\theta) = \frac{1}{\theta^n} \mathbf{1}\{\theta > \max(X_i)\}$.
+
+Queremos que el resultado de esa cuenta sea **lo más grande posible**.
+
+Como $\theta$ está en el denominador ($\frac{1}{\theta^n}$), para que la fracción sea gigante, **$\theta$ tiene que ser lo más chico posible**.
+
+Pero, ¡ojo! La indicadora nos pone un freno de mano: nos dice que obligatoriamente $\theta > \max(X_i)$. Si probás un número más chico que el máximo, la indicadora se apaga (vale 0) y te arruina la probabilidad.
+
+Por lo tanto, el valor más chico que le podés dar a $\theta$ sin que todo explote y dé cero, es exactamente el máximo de la muestra.
+
+$$\hat{\theta}_{EMV} = \max(X_1, \dots, X_n)$$
+
+_(Ojo a la notación: a veces al máximo se lo escribe como $X_{(n)}$)._
+
+### (c) Mostrar Esperanza, Varianza y Convergencia
+
+Para calcular la Esperanza y Varianza de $\hat{\theta}_n$, necesitamos saber cuál es la función de densidad del máximo. Esto es una fórmula estándar de estadística de orden:
+
+**1. Función de densidad del máximo ($f_{max}(x)$):**
+
+La función de distribución acumulada del máximo es $(F(x))^n$.
+
+Para la Uniforme, $F(x) = \frac{x}{\theta}$. Entonces $F_{max}(x) = (\frac{x}{\theta})^n = \frac{x^n}{\theta^n}$.
+
+Derivamos para tener la densidad:
+
+$$f_{max}(x) = \frac{n}{\theta^n} x^{n-1} \quad \text{para } 0 < x < \theta$$
+
+**2. Mostrar la Esperanza ($E[\hat{\theta}_n]$):**
+
+Por definición, $E[X] = \int x \cdot f(x) dx$.
+
+$$E[\hat{\theta}_n] = \int_0^\theta x \cdot \left( \frac{n}{\theta^n} x^{n-1} \right) dx = \frac{n}{\theta^n} \int_0^\theta x^n dx$$
+
+Integramos sumándole 1 al exponente:
+
+$$E[\hat{\theta}_n] = \frac{n}{\theta^n} \left[ \frac{x^{n+1}}{n+1} \right]_0^\theta = \frac{n}{\theta^n} \cdot \frac{\theta^{n+1}}{n+1}$$
+
+Simplificamos las $\theta$ y llegamos a lo que pedía el profe:
+
+$$E[\hat{\theta}_n] = \frac{n}{n+1}\theta$$
+
+**3. Mostrar la Varianza ($Var(\hat{\theta}_n)$):**
+
+Primero calculamos $E[\hat{\theta}_n^2]$:
+
+$$E[\hat{\theta}_n^2] = \int_0^\theta x^2 \cdot \left( \frac{n}{\theta^n} x^{n-1} \right) dx = \frac{n}{\theta^n} \int_0^\theta x^{n+1} dx = \frac{n}{\theta^n} \left[ \frac{x^{n+2}}{n+2} \right]_0^\theta = \frac{n}{n+2}\theta^2$$
+
+Ahora sí, Varianza = $E[X^2] - (E[X])^2$:
+
+$$Var(\hat{\theta}_n) = \frac{n}{n+2}\theta^2 - \left( \frac{n}{n+1}\theta \right)^2$$
+
+$$Var(\hat{\theta}_n) = \theta^2 \left[ \frac{n}{n+2} - \frac{n^2}{(n+1)^2} \right]$$
+
+Buscamos denominador común $(n+2)(n+1)^2$:
+
+$$Var(\hat{\theta}_n) = \theta^2 \left[ \frac{n(n+1)^2 - n^2(n+2)}{(n+2)(n+1)^2} \right]$$
+
+Desarrollamos el binomio $(n^2+2n+1)$ y distribuimos arriba:
+
+$$Var(\hat{\theta}_n) = \theta^2 \left[ \frac{(n^3+2n^2+n) - (n^3+2n^2)}{(n+2)(n+1)^2} \right]$$
+
+¡Se cancela casi todo! Solo sobrevive la $n$:
+
+$$Var(\hat{\theta}_n) = \frac{n \theta^2}{(n+1)^2(n+2)}$$
+
+**4. Convergencia en Media Cuadrática:**
+
+Para que un estimador converja en media cuadrática, su **Error Cuadrático Medio (ECM) tiene que tender a 0 cuando $n \to \infty$.**
+
+Sabemos que $ECM = Var(\hat{\theta}_n) + \text{Sesgo}^2$.
+
+El Sesgo es $E[\hat{\theta}_n] - \theta$:
+
+$$\text{Sesgo} = \frac{n}{n+1}\theta - \theta = \frac{n\theta - (n+1)\theta}{n+1} = \frac{-\theta}{n+1}$$
+
+Armamos el ECM sumando la Varianza y el Sesgo al cuadrado:
+
+$$ECM = \frac{n \theta^2}{(n+1)^2(n+2)} + \frac{\theta^2}{(n+1)^2}$$
+
+Si le tomamos el límite cuando $n \to \infty$ a esa expresión:
+
+- En el primer término, arriba tenés $n$ (grado 1) y abajo tenés $n^3$ (grado 3). El denominador crece mucho más rápido, así que tiende a 0.
+    
+- En el segundo término, tenés constante arriba y $n^2$ abajo. También tiende a 0.
+    
+
+Como $\lim_{n \to \infty} ECM(\hat{\theta}_n) = 0$, **queda demostrado que $\hat{\theta}_n$ converge en media cuadrática a $\theta$.**
