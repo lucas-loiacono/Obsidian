@@ -1024,3 +1024,250 @@ Escribimos la respuesta final:
 **La distribución asintótica del estimador de máxima verosimilitud es:**
 
 $$\hat{\theta} \sim \mathcal{N}\left( \theta, \frac{\theta^2}{n} \right)$$
+
+
+![[Pasted image 20260708194354.png]]
+
+¡Este es el paso natural para subir de nivel! Hasta ahora veníamos trabajando con la Familia Exponencial de 1 parámetro. Cuando tenés 2 parámetros (como en la Normal o en la Gamma), la lógica es **exactamente la misma**, solo que el "molde" se estira un poquito para hacerle lugar a los dos.
+
+El molde de la **Familia Exponencial a 2 parámetros** se ve así:
+
+$$f(x; \theta_1, \theta_2) = h(x) \cdot A(\theta_1, \theta_2) \cdot \exp\{ c_1(\theta_1, \theta_2)T_1(x) + c_2(\theta_1, \theta_2)T_2(x) \}$$
+
+Como ves, la única diferencia es que adentro del exponente ahora tenés una suma de dos bloques. Vamos a desarmar la Gamma para que encaje acá.
+
+### 1. Escribimos la función original
+
+La función de densidad de una distribución $\Gamma(\nu, \lambda)$ para una sola variable es:
+
+$$f(x; \nu, \lambda) = \frac{\lambda^\nu}{\Gamma(\nu)} x^{\nu-1} e^{-\lambda x} \cdot \mathbf{1}_{\{x > 0\}}(x)$$
+
+### 2. Aplicamos el truco del logaritmo
+
+Como siempre, el problema lo tenemos donde la $x$ y el parámetro ($\nu$) están mezclados en una potencia: el término $x^{\nu-1}$.
+
+Le aplicamos la vieja confiable de $e^{\ln(\dots)}$ para destrabarlo:
+
+$$x^{\nu-1} = \exp\{ \ln(x^{\nu-1}) \} = \exp\{ (\nu-1) \ln(x) \}$$
+
+### 3. Reemplazamos y acomodamos
+
+Metemos eso que descubrimos adentro de nuestra función original, y también pasamos el $e^{-\lambda x}$ para que comparta el mismo techo (recordá que si multiplicás dos $e$, los exponentes se suman):
+
+$$f(x; \nu, \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \frac{\lambda^\nu}{\Gamma(\nu)} \cdot \exp\{ (\nu-1) \ln(x) \} \cdot \exp\{ -\lambda x \}$$
+
+Agrupamos todo en una sola exponencial gigante:
+
+$$f(x; \nu, \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \frac{\lambda^\nu}{\Gamma(\nu)} \cdot \exp\{ (\nu-1) \ln(x) - \lambda x \}$$
+
+### 4. Identificamos las partes
+
+¡Fijate cómo encajó perfecto en el molde de 2 parámetros!
+
+- $h(x) = \mathbf{1}_{\{x > 0\}}(x)$
+    
+- $A(\nu, \lambda) = \frac{\lambda^\nu}{\Gamma(\nu)}$
+    
+- **Bloque 1:** $c_1(\nu, \lambda) = \nu - 1 \quad \text{y} \quad \mathbf{T_1(x) = \ln(x)}$
+    
+- **Bloque 2:** $c_2(\nu, \lambda) = -\lambda \quad \text{y} \quad \mathbf{T_2(x) = x}$
+    
+
+Con esto **queda demostrado** que pertenece a la familia exponencial a 2 parámetros.
+
+### 5. Hallar el estadístico suficiente para la muestra
+
+Acá es donde la Familia Exponencial te regala la respuesta sin tener que transpirar.
+
+Hay un teorema clave que dice que si una distribución pertenece a esta familia, para encontrar el estadístico suficiente de una muestra de tamaño $n$, **simplemente tenés que sumar los $T(x)$ individuales**.
+
+Como acá tenemos dos $T(x)$, nuestro estadístico suficiente será un **vector de dos componentes** (uno para cada parámetro):
+
+- Para el primer parámetro sumamos los $T_1$: $\sum_{i=1}^n \ln(X_i)$
+    
+- Para el segundo parámetro sumamos los $T_2$: $\sum_{i=1}^n X_i$
+    
+
+**Respuesta final:**
+
+El estadístico suficiente conjunto para $(\nu, \lambda)$ es:
+
+$$T(\underline{X}) = \left( \sum_{i=1}^n \ln(X_i), \ \sum_{i=1}^n X_i \right)$$
+
+
+![[Pasted image 20260708194546.png]]\
+
+
+### (a) Mostrar que pertenece a la familia exponencial a 2 parámetros
+
+Partimos de la fórmula original (y sagrada) de la distribución Normal:
+
+$$f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)$$
+
+El secreto acá es puramente algebraico. Tenemos que desarrollar el binomio al cuadrado que está en el exponente: $(x-\mu)^2 = x^2 - 2\mu x + \mu^2$.
+
+Reemplazamos eso arriba y distribuimos el denominador $2\sigma^2$:
+
+$$f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{x^2 - 2\mu x + \mu^2}{2\sigma^2} \right)$$
+
+$$f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{x^2}{2\sigma^2} + \frac{2\mu x}{2\sigma^2} - \frac{\mu^2}{2\sigma^2} \right)$$
+
+Simplificamos el 2 del término del medio, y por propiedades de las potencias, separamos el término que NO tiene $x$ (el del $\mu^2$) en una exponencial aparte:
+
+$$f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{\mu^2}{2\sigma^2}\right) \exp\left( \frac{\mu}{\sigma^2}x - \frac{1}{2\sigma^2}x^2 \right)$$
+
+¡Listo! Llegamos exactamente a la expresión que pedía el enunciado. Identificamos los bloques para confirmar que es Familia Exponencial:
+
+- $T_1(x) = x$
+    
+- $T_2(x) = x^2$
+    
+
+### (b) Densidad conjunta y el Estadístico Suficiente $T$
+
+Como tenemos una muestra aleatoria de tamaño $n$, la densidad conjunta $f(\underline{x}; \theta)$ es multiplicar la función de arriba $n$ veces.
+
+- La constante de adelante multiplicada $n$ veces se eleva a la $n$.
+    
+- La primera exponencial multiplicada $n$ veces, suma su exponente $n$ veces (lo multiplicamos por $n$).
+    
+- En la segunda exponencial, al multiplicar bases iguales, los exponentes se suman. Cuando sumás las $x$, te queda $\sum x_i$. Cuando sumás las $x^2$, te queda $\sum x_i^2$.
+    
+
+Queda así:
+
+$$f(\underline{x}; \theta) = \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n \exp\left(-\frac{n\mu^2}{2\sigma^2}\right) \exp\left( \frac{\mu}{\sigma^2}\sum_{i=1}^n x_i - \frac{1}{2\sigma^2}\sum_{i=1}^n x_i^2 \right)$$
+
+Acá podés aplicar el Teorema de Factorización (todo esto es la caja $g(T, \theta)$ y $h(\underline{x}) = 1$), o usar directamente la propiedad de la Familia Exponencial. Como dependemos de dos sumatorias que agrupan a nuestra muestra, **nuestro estadístico suficiente es bidimensional**:
+
+$$T = \left( \sum_{i=1}^n X_i, \ \sum_{i=1}^n X_i^2 \right)$$
+
+### (c) El truco algebraico y el nuevo Estadístico $T'$
+
+Primero, hagamos la demostración algebraica. Partimos del lado izquierdo y desarrollamos el binomio al cuadrado:
+
+$$\sum_{i=1}^n (X_i - \bar{X})^2 = \sum_{i=1}^n (X_i^2 - 2X_i\bar{X} + \bar{X}^2)$$
+
+Distribuimos la sumatoria (acordate que $\bar{X}$ es una constante, sale afuera):
+
+$$= \sum_{i=1}^n X_i^2 - 2\bar{X} \sum_{i=1}^n X_i + \sum_{i=1}^n \bar{X}^2$$
+
+Sabemos que $\sum X_i = n\bar{X}$, y sumar una constante $n$ veces es multiplicarla por $n$:
+
+$$= \sum_{i=1}^n X_i^2 - 2\bar{X}(n\bar{X}) + n\bar{X}^2$$
+
+$$= \sum_{i=1}^n X_i^2 - 2n\bar{X}^2 + n\bar{X}^2$$
+
+$$= \sum_{i=1}^n X_i^2 - n\bar{X}^2$$
+
+**¡Demostrado!**
+
+**¿Por qué $T' = (\bar{X}, S^2)$ también es suficiente?**
+
+La regla de oro de los estadísticos dice que si tenés un estadístico suficiente $T$, cualquier **función biyectiva** (uno-a-uno) de ese estadístico también es suficiente.
+
+Fijate que a partir de las piezas de $T$ ($\sum X_i$ y $\sum X_i^2$), podés armar $\bar{X}$ y podés armar $S^2$ usando la fórmula que acabamos de demostrar. Es decir, tienen exactamente la misma información, solo que presentada de otra manera. Por lo tanto, $T'$ hereda la suficiencia.
+
+### (d) Estimador de Máxima Verosimilitud (EMV)
+
+Volvemos a derivar. Agarramos nuestra densidad conjunta del punto (b) y le aplicamos logaritmo natural ($\ln$):
+
+$$\ln L(\mu, \sigma^2) = -n \ln(\sqrt{2\pi}) - \frac{n}{2} \ln(\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2$$
+
+Tenemos que calcular **dos derivadas parciales** e igualar ambas a cero.
+
+**1. Derivamos respecto a $\mu$:**
+
+$$\frac{\partial \ln L}{\partial \mu} = -\frac{1}{2\sigma^2} \sum_{i=1}^n 2(x_i - \mu)(-1) = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) = 0$$
+
+Pasamos el $\sigma^2$ multiplicando al cero y distribuimos la sumatoria:
+
+$$\sum_{i=1}^n x_i - \sum_{i=1}^n \mu = 0 \implies \sum_{i=1}^n x_i - n\mu = 0$$
+
+$$\hat{\mu} = \frac{\sum x_i}{n} = \bar{X}$$
+
+_(El EMV de la media es la media muestral)._
+
+**2. Derivamos respecto a $\sigma^2$ (tratala como si fuera una sola letra, ej: $v$):**
+
+$$\frac{\partial \ln L}{\partial (\sigma^2)} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu)^2 = 0$$
+
+Simplificamos los $2$ de abajo y pasamos el término negativo al otro lado:
+
+$$\frac{1}{(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu)^2 = \frac{n}{\sigma^2}$$
+
+Multiplicamos todo por $(\sigma^2)^2$ y dividimos por $n$. Además, por la Propiedad de Invarianza, reemplazamos la $\mu$ por el $\hat{\mu}$ que acabamos de averiguar ($\bar{X}$):
+
+$$\widehat{\sigma^2} = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{X})^2$$
+
+**¡Cuidado con la trampa acá!** Fijate que el EMV de la varianza te quedó dividido por $n$, **no por $n-1$** como en la fórmula del estadístico $S^2$. Esto es recontra normal y es una pregunta teórica clásica: el EMV de la varianza normal es _sesgado_, por eso en la práctica estadística se suele preferir usar la $S^2$ muestral.
+
+
+![[Pasted image 20260708195001.png]]
+
+### 1. Plantear la distribución (La Multinomial)
+
+Como estamos lanzando el dado $n$ veces y contando cuántas veces sale cada cara, estamos frente a una **Distribución Multinomial**. Su función de probabilidad conjunta se escribe así:
+
+$$f(x_1, x_2, x_3, x_4) = \frac{n!}{x_1! x_2! x_3! x_4!} p_1^{x_1} p_2^{x_2} p_3^{x_3} p_4^{x_4}$$
+
+_(Obviamente con la condición de que $x_i \ge 0$)_.
+
+### 2. El truco de la "Dimensionalidad"
+
+Acá está la clave del ejercicio. Si vos tirás el dado $n=10$ veces, y te digo que la cara 1 salió 2 veces, la cara 2 salió 3 veces, y la cara 3 salió 4 veces... vos ya sabés cuántas veces salió la cara 4 sin que te lo diga. ¡Salió 1 vez!
+
+Como la cantidad total de tiros está clavada en $n$, **la cuarta variable no es libre**. Lo mismo pasa con las probabilidades: como la suma de todas las $p$ tiene que dar $100\%$ ($1$), la cuarta probabilidad tampoco es libre.
+
+Matemáticamente, esto nos permite reescribir la cara 4 en función de las otras tres:
+
+- $x_4 = n - x_1 - x_2 - x_3$
+    
+- $p_4 = 1 - p_1 - p_2 - p_3$
+    
+
+### 3. La masacre algebraica
+
+Vamos a agarrar nuestra fórmula original y vamos a reemplazar solamente la $x_4$ del exponente (la del factorial dejala quieta porque es parte de los datos de la muestra):
+
+$$f(\underline{x}; \underline{p}) = \frac{n!}{x_1! x_2! x_3! x_4!} p_1^{x_1} p_2^{x_2} p_3^{x_3} p_4^{(n - x_1 - x_2 - x_3)}$$
+
+Distribuimos el exponente de $p_4$:
+
+$$f(\underline{x}; \underline{p}) = \frac{n!}{x_1! x_2! x_3! x_4!} p_1^{x_1} p_2^{x_2} p_3^{x_3} p_4^n p_4^{-x_1} p_4^{-x_2} p_4^{-x_3}$$
+
+Agrupamos los términos que tienen las mismas equis ($x_1$ con $x_1$, etc.) y mandamos el $p_4^n$ para adelante:
+
+$$f(\underline{x}; \underline{p}) = \frac{n!}{x_1! x_2! x_3! x_4!} p_4^n \left(\frac{p_1}{p_4}\right)^{x_1} \left(\frac{p_2}{p_4}\right)^{x_2} \left(\frac{p_3}{p_4}\right)^{x_3}$$
+
+### 4. La vieja confiable: $e^{\ln(\dots)}$
+
+Ahora que tenemos todo perfectamente agrupado, le aplicamos el truco del logaritmo a todo ese bloque final para transformarlo en sumas adentro de un exponente:
+
+$$f(\underline{x}; \underline{p}) = \frac{n!}{x_1! x_2! x_3! x_4!} \cdot p_4^n \cdot \exp\left\{ \ln\left[ \left(\frac{p_1}{p_4}\right)^{x_1} \left(\frac{p_2}{p_4}\right)^{x_2} \left(\frac{p_3}{p_4}\right)^{x_3} \right] \right\}$$
+
+El logaritmo transforma las multiplicaciones en sumas, y baja las equis ($x_1, x_2, x_3$) multiplicando al frente de cada término:
+
+$$f(\underline{x}; \underline{p}) = \frac{n!}{x_1! x_2! x_3! x_4!} \cdot p_4^n \cdot \exp\left\{ x_1 \ln\left(\frac{p_1}{p_4}\right) + x_2 \ln\left(\frac{p_2}{p_4}\right) + x_3 \ln\left(\frac{p_3}{p_4}\right) \right\}$$
+
+### 5. Identificar las partes
+
+¡Y listo! Al mirarla bien, la ecuación acaba de encajar perfectamente en el molde de una Familia Exponencial, pero con exactamente **tres bloques**.
+
+Identificamos cada pieza para el profe:
+
+- **El ruido de la muestra:** $h(\underline{x}) = \frac{n!}{x_1! x_2! x_3! x_4!} \mathbf{1}_{\{\sum x_i = n\}}$
+    
+- **La constante del parámetro:** $A(\underline{p}) = p_4^n$
+    
+
+Y los 3 parámetros de la familia exponencial:
+
+- **Bloque 1:** $c_1(\underline{p}) = \ln\left(\frac{p_1}{p_4}\right) \quad \text{y} \quad T_1(\underline{x}) = x_1$
+    
+- **Bloque 2:** $c_2(\underline{p}) = \ln\left(\frac{p_2}{p_4}\right) \quad \text{y} \quad T_2(\underline{x}) = x_2$
+    
+- **Bloque 3:** $c_3(\underline{p}) = \ln\left(\frac{p_3}{p_4}\right) \quad \text{y} \quad T_3(\underline{x}) = x_3$
+    
+
+Como pudimos reescribir toda la función usando únicamente 3 estadísticos ($x_1, x_2, x_3$) acompañados de 3 funciones del parámetro, **queda demostrado que pertenece a una familia exponencial a 3 parámetros.**
