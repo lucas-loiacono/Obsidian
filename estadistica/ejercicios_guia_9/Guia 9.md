@@ -127,6 +127,27 @@ Acá se rompe la matrix:
 
 
 
+Ese es el verdadero secreto del Teorema de Factorización. A la letra $\theta$ no le gusta juntarse con las $x_i$ individuales. La única forma en la que acepta compartir la caja $g(T, \theta)$ con tus datos es si estos vienen **empaquetados**.
+
+Y justamente, las formas matemáticas de "empaquetar" una muestra entera son:
+
+- **Sumatorias:** $\sum x_i$ o $\sum x_i^2$ (Clásico en Poisson, Normal, Bernoulli).
+    
+- **Productorias:** $\prod x_i$ (Clásico en Pareto, Gamma).
+    
+- **Extremos:** $\max(X_i)$ o $\min(X_i)$ (Clásico en Uniforme y cuando la indicadora tiene a $\theta$).
+    
+
+Cuando vos lográs agrupar todas tus $x_i$ adentro de una sumatoria o una productoria, **pierden su identidad individual**. Ya no importa cuánto valía $x_1$ o $x_2$ por separado; se fusionan en un único bloque. Ese gran bloque funcional es lo que bautizamos como tu estadístico **$T$**.
+
+### Resumen de la regla de oro:
+
+1. Si lográs meter a **todas** las $x_i$ que interactúan con $\theta$ adentro de un "empaque" (sumatoria, productoria, máximo, mínimo), las llamás $T$ y armás tu caja $g(T, \theta)$ feliz de la vida.
+    
+2. Si las $x_i$ que sobran no tienen ninguna $\theta$ cerca, las mandás a la caja del ruido: $h(\underline{x})$.
+    
+3. **El único escenario donde perdés** es si, después de hacer todo el álgebra, te queda una $x_i$ suelta y rebelde interactuando con $\theta$ que no pudiste meter en ninguna sumatoria ni productoria. Ahí el teorema falla y el estadístico no es suficiente.
+
 
 
 
