@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "estadistica/4. Cap 10 video 2.md",
+                "file": "estadistica/3. Cap 10 video 1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4. Cap 10 video 2"
+              "title": "3. Cap 10 video 1"
             }
           }
         ],
@@ -237,6 +237,7 @@
   },
   "active": "938d48e362a04ccb",
   "lastOpenFiles": [
+    "estadistica/4. Cap 10 video 2.md",
     "estadistica/3. Cap 10 video 1.md",
     "estadistica/ejercicios_guia_9/Guia 9.md",
     "!imagenes/Pasted image 20260708201127.png",
@@ -252,7 +253,6 @@
     "estadistica/1. Cap 9 video1.md",
     "estadistica/2. Cap 9 video 2.md",
     "estadistica/ejercicios_guia_9",
-    "estadistica/4. Cap 10 video 2.md",
     "imagenes",
     "Proba/resumen gpt.md",
     "C/Cap1.md",
