@@ -360,6 +360,35 @@ _(Suele ser más intuitivo calcular esto primero antes que el Error Tipo II)_
 Como podés ver, la notación del condicional te va guiando como si fuera un GPS: te dice exactamente en qué fila de la tabla pararte y qué columnas de esa fila sumar.
 
 
+
+
+Cuando el enunciado te pide "hallar todos los tests de nivel $\alpha = 0.05$", te está pidiendo que resuelvas una ecuación usando la probabilidad condicionada.
+
+Traducido a nuestro "machete de condicionales", el ejercicio te dio el resultado y te pidió que averigües la incógnita de esta fórmula:
+
+$$P(X \in \text{Región de Rechazo} \mid H_0 \text{ es verdadera}) = 0.05$$
+
+Fijate cómo se lee cada parte:
+
+1. **El condicional ($\mid H_0 \text{ es verdadera}$):** Te dice _"plantate únicamente en la fila de $p_0(x)$"_.
+    
+2. **El resultado matemático ($= 0.05$):** Es tu restricción. La suma total te tiene que dar ese número exacto.
+    
+3. **La incógnita ($X \in \text{Región de Rechazo}$):** Es lo que vos tenías que adivinar. La pregunta que te estabas haciendo era: _"¿Qué valores de $X$ (qué columnas) tengo que elegir para cumplir con esa condición y llegar a ese número?"_.
+    
+
+Ahí fue cuando empezaste a buscar combinaciones y, usando esta misma lógica, armaste tus tres opciones:
+
+- Descubriste que $P(X = 2 \mid H_0) = 0.05$. ¡Ese fue tu **Test 1**!
+    
+- Descubriste que $P(X = 3 \mid H_0) = 0.05$. ¡Ese fue tu **Test 2**!
+    
+- Descubriste que sumar $P(X = 0 \mid H_0) + P(X = 1 \mid H_0) = 0.02 + 0.03 = 0.05$. Lo que matemáticamente se escribe como $P(X \in \{0, 1\} \mid H_0) = 0.05$. ¡Y ese fue tu **Test 3**!
+    
+
+Entonces, buscar a mano qué números suman $0.05$ en la fila de $p_0$ no es otra cosa que resolver una ecuación de probabilidad condicionada "al revés", donde tu objetivo es encontrar la región de rechazo.
+
+
 ![[Pasted image 20260714233749.png]]
 
 
