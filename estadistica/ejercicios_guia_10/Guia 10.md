@@ -302,6 +302,64 @@ Por lo tanto, **el mejor test es el Test 2** (Rechazar $H_0$ si $X = 3$).
 > Como ves, $x=3$ es el valor que aporta "más evidencia proporcional" a favor de $H_1$ frente a $H_0$. Por eso, matemáticamente, el test que usa la región $R=\{3\}$ era el ganador indiscutido.
 
 
+
+
+Vamos a aplicarle esta lógica de probabilidades condicionadas leyendo estrictamente la tabla del ejercicio 10.3 para calcular todo.
+
+### 1. Nivel de Significación ($\alpha$) / Error de Tipo I
+
+- **La pregunta:** ¿Cuál es la probabilidad de rechazar $H_0$, asumiendo que $H_0$ es la realidad?
+    
+- **Planteo condicionado:** $P(X = 3 \mid H_0)$
+    
+- **Cómo se usa en el ejercicio:**
+    
+    - El condicional (derecha de la barra) te indica: _"Como $H_0$ es verdad, tapá el resto de la tabla y mirá únicamente la fila $p_0(x)$"_.
+        
+    - La acción (izquierda de la barra) te indica: _"Buscá la probabilidad de caer en tu zona de rechazo (sacar el valor 3)"_.
+        
+    - Vas a la fila $p_0$, buscás la columna de $x=3$, y el valor es **0.05**. Por lo tanto, tu $\alpha = 0.05$.
+        
+
+### 2. Potencia del Test ($1 - \beta$)
+
+_(Suele ser más intuitivo calcular esto primero antes que el Error Tipo II)_
+
+- **La pregunta:** ¿Cuál es la probabilidad de rechazar correctamente $H_0$, sabiendo que $H_1$ es la verdadera realidad?
+    
+- **Planteo condicionado:** $P(X = 3 \mid H_1)$
+    
+- **Cómo se usa en el ejercicio:**
+    
+    - El condicional te indica: _"Las reglas del juego cambiaron. Ahora $H_1$ es verdad. Tapá todo y mirá únicamente la fila $p_1(x)$"_.
+        
+    - La acción te indica: _"Seguimos evaluando si el test rechaza, así que buscá la probabilidad de sacar el valor 3 en este nuevo universo"_.
+        
+    - Vas a la fila $p_1$, buscás la columna de $x=3$, y el valor es **0.12**. Esa es la Potencia de este test (hay un **12%** de chances de que el test funcione y descubra que $H_1$ es cierta).
+        
+
+### 3. Error de Tipo II ($\beta$)
+
+- **La pregunta:** ¿Cuál es la probabilidad de NO rechazar $H_0$, a pesar de que $H_1$ es la realidad?
+    
+- **Planteo condicionado:** $P(X \neq 3 \mid H_1)$
+    
+- **Cómo se usa en el ejercicio:**
+    
+    - El condicional te indica: _"Seguimos parados en el universo donde $H_1$ es la verdad absoluta. Tu única referencia es la fila $p_1(x)$"_.
+        
+    - La acción te indica: _"Acá NO tenés que rechazar. Es decir, tenés que calcular la probabilidad de que te salga cualquier valor que quede fuera de tu zona de rechazo (que $X$ sea 0, 1, 2, 4 o 5)"_.
+        
+    - Podés resolverlo de dos maneras:
+        
+        1. Sumando todos esos valores directamente en la fila de $p_1$: **0.04 + 0.05 + 0.08 + 0.41 + 0.30 = 0.88**
+            
+        2. Usando la propiedad matemática del complemento (como ya habías calculado la Potencia): si la probabilidad de rechazar bajo $H_1$ era **0.12**, la probabilidad de equivocarte y no rechazar es **1 - 0.12 = 0.88**.
+            
+
+Como podés ver, la notación del condicional te va guiando como si fuera un GPS: te dice exactamente en qué fila de la tabla pararte y qué columnas de esa fila sumar.
+
+
 ![[Pasted image 20260714233749.png]]
 
 
