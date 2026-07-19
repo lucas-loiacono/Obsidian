@@ -217,7 +217,31 @@ Por lo tanto, **hay 3 tests posibles** de nivel exacto $\alpha = 0.05$:
 - **Test 2:** Rechazar $H_0$ si $X = 3$ (Región de rechazo $R_2 = \{3\}$)
     
 - **Test 3:** Rechazar $H_0$ si $X \in \{0, 1\}$ (Región de rechazo $R_3 = \{0, 1\}$)
+
+
+
+¡Son **tres regiones de rechazo completamente distintas**, lo que significa que son **tres tests diferentes**! No van todos juntos en una misma regla.
+
+Pensalo así: vos sos el investigador y tenés que elegir **una sola regla** antes de hacer el experimento. El ejercicio te está mostrando que, si querés un riesgo de equivocarte del 5% ($\alpha = 0.05$), la matemática te ofrece 3 "menús" u opciones diferentes para elegir:
+
+- **Opción A (Test 1):** "Voy a rechazar $H_0$ únicamente si saco un 2".
     
+- **Opción B (Test 2):** "Voy a rechazar $H_0$ únicamente si saco un 3".
+    
+- **Opción C (Test 3):** "Voy a rechazar $H_0$ si saco un 0 o un 1".
+    
+
+### ¿Por qué no pueden estar en la misma línea (todos juntos)?
+
+Si vos decidieras juntarlos a todos en una sola "súper región" de rechazo, tu regla sería: _"Rechazo $H_0$ si saco 0, 1, 2 o 3"_.
+
+Como vimos antes, en las variables discretas las probabilidades se suman. Si sumás las probabilidades de esa súper región bajo $H_0$, te daría:
+
+$$0.02 + 0.03 + 0.05 + 0.05 = 0.15$$
+
+Tu $\alpha$ pasaría a ser $0.15$ (un 15% de riesgo de error), ¡y el enunciado te pedía que fuera exactamente del $0.05$!
+
+
 
 ### (b) Calcular $\beta$ para cada test y elegir el mejor
 
