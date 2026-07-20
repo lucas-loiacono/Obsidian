@@ -855,3 +855,90 @@ La evidencia en contra de $H_0$ (Variedad 1) es abrumadora. Las chances de conse
 
 
 ![[Pasted image 20260720193547.png]]
+
+
+
+### 1. Datos y la Nueva Variable (Sumatoria)
+
+Nuestra muestra es de $n = 10$ capacitores. En lugar de mirar el promedio, vamos a mirar el **voltaje total** si sumáramos las rupturas de los 10 capacitores juntos.
+
+Definimos $T = \sum_{i=1}^{10} X_i$
+
+Las hipótesis siguen siendo sobre la media original:
+
+- $H_0: \mu = 200$
+    
+- $H_1: \mu > 200$
+    
+
+Pero ahora necesitamos saber cómo se comporta nuestra variable $T$ bajo el universo de $H_0$:
+
+- **Esperanza Total:** $E(T) = n \cdot \mu = 10 \cdot 200 = \mathbf{2000}$
+    
+- **Varianza Total:** $Var(T) = n \cdot \sigma^2 = 10 \cdot 25 = \mathbf{250}$
+    
+- **Desvío Total:** $\sigma_T = \sqrt{250} = \mathbf{15.811}$
+    
+
+### 2. Diseño del Test de Hipótesis
+
+Queremos un Nivel de Significación $\alpha = 0.05$.
+
+Como $H_1$ afirma que la media es _mayor_, un voltaje total sospechosamente grande nos hará rechazar $H_0$. Planteamos el condicional:
+
+$$P(\text{Rechazar } H_0 \mid H_0 \text{ es verdadera}) = 0.05$$
+
+$$P(T > k_T \mid \mu = 200) = 0.05$$
+
+Estandarizamos usando los parámetros totales que calculamos arriba:
+
+$$P\left(Z > \frac{k_T - 2000}{15.811}\right) = 0.05$$
+
+Buscamos en la tabla Normal el valor de $Z$ que deja un área de 0.05 a la derecha, que es **$1.645$**. Igualamos y despejamos nuestro límite $k_T$:
+
+$$\frac{k_T - 2000}{15.811} = 1.645$$
+
+$$k_T - 2000 = 1.645 \cdot 15.811$$
+
+$$k_T = 2000 + 26.01$$
+
+$$k_T = 2026.01$$
+
+**Regla de decisión diseñada:** Se rechazará $H_0$ si la suma de los voltajes de los 10 capacitores resulta $T > 2026.01$.
+
+_(Nota de color: fíjate que 2026.01 es exactamente 10 veces el 202.60 que nos había dado con el promedio. ¡Todo cierra!)_
+
+### 3. Calcular la probabilidad de decidir erróneamente
+
+Ahora el enunciado cambia las reglas: _"cuando el verdadero valor de la media... es 210"_.
+
+Si $\mu = 210$, $H_1$ es verdad. El error (Tipo II, $\beta$) ocurre si nuestra muestra no logra superar el límite y, por ende, **No rechazamos $H_0$**.
+
+Planteamos el condicional:
+
+$$\beta = P(\text{No rechazar } H_0 \mid \mu = 210)$$
+
+Traducido a nuestra regla de la sumatoria (no superar el límite de 2026.01):
+
+$$\beta = P(T \le 2026.01 \mid \mu = 210)$$
+
+Para estandarizar ahora, necesitamos la **nueva esperanza** de $T$ en este universo donde $\mu = 210$:
+
+- **Nueva Esperanza Total:** $E(T) = 10 \cdot 210 = \mathbf{2100}$
+    
+    _(El desvío total sigue siendo 15.811 porque la varianza no cambia)._
+    
+
+Estandarizamos:
+
+$$\beta = P\left(Z \le \frac{2026.01 - 2100}{15.811}\right)$$
+
+$$\beta = P\left(Z \le \frac{-73.99}{15.811}\right)$$
+
+$$\beta = P(Z \le -4.68)$$
+
+Buscamos $-4.68$ en la tabla de la Normal (o recordamos que a partir de -3.5 el área es minúscula).
+
+**Respuesta final:** $\beta \approx 0$.
+
+Al mirarlo con la sumatoria, es incluso más gráfico: si tu barrera para rechazar era conseguir 2026 puntos, y la realidad es que el sistema te tira 2100 puntos en promedio, la probabilidad de que justo tengas tan mala suerte de sumar menos de 2026 es nula
