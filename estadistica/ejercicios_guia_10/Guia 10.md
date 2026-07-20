@@ -851,3 +851,7 @@ Como $0 < 0.05$, la decisión estadística es **Rechazar $H_0$**.
 **Conclusión para Vivaldo ("¿Qué debe hacerse?"):**
 
 La evidencia en contra de $H_0$ (Variedad 1) es abrumadora. Las chances de conseguir casi 7 toneladas por hectárea si las semillas fueran malas eran prácticamente de cero. Por lo tanto, Vivaldo debe descartar su sospecha de que lo estafaron y **debe tomar la decisión de seguir comprando** sem
+
+
+
+![[Pasted image 20260720193547.png]]
