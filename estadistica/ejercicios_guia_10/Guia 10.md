@@ -780,3 +780,74 @@ $$\beta = P( Z \le -1.778\sqrt{n} + 1.645 )$$
 $$\beta = \Phi(1.645 - 1.778\sqrt{n})$$
 
 Podés estandarizar con el estadístico que más te guste ($\bar{X}$ o la sumatoria $T$). Como representan el mismo experimento físico (la cosecha de Vivaldo), la probabilidad de equivocarte ($\beta$) tiene que ser idéntica sin importar con qué lupa matemática mires el problema.
+
+
+
+
+
+
+
+Vamos a resolverlo calculando el **p-valor** (o valor $p$).
+
+### Paso 1: Recolectar la información de la muestra empírica
+
+El enunciado nos da los rindes de $n = 10$ hectáreas.
+
+Lo primero que tenemos que hacer es resumir esa muestra. Como en los incisos anteriores vimos que podíamos usar el Promedio ($\bar{X}$) o la Sumatoria ($T$), podemos elegir el que más nos guste. Vamos con el promedio que es el más clásico.
+
+Sumamos los 10 valores:
+
+$$7.36 + 7.62 + 7.02 + 6.99 + 6.66 + 6.74 + 6.25 + 6.41 + 6.91 + 7.11 = 69.07 \text{ toneladas totales}$$
+
+Calculamos el promedio de la muestra ($\bar{x}_{obs}$):
+
+$$\bar{x}_{obs} = \frac{69.07}{10} = \mathbf{6.907 \text{ toneladas/hectárea}}$$
+
+### Paso 2: ¿Qué es el p-valor?
+
+El p-valor es, conceptualmente, hacerle una pregunta al universo de $H_0$:
+
+_"Asumiendo que me mandaste la Variedad 1 ($H_0$ es verdad), ¿cuál era la probabilidad de que, por pura casualidad, yo consiguiera una cosecha tan buena como la que acabo de tener (6.907) o incluso mejor?"_
+
+Matemáticamente, como nuestro test rechaza hacia la derecha (valores grandes nos hacen sospechar de $H_0$), el p-valor se calcula así:
+
+$$\text{p-valor} = P(\bar{X} > 6.907 \mid \mu = 6.2)$$
+
+### Paso 3: Calcular el p-valor
+
+Para resolver esa probabilidad, tenemos que estandarizar nuestro resultado empírico ($6.907$) usando los parámetros de $H_0$:
+
+$$Z_{obs} = \frac{\bar{x}_{obs} - \mu}{\sigma / \sqrt{n}}$$
+
+$$Z_{obs} = \frac{6.907 - 6.2}{0.45 / \sqrt{10}}$$
+
+$$Z_{obs} = \frac{0.707}{0.1423}$$
+
+$$Z_{obs} \approx 4.968$$
+
+Ahora buscamos la probabilidad:
+
+$$\text{p-valor} = P(Z > 4.968)$$
+
+Si vas a la tabla de la Normal Estándar, vas a ver que el gráfico suele terminar en $Z = 3.49$. Un valor de $Z = 4.968$ está exageradamente lejos hacia la derecha en la cola de la campana.
+
+Esto significa que el área a su derecha es prácticamente nula.
+
+$$\text{p-valor} \approx 0$$
+
+### Paso 4: Tomar la decisión
+
+La regla universal del p-valor para decidir en un test de hipótesis es:
+
+- Si $\text{p-valor} < \alpha \implies$ **Rechazo $H_0$**
+    
+- Si $\text{p-valor} \ge \alpha \implies$ **No rechazo $H_0$**
+    
+
+En nuestro diseño (inciso a), Vivaldo había fijado un nivel de exigencia de $\alpha = 0.05$.
+
+Como $0 < 0.05$, la decisión estadística es **Rechazar $H_0$**.
+
+**Conclusión para Vivaldo ("¿Qué debe hacerse?"):**
+
+La evidencia en contra de $H_0$ (Variedad 1) es abrumadora. Las chances de conseguir casi 7 toneladas por hectárea si las semillas fueran malas eran prácticamente de cero. Por lo tanto, Vivaldo debe descartar su sospecha de que lo estafaron y **debe tomar la decisión de seguir comprando** sem
