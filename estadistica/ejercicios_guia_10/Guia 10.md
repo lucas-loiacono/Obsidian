@@ -620,3 +620,27 @@ $$p\text{-valor} = P(Z > 4.968)$$
 Como el p-valor es muchísimo menor que nuestro $\alpha$ ($0.05$), rechazamos categóricamente $H_0$.
 
 **Vivaldo debe quedarse tranquilo, confirmar que le enviaron la Variedad 2, y seguir comprándole a _La porota_.**
+
+
+
+
+
+
+### ¿Cómo funciona la dinámica de este ejercicio completo?
+
+Si mirás la foto "image_0255c4.png" con todos los incisos, vas a notar cómo el autor del problema fue armando una trampa progresiva:
+
+- **Inciso (a) y (b):** Te pide armar la regla del test y calcular el Error Tipo II ($\beta$). Como no tenés idea de cuántas hectáreas plantó, **estás obligado a dejar todo en función de $n$**. Las respuestas de estos dos incisos son fórmulas, no números finales.
+    
+- **Inciso (c):** Te pregunta explícitamente _"¿Cuántas hectáreas deben cultivarse para que $\beta \le 0.1$?"_. Acá es donde agarramos la fórmula que dejaste armada con la $n$ adentro, la igualamos a $0.1$, y usamos álgebra para despejar qué valor de $n$ necesitamos. ¡Para esto servía dejar la letra viva!
+    
+- **Inciso (d):** Recién acá, al final de todo, la historia avanza y te dice _"Vivaldo cultivó 10 hectáreas..."_. En este punto por fin te regalan el dato $n = 10$, y podés reemplazar ese número en tu regla para hacer las cuentas finales.
+    
+
+### La razón matemática (El Error Estándar)
+
+Desde la teoría, cuando hacés un test sobre el promedio de una muestra ($\bar{X}$), la dispersión de ese promedio no es simplemente el desvío de la población ($\sigma$), sino el **Error Estándar**, que se calcula dividiendo por la raíz de la muestra:
+
+$$\text{Error Estándar} = \frac{\sigma}{\sqrt{n}}$$
+
+Como la cantidad de hectáreas ($n$) impacta directamente en qué tan "exacto" es tu promedio muestral, es un parámetro fundamental del test. A mayor muestra (más hectáreas), la curva se hace más finita y es más fácil detectar diferencias. Por eso, no podés ignorar la $n$ al estandarizar tu variable $Z$, y si el enunciado no te la da, la tenés que arrastrar como una incógnita.
