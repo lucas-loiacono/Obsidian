@@ -392,6 +392,132 @@ Entonces, buscar a mano qué números suman $0.05$ en la fila de $p_0$ no es otr
 ![[Pasted image 20260714233749.png]]
 
 
+Los profesores suelen escribir estos enunciados usando términos de la vida real ("comprar", "romperse", "curar", "explotar") justamente para que no sea tan obvio quién es $H_0$ y quién es $\alpha$.
+
+Siempre que te den un ejercicio así, tu primer paso tiene que ser armar un "espejo" entre la fórmula estadística y la frase del enunciado usando la probabilidad condicional.
+
+Funciona como un traductor automático de tres pasos:
+
+### 1. Escribir el "Lado del Negocio" (El enunciado)
+
+Leés el enunciado y traducís lo que pide a una notación condicional simple, sin pensar en hipótesis todavía.
+
+- _Enunciado:_ "probabilidad de seguir comprando... cuando le hayan enviado de la variedad 1 sea 0.05".
+    
+- _Traducción:_ $P(\text{Seguir comprando} \mid \text{Variedad 1}) = 0.05$
+    
+
+### 2. Escribir el "Lado de la Estadística" (La teoría)
+
+Anotás las dos definiciones inquebrantables de los errores en estadística:
+
+- **Error Tipo I ($\alpha$):** $P(\text{Rechazar } H_0 \mid H_0 \text{ es verdadera})$
+    
+- **Error Tipo II ($\beta$):** $P(\text{No rechazar } H_0 \mid H_1 \text{ es verdadera})$
+    
+
+### 3. Hacer el cruce (El "Match")
+
+Ahora simplemente alineás tu enunciado con la fórmula teórica que encaje perfecto. Como el enunciado te está exigiendo clavar una probabilidad desde el **diseño** del test, te está dando tu $\alpha$.
+
+Entonces enfrentás las dos fórmulas:
+
+$$P(\text{Seguir comprando} \mid \text{Variedad 1}) = 0.05$$
+
+$$P(\text{Rechazar } H_0 \mid H_0 \text{ es verdadera}) = \alpha$$
+
+Al mirarlas juntas, el problema se resuelve solo:
+
+- **La Condición (Derecha):** Para que las fórmulas coincidan, el universo "Variedad 1" tiene que ser tu $H_0$. Por lo tanto, $H_0: \mu = 6.2$.
+    
+- **La Acción (Izquierda):** La acción de "Seguir comprando" equivale a "Rechazar $H_0$".
+    
+- **El Nivel de Significación:** $\alpha = 0.05$.
+    
+
+### ¿Por qué esto es tan poderoso?
+
+Porque una vez que hiciste este cruce, el resto del ejercicio es totalmente mecánico.
+
+Como ya sabés que $H_0: \mu = 6.2$ (Variedad 1) y que la alternativa lógica del problema es $H_1: \mu = 7$ (Variedad 2), al ver que $7 > 6.2$, sabés instantáneamente que tu test rechaza hacia la derecha.
+
+Tu regla de decisión genérica queda armada: **"Voy a rechazar $H_0$ (y seguir comprando) si mi promedio muestral $\bar{X}$ es mayor a un valor crítico $k$"**.
+
+Y para calcular ese valor $k$, adiviná qué usás: ¡la misma ecuación condicional que armaste al principio!
+
+$$P(\bar{X} > k \mid \mu = 6.2) = 0.05$$
+
+Estandarizás con la Normal $Z$, buscás en la tabla, despejás $k$, y el diseño del test está terminado sin dudar ni un segundo de tu planteo inicial. Si usás siempre este método de enfrentar el condicional del texto con el condicional de la fórmula, es matemáticamente imposible que definas mal las hipótesis.
+
+
+
+
+
+_"Si Vivaldo compró la Variedad 2 y quiere confirmar que es la Variedad 2, ¡esa debería ser su hipótesis principal!"_.
+
+Pero la estadística no funciona con la intuición humana de "qué es lo que espero que pase", sino con **cuál es el error que quiero controlar desde el diseño**.
+
+Vamos a desarmar el enunciado de la **image_0255c4.png** usando el "machete" de probabilidades condicionadas que veníamos usando. Te prometo que con eso sale solo.
+
+### 1. El diseño manda sobre $\alpha$
+
+En todo test de hipótesis, el único valor que vos fijás "a dedo" desde el principio es el Nivel de Significación ($\alpha$). Es decir, vos armás tu región de rechazo específicamente para garantizar que la probabilidad de cometer el Error Tipo I sea ese número exacto.
+
+El inciso **(a)** te dice: _"Diseñar un test... que garantice... que la probabilidad de seguir comprando... cuando le hayan enviado de la variedad 1 sea 0.05"_.
+
+Como te están pidiendo _diseñar_ el test para clavar una probabilidad en $0.05$, ese $0.05$ tiene que ser obligatoriamente tu $\alpha$.
+
+### 2. El cruce de variables
+
+Escribamos la definición de $\alpha$ y abajo la frase del enunciado:
+
+1. **Definición teórica:** $\alpha = P(\text{Rechazar } H_0 \mid H_0 \text{ es verdadera}) = 0.05$
+    
+2. **Frase del enunciado:** $P(\text{Seguir comprando} \mid \text{Enviaron Variedad 1}) = 0.05$
+    
+
+Si comparás las dos cosas como si fuera un espejo, el mapeo es directo y obligatorio:
+
+- La acción **"Rechazar $H_0$"** equivale a la decisión de **"Seguir comprando"**.
+    
+- El universo **"$H_0$ es verdadera"** equivale al escenario **"Enviaron Variedad 1"**.
+    
+
+¡Ahí está la respuesta matemática! Para que la cuenta del diseño te cierre usando ese 0.05 como tu $\alpha$, no te queda otra opción que definir $H_0: \mu = 6.2$ (Variedad 1).
+
+### ¿Qué pasaría si usás la Variedad 2 como $H_0$?
+
+Hagamos el ejercicio mental de plantearlo al revés, como te dictaba tu intuición:
+
+- $H_0: \mu = 7$ (Me enviaron la Variedad 2).
+    
+- $H_1: \mu = 6.2$ (Me enviaron la Variedad 1).
+    
+
+Si armás el test así, la acción lógica si decidís "No rechazar $H_0$" (te creés que tenés la buena) es **Seguir comprando**.
+
+Ahora volvamos a leer la condición que te pide el problema: _"que la probabilidad de seguir comprando... cuando le hayan enviado de la variedad 1 sea 0.05"_.
+
+En este test invertido, esa probabilidad se escribiría así:
+
+$$P(\text{No rechazar } H_0 \mid H_1 \text{ es verdadera})$$
+
+¿Te suena esa fórmula? ¡Esa es la definición de $\beta$ (Error Tipo II)!
+
+Si plantearas la Variedad 2 como $H_0$, el enunciado te estaría dando el valor de $\beta = 0.05$ de entrada, pero no te estaría dando ningún $\alpha$ para que puedas diseñar la región de rechazo (y encima el inciso **b** te pide calcular $\beta$, así que no puede ser un dato).
+
+### Resumen en términos de "Negocios"
+
+La hipótesis nula ($H_0$) siempre se plantea como "el peor escenario" o "la presunción de inocencia" sobre la cual querés ser muy conservador antes de tomar una acción fuerte.
+
+Vivaldo es desconfiado. Su posición por defecto ($H_0$) es: _"Me estafaron, me mandaron la Variedad 1"_. Él solamente va a tomar la acción fuerte de **Seguir comprando** (Rechazar $H_0$) si la muestra de su cosecha le da un rinde tan alto que le demuestra, con un 95% de seguridad, que la hipótesis de la estafa es insostenible.
+
+
+
+
+
+
+
 El primer desafío (y el más importante) es definir quién es nuestra Hipótesis Nula ($H_0$).
 
 El enunciado dice: _"garantice... que la probabilidad de seguir comprando... cuando le hayan enviado variedad 1 sea 0.05"_.
