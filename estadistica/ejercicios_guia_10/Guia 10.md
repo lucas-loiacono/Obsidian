@@ -644,3 +644,71 @@ Desde la teoría, cuando hacés un test sobre el promedio de una muestra ($\bar{
 $$\text{Error Estándar} = \frac{\sigma}{\sqrt{n}}$$
 
 Como la cantidad de hectáreas ($n$) impacta directamente en qué tan "exacto" es tu promedio muestral, es un parámetro fundamental del test. A mayor muestra (más hectáreas), la curva se hace más finita y es más fácil detectar diferencias. Por eso, no podés ignorar la $n$ al estandarizar tu variable $Z$, y si el enunciado no te la da, la tenés que arrastrar como una incógnita.
+
+
+
+
+
+
+### Paso 1: Definir la nueva variable y sus parámetros
+
+Vamos a definir a nuestra variable $T$ como la **suma total** de los rindes de todas las hectáreas cultivadas:
+
+$$T = \sum_{i=1}^n X_i$$
+
+Como estamos diseñando el test ($\alpha = 0.05$), tenemos que plantarnos bajo el universo donde $H_0$ es verdadera ($\mu = 6.2$ y $\sigma = 0.45$).
+
+Por las propiedades de la suma de variables aleatorias, calculamos la esperanza y el desvío de esta nueva variable $T$:
+
+- **Esperanza total:** $E(T) = n \cdot \mu = n \cdot 6.2 = 6.2n$
+    
+- **Desvío total:** $\sigma_T = \sqrt{n} \cdot \sigma = 0.45\sqrt{n}$
+    
+
+### Paso 2: Plantear la inecuación con el condicional
+
+Como nuestra hipótesis alternativa sigue siendo $H_1: \mu = 7$, sabemos que rindes más altos nos hacen desconfiar de $H_0$. Por lo tanto, rechazaremos $H_0$ si nuestra cosecha total ($T$) supera un cierto límite (valor crítico $k_T$).
+
+Usando el condicional para el $\alpha = 0.05$:
+
+$$P(T > k_T \mid H_0 \text{ es verdadera}) = 0.05$$
+
+### Paso 3: Estandarizar a $Z$ y despejar
+
+Ahora estandarizamos esa inecuación usando los parámetros totales que calculamos en el Paso 1:
+
+$$P\left( Z > \frac{k_T - E(T)}{\sigma_T} \right) = 0.05$$
+
+Reemplazamos con nuestros datos:
+
+$$P\left( Z > \frac{k_T - 6.2n}{0.45\sqrt{n}} \right) = 0.05$$
+
+Como ya sabemos por la tabla Normal, el valor de $Z$ que deja un área de 0.05 hacia la derecha es $1.645$. Entonces igualamos:
+
+$$\frac{k_T - 6.2n}{0.45\sqrt{n}} = 1.645$$
+
+Y ahora simplemente despejamos nuestra incógnita ($k_T$):
+
+$$k_T - 6.2n = 1.645 \cdot 0.45\sqrt{n}$$
+
+$$k_T = 6.2n + 0.74025\sqrt{n}$$
+
+### Regla de Decisión Final (Versión Sumatoria)
+
+**Se rechazará $H_0$ (Vivaldo seguirá comprando) si la sumatoria de las toneladas cosechadas resulta:**
+
+$$\sum X_i > 6.2n + 0.74025\sqrt{n}$$
+
+**La comprobación mágica:** Si te fijás bien, si agarrás la regla de decisión final a la que llegaste vos antes con el promedio ($\bar{X} > 6.2 + \frac{0.74025}{\sqrt{n}}$) y **multiplicás ambos lados de esa inecuación por $n$**, vas a llegar exactamente a esta misma fórmula de la sumatoria. ¡Es la misma regla de rechazo vista con otra lupa!
+
+
+
+### En resumen para los exámenes:
+
+Aunque matemáticamente podés jugar con las escalas (usar el total, usar el promedio, etc.), la regla de oro para no complicarte la vida en los ejercicios es **usar el estadístico natural del parámetro que estás evaluando**:
+
+- Si las hipótesis son sobre la media ($\mu$) $\implies$ Armá el test con el promedio muestral ($\bar{X}$).
+    
+- Si las hipótesis son sobre una proporción ($p$) $\implies$ Armá el test con la proporción muestral ($\hat{p}$).
+    
+- Si las hipótesis son sobre la varianza ($\sigma^2$) $\implies$ Armá el test con la varianza muestral ($S^2$).
