@@ -712,3 +712,71 @@ Aunque matemáticamente podés jugar con las escalas (usar el total, usar el pro
 - Si las hipótesis son sobre una proporción ($p$) $\implies$ Armá el test con la proporción muestral ($\hat{p}$).
     
 - Si las hipótesis son sobre la varianza ($\sigma^2$) $\implies$ Armá el test con la varianza muestral ($S^2$).
+
+
+
+
+## Punto b
+### Paso 1: Traer la regla de decisión de la sumatoria
+
+Antes habíamos calculado que, usando la sumatoria, la regla era **rechazar $H_0$ si:**
+
+$$T > 6.2n + 0.74025\sqrt{n}$$
+
+Por lo tanto, la condición de **No rechazar $H_0$** (que es lo que necesitamos para calcular $\beta$) es la contraria:
+
+$$T \le 6.2n + 0.74025\sqrt{n}$$
+
+### Paso 2: Plantear el nuevo universo ($H_1$) para la sumatoria
+
+Como estamos calculando $\beta$, sabemos que $H_1$ es verdadera, es decir, el rinde real es $\mu = 7$.
+
+¿Qué pasa con nuestra variable $T$ (la suma total) en este nuevo universo?
+
+- Su nueva esperanza es: $E(T) = n \cdot 7 = \mathbf{7n}$
+    
+- Su desvío total sigue siendo: $\sigma_T = \mathbf{0.45\sqrt{n}}$
+    
+
+### Paso 3: Calcular $\beta$ y estandarizar
+
+Planteamos la probabilidad del Error Tipo II:
+
+$$\beta = P(T \le 6.2n + 0.74025\sqrt{n} \mid \mu = 7)$$
+
+Ahora estandarizamos. La fórmula para estandarizar la sumatoria es $Z = \frac{T - E(T)}{\sigma_T}$. Reemplazamos $E(T)$ por el nuevo valor $7n$:
+
+$$\beta = P\left( Z \le \frac{(6.2n + 0.74025\sqrt{n}) - 7n}{0.45\sqrt{n}} \right)$$
+
+### Paso 4: Despeje algebraico
+
+Fijate qué pasa en el numerador cuando juntamos las "$n$" con las "$n$":
+
+$$6.2n - 7n = -0.8n$$
+
+Reescribimos la fracción:
+
+$$\beta = P\left( Z \le \frac{-0.8n + 0.74025\sqrt{n}}{0.45\sqrt{n}} \right)$$
+
+Ahora repartimos el denominador ($0.45\sqrt{n}$) para los dos términos:
+
+$$\beta = P\left( Z \le \frac{-0.8n}{0.45\sqrt{n}} + \frac{0.74025\sqrt{n}}{0.45\sqrt{n}} \right)$$
+
+Simplificamos cada término:
+
+1. En el primer término: $\frac{n}{\sqrt{n}} = \sqrt{n}$. Y la división $-0.8 / 0.45 = -1.778$. Nos queda **$-1.778\sqrt{n}$**.
+    
+2. En el segundo término: Las $\sqrt{n}$ se tachan y $0.74025 / 0.45 = 1.645$. Nos queda **$1.645$**.
+    
+
+Volvemos a armar la inecuación:
+
+$$\beta = P( Z \le -1.778\sqrt{n} + 1.645 )$$
+
+### Conclusión
+
+¡Llegaste a la misma fórmula!
+
+$$\beta = \Phi(1.645 - 1.778\sqrt{n})$$
+
+Podés estandarizar con el estadístico que más te guste ($\bar{X}$ o la sumatoria $T$). Como representan el mismo experimento físico (la cosecha de Vivaldo), la probabilidad de equivocarte ($\beta$) tiene que ser idéntica sin importar con qué lupa matemática mires el problema.
