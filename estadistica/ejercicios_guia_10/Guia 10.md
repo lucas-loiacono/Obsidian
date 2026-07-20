@@ -942,3 +942,7 @@ Buscamos $-4.68$ en la tabla de la Normal (o recordamos que a partir de -3.5 el 
 **Respuesta final:** $\beta \approx 0$.
 
 Al mirarlo con la sumatoria, es incluso más gráfico: si tu barrera para rechazar era conseguir 2026 puntos, y la realidad es que el sistema te tira 2100 puntos en promedio, la probabilidad de que justo tengas tan mala suerte de sumar menos de 2026 es nula
+
+
+
+![[Pasted image 20260720203706.png]]
