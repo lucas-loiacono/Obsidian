@@ -946,3 +946,86 @@ Al mirarlo con la sumatoria, es incluso más gráfico: si tu barrera para rechaz
 
 
 ![[Pasted image 20260720203706.png]]
+
+
+
+¡Vamos a resolver el ejercicio **10.6** de la **image_72fe8b.png**!
+
+Como me comentaste que te resulta más fácil de ver usando la **sumatoria** ($T$), vamos a encararlo directamente por ese camino. ¡Vas a ver que sale rapidísimo aplicando la misma lógica de condicionales!
+
+### Paso 1: Ordenar los datos y armar la sumatoria empírica
+
+- **Población:** Distribución normal con varianza $\sigma^2 = 25 \implies \sigma = 5$.
+    
+- **Muestra:** $n = 36$ varillas.
+    
+- **Nivel de Significación:** $\alpha = 0.05$.
+    
+
+Acá hay un detalle: el enunciado te da como dato empírico el **promedio** de la muestra ($\bar{x}_{obs} = 51.74$). Como nosotros queremos usar la sumatoria total, simplemente lo multiplicamos por la cantidad de varillas:
+
+$$T_{obs} = n \cdot \bar{x}_{obs} = 36 \cdot 51.74 = \mathbf{1862.64 \text{ cm totales}}$$
+
+_(Esa es la longitud real de todas las varillas puestas una al lado de la otra)._
+
+### Paso 2: Plantear las hipótesis
+
+La pregunta del problema es: _"¿se puede garantizar que la longitud media... supera los 50 cm?"_.
+
+Como eso es lo que queremos demostrar, va a nuestra hipótesis alternativa ($H_1$).
+
+- $H_0: \mu = 50$
+    
+- $H_1: \mu > 50$ (Es un test unilateral derecho).
+    
+
+### Paso 3: Preparar el universo de $H_0$ para la sumatoria
+
+Como vamos a calcular el p-valor, necesitamos saber cuáles son las reglas del juego si $H_0$ fuera verdadera ($\mu = 50$).
+
+Calculamos la esperanza y el desvío para nuestra variable $T$ (la suma de 36 varillas):
+
+- **Esperanza Total:** $E(T) = n \cdot \mu = 36 \cdot 50 = \mathbf{1800}$
+    
+- **Desvío Total:** $\sigma_T = \sqrt{n} \cdot \sigma = \sqrt{36} \cdot 5 = 6 \cdot 5 = \mathbf{30}$
+    
+
+### Paso 4: Calcular el p-valor
+
+El p-valor es la probabilidad de que, asumiendo que $H_0$ es cierta, obtengamos de casualidad una sumatoria tan grande o peor que la que observamos en la realidad ($1862.64$).
+
+Planteamos nuestro condicional:
+
+$$\text{p-valor} = P(T > 1862.64 \mid \mu = 50)$$
+
+Estandarizamos usando los parámetros de $H_0$ que calculamos en el Paso 3:
+
+$$\text{p-valor} = P\left(Z > \frac{1862.64 - 1800}{30}\right)$$
+
+$$\text{p-valor} = P\left(Z > \frac{62.64}{30}\right)$$
+
+$$\text{p-valor} = P(Z > 2.088)$$
+
+Buscamos en la tabla Normal el área a la derecha de $2.088$ (podés redondear a $2.09$). El área acumulada a izquierda para $2.09$ es aproximadamente $0.9817$.
+
+Por lo tanto, el área a la derecha es $1 - 0.9817 = 0.0183$.
+
+$$\text{p-valor} = \mathbf{0.0183}$$
+
+### Paso 5: Conclusión y decisión
+
+Ahora comparamos nuestro p-valor con el nivel de significación que nos exigía el problema:
+
+- $\text{p-valor} = 0.0183$
+    
+- $\alpha = 0.05$
+    
+
+Como **$\text{p-valor} < \alpha$**, la decisión estadística es **Rechazar $H_0$**.
+
+**Respuesta a la pregunta del enunciado:**
+
+Sí, se puede garantizar (con un nivel de significación del 0.05) que la longitud media de las varillas supera los 50 cm. La probabilidad de haber conseguido una muestra con varillas tan largas si la máquina estuviera calibrada en 50 cm era de apenas 1.83%, lo cual es evidencia suficiente para afirmar que la media real es mayor.
+
+
+![[Pasted image 20260721204041.png]]
