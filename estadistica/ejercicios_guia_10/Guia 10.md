@@ -1258,3 +1258,79 @@ $$S = \sqrt{3.3045} \approx \mathbf{1.8178}$$
 
 
 ![[Pasted image 20260722150053.png]]
+
+
+En el problema anterior queríamos probar algo sobre el promedio (el **centro** de la campana). En este ejercicio de la **image_1d63bc.png**, el problema no es cuánto llena la máquina en promedio, sino qué tan "desparejo" lo hace. Nos están pidiendo hacer un **Test de Hipótesis para la Varianza (o el desvío)**.
+
+Para esto, la Normal o la $t$ de Student ya no nos sirven, porque la varianza no tiene forma de campana simétrica. Acá hace su entrada triunfal una distribución nueva que se llama **Chi-Cuadrado ($\chi^2$)**.
+
+¡Vamos a armarlo paso a paso! Y cuidado, que este problema trae una trampa mortal con las unidades de medida.
+
+### Paso 1: La trampa de las unidades y la muestra
+
+El enunciado te da la regla de la máquina en **mililitros** (25 ml), pero los datos de la muestra están en **litros** (1.029, 0.943, etc.). Si metés eso así nomás en la fórmula, explota todo.
+
+Vamos a multiplicar todos los datos de la muestra por 1000 para pasar todo a mililitros y trabajar cómodos:
+
+- **Muestra en ml:** 1029, 943, 1071, 986, 962, 995, 991, 1002, 1003, 978.
+    
+
+Ahora necesitamos calcular la Varianza Muestral ($S^2$) de estos 10 números, igual que en el ejercicio de Aparicio (restando el promedio a cada uno, elevando al cuadrado y dividiendo por $n-1$).
+
+- **Promedio ($\bar{x}$):** 996 ml.
+    
+- **Varianza Muestral ($S^2$):** Habiendo hecho la cuenta de las diferencias al cuadrado divididas por 9, nos da **$1246$**.
+    
+
+### Paso 2: Plantear las hipótesis
+
+La máquina es eficaz si el desvío es menor o igual a 25. La pregunta nos pide comprobar _"que la máquina no es eficaz"_. Eso es lo que queremos demostrar, así que va a la alternativa ($H_1$).
+
+Como la estadística para la dispersión trabaja con la varianza ($\sigma^2$), elevamos el desvío límite al cuadrado ($25^2 = 625$):
+
+- $H_0: \sigma^2 = 625$ (Asumimos el límite aceptable).
+    
+- $H_1: \sigma^2 > 625$ (La máquina llena de forma muy despareja, no es eficaz).
+    
+
+### Paso 3: Armar la zona de rechazo (Chi-Cuadrado)
+
+Queremos garantizar el resultado con un nivel de significación de 0.05. Al igual que antes, vamos a plantear nuestro condicional, pero usando el estadístico de Chi-Cuadrado ($\chi^2$):
+
+$$P(\text{Rechazar } H_0 \mid H_0 \text{ es verdadera}) = 0.05$$
+
+$$P(\chi^2_{obs} > k \mid \sigma^2 = 625) = 0.05$$
+
+La tabla de la distribución $\chi^2$, al igual que la de Student, usa grados de libertad ($n - 1 = 9$).
+
+Si buscás en tu tabla de $\chi^2$ con 9 grados de libertad el valor que deja un área de 0.05 a su derecha, vas a encontrar el valor crítico:
+
+**$k = 16.919$**
+
+**Regla de decisión:** Rechazar $H_0$ si nuestro estadístico observado resulta mayor a 16.919.
+
+### Paso 4: Calcular el estadístico observado
+
+Acá es donde aplicamos la fórmula mágica del Chi-Cuadrado para varianzas, que relaciona lo que vimos en la muestra ($S^2$) con lo que dictaba nuestra hipótesis teórica ($\sigma^2$):
+
+$$\chi^2_{obs} = \frac{(n - 1) \cdot S^2}{\sigma^2_{H_0}}$$
+
+Reemplazamos con nuestros datos (acordate que $n-1 = 9$):
+
+$$\chi^2_{obs} = \frac{9 \cdot 1246}{625}$$
+
+$$\chi^2_{obs} = \frac{11214}{625}$$
+
+$$\chi^2_{obs} = 17.9424$$
+
+### Paso 5: Conclusión
+
+Miramos nuestra regla del Paso 3: teníamos que rechazar si superaba el límite de 16.919.
+
+Como **$17.9424 > 16.919$**, caímos en la zona de rechazo.
+
+**Respuesta al enunciado:**
+
+Sí, se rechaza $H_0$. Con un nivel de significación de 0.05, **se puede asegurar que la máquina no es eficaz**.
+
+Los sifones están saliendo demasiado desparejos (tuvimos un desvío muestral de casi 35 ml, lo cual fue suficiente evidencia estadística para probar que la máquina no está cumpliendo el estándar de 25 ml).
