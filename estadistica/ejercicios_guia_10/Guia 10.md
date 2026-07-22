@@ -1420,3 +1420,132 @@ La fórmula es única (acá no se usa la sumatoria total $T$):
 $$\chi^2_{obs} = \frac{(n - 1) \cdot S^2}{\sigma^2_{H_0}}$$
 
 - **¿Qué hace la fórmula?:** Compara directamente la variabilidad de tu muestra real ($S^2$) contra la variabilidad teórica que te exige el problema en la hipótesis ($\sigma^2_{H_0}$). Si tu muestra es mucho más despareja que lo permitido, la división da un número gigante y rechazás la hipótesis.
+
+
+![[Pasted image 20260722175410.png]]
+
+
+
+
+Fijate que el inciso (a) te pide evaluar a la media ($\mu$), y el inciso (b) te pide evaluar el desvío ($\sigma$). ¡Es el combo completo!
+
+Antes de arrancar, tenemos que superar el primer obstáculo: **no nos dieron los 75 datos sueltos, ni nos dieron el desvío muestral ($S$) ya calculado**. En su lugar, nos dieron dos sumatorias extrañas: $\sum w_i = 74.4$ y $\sum w_i^2 = 73.81$.
+
+Para sacar la Varianza Muestral ($S^2$) a partir de esos datos, existe una "fórmula salvavidas" (o fórmula de trabajo) que los profesores adoran poner en los parciales:
+
+$$S^2 = \frac{ \sum w_i^2 - \frac{(\sum w_i)^2}{n} }{n - 1}$$
+
+Reemplazando con nuestros datos ($n = 75$):
+
+$$S^2 = \frac{ 73.81 - \frac{(74.4)^2}{75} }{74}$$
+
+$$S^2 = \frac{ 73.81 - 73.8048 }{74}$$
+
+$$S^2 = \frac{ 0.0052 }{74}$$
+
+$$S^2 \approx 0.00007027$$
+
+_(Esta es la varianza muestral)_
+
+$$S \approx 0.00838$$
+
+_(Este es el desvío muestral, aplicando la raíz cuadrada)_
+
+¡Con estos números en la mano, ya podemos destrozar los dos incisos!
+
+### Inciso (a): Test para la media ($\mu$)
+
+- **La pregunta:** ¿Es el promedio menor a 1 kg? ($H_0: \mu = 1$ contra $H_1: \mu < 1$).
+    
+- **¿Qué usamos?:** Como evaluamos el promedio ($\mu$) y no conocemos el desvío de la población entera, **usamos $t$ de Student**.
+    
+
+Como te gusta usar la **sumatoria total**, vamos a hacerlo así (nuestra suma real observada la da el enunciado: $T_{obs} = 74.4$).
+
+Planteamos el estadístico para la sumatoria:
+
+$$t_{obs} = \frac{T_{obs} - n \cdot \mu_0}{\sqrt{n} \cdot S}$$
+
+$$t_{obs} = \frac{74.4 - (75 \cdot 1)}{\sqrt{75} \cdot 0.00838}$$
+
+$$t_{obs} = \frac{74.4 - 75}{8.66 \cdot 0.00838}$$
+
+$$t_{obs} = \frac{-0.6}{0.07257}$$
+
+$$t_{obs} \approx -8.26$$
+
+**Conclusión del (a):**
+
+El enunciado no te dio un nivel de significación ($\alpha$), pero no hace falta. Un valor de $t = -8.26$ está tan absurdamente a la izquierda en la campana que el p-valor es prácticamente cero.
+
+**Se rechaza $H_0$**. Hay evidencia abrumadora de que la media real es menor a 1 kilo (¡la marca Spiky Milk le está poniendo menos leche a las cajas!).
+
+### Inciso (b): Test para el desvío ($\sigma$)
+
+- **La pregunta:** ¿El desvío es menor a 0.14? ($H_0: \sigma = 0.14$ contra $H_1: \sigma < 0.14$).
+    
+- **¿Qué usamos?:** Como evaluamos la dispersión ($\sigma$), vamos ciegos a **Chi-Cuadrado ($\chi^2$)**.
+    
+
+Acá recordamos que el Chi-Cuadrado trabaja siempre con la varianza (al cuadrado). Así que nuestra hipótesis nula asume que $\sigma^2 = 0.14^2 = 0.0196$.
+
+Planteamos el estadístico de Chi-Cuadrado:
+
+$$\chi^2_{obs} = \frac{(n - 1) \cdot S^2}{\sigma^2_{H_0}}$$
+
+Recordá que $(n-1) \cdot S^2$ es justamente el numerador de la fórmula salvavidas que calculamos al principio (que nos dio $0.0052$):
+
+$$\chi^2_{obs} = \frac{0.0052}{0.0196}$$
+
+$$\chi^2_{obs} \approx 0.2653$$
+
+**Conclusión del (b):**
+
+Si buscás en una tabla Chi-Cuadrado con 74 grados de libertad ($n-1$), lo "normal" es que el resultado dé cerca de 74. Un resultado de $0.2653$ significa que la varianza de la muestra fue ridículamente más chica que lo que proponía $H_0$. El p-valor vuelve a ser prácticamente cero.
+
+**Se rechaza $H_0$**. Hay evidencia suficiente para asegurar que el desvío estándar de las cajas es muchísimo menor a 0.14.
+
+
+
+
+
+# Graficos de las variables
+
+
+Para entender por qué rechazamos tan rápido en el último ejercicio, hay que imaginarse cómo es la "geografía" de cada una de estas distribuciones. Cada distribución tiene un "centro" (lo que es esperable que pase si $H_0$ es verdad) y "colas" (los valores raros).
+
+Vamos a ver cómo funciona el mapa de cada una:
+
+### 1. El mapa de la $t$ de Student (El ejercicio de la media)
+
+La distribución $t$ de Student tiene exactamente la misma forma que la campana de Gauss (la Normal): es perfectamente simétrica.
+
+- **El Centro:** Su centro exacto es **0**. Si tu muestra empírica diera exactamente el mismo promedio que asume tu hipótesis nula ($H_0$), la fórmula te daría $t_{obs} = 0$.
+    
+- **Lo "Normal":** Casi todo lo que pasa por simple casualidad cae entre los valores **-2 y 2**. Si te da 1.5 o -1.8, estás dentro del ruido estadístico aceptable.
+    
+- **Las Fronteras:** Las tablas de los libros de estadística suelen terminar en el número **3** o **4**. Un valor de 3 significa que ya estás en el 0.1% de los casos más raros del universo.
+    
+- **¿Qué pasó en nuestro ejercicio?** Nos dio **-8.26**. ¡Ese número rompió la escala! Imaginate que estás tirando dardos al centro de un tablero (el 0), y de repente un dardo cae a 8 cuadras de distancia. Ya no es casualidad; es evidente que estás apuntando a otro lado (es decir, la media real es otra). Por eso rechazamos directamente sin siquiera mirar la tabla.
+    
+
+### 2. El mapa del Chi-Cuadrado $\chi^2$ (El ejercicio del desvío)
+
+Acá la intuición cambia por completo, porque la distribución Chi-Cuadrado **no es simétrica y no tiene números negativos** (porque estamos hablando de varianzas, que son desvíos elevados al cuadrado, y todo número al cuadrado es positivo).
+
+- **El Inicio:** Arranca en **0** como una pared de ladrillos y se extiende hacia la derecha infinitamente.
+    
+- **El Centro (La clave de todo):** A diferencia de la Student que siempre se centra en 0, la "montaña" de la Chi-Cuadrado se va moviendo dependiendo de la cantidad de datos que tengas. **Su centro esperado es aproximadamente igual a sus grados de libertad ($n - 1$).**
+    
+- **¿Qué pasó en nuestro ejercicio?** Teníamos 75 cajas de leche, por lo tanto nuestros grados de libertad eran **74**. Si la hipótesis de Spiky Milk ($H_0$) hubiera sido cierta, nuestro resultado tendría que haber caído cerquita de la cima de la montaña, es decir, ¡cerca del 74!
+    
+- **El resultado absurdo:** A nosotros la fórmula nos dio **0.26**. Esperábamos un 74 y nos dio un número microscópico casi pegado al cero. Es como si esperaras que un árbol mida 74 metros y de repente mide 26 centímetros. Esa diferencia abismal te grita que la variabilidad de tu muestra es ridículamente más baja que lo que proponía la hipótesis, y por eso se rechaza de inmediato.
+    
+
+### En resumen:
+
+Las tablas que usás (Normal, Student, Chi-Cuadrado) son simplemente mapas geográficos que cubren el "área normal" donde suceden las cosas por casualidad.
+
+Cuando tu fórmula arroja un número que se cae de los bordes de la página de ese mapa (un -8 en Student, o un 0.26 cuando esperabas un 74 en Chi-Cuadrado), significa que la probabilidad de que $H_0$ sea cierta es prácticamente cero. ¡La matemática te está avisando a gritos que tu hipótesis original estaba equivocada!
+
+
