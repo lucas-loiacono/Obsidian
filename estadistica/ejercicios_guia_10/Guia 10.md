@@ -1029,3 +1029,229 @@ Sí, se puede garantizar (con un nivel de significación del 0.05) que la longit
 
 
 ![[Pasted image 20260721204041.png]]
+
+
+¡Excelente! Vamos a resolver el ejercicio **10.7** de la **image_0e71a5.png** siguiendo el método que te resulta más cómodo: usando la **sumatoria total** ($T$) y planteando las probabilidades condicionadas.
+
+Este ejercicio tiene una pequeña "trampa" conceptual respecto a los anteriores, ¡así que viene bárbaro para seguir sumando herramientas!
+
+### Paso 1: Ordenar los datos y armar la sumatoria empírica
+
+- **Población:** Distribución normal con desvío $\sigma = 0.75$.
+    
+- **Muestra:** $n = 53$ mediciones.
+    
+- **Nivel de Significación:** $\alpha = 0.05$.
+    
+
+El enunciado nos da el promedio observado ($\bar{x}_{obs} = 8.616$). Para trabajar con tu método, lo pasamos a la sumatoria total multiplicando por $n$:
+
+$$T_{obs} = n \cdot \bar{x}_{obs} = 53 \cdot 8.616 = \mathbf{456.648}$$
+
+### Paso 2: Plantear las hipótesis (¡Atención acá!)
+
+Fijate cómo está redactado el problema: _"decidir... si hay suficiente evidencia para rechazar la hipótesis $\mu = 8.789$"_.
+
+A diferencia de los ejercicios anteriores donde te decían explícitamente "el productor afirma que es **mayor** a 200" o "¿se puede garantizar que **supera** los 50?", acá **no te dan una dirección**. Solo te preguntan si podés rechazar ese valor exacto.
+
+Cuando pasa esto, estamos frente a un **test bilateral** (o de dos colas). Nos va a parecer sospechoso tanto si la sumatoria da excesivamente grande, como si da excesivamente chica.
+
+- $H_0: \mu = 8.789$
+    
+- $H_1: \mu \neq 8.789$
+    
+
+### Paso 3: Preparar el universo de $H_0$ para la sumatoria
+
+Asumiendo que $H_0$ es verdad ($\mu = 8.789$), calculamos cómo debería comportarse nuestra variable $T$:
+
+- **Esperanza Total:** $E(T) = n \cdot \mu = 53 \cdot 8.789 = \mathbf{465.817}$
+    
+- **Desvío Total:** $\sigma_T = \sqrt{n} \cdot \sigma = \sqrt{53} \cdot 0.75 \approx 7.2801 \cdot 0.75 \approx \mathbf{5.46}$
+    
+
+### Paso 4: Calcular el p-valor
+
+Como nuestro test es bilateral, el p-valor se calcula buscando la probabilidad de caer en el extremo de nuestra muestra observada, y **multiplicándola por 2** (porque tenemos que contemplar la misma probabilidad de error hacia el otro lado de la campana).
+
+Como nuestra sumatoria real ($456.648$) dio menor que la esperanza teórica ($465.817$), miramos hacia la izquierda:
+
+$$\text{p-valor} = 2 \cdot P(T \le 456.648 \mid \mu = 8.789)$$
+
+Estandarizamos usando los parámetros de $H_0$ del Paso 3:
+
+$$\text{p-valor} = 2 \cdot P\left(Z \le \frac{456.648 - 465.817}{5.46}\right)$$
+
+$$\text{p-valor} = 2 \cdot P\left(Z \le \frac{-9.169}{5.46}\right)$$
+
+$$\text{p-valor} = 2 \cdot P(Z \le -1.679)$$
+
+Buscamos el valor de $-1.68$ en la tabla de la Normal Estándar, lo cual nos da un área de **$0.0465$**.
+
+$$\text{p-valor} = 2 \cdot 0.0465$$
+
+$$\text{p-valor} = \mathbf{0.093}$$
+
+### Paso 5: Conclusión y decisión
+
+Regla de oro del p-valor:
+
+- Comparamos nuestro $\text{p-valor}$ ($0.093$) con el $\alpha$ ($0.05$).
+    
+
+Como **$0.093 > 0.05$**, la decisión estadística es **No rechazar $H_0$**.
+
+**Respuesta final:**
+
+El p-valor es $0.093$. Por lo tanto, con un nivel de significación del 0.05, **no hay suficiente evidencia estadística para rechazar la hipótesis** de que la media poblacional es 8.789. La diferencia entre lo que midió James Short y el valor teórico podría deberse simplemente a la fluctuación natural (casualidad) de las 53 mediciones.
+
+
+
+![[Pasted image 20260721234132.png]]
+
+
+
+Lo vamos a plantear directamente usando la **sumatoria total ($T$)** que veníamos usando, pero te aviso desde ya que este problema trae una "trampa" nueva (y muy importante) respecto a los anteriores.
+
+### La trampa: ¿Dónde está $\sigma$?
+
+Si leés el enunciado de nuevo, te dice que la distribución es normal, pero **nunca te da la varianza o el desvío poblacional ($\sigma$)**. En los problemas anteriores te decían "varianza 25" o "desvío 0.45", pero acá te dan solo los 10 tiempos sueltos y arreglate.
+
+Cuando no conocemos el desvío de la población y tenemos que calcularlo a partir de nuestra muestra ($S$), **ya no podemos usar la tabla Normal ($Z$)**. Entra a jugar una tabla nueva que se llama **$t$ de Student**. Funciona igual que la Normal, pero sus colas son un poco más "gordas" para compensar la incertidumbre de no conocer el verdadero desvío.
+
+¡Aclarado esto, vamos a los pasos!
+
+### Paso 1: Recopilar y procesar la muestra empírica
+
+- **Muestra ($n$):** 10 viajes.
+    
+- **Nivel de Significación ($\alpha$):** 0.1
+    
+
+Calculamos nuestra sumatoria real observada sumando los 10 tiempos:
+
+$$T_{obs} = 41.1 + 42.2 + 40.5 + 39.9 + 40.3 + 36.6 + 39.3 + 42.5 + 37.8 + 40.5 = \mathbf{400.7 \text{ minutos}}$$
+
+Como te comentaba antes, necesitamos calcular el desvío estándar de esta muestra ($S$). Para eso calculamos el promedio ($\bar{x} = 40.07$) y aplicamos la fórmula de varianza muestral. Para no aburrirte con las cuentas, el resultado del desvío de esta muestra da:
+
+$$S \approx 1.818$$
+
+### Paso 2: Plantear las hipótesis
+
+Juan sugiere un camino para **reducir** el tiempo. Aparicio por defecto tarda 40 minutos.
+
+- $H_0: \mu = 40$ (El camino nuevo no cambia nada, se tarda lo mismo).
+    
+- $H_1: \mu < 40$ (El camino nuevo sí reduce el tiempo, es un **test unilateral izquierdo**).
+    
+
+### Paso 3: Preparar el universo de $H_0$ para la sumatoria
+
+Bajo el universo de $H_0$ ($\mu = 40$), veamos cómo se debería comportar nuestra suma total de los 10 viajes:
+
+- **Esperanza Total:** $E(T) = n \cdot \mu = 10 \cdot 40 = \mathbf{400 \text{ minutos}}$.
+    
+- **Desvío Total Estimado:** Como no tenemos $\sigma$, usamos nuestro $S$ multiplicado por $\sqrt{n}$:
+    
+    $$S_T = \sqrt{n} \cdot S = \sqrt{10} \cdot 1.818 \approx \mathbf{5.749}$$
+    
+
+### Paso 4: Diseñar la zona de rechazo (con $t$ de Student)
+
+Queremos que nuestro riesgo de error sea del 10%. Como la hipótesis $H_1$ apunta hacia la izquierda (tiempos menores), vamos a rechazar $H_0$ si nuestra suma total da _sospechosamente baja_.
+
+$$P(T < k_T \mid \mu = 40) = 0.1$$
+
+Estandarizamos, pero esta vez a la variable $t$ de Student:
+
+$$P\left(t_{n-1} < \frac{k_T - 400}{5.749}\right) = 0.1$$
+
+La tabla $t$ de Student requiere que le pases los "grados de libertad", que siempre son $n - 1$. En este caso: $10 - 1 = \mathbf{9}$ grados de libertad.
+
+Buscamos en la tabla $t$ con 9 grados de libertad, el valor que deja un área de 0.1 a la izquierda. Ese valor crítico es **$-1.383$**.
+
+Igualamos y despejamos nuestra barrera:
+
+$$\frac{k_T - 400}{5.749} = -1.383$$
+
+$$k_T = 400 - 1.383 \cdot 5.749$$
+
+$$k_T = 400 - 7.95$$
+
+$$k_T = \mathbf{392.05}$$
+
+**Regla de decisión:** Rechazar $H_0$ (confirmar que es más rápido) si la sumatoria de los 10 viajes da menor a 392.05 minutos.
+
+### Paso 5: Conclusión
+
+Miramos nuestro dato empírico del Paso 1: la sumatoria real dio **$400.7$ minutos**.
+
+Como $400.7$ no cae en nuestra zona de rechazo (no es menor a $392.05$), la decisión es **No rechazar $H_0$**.
+
+**Respuesta al enunciado:**
+
+No, con un nivel de significación de 0.1 **no se puede asegurar** que el camino sugerido por Juan sea más rápido. De hecho, si mirás la sumatoria real, en esos 10 viajes Aparicio terminó sumando más minutos (400.7) que lo que hubiese esperado sumar por su camino tradicional (400). ¡La recomendación de Juan no fue estadísticamente buena!
+
+
+
+## como sacar mi *S*
+Como no conocemos el desvío poblacional de todos los viajes posibles de Aparicio, tenemos que "estimarlo" usando únicamente los 10 viajes que tenemos anotados. Eso se llama **Desvío Estándar Muestral ($S$)**.
+
+La fórmula del desvío muestral es:
+
+$$S = \sqrt{ \frac{\sum (x_i - \bar{x})^2}{n - 1} }$$
+
+El detalle más importante acá es que **se divide por $n - 1$** (en este caso por 9) y no por $n$ (10). En estadística esto se hace para corregir un pequeño sesgo al estimar parámetros a partir de muestras chicas.
+
+Veamos el paso a paso de la cuenta con los datos del ejercicio:
+
+### Paso 1: El Promedio ($\bar{x}$)
+
+Ya lo habíamos calculado dividiendo la suma total por 10:
+
+$$\bar{x} = \frac{400.7}{10} = \mathbf{40.07}$$
+
+### Paso 2: Las diferencias al cuadrado
+
+A cada uno de los 10 tiempos le restás el promedio y elevás ese resultado al cuadrado. Esto mide qué tan "lejos" estuvo cada viaje del promedio.
+
+- Viaje 1: $(41.1 - 40.07)^2 = (1.03)^2 = 1.0609$
+    
+- Viaje 2: $(42.2 - 40.07)^2 = (2.13)^2 = 4.5369$
+    
+- Viaje 3: $(40.5 - 40.07)^2 = (0.43)^2 = 0.1849$
+    
+- Viaje 4: $(39.9 - 40.07)^2 = (-0.17)^2 = 0.0289$
+    
+- Viaje 5: $(40.3 - 40.07)^2 = (0.23)^2 = 0.0529$
+    
+- Viaje 6: $(36.6 - 40.07)^2 = (-3.47)^2 = 12.0409$ _(Acá se apuró bastante)_
+    
+- Viaje 7: $(39.3 - 40.07)^2 = (-0.77)^2 = 0.5929$
+    
+- Viaje 8: $(42.5 - 40.07)^2 = (2.43)^2 = 5.9049$
+    
+- Viaje 9: $(37.8 - 40.07)^2 = (-2.27)^2 = 5.1529$
+    
+- Viaje 10: $(40.5 - 40.07)^2 = (0.43)^2 = 0.1849$
+    
+
+Ahora, sumamos todos esos resultados:
+
+$$1.0609 + 4.5369 + ... + 0.1849 = \mathbf{29.741}$$
+
+### Paso 3: Dividir por $n - 1$ (Varianza Muestral)
+
+Agarramos la suma total de las diferencias y la dividimos por $10 - 1 = 9$:
+
+$$S^2 = \frac{29.741}{9} \approx \mathbf{3.3045}$$
+
+### Paso 4: La raíz cuadrada (Desvío Estándar)
+
+Le aplicamos la raíz cuadrada a la varianza para que vuelva a estar en la misma unidad de medida (minutos):
+
+$$S = \sqrt{3.3045} \approx \mathbf{1.8178}$$
+
+¡Ahí lo tenés! Redondeando a tres decimales, llegamos al **$1.818$**.
+
+**Un consejo práctico:** En los parciales nadie te pide que hagas las 10 restas y potencias a mano. Si tu calculadora científica tiene un "Modo Estadístico" (suele llamarse `STAT` o `SD`), podés cargarle la lista de los 10 números y tocando un botón (suele ser `sx` o `xσn-1`) te devuelve directamente este $1.818$. ¡Ahorra muchísimo tiempo y evita errores de tipeo!
