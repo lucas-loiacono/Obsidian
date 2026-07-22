@@ -1334,3 +1334,89 @@ Como **$17.9424 > 16.919$**, caímos en la zona de rechazo.
 Sí, se rechaza $H_0$. Con un nivel de significación de 0.05, **se puede asegurar que la máquina no es eficaz**.
 
 Los sifones están saliendo demasiado desparejos (tuvimos un desvío muestral de casi 35 ml, lo cual fue suficiente evidencia estadística para probar que la máquina no está cumpliendo el estándar de 25 ml).
+
+
+
+
+
+
+
+
+
+# CHI vs Student
+
+El secreto no está en qué datos "conocés", sino en **cuál es el parámetro protagonista de la pregunta del problema**.
+
+Acá te dejo el resumen definitivo para saber qué distribución usar sin fallar nunca:
+
+### 1. Test con "t de Student" (Tu deducción fue perfecta)
+
+- **¿Cuál es la pregunta del problema?:** Querés evaluar el **promedio / media ($\mu$)** (Ej: "¿El camino es más rápido en promedio?").
+    
+- **¿Qué pasa con los datos?:** **NO conocés la varianza de la población ($\sigma^2$)**. Como no tenés ese dato, estás obligado a calcular el desvío de tu pequeña muestra ($S$).
+    
+- **Resumen:** Test sobre la media ($\mu$) con desvío poblacional ($\sigma$) desconocido.
+    
+
+### 2. Test con "Chi-Cuadrado ($\chi^2$)" (Acá corregimos la brújula)
+
+- **¿Cuál es la pregunta del problema?:** No te importa el promedio. Querés evaluar la **varianza / desvío ($\sigma^2$ o $\sigma$)**. El protagonista del test es la dispersión (Ej: "¿La máquina es despareja para llenar los sifones?", "¿Las piezas tienen mucha variabilidad?").
+    
+- **¿Qué pasa con los datos?:** Tu hipótesis ($H_0$ y $H_1$) se plantea con $\sigma^2$ en lugar de $\mu$.
+    
+- **Resumen:** Test específico para evaluar la varianza ($\sigma^2$).
+    
+
+### Y para completar el cuadro...
+
+### 3. Test con "Normal ($Z$)" (Los primeros que hicimos)
+
+- **¿Cuál es la pregunta del problema?:** Querés evaluar el **promedio / media ($\mu$)** (Ej: "¿El rinde de la soja supera las 6.2 toneladas?").
+    
+- **¿Qué pasa con los datos?:** El enunciado **SÍ te regala la varianza de la población ($\sigma^2$)** ("se sabe que por historia el desvío es de 0.45").
+    
+- **Resumen:** Test sobre la media ($\mu$) con desvío poblacional ($\sigma$) conocido.
+    
+
+### El tip de oro:
+
+Cuando leas el enunciado, tu primera pregunta mental tiene que ser: **_"¿Me están preguntando por el promedio de las cosas, o por qué tan desparejas son?"_**.
+
+- Si es por lo desparejas (dispersión), vas ciego a **Chi-Cuadrado**.
+    
+- Si es por el promedio, te fijás si el enunciado te regaló el desvío de la población o si lo tenés que calcular vos a mano con la muestra. Si te lo regaló, usás **Normal**. Si te la tenés que arreglar vos con los datos sueltos, usás **Student**.
+
+
+
+
+
+La $S$ (el desvío de tu muestra) y la $S^2$ (la varianza de tu muestra) **son siempre la misma**. Es un número que sale puramente de tus datos empíricos (restando el promedio, elevando al cuadrado y dividiendo por $n-1$). Tu muestra no sabe qué test vas a hacer después; la muestra es la muestra.
+
+Lo que cambia es **dónde enchufás esa $S$** dependiendo de qué te esté preguntando el enunciado.
+
+A esas "funciones" que me preguntás, en estadística las llamamos **Estadísticos de Prueba**. Son las fórmulas que transforman tus datos sueltos en un número que podés ir a buscar a las tablas. Acá tenés las dos fórmulas definitivas:
+
+### 1. La Función para la $t$ de Student
+
+Usás esta fórmula cuando tu test trata sobre descubrir si el **promedio** ($\mu$) cambió, pero no conocés el desvío original de la población.
+
+Si trabajás con el **promedio de la muestra** ($\bar{X}$):
+
+$$t_{obs} = \frac{\bar{X} - \mu_{H_0}}{S / \sqrt{n}}$$
+
+Si trabajás con la **sumatoria total** ($T$) como veníamos haciendo:
+
+$$t_{obs} = \frac{T_{obs} - n \cdot \mu_{H_0}}{\sqrt{n} \cdot S}$$
+
+- **¿Qué hace la fórmula?:** Mide qué tan lejos quedó tu promedio real ($\bar{X}$) del promedio que asumías en tu hipótesis ($\mu_{H_0}$). Como no tenés el desvío perfecto ($\sigma$), usa tu $S$ como "parche" temporal para armar el error estándar.
+    
+
+### 2. La Función para Chi-Cuadrado ($\chi^2$)
+
+Usás esta fórmula cuando tu test no trata sobre el promedio, sino puramente sobre la **varianza / dispersión** ($\sigma^2$). Querés saber si las cosas están saliendo muy desparejas o muy iguales.
+
+La fórmula es única (acá no se usa la sumatoria total $T$):
+
+$$\chi^2_{obs} = \frac{(n - 1) \cdot S^2}{\sigma^2_{H_0}}$$
+
+- **¿Qué hace la fórmula?:** Compara directamente la variabilidad de tu muestra real ($S^2$) contra la variabilidad teórica que te exige el problema en la hipótesis ($\sigma^2_{H_0}$). Si tu muestra es mucho más despareja que lo permitido, la división da un número gigante y rechazás la hipótesis.
