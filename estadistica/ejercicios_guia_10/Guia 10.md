@@ -1255,3 +1255,6 @@ $$S = \sqrt{3.3045} \approx \mathbf{1.8178}$$
 ¡Ahí lo tenés! Redondeando a tres decimales, llegamos al **$1.818$**.
 
 **Un consejo práctico:** En los parciales nadie te pide que hagas las 10 restas y potencias a mano. Si tu calculadora científica tiene un "Modo Estadístico" (suele llamarse `STAT` o `SD`), podés cargarle la lista de los 10 números y tocando un botón (suele ser `sx` o `xσn-1`) te devuelve directamente este $1.818$. ¡Ahorra muchísimo tiempo y evita errores de tipeo!
+
+
+![[Pasted image 20260722150053.png]]
