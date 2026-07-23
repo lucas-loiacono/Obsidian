@@ -1549,3 +1549,84 @@ Las tablas que usás (Normal, Student, Chi-Cuadrado) son simplemente mapas geogr
 Cuando tu fórmula arroja un número que se cae de los bordes de la página de ese mapa (un -8 en Student, o un 0.26 cuando esperabas un 74 en Chi-Cuadrado), significa que la probabilidad de que $H_0$ sea cierta es prácticamente cero. ¡La matemática te está avisando a gritos que tu hipótesis original estaba equivocada!
 
 
+
+
+![[Pasted image 20260722232129.png]]
+
+
+### 1. Planteo de Hipótesis
+
+Definimos nuestras hipótesis nula (H0​) y alternativa (H1​) respecto a la intensidad (tasa) de la distribución exponencial λ:
+
+- **Hipótesis nula (H0​):** λ⩽0.0005
+    
+- **Hipótesis alternativa (H1​):** λ>0.0005
+    
+
+### 2. Datos y Estadístico de Prueba
+
+Contamos con una muestra de **6** observaciones (n=6). Primero, calculamos la suma total de las duraciones observadas:
+
+S=i=1∑n​Xi​=61+1905+1076+623+33+167=3865
+
+Sabemos que si Xi​∼Exp(λ), entonces la variable transformada T=2λ∑Xi​ sigue una distribución Chi-cuadrado con 2n grados de libertad (χ2n2​).
+
+- **Grados de libertad:** 2n=2⋅6=12
+    
+
+Calculamos el estadístico de prueba observado asumiendo el valor límite de la hipótesis nula (λ0​=0.0005):
+
+Tobs​=2⋅0.0005⋅3865
+
+Tobs​=3.865
+
+### 3. Regla de Decisión y Conclusión
+
+Como la hipótesis alternativa plantea que λ>0.0005 (lo que implica un menor tiempo de duración esperado, ya que la media es 1/λ), la región de rechazo se encuentra en la **cola inferior** de la distribución Chi-cuadrado.
+
+Rechazaremos H0​ si nuestro estadístico es menor al valor crítico de la tabla Chi-cuadrado para un nivel de significación α=0.05 y **12** grados de libertad.
+
+- **Valor crítico:** χ0.05;122​=5.226
+    
+
+**Conclusión:** Como el estadístico observado (3.865) es menor que el valor crítico (5.226), el valor cae dentro de la región de rechazo. Por lo tanto, **sí, los datos permiten refutar la hipótesis nula** con un nivel de significación del **5%**. Existe evidencia estadística para afirmar que λ>0.0005.
+
+### 4. Cálculo del _p-valor_
+
+El _p-valor_ es la probabilidad de obtener un estadístico tan o más extremo (más pequeño, en este caso) que el observado, asumiendo que la hipótesis nula es cierta.
+
+p-valor=P(χ122​<3.865)
+
+Calculando la función de distribución acumulada para la Chi-cuadrado con **12** grados de libertad en el punto **3.865**:
+
+p-valor≈0.0142
+
+Como el _p-valor_ (**0.0142**) es menor que el nivel de significación α (**0.05**), esto confirma nuestra decisión de rechazar la hipótesis nula.
+
+
+
+
+### 1. El multiplicador siempre será $2\lambda$
+
+El **$2$** es una constante matemática inamovible en este procedimiento. Su única función es actuar como un "factor de ajuste" para transformar el parámetro de la distribución original y forzarlo a que valga $1/2$ (que es el requisito obligatorio para que se convierta en una tabla Chi-cuadrado).
+
+**Una pequeña advertencia de notación:**
+
+Esto se cumple siempre y cuando estés trabajando con la intensidad o tasa **$\lambda$**. Algunos libros de estadística plantean el ejercicio usando la media de vida útil, usualmente llamada **$\mu$** o **$\theta$**.
+
+Como la media es la inversa de la intensidad ($\mu = \frac{1}{\lambda}$), si el ejercicio te da la media, la fórmula equivalente sería:
+
+$$\chi^2_{obs} = \frac{2}{\mu} \sum_{i=1}^{n} X_i$$
+
+Como ves, el **2** sigue estando ahí multiplicando a la sumatoria, solo cambia cómo expresas el parámetro.
+
+### 2. Los grados de libertad $\nu$ siempre serán $2n$
+
+Los grados de libertad (que a veces se escriben como $\nu$ o $gl$) **siempre serán exactamente el doble del tamaño de tu muestra**.
+
+- Si tu muestra es de $n = 6$ lámparas, entras a la tabla con $12$.
+    
+- Si tu muestra fuera de $n = 50$ lámparas, entrarías a la tabla con $100$.
+    
+
+Esto es una regla universal para la suma de variables exponenciales transformadas a Chi-cuadrado, porque cada observación $X_i$ individual aporta el equivalente a "2" grados de libertad a esa distribución final.
