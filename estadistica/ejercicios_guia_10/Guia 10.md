@@ -1554,56 +1554,60 @@ Cuando tu fórmula arroja un número que se cae de los bordes de la página de e
 ![[Pasted image 20260722232129.png]]
 
 
+Aquí tienes la resolución paso a paso del ejercicio presentado en la imagen "image_a7fd39.png".
+
 ### 1. Planteo de Hipótesis
 
-Definimos nuestras hipótesis nula (H0​) y alternativa (H1​) respecto a la intensidad (tasa) de la distribución exponencial λ:
+Definimos nuestras hipótesis nula ($H_0$) y alternativa ($H_1$) respecto a la intensidad (tasa) de la distribución exponencial $\lambda$:
 
-- **Hipótesis nula (H0​):** λ⩽0.0005
+- **Hipótesis nula ($H_0$):** $\lambda \leqslant 0.0005$
     
-- **Hipótesis alternativa (H1​):** λ>0.0005
+- **Hipótesis alternativa ($H_1$):** $\lambda > 0.0005$
     
 
 ### 2. Datos y Estadístico de Prueba
 
-Contamos con una muestra de **6** observaciones (n=6). Primero, calculamos la suma total de las duraciones observadas:
+Contamos con una muestra de **6** observaciones ($n = 6$).
 
-S=i=1∑n​Xi​=61+1905+1076+623+33+167=3865
+Primero, calculamos la suma total de las duraciones observadas:
 
-Sabemos que si Xi​∼Exp(λ), entonces la variable transformada T=2λ∑Xi​ sigue una distribución Chi-cuadrado con 2n grados de libertad (χ2n2​).
+$$S = \sum_{i=1}^{n} X_i = 61 + 1905 + 1076 + 623 + 33 + 167 = 3865$$
 
-- **Grados de libertad:** 2n=2⋅6=12
+Sabemos que si $X_i \sim \text{Exp}(\lambda)$, entonces la variable transformada $T = 2\lambda \sum X_i$ sigue una distribución Chi-cuadrado con $2n$ grados de libertad ($\chi^2_{2n}$).
+
+- **Grados de libertad:** $2n = 2 \cdot 6 = 12$
     
 
-Calculamos el estadístico de prueba observado asumiendo el valor límite de la hipótesis nula (λ0​=0.0005):
+Calculamos el estadístico de prueba observado asumiendo el valor límite de la hipótesis nula ($\lambda_0 = 0.0005$):
 
-Tobs​=2⋅0.0005⋅3865
+$$T_{obs} = 2 \cdot 0.0005 \cdot 3865$$
 
-Tobs​=3.865
+$$T_{obs} = 3.865$$
 
 ### 3. Regla de Decisión y Conclusión
 
-Como la hipótesis alternativa plantea que λ>0.0005 (lo que implica un menor tiempo de duración esperado, ya que la media es 1/λ), la región de rechazo se encuentra en la **cola inferior** de la distribución Chi-cuadrado.
+Como la hipótesis alternativa plantea que $\lambda > 0.0005$ (lo que implica un menor tiempo de duración esperado, ya que la media es $1/\lambda$), la región de rechazo se encuentra en la **cola inferior** de la distribución Chi-cuadrado.
 
-Rechazaremos H0​ si nuestro estadístico es menor al valor crítico de la tabla Chi-cuadrado para un nivel de significación α=0.05 y **12** grados de libertad.
+Rechazaremos $H_0$ si nuestro estadístico es menor al valor crítico de la tabla Chi-cuadrado para un nivel de significación $\alpha = 0.05$ y **12** grados de libertad.
 
-- **Valor crítico:** χ0.05;122​=5.226
+- **Valor crítico:** $\chi^2_{0.05; 12} = 5.226$
     
 
-**Conclusión:** Como el estadístico observado (3.865) es menor que el valor crítico (5.226), el valor cae dentro de la región de rechazo. Por lo tanto, **sí, los datos permiten refutar la hipótesis nula** con un nivel de significación del **5%**. Existe evidencia estadística para afirmar que λ>0.0005.
+**Conclusión:**
+
+Como el estadístico observado ($3.865$) es menor que el valor crítico ($5.226$), el valor cae dentro de la región de rechazo. Por lo tanto, **sí, los datos permiten refutar la hipótesis nula** con un nivel de significación del **5%**. Existe evidencia estadística para afirmar que $\lambda > 0.0005$.
 
 ### 4. Cálculo del _p-valor_
 
 El _p-valor_ es la probabilidad de obtener un estadístico tan o más extremo (más pequeño, en este caso) que el observado, asumiendo que la hipótesis nula es cierta.
 
-p-valor=P(χ122​<3.865)
+$$p\text{-valor} = P(\chi^2_{12} < 3.865)$$
 
 Calculando la función de distribución acumulada para la Chi-cuadrado con **12** grados de libertad en el punto **3.865**:
 
-p-valor≈0.0142
+$$p\text{-valor} \approx 0.0142$$
 
-Como el _p-valor_ (**0.0142**) es menor que el nivel de significación α (**0.05**), esto confirma nuestra decisión de rechazar la hipótesis nula.
-
-
+Como el _p-valor_ (**0.0142**) es menor que el nivel de significación $\alpha$ (**0.05**), esto confirma nuestra decisión de rechazar la hipótesis nula.
 
 
 ### 1. El multiplicador siempre será $2\lambda$
@@ -1671,3 +1675,153 @@ $$\chi^2_{obs} = 2n\lambda_0 \bar{X}$$
 
 
 
+
+
+
+![[Pasted image 20260723005523.png]]
+
+
+Aquí tienes la resolución paso a paso del ejercicio presentado en el archivo "image_c1ed46.png".
+
+A diferencia del ejercicio anterior, aquí no tenemos los tiempos exactos de duración, sino datos "censurados" (sabemos que superaron un umbral, pero no por cuánto). Por lo tanto, lo abordaremos a través de la probabilidad del evento observado.
+
+### 1. Planteo de Hipótesis
+
+Queremos poner a prueba la duración media ($\mu$). Sabemos que en una distribución exponencial, la intensidad es la inversa de la media ($\lambda = 1/\mu$).
+
+- **Hipótesis nula ($H_0$):** $\mu \leqslant 55$ horas (lo que implica que $\lambda \geqslant 1/55$)
+    
+- **Hipótesis alternativa ($H_1$):** $\mu > 55$ horas (lo que implica que $\lambda < 1/55$)
+    
+
+### 2. El Evento Observado bajo $H_0$
+
+El experimento consistió en probar 10 lámparas y el evento observado fue que **las 10 superaron las 50 horas**.
+
+Primero, calculamos la probabilidad de que **una sola** lámpara dure más de 50 horas. Esto nos lo da la función de supervivencia de la distribución exponencial:
+
+$$P(X > x) = e^{-\lambda x}$$
+
+$$P(X > 50) = e^{-50\lambda}$$
+
+Para hacer el contraste de hipótesis, evaluamos esta probabilidad en el "peor de los casos" de la hipótesis nula, es decir, el valor límite $\mu = 55$ (o $\lambda = 1/55$):
+
+$$P(X > 50 \mid H_0) = e^{-50 \cdot (1/55)} = e^{-50/55} = e^{-10/11}$$
+
+Como las 10 lámparas son variables independientes, la probabilidad conjunta de que **todas** duren más de 50 horas bajo la hipótesis nula se calcula multiplicando esa probabilidad 10 veces (o elevándola a la 10):
+
+$$P(\text{10 lámparas } > 50 \mid H_0) = \left(e^{-10/11}\right)^{10} = e^{-100/11}$$
+
+### 3. Cálculo del _p-valor_
+
+El _p-valor_ es la probabilidad de observar un resultado tan o más extremo a favor de $H_1$, asumiendo que $H_0$ es cierta. En este diseño, el evento observado (las 10 lámparas aguantando más de 50 horas) concentra toda la probabilidad de la región de rechazo para nuestros datos censurados.
+
+Calculamos el valor numérico:
+
+$$p\text{-valor} = e^{-100/11} \approx 0.0001128$$
+
+### 4. Regla de Decisión y Conclusión
+
+El enunciado nos da un nivel de significación de **$\alpha = 0.05$**.
+
+Comparamos nuestro _p-valor_ con $\alpha$:
+
+$$0.0001128 < 0.05$$
+
+**Conclusión:**
+
+Como el _p-valor_ es estrictamente menor al nivel de significación, **rechazamos la hipótesis nula**. Por lo tanto, con un nivel de significación del 5%, **sí se puede afirmar** que la duración media de cada lámpara del lote es mayor que 55 horas, ya que sería extremadamente improbable ($0.011\%$) obtener una muestra de 10 lámparas que duren tanto si la media real fuera de 55 horas o menos.
+
+
+
+
+
+![[Pasted image 20260723005758.png]]
+
+
+Aquí tienes la resolución paso a paso para diseñar el test de hipótesis planteado en la imagen "image_c3b73d.png".
+
+### 1. Elección del Estadístico de Prueba
+
+Para una muestra aleatoria $X_1, X_2, \dots, X_n$ proveniente de una distribución uniforme $U(0, \theta)$, el mejor estimador (y estadístico suficiente) para el parámetro $\theta$ es el máximo de la muestra, conocido como el mayor estadístico de orden:
+
+$$Y = X_{(n)} = \max(X_1, X_2, \dots, X_n)$$
+
+La función de distribución acumulada de $Y$ es:
+
+$$F_Y(y) = P(Y \leqslant y) = \left( \frac{y}{\theta} \right)^n \quad \text{para } 0 \leqslant y \leqslant \theta$$
+
+### 2. Definición de la Región de Rechazo
+
+Nuestras hipótesis son:
+
+- **$H_0$:** $\theta \leqslant 1$
+    
+- **$H_1$:** $\theta > 1$
+    
+
+Como la hipótesis alternativa plantea valores de $\theta$ mayores a 1, esperaremos observar valores grandes en nuestra muestra. Por lo tanto, rechazaremos $H_0$ si nuestro estadístico máximo supera un cierto valor crítico $c$:
+
+$$\text{Región de Rechazo (RR)} = \{ Y > c \}$$
+
+### 3. Uso del Nivel de Significación ($\alpha$)
+
+El nivel de significación es la máxima probabilidad de cometer un error de Tipo I (rechazar $H_0$ siendo cierta). Este máximo se alcanza en el límite de $H_0$, es decir, asumiendo $\theta = 1$.
+
+$$\alpha = P(Y > c \mid \theta = 1) = 0.05$$
+
+Expresamos esta probabilidad usando la función de distribución:
+
+$$P(Y > c \mid \theta = 1) = 1 - P(Y \leqslant c \mid \theta = 1) = 1 - \left( \frac{c}{1} \right)^n = 1 - c^n$$
+
+Igualamos a $0.05$ y obtenemos nuestra primera ecuación clave:
+
+$$1 - c^n = 0.05 \implies c^n = 0.95$$
+
+### 4. Uso de la Función de Potencia
+
+El enunciado exige que la potencia del test evaluada en $\theta = 1.1$ sea igual a $0.9$. La potencia es la probabilidad de rechazar $H_0$ cuando $H_1$ es cierta:
+
+$$\pi(1.1) = P(Y > c \mid \theta = 1.1) = 0.9$$
+
+Aplicamos nuevamente la función de distribución, pero ahora con $\theta = 1.1$:
+
+$$1 - P(Y \leqslant c \mid \theta = 1.1) = 1 - \left( \frac{c}{1.1} \right)^n = 0.9$$
+
+Sabiendo por el paso anterior que $c^n = 0.95$, sustituimos ese valor en la ecuación:
+
+$$1 - \frac{0.95}{1.1^n} = 0.9$$
+
+### 5. Cálculo del Tamaño de Muestra ($n$) y Valor Crítico ($c$)
+
+Despejamos $1.1^n$:
+
+$$1 - 0.9 = \frac{0.95}{1.1^n}$$
+
+$$0.1 = \frac{0.95}{1.1^n} \implies 1.1^n = \frac{0.95}{0.1}$$
+
+$$1.1^n = 9.5$$
+
+Aplicamos logaritmo natural para despejar $n$:
+
+$$n \ln(1.1) = \ln(9.5)$$
+
+$$n = \frac{\ln(9.5)}{\ln(1.1)} \approx \frac{2.25129}{0.09531} \approx 23.62$$
+
+Dado que el tamaño de muestra $n$ debe ser un número entero, **redondeamos hacia arriba** a $n = 24$ para garantizar que la potencia cumpla con ser _al menos_ $0.9$.
+
+Ahora, calculamos el valor crítico $c$ usando $n = 24$:
+
+$$c^{24} = 0.95$$
+
+$$c = \sqrt[24]{0.95} \approx 0.99787$$
+
+### Diseño Final del Test
+
+Para cumplir con las condiciones solicitadas en el problema, el test de hipótesis debe diseñarse de la siguiente manera:
+
+1. Tomar una muestra aleatoria de tamaño **$n = 24$**.
+    
+2. Buscar el valor máximo de esa muestra, $X_{(24)}$.
+    
+3. **Rechazar $H_0$** si el valor máximo observado es mayor a **$0.99787$**.
