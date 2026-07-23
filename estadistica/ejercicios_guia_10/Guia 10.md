@@ -1825,3 +1825,89 @@ Para cumplir con las condiciones solicitadas en el problema, el test de hipótes
 2. Buscar el valor máximo de esa muestra, $X_{(24)}$.
     
 3. **Rechazar $H_0$** si el valor máximo observado es mayor a **$0.99787$**.
+
+
+
+
+
+
+
+
+![[Pasted image 20260723012442.png]]
+
+
+
+
+Aquí tienes la resolución del ejercicio presentado en la imagen "image_c4985d.png".
+
+Este es un problema muy interesante porque se puede resolver tanto desde la formalidad del test de hipótesis como desde la lógica pura del dominio de la variable.
+
+### 1. Parámetros e Hipótesis
+
+Primero, definimos la distribución y relacionamos el parámetro $\theta$ con la media poblacional ($\mu$), que es sobre lo que recae la pregunta.
+
+- **Variable aleatoria:** $X \sim U(15, 15 + \theta)$
+    
+- **Media de una Uniforme:** $\mu = E(X) = \frac{\text{límite inferior} + \text{límite superior}}{2}$
+    
+    $$\mu = \frac{15 + (15 + \theta)}{2} = 15 + \frac{\theta}{2}$$
+    
+
+El enunciado pregunta si _se puede afirmar_ que la longitud media es menor que 20 metros. Lo que queremos probar siempre va en la hipótesis alternativa ($H_1$).
+
+Planteamos las hipótesis en función de $\mu$ y luego las traducimos a $\theta$:
+
+- **Hipótesis alternativa ($H_1$):** $\mu < 20$
+    
+    $$15 + \frac{\theta}{2} < 20 \implies \frac{\theta}{2} < 5 \implies \theta < 10$$
+    
+- **Hipótesis nula ($H_0$):** $\mu \geqslant 20$
+    
+    $$\theta \geqslant 10$$
+    
+
+### 2. Análisis Directo por Dominio (La forma rápida)
+
+Antes de hacer cuentas complejas, miremos los datos muestrales: la muestra de $n = 4$ arrojó un valor máximo observado de **25 metros** ($X_{(4)} = 25$).
+
+Por definición de la distribución uniforme $U(15, 15 + \theta)$, **ningún** valor de la variable puede superar el límite superior. Es decir, para cualquier observación $x$, se debe cumplir:
+
+$$x \leqslant 15 + \theta$$
+
+Si observamos un rollo de 25 metros, entonces es físicamente imposible que el límite superior sea menor a 25:
+
+$$25 \leqslant 15 + \theta \implies 10 \leqslant \theta$$
+
+Como la muestra nos demuestra irrefutablemente que **$\theta \geqslant 10$**, la hipótesis alternativa ($H_1: \theta < 10$) queda descartada de inmediato. La probabilidad de que $\theta < 10$ dado un dato de 25 metros es cero.
+
+### 3. Resolución Formal del Test de Hipótesis
+
+Para demostrarlo con el procedimiento estadístico formal requerido:
+
+Como queremos probar que $\theta < 10$, esperaremos valores pequeños en nuestra muestra para rechazar $H_0$. Por ende, la región de rechazo (RR) estará en la cola inferior del estadístico máximo $X_{(n)}$:
+
+$$\text{RR} = \{ X_{(4)} < c \}$$
+
+Calculamos el valor crítico $c$ usando el nivel de significación $\alpha = 0.01$ y evaluando en el peor caso de $H_0$ ($\theta = 10$). Si $\theta = 10$, la distribución es $U(15, 25)$.
+
+$$\alpha = P(X_{(4)} < c \mid \theta = 10) = 0.01$$
+
+Utilizamos la función de distribución acumulada para el máximo estadístico de orden en una uniforme $[A, B]$, que es $F(x) = \left(\frac{x - A}{B - A}\right)^n$:
+
+$$\left( \frac{c - 15}{25 - 15} \right)^4 = 0.01$$
+
+$$\left( \frac{c - 15}{10} \right)^4 = 0.01$$
+
+Despejamos $c$:
+
+$$\frac{c - 15}{10} = \sqrt[4]{0.01} \approx 0.3162$$
+
+$$c - 15 = 3.162 \implies c = 18.162$$
+
+**Región de Rechazo:** $\{ X_{(4)} < 18.162 \}$
+
+Nuestro estadístico observado fue **25**. Como $25 \nless 18.162$, no cae en la región de rechazo.
+
+### Conclusión
+
+**No**, no se puede afirmar que la longitud media de los rollos del lote sea menor a 20 metros. De hecho, la evidencia de haber encontrado un rollo de 25 metros hace que sea teóricamente imposible que la media poblacional sea menor a 20 bajo este modelo uniforme.
