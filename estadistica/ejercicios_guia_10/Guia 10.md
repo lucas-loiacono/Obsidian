@@ -1948,3 +1948,102 @@ Cualquier afirmación sobre $\mu$ repercute automáticamente sobre $\theta$. Dec
 **En resumen:**
 
 Pasamos todo a $\theta$ porque es el engranaje que hace funcionar las fórmulas de la distribución Uniforme. La $\mu$ es simplemente la forma en la que el enunciado te planteó la pregunta, pero no nos sirve operativamente para calcular el estadístico.
+
+
+
+![[Pasted image 20260723014310.png]]
+
+
+
+Acá tenés la resolución paso a paso del ejercicio planteado en la imagen "image_cf2024.png".
+
+Al igual que en el ejercicio anterior, el enunciado nos hace una pregunta sobre la media poblacional, pero la función de densidad depende del parámetro $\theta$. El primer paso fundamental es encontrar cómo se relacionan.
+
+### 1. Esperanza Matemática (Media) en función de $\theta$
+
+Calculamos la media teórica $\mu = E(X)$ integrando la variable multiplicada por su función de densidad en todo su dominio $[0, \theta]$:
+
+$$\mu = \int_{0}^{\theta} x \cdot f_\theta(x) \, dx = \int_{0}^{\theta} x \cdot \frac{3x^2}{\theta^3} \, dx$$
+
+$$\mu = \int_{0}^{\theta} \frac{3x^3}{\theta^3} \, dx = \left[ \frac{3x^4}{4\theta^3} \right]_{0}^{\theta} = \frac{3\theta^4}{4\theta^3}$$
+
+$$\mu = \frac{3}{4}\theta$$
+
+### 2. Planteo de Hipótesis
+
+El enunciado pide testear la hipótesis de que la media de $X$ es mayor que $1.2$. Esto va en la hipótesis alternativa ($H_1$):
+
+- **$H_1$ (en función de $\mu$):** $\mu > 1.2$
+    
+    Reemplazamos con la equivalencia que encontramos recién para traducirlo a $\theta$:
+    
+    $$\frac{3}{4}\theta > 1.2 \implies \theta > \frac{1.2 \cdot 4}{3} \implies \theta > 1.6$$
+    
+
+Entonces, nuestras hipótesis de trabajo formales son:
+
+- **Hipótesis Nula ($H_0$):** $\theta \leqslant 1.6$
+    
+- **Hipótesis Alternativa ($H_1$):** $\theta > 1.6$
+    
+
+### 3. Diseño del Test y Región de Rechazo
+
+Como disponemos de una muestra de tamaño $n=1$, nuestro estadístico de prueba es simplemente la única observación obtenida: $X$.
+
+Dado que $H_1$ plantea valores grandes de $\theta$ ($\theta > 1.6$), es esperable que observemos valores de $X$ más grandes. Por lo tanto, rechazaremos $H_0$ si nuestro dato supera un cierto valor crítico $c$:
+
+$$\text{Región de Rechazo (RR)} = \{ X > c \}$$
+
+### 4. Cálculo del Valor Crítico ($c$)
+
+Utilizamos el nivel de significación $\alpha = 0.1$ evaluado en el límite de la hipótesis nula ($\theta = 1.6$):
+
+$$\alpha = P(X > c \mid \theta = 1.6) = 0.1$$
+
+Primero, deducimos la función de distribución acumulada de $X$:
+
+$$F_\theta(x) = \int_{0}^{x} \frac{3t^2}{\theta^3} \, dt = \frac{x^3}{\theta^3} \quad \text{para } 0 \leqslant x \leqslant \theta$$
+
+Planteamos la ecuación para el nivel de significación usando el complemento:
+
+$$P(X > c \mid \theta=1.6) = 1 - P(X \leqslant c \mid \theta=1.6) = 1 - \frac{c^3}{1.6^3} = 0.1$$
+
+$$0.9 = \frac{c^3}{1.6^3}$$
+
+$$c^3 = 0.9 \cdot 1.6^3 = 0.9 \cdot 4.096 = 3.6864$$
+
+$$c = \sqrt[3]{3.6864} \approx 1.5448$$
+
+**El test diseñado es:** Tomar una observación de $X$. Si **$X > 1.5448$**, se rechaza $H_0$.
+
+### 5. Función de Potencia
+
+La función de potencia, $\pi(\theta)$, es la probabilidad de rechazar $H_0$ para cualquier valor genérico de $\theta$:
+
+$$\pi(\theta) = P(X > c \mid \theta)$$
+
+Acá hay que tener cuidado con el dominio. Como $X$ no puede tomar valores mayores a $\theta$ (por definición de la función indicadora), si $\theta$ resulta ser menor o igual a nuestro valor crítico $c$, es imposible rechazar $H_0$.
+
+Por lo tanto, la función se define a tramos:
+
+- Si $\theta \leqslant c$: Es imposible observar $X > c$. La probabilidad es $0$.
+    
+- Si $\theta > c$: Aplicamos la función de distribución: $1 - F_\theta(c) = 1 - \frac{c^3}{\theta^3}$.
+    
+
+Reemplazando con nuestro valor $c^3 = 3.6864$, la función queda:
+
+$$\pi(\theta) = \begin{cases} 0 & \text{si } 0 < \theta \leqslant 1.5448 \\ 1 - \frac{3.6864}{\theta^3} & \text{si } \theta > 1.5448 \end{cases}$$
+
+### 6. Gráfico de la Función de Potencia
+
+Al graficar $\pi(\theta)$ en el eje Y respecto a $\theta$ en el eje X, se observa el siguiente comportamiento:
+
+1. **Tramo nulo:** Desde el origen ($\theta = 0$) hasta el valor crítico ($\theta \approx 1.5448$), la gráfica es una línea horizontal plana apoyada sobre el eje X (vale $0$).
+    
+2. **Crecimiento:** A partir de $\theta = 1.5448$, la curva empieza a subir gradualmente.
+    
+3. **Punto clave (Significación):** Cuando la curva pasa exactamente por $\theta = 1.6$, el valor en el eje Y es exactamente nuestro $\alpha = 0.1$.
+    
+4. **Asíntota:** A medida que $\theta$ se hace cada vez más grande ($\theta \to \infty$), el término $\frac{3.6864}{\theta^3}$ tiende a $0$, por lo que la curva se va acercando asintóticamente a $1$, lo que indica que el test es cada vez más potente (seguro de rechazar) cuanto más se aleja $\theta$ de la hipótesis nula.
