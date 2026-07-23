@@ -1911,3 +1911,40 @@ Nuestro estadístico observado fue **25**. Como $25 \nless 18.162$, no cae en la
 ### Conclusión
 
 **No**, no se puede afirmar que la longitud media de los rollos del lote sea menor a 20 metros. De hecho, la evidencia de haber encontrado un rollo de 25 metros hace que sea teóricamente imposible que la media poblacional sea menor a 20 bajo este modelo uniforme.
+
+
+
+
+
+## Por que no uso a $\mu$
+
+Es una excelente pregunta conceptual. La razón principal es que **$\theta$ es el parámetro que define la estructura matemática de la distribución**, mientras que **$\mu$ (la media) es solo una consecuencia** de ese parámetro.
+
+Aquí te detallo por qué es necesario hacer ese cambio:
+
+### 1. Las fórmulas necesitan los límites
+
+Todas las fórmulas de probabilidad que usamos para este ejercicio (como la función de distribución acumulada del máximo que vimos recién) funcionan usando los extremos de la distribución Uniforme: el límite inferior ($A$) y el límite superior ($B$).
+
+En el modelo que plantea este problema:
+
+- $A = 15$
+    
+- $B = 15 + \theta$
+    
+
+La media ($\mu$) te indica dónde está el "centro" geométrico de los datos, pero no podés enchufarla directamente en la fórmula de la función de distribución $F(x)$. Para poder hacer las cuentas probabilísticas y hallar la región de rechazo, **necesitamos obligatoriamente usar $\theta$** para saber dónde termina exactamente la curva.
+
+### 2. La "traducción" de la hipótesis
+
+El enunciado, para plantear el problema en términos prácticos, te pregunta sobre la media ($\mu < 20$). Pero como nosotros operamos con la estructura de la distribución, hacemos una equivalencia o "traducción matemática".
+
+Dado que la relación entre ambas está fija por la geometría de la distribución uniforme:
+
+$$\mu = 15 + \frac{\theta}{2}$$
+
+Cualquier afirmación sobre $\mu$ repercute automáticamente sobre $\theta$. Decir "la media poblacional es menor a 20" ($\mu < 20$) es exactamente lo mismo que decir "el límite superior de mi distribución se extiende menos de 10 unidades desde el 15" ($\theta < 10$).
+
+**En resumen:**
+
+Pasamos todo a $\theta$ porque es el engranaje que hace funcionar las fórmulas de la distribución Uniforme. La $\mu$ es simplemente la forma en la que el enunciado te planteó la pregunta, pero no nos sirve operativamente para calcular el estadístico.
