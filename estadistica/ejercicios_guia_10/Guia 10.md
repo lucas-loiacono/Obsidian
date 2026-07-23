@@ -1630,3 +1630,44 @@ Los grados de libertad (que a veces se escriben como $\nu$ o $gl$) **siempre ser
     
 
 Esto es una regla universal para la suma de variables exponenciales transformadas a Chi-cuadrado, porque cada observación $X_i$ individual aporta el equivalente a "2" grados de libertad a esa distribución final.
+
+
+
+
+
+
+
+# La Relación entre Sumatoria y Promedio
+
+Sabemos que el promedio muestral se calcula dividiendo la sumatoria de todos los valores por la cantidad de datos ($n$):
+
+$$\bar{X} = \frac{\sum_{i=1}^{n} X_i}{n}$$
+
+Si de ahí despejamos la sumatoria, nos queda:
+
+$$\sum_{i=1}^{n} X_i = n \cdot \bar{X}$$
+
+### La Fórmula Adaptada
+
+Si tomamos nuestra fórmula original del estadístico de prueba y reemplazamos la sumatoria por su equivalente ($n \cdot \bar{X}$), obtenemos la versión para el promedio:
+
+$$\chi^2_{obs} = 2\lambda_0 (n \cdot \bar{X})$$
+
+Que, reordenando los factores, suele escribirse así:
+
+$$\chi^2_{obs} = 2n\lambda_0 \bar{X}$$
+
+### Conclusión Práctica
+
+- **El resultado final:** El valor numérico de $\chi^2_{obs}$ te va a dar exactamente igual uses la fórmula que uses. Es solo un camino distinto para llegar al mismo número.
+    
+- **Los grados de libertad:** Tampoco cambian en absoluto. Entras a la tabla de Chi-cuadrado con **$2n$** grados de libertad, igual que antes.
+    
+- **¿Cuál conviene usar?** Depende exclusivamente de cómo te presenten el enunciado:
+    
+    - Si te dan la lista cruda de números (como en la imagen), usas la **sumatoria** porque es más rápido sumar y listo.
+        
+    - Si el enunciado te dice algo como _"se analizó una muestra de 6 lámparas y su duración promedio fue de 644.16 horas"_, usas la fórmula del **promedio** ($\bar{X}$) directamente.
+
+
+
