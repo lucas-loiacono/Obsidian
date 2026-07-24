@@ -2170,3 +2170,116 @@ Como la cantidad de personas no puede tener decimales, trasladamos este límite 
 
 
 ![[Pasted image 20260723220138.png]]
+
+
+
+Queda fijado el método de la sumatoria para este y los próximos ejercicios.
+
+Aquí tienes la resolución del ejercicio 10.18 estructurada completamente desde el enfoque de la sumatoria ($X$), que representa la cantidad total de tostadas que caen del lado del dulce.
+
+
+
+### Interpretación de la Ley de Murphy
+
+Primero, debemos traducir el enunciado de la ley a lenguaje matemático. Si definimos a $p$ como la probabilidad de que la tostada caiga del lado del dulce, la ley dice que esta probabilidad es _mayor_ que la probabilidad de que caiga del lado del pan ($1 - p$).
+
+$$p > 1 - p \implies 2p > 1 \implies p > 0.5$$
+
+
+### Interpretación de la Ley de Murphy
+
+Si definimos a $p$ como la probabilidad de que una tostada caiga del lado del dulce, la ley indica que $p > 0.5$.
+
+- **Hipótesis Nula ($H_0$):** $p \leqslant 0.5$
+    
+- **Hipótesis Alternativa ($H_1$):** $p > 0.5$
+    
+
+### Parte (a): Análisis del experimento
+
+Definimos nuestra variable $X = \sum_{i=1}^{1000} X_i$ como el número total de tostadas que caen del lado del dulce en una muestra de $n = 1000$.
+
+Bajo el caso límite de la hipótesis nula ($p_0 = 0.5$), calculamos los parámetros de la distribución Normal aproximada para la sumatoria:
+
+- **Media esperada ($\mu$):** $n \cdot p_0 = 1000 \cdot 0.5 = 500$
+    
+- **Varianza ($\sigma^2$):** $n \cdot p_0 \cdot (1 - p_0) = 1000 \cdot 0.5 \cdot 0.5 = 250$
+    
+- **Desvío estándar ($\sigma$):** $\sqrt{250} \approx 15.8114$
+    
+
+El experimento arrojó una sumatoria observada de $X_{obs} = 540$. Calculamos el estadístico de prueba asintótico:
+
+$$Z_{obs} = \frac{X_{obs} - \mu}{\sigma} = \frac{540 - 500}{15.8114} = \frac{40}{15.8114} \approx 2.53$$
+
+Calculamos el **p-valor** ($P(Z > 2.53)$) buscando en la tabla Normal Estándar:
+
+$$p\text{-valor} \approx 1 - 0.9943 = 0.0057$$
+
+**Conclusión (a):**
+
+Como el _p-valor_ ($0.57\%$) es muy pequeño, se rechaza $H_0$. El experimento demuestra con alta significación que la cantidad total de tostadas que caen del lado del dulce supera ampliamente lo esperable por azar, confirmando la Ley de Murphy.
+
+### Parte (b): Cálculo del tamaño de muestra ($n$) por sumatoria
+
+El comité establece dos condiciones que nos obligan a buscar un valor crítico $c$ (la cantidad de tostadas límite para rechazar $H_0$) y un tamaño de muestra $n$.
+
+Nuestra regla de rechazo será: **Rechazar $H_0$ si $X > c$**.
+
+**Condición (i) - Control de Error Tipo I ($\alpha \leqslant 0.01$):**
+
+Si la ley es falsa ($p_0 = 0.5$), la probabilidad de que la sumatoria $X$ supere a $c$ debe ser $0.01$. En la tabla normal, esto corresponde a un $Z$ de $2.326$.
+
+Planteamos la tipificación de la sumatoria igualada a ese Z:
+
+$$\frac{c - n(0.5)}{\sqrt{n \cdot 0.5 \cdot 0.5}} = 2.326$$
+
+Despejamos el valor crítico $c$:
+
+$$c - 0.5n = 2.326 \cdot \sqrt{0.25n}$$
+
+$$c = 0.5n + 2.326 \cdot 0.5\sqrt{n}$$
+
+**[Ecuación 1]:** $c = 0.5n + 1.163\sqrt{n}$
+
+**Condición (ii) - Control de Potencia ($1 - \beta \geqslant 0.95$):**
+
+Si la ley es cierta con $p_1 = 0.6$, la probabilidad de que $X$ supere a $c$ debe ser $0.95$ (lo que deja un error $\beta = 0.05$ en la cola inferior). En la tabla normal, el valor Z que deja un área de $0.05$ por debajo es $-1.645$.
+
+$$\frac{c - n(0.6)}{\sqrt{n \cdot 0.6 \cdot 0.4}} = -1.645$$
+
+Despejamos el valor crítico $c$:
+
+$$c - 0.6n = -1.645 \cdot \sqrt{0.24n}$$
+
+$$c = 0.6n - 1.645 \cdot 0.4899\sqrt{n}$$
+
+**[Ecuación 2]:** $c = 0.6n - 0.8059\sqrt{n}$
+
+**Resolución del sistema de ecuaciones:**
+
+Como ambas ecuaciones definen el mismo valor crítico límite $c$, las igualamos:
+
+$$0.5n + 1.163\sqrt{n} = 0.6n - 0.8059\sqrt{n}$$
+
+Agrupamos las $n$ de un lado y las $\sqrt{n}$ del otro:
+
+$$1.163\sqrt{n} + 0.8059\sqrt{n} = 0.6n - 0.5n$$
+
+$$1.9689\sqrt{n} = 0.1n$$
+
+Dividimos ambos lados por $\sqrt{n}$:
+
+$$1.9689 = 0.1\sqrt{n}$$
+
+$$\sqrt{n} = \frac{1.9689}{0.1} = 19.689$$
+
+Elevamos al cuadrado para obtener $n$:
+
+$$n = (19.689)^2 \approx 387.65$$
+
+**Conclusión (b):**
+
+Redondeando hacia arriba para no quedarnos cortos con las probabilidades, el comité debe decretar que hay que arrojar **$n = 388$ tostadas**.
+
+_(Nota adicional: Si reemplazamos $n = 388$ en cualquiera de las ecuaciones de $c$, sabríamos que la regla exacta que debería publicar el comité es: "Tirar 388 tostadas y confirmar la ley solo si la sumatoria de tostadas del lado del dulce es mayor o igual a 217")._
