@@ -2047,3 +2047,39 @@ Al graficar $\pi(\theta)$ en el eje Y respecto a $\theta$ en el eje X, se observ
 3. **Punto clave (Significación):** Cuando la curva pasa exactamente por $\theta = 1.6$, el valor en el eje Y es exactamente nuestro $\alpha = 0.1$.
     
 4. **Asíntota:** A medida que $\theta$ se hace cada vez más grande ($\theta \to \infty$), el término $\frac{3.6864}{\theta^3}$ tiende a $0$, por lo que la curva se va acercando asintóticamente a $1$, lo que indica que el test es cada vez más potente (seguro de rechazar) cuanto más se aleja $\theta$ de la hipótesis nula.
+
+
+
+# Paso de $\mu$ a $\theta$ 
+
+
+
+La razón principal es muy similar a lo que ocurre con la distribución uniforme: **la fórmula matemática que define las probabilidades depende exclusivamente de $\theta$**.
+
+Aquí te detallo los motivos fundamentales por los que tenés que hacer esa "traducción" de $\mu$ a $\theta$:
+
+### 1. La función de densidad no conoce a $\mu$
+
+Si observás la función que te da el ejercicio en la imagen:
+
+$$f_\theta(x) = \frac{3x^2}{\theta^3}$$
+
+Ahí adentro no aparece ninguna $\mu$. La letra $\theta$ es el único "parámetro" real de esta distribución. Es la variable que controla qué tan alta es la curva y, lo más importante, dónde termina su dominio (fijate que el intervalo es $0 \leqslant x \leqslant \theta$).
+
+Para poder hacer cualquier cálculo de probabilidad (como hallar $\alpha$ o la función de potencia), tenés que integrar esa función, y para integrarla necesitás obligatoriamente tener un valor o una condición para $\theta$.
+
+### 2. Necesitás un número para reemplazar en la fórmula
+
+Para diseñar el test con un nivel de significación de **0.1**, tenés que evaluar la probabilidad en el "peor caso" de la hipótesis nula.
+
+Si dejabas tu hipótesis escrita como $\mu = 1.2$, no tenías forma de meter ese **1.2** adentro de la función $f_\theta(x)$ para hacer las cuentas.
+
+Al deducir matemáticamente que $\mu = \frac{3}{4}\theta$, descubriste que plantear $\mu = 1.2$ es exactamente lo mismo que plantear $\theta = 1.6$. Recién al obtener ese **1.6**, ganaste un número válido que podés reemplazar donde dice $\theta$ en tu fórmula de probabilidad para despejar el valor crítico.
+
+### 3. La media es una consecuencia, no el motor
+
+En muchas distribuciones (como la Normal), la media ($\mu$) es directamente uno de los parámetros de la fórmula. Cuando eso pasa, trabajás directo con $\mu$.
+
+Pero en distribuciones como esta genérica, o la Uniforme, o la Exponencial, la media es solo una consecuencia geométrica del parámetro principal. El enunciado te hace la pregunta en términos de $\mu$ porque es más intuitivo a nivel práctico ("¿el promedio es mayor a 1.2?"), pero te obliga a traducirlo al "idioma de la fórmula" ($\theta$) para poder operarlo.
+
+**En conclusión:** Pasás tu $\mu$ a $\theta$ porque $\theta$ es la única "llave" compatible que hace funcionar las integrales y ecuaciones de esta distribución en particular.
