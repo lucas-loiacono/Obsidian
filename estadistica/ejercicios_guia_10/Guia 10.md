@@ -2282,4 +2282,238 @@ $$n = (19.689)^2 \approx 387.65$$
 
 Redondeando hacia arriba para no quedarnos cortos con las probabilidades, el comité debe decretar que hay que arrojar **$n = 388$ tostadas**.
 
-_(Nota adicional: Si reemplazamos $n = 388$ en cualquiera de las ecuaciones de $c$, sabríamos que la regla exacta que debería publicar el comité es: "Tirar 388 tostadas y confirmar la ley solo si la sumatoria de tostadas del lado del dulce es mayor o igual a 217")._
+_(Nota adicional: Si reemplazamos $n = 388$ en cualquiera de las ecuaciones de $c$, sabríamos que la regla exacta que debería publicar el comité es: "Tirar 388 tostadas y confirmar la ley solo si la sumatoria de tostadas del lado del dulce es mayor o igual a 217").
+
+
+![[Pasted image 20260724002416.png]]
+
+
+Aquí tienes la resolución del ejercicio 10.19 de la imagen **image_5c77fe.png**, aplicando rigurosamente el método de la **sumatoria** tal como acordamos.
+
+### 1. Definición de Variables e Hipótesis
+
+Definimos nuestra variable $X_i = 1$ si el artículo es defectuoso y $X_i = 0$ si está en buenas condiciones.
+
+Nuestra variable de estudio es la **sumatoria total** de artículos defectuosos en la muestra de tamaño $n = 100$:
+
+$$X = \sum_{i=1}^{100} X_i$$
+
+El fabricante afirma que su proporción de defectuosos es del 5% ($p = 0.05$). Como el comprador quiere saber si existen motivos para "dudar de la afirmación", lo más riguroso es plantear un test bilateral (de dos colas), ya que la afirmación es una igualdad exacta:
+
+- **Hipótesis Nula ($H_0$):** $p = 0.05$ (La calidad es exactamente la afirmada)
+    
+- **Hipótesis Alternativa ($H_1$):** $p \neq 0.05$ (La calidad es distinta a la afirmada)
+    
+
+_(Nota: Incluso si se planteara como un test de cola derecha $p > 0.05$, porque al comprador solo le molesta que haya más defectuosos, la conclusión final sería la misma)._
+
+### 2. Parámetros de la Sumatoria bajo $H_0$
+
+Dado que la muestra es grande ($n = 100$), utilizamos la aproximación Normal para la sumatoria (Teorema Central del Límite).
+
+Evaluamos la media y la varianza asumiendo que la hipótesis nula es cierta ($p_0 = 0.05$):
+
+- **Media esperada ($\mu$):** $n \cdot p_0 = 100 \cdot 0.05 = 5$ artículos defectuosos esperados.
+    
+- **Varianza ($\sigma^2$):** $n \cdot p_0 \cdot (1 - p_0) = 100 \cdot 0.05 \cdot 0.95 = 4.75$
+    
+- **Desvío estándar ($\sigma$):** $\sqrt{4.75} \approx 2.1794$
+    
+
+### 3. Estadístico de Prueba Asintótico
+
+El comprador observó en su muestra una cantidad total de $X_{obs} = 10$ artículos defectuosos.
+
+Calculamos el estadístico tipificado para nuestra sumatoria:
+
+$$Z_{obs} = \frac{X_{obs} - \mu}{\sigma}$$
+
+$$Z_{obs} = \frac{10 - 5}{2.1794} = \frac{5}{2.1794} \approx 2.294$$
+
+### 4. Regla de Decisión y Región de Rechazo
+
+Tenemos un nivel de significación asintótico $\alpha = 0.05$.
+
+Al ser un test bilateral, debemos dividir ese error en ambas colas de la campana normal ($\alpha/2 = 0.025$ para cada lado).
+
+Buscamos en la tabla Normal el valor crítico que encierra el 95% central ($Z_{0.975}$):
+
+- **Valores críticos:** $\pm 1.96$
+    
+
+La regla de decisión dicta que **se rechaza $H_0$** si el estadístico observado cae en alguna de las colas:
+
+$$Z_{obs} < -1.96 \quad \text{o} \quad Z_{obs} > 1.96$$
+
+### 5. Conclusión
+
+Como nuestro estadístico observado ($2.294$) es mayor que $1.96$, cae directamente dentro de la región de rechazo de la cola derecha.
+
+**Conclusión:** Se rechaza la hipótesis nula. Con un nivel de significación del 5%, **sí existen motivos suficientes para dudar de la afirmación del fabricante**. La sumatoria de 10 artículos defectuosos hallada por el comprador es estadísticamente demasiado alta como para provenir de una producción que tiene solo un 5% de fallas.
+
+
+
+
+
+
+
+
+
+
+![[Pasted image 20260724002506.png]]
+
+
+Aquí tienes la resolución del ejercicio 10.21 de la imagen **image_6760ac.png**, utilizando el método de la sumatoria que establecimos.
+
+Este problema tiene un detalle muy importante: la unidad de tiempo. La intensidad $\lambda$ está dada por **segundo**, pero el experimento duró **3 horas**.
+
+### 1. Unificación de unidades y Definición de la Variable
+
+Primero, pasamos el tiempo total de observación a segundos:
+
+$$n = 3 \text{ horas} = 3 \cdot 60 \text{ minutos} \cdot 60 \text{ segundos} = 10800 \text{ segundos}$$
+
+Definimos $X_i$ como el número de partículas emitidas en el segundo $i$, donde cada $X_i \sim \text{Poisson}(\lambda)$.
+
+Nuestra variable de estudio es la **sumatoria total** de emisiones a lo largo de los 10800 segundos:
+
+$$X = \sum_{i=1}^{10800} X_i$$
+
+Planteamos las hipótesis. Como nos preguntan si se puede rechazar un valor exacto ($\lambda = 0.5$), corresponde un test bilateral:
+
+- **Hipótesis Nula ($H_0$):** $\lambda = 0.5$
+    
+- **Hipótesis Alternativa ($H_1$):** $\lambda \neq 0.5$
+    
+
+### 2. Parámetros de la Sumatoria bajo $H_0$
+
+Utilizamos la aproximación Normal para la sumatoria (dado que $n = 10800$ es lo suficientemente grande).
+
+Evaluamos el centro y el ancho de la campana asumiendo que la hipótesis nula es cierta ($\lambda_0 = 0.5$):
+
+- **Media esperada ($\mu$):** En un proceso de Poisson, la esperanza de la suma es $n \cdot \lambda_0$.
+    
+    $$\mu = 10800 \cdot 0.5 = 5400 \text{ emisiones esperadas}$$
+    
+- **Varianza ($\sigma^2$):** Una propiedad clave de la distribución de Poisson es que su varianza es idéntica a su media. Por lo tanto, la varianza de la suma también es $n \cdot \lambda_0$.
+    
+    $$\sigma^2 = 5400$$
+    
+- **Desvío estándar ($\sigma$):** $\sqrt{5400} \approx 73.4847$
+    
+
+### 3. Estadístico de Prueba Asintótico
+
+En el experimento se registró una sumatoria observada de $X_{obs} = 5029$ emisiones.
+
+Calculamos nuestro estadístico $Z$ tipificado para la sumatoria:
+
+$$Z_{obs} = \frac{X_{obs} - \mu}{\sigma}$$
+
+$$Z_{obs} = \frac{5029 - 5400}{73.4847} = \frac{-371}{73.4847} \approx -5.0487$$
+
+### 4. Cálculo del _p-valor_ aproximado
+
+El _p-valor_ es la probabilidad de observar un resultado tan o más alejado del centro que el nuestro. Al ser un test bilateral, debemos considerar la probabilidad en ambas colas (multiplicar por 2 el área de nuestra cola):
+
+$$p\text{-valor} = 2 \cdot P(Z < -5.0487)$$
+
+Si buscamos un valor de $Z = -5.05$ en la tabla de la Normal Estándar, veremos que está fuera de escala. La probabilidad acumulada hasta ese punto es tan minúscula que se considera cero a efectos prácticos.
+
+$$p\text{-valor} \approx 0$$
+
+### 5. Conclusión
+
+Comparamos nuestro _p-valor_ con el nivel de significación asintótico $\alpha = 0.01$ exigido por el enunciado:
+
+$$0 < 0.01$$
+
+**Conclusión:**
+
+Como el _p-valor_ es mucho menor a $0.01$, **sí, se rechaza contundentemente la hipótesis nula**.
+
+La sumatoria de $5029$ emisiones está a más de $5$ desvíos estándar de distancia de lo que se esperaría (5400) si $\lambda$ fuera realmente $0.5$. La evidencia estadística demuestra que la verdadera intensidad de la fuente radiactiva es menor a $0.5$ emisiones por segundo.
+
+
+
+
+
+
+
+
+![[Pasted image 20260724002528.png]]
+
+
+
+Aquí tienes la resolución del ejercicio 10.22 de la imagen **image_683d6c.png**, aplicando nuevamente la metodología de la sumatoria que establecimos.
+
+### 1. Definición de Variables e Hipótesis
+
+Definimos nuestra variable individual $X_i$ como la cantidad de accidentes en la semana $i$, donde $X_i \sim \text{Poisson}(\lambda)$.
+
+Nuestra variable de estudio para la muestra de $n = 80$ semanas será la **sumatoria total** de accidentes ocurridos en ese período:
+
+$$X = \sum_{i=1}^{80} X_i$$
+
+El enunciado nos pregunta si se puede afirmar que la media ($\lambda$) es menor que 2. Esa afirmación va a la hipótesis alternativa:
+
+- **Hipótesis Nula ($H_0$):** $\lambda \geqslant 2$
+    
+- **Hipótesis Alternativa ($H_1$):** $\lambda < 2$
+    
+
+### 2. Cálculo de la Sumatoria Observada
+
+En lugar de calcular el promedio de la muestra, utilizamos la tabla de frecuencias para contar directamente el total exacto de accidentes ($X_{obs}$) que hubo en esas 80 semanas:
+
+$$X_{obs} = (0 \cdot 28) + (1 \cdot 25) + (2 \cdot 20) + (3 \cdot 5) + (4 \cdot 2)$$
+
+$$X_{obs} = 0 + 25 + 40 + 15 + 8$$
+
+$$X_{obs} = 88 \text{ accidentes en total}$$
+
+### 3. Parámetros de la Sumatoria bajo $H_0$
+
+Utilizamos la aproximación Normal para la suma ($n = 80$ semanas es un tamaño considerable).
+
+Evaluamos el centro y el ancho de nuestra campana asumiendo el caso límite de la hipótesis nula ($\lambda_0 = 2$):
+
+- **Media esperada ($\mu$):** Para un proceso de Poisson, la suma esperada es $n \cdot \lambda_0$.
+    
+    $$\mu = 80 \cdot 2 = 160 \text{ accidentes esperados}$$
+    
+- **Varianza ($\sigma^2$):** En Poisson, la varianza es igual a la media ($n \cdot \lambda_0$).
+    
+    $$\sigma^2 = 160$$
+    
+- **Desvío estándar ($\sigma$):** $\sqrt{160} \approx 12.6491$
+    
+
+### 4. Estadístico de Prueba Asintótico
+
+Calculamos nuestro estadístico $Z$ tipificado para la sumatoria observada:
+
+$$Z_{obs} = \frac{X_{obs} - \mu}{\sigma}$$
+
+$$Z_{obs} = \frac{88 - 160}{12.6491} = \frac{-72}{12.6491} \approx -5.692$$
+
+### 5. Cálculo del _p-valor_ y Conclusión
+
+Como la hipótesis alternativa plantea $\lambda < 2$, estamos ante un test de **cola izquierda**. El _p-valor_ es la probabilidad de observar una sumatoria tan o más baja que la nuestra si la media fuera realmente 2:
+
+$$p\text{-valor} = P(Z < -5.692)$$
+
+Al buscar un valor de $Z = -5.69$ en la tabla de la Normal Estándar, notamos que cae completamente fuera de la zona tabulada. La probabilidad es extremadamente cercana a cero.
+
+$$p\text{-valor} \approx 0$$
+
+Comparamos nuestro _p-valor_ con el nivel de significación asintótico $\alpha = 0.05$:
+
+$$0 < 0.05$$
+
+**Conclusión:**
+
+Como el _p-valor_ es estrictamente menor al nivel de significación, **se rechaza la hipótesis nula**.
+
+Sí, con un 5% de significación asintótica **se puede afirmar rotundamente que la media de accidentes por semana es menor que 2**. La observación empírica de 88 accidentes totales está demasiado lejos de los 160 esperados, confirmando que la intersección tiene una tasa de accidentes significativamente menor a 2 por semana.
