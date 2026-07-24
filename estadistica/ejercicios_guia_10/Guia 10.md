@@ -2083,3 +2083,87 @@ En muchas distribuciones (como la Normal), la media ($\mu$) es directamente uno 
 Pero en distribuciones como esta genérica, o la Uniforme, o la Exponencial, la media es solo una consecuencia geométrica del parámetro principal. El enunciado te hace la pregunta en términos de $\mu$ porque es más intuitivo a nivel práctico ("¿el promedio es mayor a 1.2?"), pero te obliga a traducirlo al "idioma de la fórmula" ($\theta$) para poder operarlo.
 
 **En conclusión:** Pasás tu $\mu$ a $\theta$ porque $\theta$ es la única "llave" compatible que hace funcionar las integrales y ecuaciones de esta distribución en particular.
+
+
+
+
+
+
+![[Pasted image 20260723214456.png]]
+
+
+
+Aquí tienes la resolución completa y en limpio del ejercicio 10.17, armada desde cero utilizando el enfoque de la sumatoria.
+
+### 1. Definición de Variables e Hipótesis
+
+Definimos a nuestra muestra como $100$ variables independientes, donde $X_i = 1$ si el ciudadano encuestado vota al candidato azul, y $X_i = 0$ si no lo hace.
+
+Nuestra variable de estudio es la **sumatoria total** de votos afirmativos, que llamaremos $X$:
+
+$$X = \sum_{i=1}^{100} X_i$$
+
+El enunciado nos pide verificar si la intención de voto ($p$) supera el $35\%$ ($0.35$). Las hipótesis se plantean así:
+
+- **Hipótesis Nula ($H_0$):** $p \leqslant 0.35$
+    
+- **Hipótesis Alternativa ($H_1$):** $p > 0.35$
+    
+
+### 2. Parámetros del Estadístico bajo $H_0$
+
+Dado el tamaño grande de la muestra ($n = 100$), aplicamos el Teorema Central del Límite (TCL) para aproximar la suma Binomial a una distribución Normal.
+
+Evaluamos la media y la varianza de la sumatoria asumiendo el caso límite de la hipótesis nula, es decir, suponiendo que $p_0 = 0.35$:
+
+- **Media esperada ($\mu$):** $n \cdot p_0 = 100 \cdot 0.35 = 35$
+    
+- **Varianza ($\sigma^2$):** $n \cdot p_0 \cdot (1 - p_0) = 100 \cdot 0.35 \cdot 0.65 = 22.75$
+    
+- **Desvío estándar ($\sigma$):** $\sqrt{22.75} \approx 4.7697$
+    
+
+### 3. Estadístico de Prueba Asintótico
+
+Utilizamos la fórmula estándar de tipificación para la sumatoria:
+
+$$Z_{obs} = \frac{X - \mu}{\sigma}$$
+
+$$Z_{obs} = \frac{X - 35}{4.7697} \sim N(0, 1)$$
+
+### 4. Región de Rechazo
+
+El enunciado define un nivel de significación del $5\%$ ($\alpha = 0.05$). Como nuestra hipótesis alternativa es "mayor que" ($p > 0.35$), el test es de **cola derecha**.
+
+Buscamos en la tabla de la Normal Estándar el valor crítico ($z_{1-\alpha}$) que deja un $5\%$ de probabilidad a su derecha (o un $95\%$ acumulado):
+
+- **Valor Crítico ($z_{0.95}$):** $1.645$
+    
+
+La regla de decisión teórica es:
+
+**Se rechaza $H_0$ si** $Z_{obs} > 1.645$
+
+### 5. Diseño Final del Test (Regla Práctica)
+
+Para establecer el test en términos de la cantidad real de votos que debemos contar en la encuesta, reemplazamos $Z_{obs}$ por nuestra fórmula y despejamos la sumatoria $X$:
+
+$$\frac{X - 35}{4.7697} > 1.645$$
+
+$$X - 35 > 1.645 \cdot 4.7697$$
+
+$$X - 35 > 7.846$$
+
+$$X > 35 + 7.846$$
+
+$$X > 42.846$$
+
+Como la cantidad de personas no puede tener decimales, trasladamos este límite matemático a una instrucción práctica entera:
+
+**Diseño Final del Test de Hipótesis:**
+
+1. Se encuesta a los $100$ ciudadanos y se suma la cantidad total de respuestas a favor del candidato azul ($X$).
+    
+2. Si la suma resulta ser de **43 ciudadanos o más**, se rechaza la hipótesis nula y se afirma, con un $5\%$ de significación, que la intención de voto supera el $35\%$.
+    
+3. Si la suma es de **42 ciudadanos o menos**, no existe evidencia suficiente para rechazar la hipótesis nula.
