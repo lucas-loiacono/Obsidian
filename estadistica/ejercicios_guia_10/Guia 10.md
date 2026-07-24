@@ -2167,3 +2167,6 @@ Como la cantidad de personas no puede tener decimales, trasladamos este límite 
 2. Si la suma resulta ser de **43 ciudadanos o más**, se rechaza la hipótesis nula y se afirma, con un $5\%$ de significación, que la intención de voto supera el $35\%$.
     
 3. Si la suma es de **42 ciudadanos o menos**, no existe evidencia suficiente para rechazar la hipótesis nula.
+
+
+![[Pasted image 20260723220138.png]]
