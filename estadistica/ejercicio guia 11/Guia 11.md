@@ -470,3 +470,132 @@ Reemplazamos en nuestra fórmula:
     
 
 **Respuesta (b):** El intervalo de confianza asintótico al 90% para $\lambda$ es **$[0.3743, 0.5217]$**.
+
+
+![[Pasted image 20260728012937.png]]
+
+Aquí tienes la resolución del ejercicio 11.6 de la imagen **image_350818.png**.
+
+Este ejercicio es una aplicación directa de lo que vimos en el punto 11.5(a), porque existe una relación fundamental en estadística: **en un proceso de Poisson, el tiempo que transcurre entre cada arribo distribuye de forma Exponencial**.
+
+Siguiendo nuestra metodología, vamos a plantear todo en base a la sumatoria.
+
+### 1. Definición de la Variable y la Sumatoria
+
+Definimos $T_i$ como el tiempo (en minutos) que transcurre entre la llegada de un cliente y el siguiente. Como los clientes llegan según un proceso de Poisson de intensidad $\lambda$, sabemos que:
+
+$$T_i \sim \mathcal{E}(\lambda)$$
+
+Nuestra variable de estudio será la **sumatoria total** del tiempo esperado hasta que llega el cliente número $n=6$:
+
+$$S = \sum_{i=1}^{6} T_i$$
+
+Calcular esta sumatoria a partir de los datos es muy sencillo. No hace falta sumar las diferencias una por una; el tiempo total transcurrido es simplemente la hora a la que llegó el último cliente (10:16) menos la hora a la que abrió el banco (10:00).
+
+$$S = 16 \text{ minutos}$$
+
+### 2. Construcción del Pivote Exacto
+
+Como nuestra muestra es pequeña ($n=6$) y es la suma de variables exponenciales, utilizamos exactamente el mismo pivote Chi-cuadrado ($\chi^2$) que aprendimos en el ejercicio anterior. Los grados de libertad serán $2n = 12$:
+
+$$U = 2\lambda S \sim \chi^2_{12}$$
+
+El enunciado nos pide una **cota inferior** de nivel $0.9$. Esto significa que queremos un nivel de confianza del **$90\%$** ($1 - \alpha = 0.90$) y que todo el $10\%$ de riesgo ($\alpha = 0.10$) lo vamos a dejar en la cola inferior de la distribución.
+
+Buscamos en la tabla de Chi-cuadrado con 12 grados de libertad el valor que acumula un $0.10$ de probabilidad a su izquierda (a veces denotado como $\chi^2_{12, 0.10}$):
+
+- **Valor crítico:** $6.304$
+    
+
+### 3. Despeje de la Cota Inferior
+
+Planteamos la inecuación asegurándonos de que nuestro pivote sea mayor o igual al valor crítico. Esto nos garantizará el $90\%$ de probabilidad hacia la derecha y nos permitirá despejar un límite inferior para $\lambda$:
+
+$$P(2\lambda S \geqslant 6.304) = 0.90$$
+
+Despejamos la intensidad $\lambda$ dividiendo por $2S$:
+
+$$\lambda \geqslant \frac{6.304}{2S}$$
+
+Esta es la fórmula de nuestra cota inferior.
+
+### 4. Cálculo Final
+
+Reemplazamos nuestra sumatoria observada ($S = 16$) en la fórmula:
+
+$$\lambda \geqslant \frac{6.304}{2 \cdot 16}$$
+
+$$\lambda \geqslant \frac{6.304}{32}$$
+
+$$\lambda \geqslant 0.197$$
+
+**Conclusión final:**
+
+Con un nivel de confianza del **$90\%$**, la cota inferior para la intensidad del proceso es **$0.197$**. Esto significa que podemos afirmar estadísticamente que los clientes llegan al banco a una tasa de al menos $0.197$ clientes por minuto.
+
+
+![[Pasted image 20260728013242.png]]
+
+
+¡Ojo con este ejercicio de la imagen **image_34b260.png**! Acá hay una trampa o "plot twist" importante respecto a los anteriores.
+
+Hasta ahora veníamos armando todo en base a la **sumatoria** de los datos, pero si leés bien el enunciado, acá no te dan el total ni el promedio. Te dan la **duración mínima** observada entre las 5 lámparas.
+
+Por lo tanto, no podemos usar la suma. Tenemos que usar la teoría de estadísticos de orden (específicamente, el mínimo).
+
+Aquí te muestro cómo se adapta el método a esta situación:
+
+### 1. Definición de la Variable y el Estadístico (El Mínimo)
+
+La duración de una lámpara individual es $X_i \sim \mathcal{E}(\lambda)$.
+
+Al poner a prueba $n = 5$ lámparas juntas y registrar la primera que se quema, lo que estamos observando es el estadístico del mínimo, al que llamaremos $Y_1$:
+
+$$Y_1 = \min(X_1, X_2, X_3, X_4, X_5) = 200$$
+
+Por propiedad de la distribución Exponencial (que se suele demostrar en la guía anterior), el mínimo de $n$ exponenciales independientes de parámetro $\lambda$ es también una variable exponencial, pero con parámetro $n\lambda$.
+
+Como tenemos 5 lámparas, nuestro mínimo distribuye así:
+
+$$Y_1 \sim \mathcal{E}(5\lambda)$$
+
+### 2. Construcción del Pivote Exacto
+
+Como nuestro estadístico $Y_1$ sigue teniendo una distribución exponencial, podemos aplicar exactamente el mismo truco de la **Chi-cuadrado ($\chi^2$)** que usamos en los ejercicios 11.5 y 11.6.
+
+La regla estadística dice que si multiplicás cualquier variable exponencial por 2 veces su parámetro, obtenés una $\chi^2$ con 2 grados de libertad.
+
+El parámetro de nuestra variable $Y_1$ es $5\lambda$. Entonces armamos el pivote:
+
+$$U = 2 \cdot (5\lambda) \cdot Y_1 = 10\lambda Y_1 \sim \chi^2_2$$
+
+Nos piden una **cota inferior** de nivel $0.95$. Esto significa que queremos dejar el $5\%$ de riesgo ($\alpha = 0.05$) concentrado en la cola izquierda de la distribución.
+
+Buscamos en la tabla Chi-cuadrado con 2 grados de libertad el valor que acumula $0.05$ a su izquierda. _(Dato de color: como la $\chi^2_2$ es en realidad una exponencial, este valor exacto sale de calcular $-2\ln(0.95)$)_.
+
+- **Valor crítico:** $\approx 0.1026$
+    
+
+### 3. Despeje de la Cota Inferior
+
+Planteamos la inecuación asegurando que el pivote sea mayor o igual al valor crítico. Esto atrapa el $95\%$ de probabilidad hacia la derecha y nos deja despejar un límite inferior:
+
+$$P(10\lambda Y_1 \geqslant 0.1026) = 0.95$$
+
+Despejamos la intensidad $\lambda$ pasando el resto dividiendo:
+
+$$\lambda \geqslant \frac{0.1026}{10 \cdot Y_1}$$
+
+### 4. Cálculo Final
+
+Reemplazamos el valor del mínimo que efectivamente se observó en la prueba ($Y_1 = 200$ horas):
+
+$$\lambda \geqslant \frac{0.1026}{10 \cdot 200}$$
+
+$$\lambda \geqslant \frac{0.1026}{2000}$$
+
+$$\lambda \geqslant 0.0000513$$
+
+**Conclusión final:**
+
+Con un nivel de confianza del **$95\%$**, la cota inferior para la intensidad es **$\lambda \geqslant 0.0000513$** fallas por hora.
