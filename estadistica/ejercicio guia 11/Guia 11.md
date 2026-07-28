@@ -733,6 +733,89 @@ Como regla general: en todas las distribuciones donde el parámetro $\theta$ fun
 
 
 
+
+
+
+
+
+
+¡Excelente elección! Resolver el ejercicio 11.8 de **image_33c547.png** con el método directo y asimétrico es el camino más elegante, porque llegás al mismo resultado sin tener que inventar el pivote $U$.
+
+Aquí te muestro cómo queda aplicando la misma lógica del ejercicio anterior.
+
+### 1. Definición del Estadístico y su Probabilidad
+
+Para que el álgebra sea mucho más sencilla, vamos a aplicar el mismo truco inicial: restarle **15** metros a la variable original para que arranque desde cero.
+
+Definimos $W_i = X_i - 15$, por lo que ahora $W_i \sim \mathcal{U}(0, \theta)$.
+
+Se examinaron $n = 4$ rollos. Nuestro estadístico será el máximo de estas nuevas variables:
+
+$$T = \max(W_1, W_2, W_3, W_4)$$
+
+La probabilidad acumulada de este estadístico máximo, sabiendo que el tamaño de muestra es 4, es:
+
+$$P(T \leqslant t) = \left( \frac{t}{\theta} \right)^4$$
+
+### 2. Planteo Asimétrico (Cota Superior)
+
+El enunciado pide una **cota superior** con un nivel de confianza de **0.99** (es decir, el **99%**). Esto nos deja un **1%** de riesgo (**0.01**).
+
+Como queremos construir una cota superior, nuestro objetivo final es llegar a una expresión del tipo $\theta \leqslant \text{algo}$. Para lograr esto manipulando directamente a $T$, necesitamos asegurar que $T$ sea _mayor o igual_ a un cierto valor de corte $K$ el **99%** de las veces:
+
+$$P(T \geqslant K) = 0.99$$
+
+Por regla del complemento, esto significa que todo nuestro **1%** de riesgo queda arrinconado en la probabilidad de que $T$ sea más chico que $K$:
+
+$$P(T \leqslant K) = 0.01$$
+
+### 3. Despeje del Valor de Corte $K$
+
+Tomamos la ecuación de nuestro riesgo y la reemplazamos en la fórmula de probabilidad acumulada que definimos en el primer paso:
+
+$$\left( \frac{K}{\theta} \right)^4 = 0.01$$
+
+Despejamos $K$:
+
+$$\frac{K}{\theta} = \sqrt[4]{0.01}$$
+
+$$\frac{K}{\theta} \approx 0.3162$$
+
+$$K = \theta \cdot 0.3162$$
+
+### 4. Despeje de la Cota Superior
+
+Volvemos a nuestra inecuación de confianza del paso 2 ($T \geqslant K$) y reemplazamos la $K$ que acabamos de encontrar:
+
+$$P(T \geqslant \theta \cdot 0.3162) = 0.99$$
+
+Ahora simplemente despejamos la $\theta$ pasando el número dividiendo. Al leer la inecuación de derecha a izquierda, vas a ver que la $\theta$ ya nos quedó acotada por arriba:
+
+$$\frac{T}{0.3162} \geqslant \theta$$
+
+$$\theta \leqslant \frac{T}{0.3162}$$
+
+¡Esa es nuestra fórmula directa para la cota superior!
+
+### 5. Cálculos Finales con la Muestra
+
+El enunciado indica que el máximo observado de los rollos originales fue **25** metros. Como al principio del ejercicio decidimos restarle **15** a todo para simplificar, nuestro estadístico observado es:
+
+$$T = 25 - 15 = 10$$
+
+Reemplazamos $T$ en la fórmula que despejamos:
+
+$$\theta \leqslant \frac{10}{0.3162}$$
+
+$$\theta \leqslant 31.6255$$
+
+**Conclusión final:**
+
+Con un nivel de confianza del **99%**, la cota superior para el parámetro es **$\theta \leqslant 31.62$**.
+
+Como ves, la lógica de manipular la $T$ directamente funciona a la perfección y te ahorra tener que justificar de dónde salió la fracción $M/\theta$.
+
+
 ![[Pasted image 20260728014430.png]]
 
 
@@ -822,3 +905,227 @@ Reemplazamos $M$ en nuestra fórmula:
 **Conclusión final:**
 
 Basado en la muestra, el intervalo de confianza del **$90\%$** para el parámetro $\theta$ es **$[0.8, 1.1742]$**.
+
+
+
+
+
+
+o sino
+
+Aquí tienes la resolución completa del **Ejercicio 11.9** siguiendo exactamente la lógica de "colas simétricas" y el método directo (sin el pivote $U$) que aplicó el alumno en la hoja.
+
+### 1. Definición del Estadístico y su Probabilidad
+
+El tamaño de la muestra es $n = 3$. Primero calculamos la función de distribución acumulada para una sola variable $X_i$ integrando la densidad:
+
+$$F(x) = \int_{0}^{x} \frac{2t}{\theta^2} dt = \frac{x^2}{\theta^2}$$
+
+El estadístico suficiente para este tipo de distribución es el máximo, al que llamaremos $T$:
+
+$$T = \max(X_1, X_2, X_3)$$
+
+La probabilidad acumulada de este estadístico máximo es la original elevada a la $n$:
+
+$$P(T \leqslant t) = [F(t)]^3 = \left( \frac{t^2}{\theta^2} \right)^3 = \left( \frac{t}{\theta} \right)^6$$
+
+### 2. Planteo de las Colas Simétricas
+
+El enunciado pide un nivel de confianza del **$90\%$** ($0.90$). Esto deja un $10\%$ de margen de error.
+
+En lugar de mandar todo el error a un lado, este método lo divide exactamente a la mitad:
+
+- Un **$5\%$** ($0.05$) para la cola inferior.
+    
+- Un **$5\%$** ($0.05$) para la cola superior.
+    
+
+### 3. Despeje de la Cota Superior (Cola Inferior)
+
+Buscamos un valor $K_1$ tal que la probabilidad de que el estadístico sea menor a ese valor sea del $5\%$:
+
+$$P(T \leqslant K_1) = 0.05$$
+
+Reemplazamos en nuestra fórmula de probabilidad:
+
+$$\left( \frac{K_1}{\theta} \right)^6 = 0.05$$
+
+Despejamos $K_1$:
+
+$$\frac{K_1}{\theta} = 0.05^{1/6}$$
+
+$$K_1 = \theta \cdot 0.05^{1/6}$$
+
+Ahora, volvemos a meter esto en la probabilidad original para despejar la $\theta$:
+
+$$P(T \leqslant \theta \cdot 0.05^{1/6}) = 0.05$$
+
+Pasamos el número dividiendo:
+
+$$P\left( \frac{T}{0.05^{1/6}} \leqslant \theta \right) = 0.05$$
+
+Esta expresión nos define la **cota superior** de nuestro intervalo.
+
+### 4. Despeje de la Cota Inferior (Cola Superior)
+
+Ahora buscamos un valor $K_2$ para el otro $5\%$ de riesgo en el extremo opuesto (la probabilidad de que el estadístico sea mayor a $K_2$):
+
+$$P(T > K_2) = 0.05$$
+
+Por complemento, esto significa que la probabilidad acumulada hasta $K_2$ es del $95\%$:
+
+$$P(T \leqslant K_2) = 0.95$$
+
+Reemplazamos en la fórmula:
+
+$$\left( \frac{K_2}{\theta} \right)^6 = 0.95$$
+
+Despejamos $K_2$:
+
+$$K_2 = \theta \cdot 0.95^{1/6}$$
+
+Volvemos a armar la probabilidad original para despejar $\theta$:
+
+$$P(T > \theta \cdot 0.95^{1/6}) = 0.05$$
+
+Pasamos el número dividiendo:
+
+$$P\left( \frac{T}{0.95^{1/6}} > \theta \right) = 0.05$$
+
+Esta expresión nos define la **cota inferior**.
+
+### 5. Fórmula General del Intervalo
+
+Juntando las dos cotas que despejamos en los pasos 3 y 4, la estructura del intervalo de confianza para $\theta$ queda así:
+
+$$IC(\theta) = \left[ \frac{T}{0.95^{1/6}} ; \frac{T}{0.05^{1/6}} \right]$$
+
+### 6. Cálculos Finales con la Muestra
+
+A partir de la muestra del enunciado ($0.8, 0.1, 0.3$), obtenemos nuestro estadístico máximo:
+
+$$T = \max(0.8, 0.1, 0.3) = 0.8$$
+
+Resolvemos los denominadores con calculadora:
+
+- $0.95^{1/6} \approx 0.9914$
+    
+- $0.05^{1/6} \approx 0.6069$
+    
+
+Reemplazamos en la fórmula del intervalo:
+
+- **Límite Inferior:** $\frac{0.8}{0.9914} \approx 0.8069$
+    
+- **Límite Superior:** $\frac{0.8}{0.6069} \approx 1.3181$
+    
+
+**Conclusión final del método simétrico:**
+
+El intervalo de confianza al $90\%$ es **$[0.8069, 1.3181]$**.
+
+> **Nota teórica:** Como charlamos antes, aunque el procedimiento matemático es perfecto, fijate que el límite inferior dio $0.8069$, dejando afuera el valor real $0.8$ que efectivamente midieron. Por eso se suele preferir el otro método.
+
+
+
+
+
+
+
+
+
+
+
+¡Esta es la mejor combinación posible! Vamos a usar el **método directo** (manipulando la variable $T$ como hizo el alumno de la hoja, sin inventar la letra $U$), pero aplicando la **lógica asimétrica** para no cometer el error de dejar afuera al máximo observado.
+
+Así es como se resuelve para conseguir el intervalo más corto y exacto:
+
+### 1. Definición del Estadístico y su Probabilidad
+
+Igual que antes, para una muestra de tamaño $n = 3$, usamos el estadístico máximo:
+
+$$T = \max(X_1, X_2, X_3)$$
+
+Ya sabemos que su probabilidad acumulada es:
+
+$$P(T \leqslant t) = \left( \frac{t}{\theta} \right)^6$$
+
+### 2. Planteo Asimétrico (La lógica del dominio)
+
+Sabemos por definición de la función que cualquier valor observado jamás puede ser mayor que el parámetro $\theta$. Por lo tanto, es una certeza absoluta que nuestro máximo cumplirá siempre que $T \leqslant \theta$.
+
+En términos de probabilidad, esto significa que:
+
+$$P(T \leqslant \theta) = 1$$
+
+Como nos piden un nivel de confianza del **$90\%$** ($0.90$), tenemos un $10\%$ de riesgo ($0.10$). En lugar de dividirlo, vamos a concentrar todo ese riesgo en los valores más chicos de $T$, anclando el extremo superior en $\theta$.
+
+Planteamos que la probabilidad de que $T$ caiga entre un valor de corte $K$ y su tope máximo $\theta$ es del $90\%$:
+
+$$P(K \leqslant T \leqslant \theta) = 0.90$$
+
+### 3. Despeje del Valor $K$
+
+Para que esa inecuación funcione, la probabilidad de que $T$ sea más chico que $K$ tiene que ser exactamente ese $10\%$ sobrante:
+
+$$P(T \leqslant K) = 0.10$$
+
+Reemplazamos esto en nuestra fórmula de probabilidad acumulada:
+
+$$\left( \frac{K}{\theta} \right)^6 = 0.10$$
+
+Despejamos $K$:
+
+$$\frac{K}{\theta} = 0.10^{1/6}$$
+
+$$K = \theta \cdot 0.10^{1/6}$$
+
+### 4. Despeje del Intervalo de Confianza
+
+Volvemos a nuestra inecuación doble del paso 2 y reemplazamos la $K$ que acabamos de despejar:
+
+$$P(\theta \cdot 0.10^{1/6} \leqslant T \leqslant \theta) = 0.90$$
+
+Ahora nuestro objetivo es dejar a la $\theta$ sola en el medio. Para que sea fácil de ver, analizamos la inecuación en dos partes:
+
+- **Lado derecho:** $T \leqslant \theta$
+    
+    ¡Esta ya está despejada! Nos dice que la $\theta$ siempre es mayor o igual a $T$. Esa es nuestra **cota inferior**.
+    
+- **Lado izquierdo:** $\theta \cdot 0.10^{1/6} \leqslant T$
+    
+    Pasamos el número dividiendo para dejar la $\theta$ sola:
+    
+    $$\theta \leqslant \frac{T}{0.10^{1/6}}$$
+    
+    Esa es nuestra **cota superior**.
+    
+
+Juntando ambas partes, la fórmula general de nuestro intervalo nos queda perfecta:
+
+$$IC(\theta) = \left[ T ; \frac{T}{0.10^{1/6}} \right]$$
+
+### 5. Cálculos Finales con la Muestra
+
+El enunciado nos da los valores $0.8, 0.1, 0.3$.
+
+Nuestro estadístico máximo es:
+
+$$T = \max(0.8, 0.1, 0.3) = 0.8$$
+
+Resolvemos el denominador en la calculadora:
+
+$$0.10^{1/6} \approx 0.68129$$
+
+Reemplazamos en nuestra fórmula del intervalo:
+
+- **Límite Inferior:** $0.8$
+    
+- **Límite Superior:** $\frac{0.8}{0.68129} \approx 1.1742$
+    
+
+**Conclusión final:**
+
+El intervalo de confianza al $90\%$ es **$[0.8, 1.1742]$**.
+
+Fijate cómo usando el método directo de la hoja, pero aplicando la lógica correcta de no dividir el error, llegamos exactamente al mismo resultado óptimo de $[0.8, 1.17]$ que habíamos calculado la primera vez.
