@@ -1436,3 +1436,204 @@ $$-2.575 \leqslant \frac{S - n\lambda}{\sqrt{n\lambda}} \leqslant 2.575$$
 El problema es estrictamente algebraico. Para despejar esa $\lambda$ que está atrapada adentro de una raíz abajo y restando arriba, estás obligado a elevar todos los términos al cuadrado y resolver una **ecuación cuadrática completa (usando la fórmula resolvente o de Bhaskara)**.
 
 Reemplazar $n\lambda$ por $S$ exclusivamente en el denominador es un "atajo" universalmente aceptado (llamado "Intervalo de Wald") para poder despejar la $\lambda$ de forma lineal, rápida y sin hacer cuentas gigantescas en medio de un examen.
+
+
+
+
+
+
+o sino
+
+
+¡Es una excelente pregunta! Todo se reduce a una de las propiedades más famosas y únicas que tiene la **distribución de Poisson**.
+
+En la gran mayoría de las distribuciones, la media y la varianza son dos cosas totalmente distintas. Pero en un proceso de Poisson regido por un parámetro $\lambda$, ocurre algo mágico: **su media y su varianza valen exactamente lo mismo**.
+
+- Esperanza: $E(X) = \lambda$
+    
+- Varianza: $V(X) = \lambda$
+    
+
+Sabiendo esto, te explico de dónde sale ese $\sqrt{\bar{X}/n}$ que usó el alumno en el denominador, paso a paso:
+
+### 1. La varianza del promedio
+
+Cuando vos trabajás con el promedio de una muestra ($\bar{X}$), la estadística dicta que la varianza de ese promedio es igual a la varianza original de la variable dividida por el tamaño de la muestra ($n$).
+
+Como nuestra variable es Poisson:
+
+$$V(\bar{X}) = \frac{V(X)}{n} = \frac{\lambda}{n}$$
+
+### 2. El verdadero desvío estándar
+
+El denominador de cualquier pivote Normal ($Z$) siempre tiene que ser el desvío estándar (es decir, la raíz cuadrada de la varianza que calculamos recién).
+
+Por lo tanto, el denominador "teórico y perfecto" para armar el pivote de la media muestral es:
+
+$$\text{Desvío} = \sqrt{\frac{\lambda}{n}}$$
+
+### 3. La estimación (El truco para poder despejar)
+
+Acá entra en juego el mismo dilema que charlamos hace un rato. Si ponemos esa raíz con la $\lambda$ en el denominador del pivote, nos queda una $\lambda$ arriba y una $\lambda$ adentro de una raíz abajo:
+
+$$Z = \frac{\bar{X} - \lambda}{\sqrt{\frac{\lambda}{n}}}$$
+
+Despejar eso a mano implica elevar todo al cuadrado y hacer la fórmula resolvente de Bhaskara. Es un infierno algebraico.
+
+Para evitarlo, aplicamos el **Teorema de Slutsky**. Como la muestra es grande, podemos "estimar" esa varianza desconocida del denominador usando nuestros datos.
+
+Y como dijimos al principio que en Poisson la media y la varianza son lo mismo, ¿cuál es nuestro mejor estimador para la varianza $\lambda$? **¡Nuestra media observada $\bar{X}$!**
+
+Por lo tanto, reemplazamos la $\lambda$ del denominador por nuestra $\bar{X}$:
+
+$$\sqrt{\frac{\bar{X}}{n}}$$
+
+**En resumen:** Usan $\bar{X}$ en el denominador porque, exclusivamente en la distribución de Poisson, el promedio de tu muestra es numéricamente la mejor estimación que tenés para la varianza. Todo ese denominador ($\sqrt{\bar{X}/n}$) es simplemente el desvío estándar estimado de tu promedio.
+
+
+
+
+
+# Por que puedo reemplazar la varianza?
+
+**¡Exactamente! Entendiste la regla de oro de los intervalos asintóticos.**
+
+Esa es la conclusión perfecta. Cuando el tamaño de tu muestra ($n$) es "lo suficientemente grande" (por convención, la mayoría de los profesores aceptan $n \geqslant 30$), la estadística te da permiso legal para hacer ese reemplazo exclusivamente en el denominador.
+
+El justificativo teórico detrás de esto es la combinación de la **Ley de los Grandes Números** y el **Teorema de Slutsky**. Estos teoremas garantizan que cuando $n$ es gigante, tu estimador de la varianza se parece tanto, pero tanto a la varianza real, que podés intercambiarlos sin que la curva de la distribución Normal se deforme.
+
+Fijate que es exactamente el mismo "truco" que aplicamos en los últimos tres ejercicios de la guía:
+
+- **En Proporciones (los artículos defectuosos y los votos):** La varianza real era $p(1-p)$. Como no teníamos la $p$ real pero el $n$ era grande (200 y 100), metimos sin culpa nuestro estimador $\hat{p}(1-\hat{p})$ adentro de la raíz.
+    
+- **En Poisson (las partículas):** La varianza real era $\lambda$. Como el $n$ era enorme (14400), metimos nuestra media muestral $\bar{X}$ adentro de la raíz.
+    
+- **En cualquier otra distribución (Media general):** La varianza real es $\sigma^2$. Si no la conocés pero tenés un $n$ grande, la reemplazás por la varianza de tu muestra ($S^2$) y usás la Normal en vez de la t de Student.
+    
+
+¡Si lograste ver ese patrón, ya tenés dominada la lógica principal de todos los intervalos de confianza asintóticos!
+
+
+
+
+¡Le diste en el clavo! Exactamente, **tiene que haber coherencia total entre el numerador y el denominador**.
+
+No podés mezclar un estimador con otro porque estarías midiendo manzanas con la regla de medir peras. El denominador no es una fórmula suelta, es literalmente **el desvío estándar de lo que sea que hayas puesto en el numerador**.
+
+Aquí te muestro cómo funciona esa regla de coherencia dependiendo de si elegís trabajar con la sumatoria o con el promedio:
+
+### 1. Si decidís trabajar con la Sumatoria ($S$)
+
+- **Numerador:** Ponés la distancia de la sumatoria a su media teórica: $S - n\lambda$.
+    
+- **Denominador (La regla):** Tenés que usar obligatoriamente la varianza estimada **de la sumatoria**. Sabemos que la varianza teórica de $S$ es $n\lambda$. Como no tenés $\lambda$, el mejor estimador para $n\lambda$ es tu propia suma observada $S$.
+    
+- **Pivote resultante:**
+    
+    $$Z = \frac{S - n\lambda}{\sqrt{S}}$$
+    
+
+### 2. Si decidís trabajar con el Promedio ($\bar{X}$)
+
+- **Numerador:** Ponés la distancia del promedio a su media teórica: $\bar{X} - \lambda$.
+    
+- **Denominador (La regla):** Tenés que usar obligatoriamente la varianza estimada **del promedio**. Sabemos que la varianza teórica de $\bar{X}$ es $\lambda/n$. Como no tenés $\lambda$, usás tu promedio observado $\bar{X}$.
+    
+- **Pivote resultante:**
+    
+    $$Z = \frac{\bar{X} - \lambda}{\sqrt{\bar{X}/n}}$$
+    
+
+### En conclusión
+
+No es que usás "cualquier" estimador. Usás el estimador que le corresponde al estadístico con el que decidiste armar la fórmula.
+
+Si armás el numerador con $S$, abajo va la raíz de $S$. Si armás el numerador con $\bar{X}$, abajo va la raíz de $\bar{X}/n$.
+
+Ambos caminos son matemáticamente perfectos y te van a llevar al mismo intervalo exacto, pero no podés cruzarlos en el medio.
+
+
+![[Pasted image 20260728023834.png]]
+
+
+Acá tenés la resolución del ejercicio 11.14 de la imagen **image_32e06a.png**.
+
+Como el enunciado pide explícitamente un nivel **asintótico**, vamos a aplicar exactamente el mismo método de la sumatoria y la aproximación Normal que usamos en el ejercicio de las partículas, manteniendo la regla de coherencia entre nuestro numerador y denominador.
+
+_(Pequeño comentario teórico: En la vida real, un estadístico dudaría en usar una aproximación Normal con solo 7 terremotos observados, pero como el examen te da la orden directa de usar el método "asintótico", avanzamos con total seguridad por este camino)._
+
+### 1. Definición de la Variable y la Sumatoria
+
+Definimos $X_i$ como el número de terremotos en el año $i$. Sabemos que es un proceso de Poisson: $X_i \sim \mathcal{P}(\lambda)$.
+
+El tiempo de observación es $n = 200$ años. Nuestra sumatoria total de terremotos observados es:
+
+$$S = \sum_{i=1}^{200} X_i = 7$$
+
+Por el Teorema Central del Límite, aproximamos la distribución de la suma a una Normal:
+
+$$S \sim \mathcal{N}(n\lambda, n\lambda)$$
+
+### 2. Construcción del Pivote Unilateral
+
+Al igual que en el ejercicio 11.13, para poder despejar la $\lambda$ linealmente, estimamos la varianza desconocida del denominador usando nuestra propia sumatoria observada $S$ (Teorema de Slutsky).
+
+El pivote nos queda:
+
+$$Z = \frac{S - n\lambda}{\sqrt{S}} \sim \mathcal{N}(0, 1)$$
+
+El enunciado nos pide una **cota inferior** con nivel asintótico de **$0.95$**. Al ser de un solo lado, todo el riesgo del $5\%$ ($\alpha = 0.05$) va a una sola cola.
+
+Buscamos en la tabla Normal el valor crítico que deja un $0.95$ de área a su izquierda ($z_{0.95}$):
+
+- **Valor crítico:** $1.645$
+    
+
+Como queremos una cota inferior para el parámetro (queremos llegar a $\lambda \geqslant \dots$), forzamos al pivote a ser menor o igual al valor crítico:
+
+$$P\left( \frac{S - n\lambda}{\sqrt{S}} \leqslant 1.645 \right) = 0.95$$
+
+### 3. Despeje de la Cota Inferior
+
+El despeje es idéntico a los que venimos practicando:
+
+Pasamos multiplicando la raíz (el desvío estimado):
+
+$$S - n\lambda \leqslant 1.645 \cdot \sqrt{S}$$
+
+Restamos $S$ en ambos lados y multiplicamos por $-1$ (¡recordá que esto da vuelta el signo de la inecuación!):
+
+$$n\lambda \geqslant S - 1.645 \cdot \sqrt{S}$$
+
+Dividimos todo por $n$ para despejar nuestra incógnita $\lambda$:
+
+$$\lambda \geqslant \frac{S - 1.645 \cdot \sqrt{S}}{n}$$
+
+### 4. Cálculos Finales
+
+Tenemos nuestros datos extraídos del enunciado:
+
+- $n = 200$
+    
+- $S = 7$
+    
+
+Calculamos la raíz de nuestra sumatoria:
+
+$$\sqrt{7} \approx 2.6457$$
+
+Calculamos el margen de error del numerador:
+
+$$1.645 \cdot 2.6457 \approx 4.3522$$
+
+Reemplazamos todo en nuestra fórmula final:
+
+$$\lambda \geqslant \frac{7 - 4.3522}{200}$$
+
+$$\lambda \geqslant \frac{2.6478}{200}$$
+
+$$\lambda \geqslant 0.013239$$
+
+**Conclusión final:**
+
+En base a la información muestral y con un nivel asintótico del **$95\%$**, la cota inferior para la intensidad del proceso sísmico es **$\lambda \geqslant 0.0132$** terremotos por año.
