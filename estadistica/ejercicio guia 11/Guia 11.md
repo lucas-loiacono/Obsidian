@@ -1637,3 +1637,133 @@ $$\lambda \geqslant 0.013239$$
 **Conclusión final:**
 
 En base a la información muestral y con un nivel asintótico del **$95\%$**, la cota inferior para la intensidad del proceso sísmico es **$\lambda \geqslant 0.0132$** terremotos por año.
+
+
+
+
+
+
+![[Pasted image 20260728024109.png]]
+
+
+
+Acá tenés la resolución del ejercicio 11.15 de la imagen **image_32dcaa.png**.
+
+Este ejercicio es una genialidad teórica porque te hace calcular la misma situación desde dos perspectivas distintas de un proceso de Poisson para demostrarte que **llegan al mismo resultado algebraico y numérico**.
+
+Vamos a desglosarlo parte por parte, manteniendo la coherencia de nuestro método.
+
+### Parte (a): El enfoque Poisson (Tiempo fijo, Eventos aleatorios)
+
+En esta primera parte, el investigador fija su cronómetro en $10$ segundos y cuenta cuántas partículas salen. El tiempo es una constante y la cantidad de emisiones es la variable aleatoria.
+
+**1. Definición de la Sumatoria**
+
+Como vimos en los ejercicios anteriores, dividimos la observación en $n = 10$ intervalos de 1 segundo.
+
+Nuestra variable $S$ es el total de emisiones en esos 10 segundos:
+
+$$S \sim \mathcal{P}(n\lambda)$$
+
+Por Teorema Central del Límite, aproximamos a la Normal:
+
+$$S \sim \mathcal{N}(n\lambda, n\lambda)$$
+
+**2. Construcción del Pivote y Despeje**
+
+Aplicamos exactamente el mismo pivote asintótico con la varianza estimada por Slutsky (reemplazando el desvío teórico $\sqrt{n\lambda}$ por nuestro dato $\sqrt{S}$):
+
+$$Z = \frac{S - n\lambda}{\sqrt{S}} \sim \mathcal{N}(0, 1)$$
+
+Para un nivel de confianza del **$95\%$** (bilateral), el valor crítico en la tabla Normal es $z = 1.96$.
+
+El despeje es el que ya conocemos de memoria:
+
+$$-1.96 \leqslant \frac{S - n\lambda}{\sqrt{S}} \leqslant 1.96$$
+
+$$S - 1.96 \cdot \sqrt{S} \leqslant n\lambda \leqslant S + 1.96 \cdot \sqrt{S}$$
+
+$$\frac{S - 1.96 \cdot \sqrt{S}}{n} \leqslant \lambda \leqslant \frac{S + 1.96 \cdot \sqrt{S}}{n}$$
+
+**3. Cálculos Finales (a)**
+
+Tenemos los datos: $n = 10$ y $S = 4$.
+
+- Raíz de $S$: $\sqrt{4} = 2$
+    
+- Margen de error: $1.96 \cdot 2 = 3.92$
+    
+
+Reemplazamos en la fórmula:
+
+- **Límite Inferior:** $\frac{4 - 3.92}{10} = \frac{0.08}{10} = 0.008$
+    
+- **Límite Superior:** $\frac{4 + 3.92}{10} = \frac{7.92}{10} = 0.792$
+    
+
+**Respuesta (a):** El intervalo de confianza asintótico al $95\%$ para $\lambda$ es **$[0.008, 0.792]$**.
+
+### Parte (b): El enfoque Exponencial/Gamma (Eventos fijos, Tiempo aleatorio)
+
+Acá cambia totalmente la lógica del experimento. El investigador decide esperar hasta ver exactamente $r = 4$ emisiones, sin importar cuánto tarde. Ahora los eventos son una constante y el tiempo que tarda es la variable aleatoria.
+
+**1. Definición de la Variable**
+
+El tiempo que pasa entre emisión y emisión tiene una distribución Exponencial $\mathcal{E}(\lambda)$.
+
+El tiempo total hasta observar la emisión número $r$ lo llamamos $T_r$, y es la suma de $r$ variables Exponenciales. Esa suma tiene una distribución Gamma:
+
+$$T_r \sim \Gamma(r, \lambda)$$
+
+Sabemos por teoría que $E(T_r) = \frac{r}{\lambda}$ y $V(T_r) = \frac{r}{\lambda^2}$.
+
+**2. Construcción del Pivote (¡Acá está la magia!)**
+
+Como $r=4$, podemos usar el Teorema Central del Límite para aproximar $T_r$ a una Normal (el enunciado nos fuerza a hacerlo al pedir nivel "asintótico").
+
+$$T_r \sim \mathcal{N}\left(\frac{r}{\lambda}, \frac{r}{\lambda^2}\right)$$
+
+Armamos el pivote tipificando (restamos la esperanza y dividimos por el desvío teórico $\frac{\sqrt{r}}{\lambda}$):
+
+$$Z = \frac{T_r - \frac{r}{\lambda}}{\frac{\sqrt{r}}{\lambda}} \sim \mathcal{N}(0, 1)$$
+
+Si multiplicamos el numerador y el denominador por $\lambda$ para "limpiar" las fracciones, nos queda un pivote hermoso donde la $\lambda$ no está en el denominador, **por lo que no necesitamos usar el Teorema de Slutsky ni inventar estimadores**:
+
+$$Z = \frac{\lambda T_r - r}{\sqrt{r}} \sim \mathcal{N}(0, 1)$$
+
+**3. Despeje**
+
+Usamos el mismo valor crítico $1.96$:
+
+$$-1.96 \leqslant \frac{\lambda T_r - r}{\sqrt{r}} \leqslant 1.96$$
+
+Pasamos la raíz multiplicando:
+
+$$-1.96 \cdot \sqrt{r} \leqslant \lambda T_r - r \leqslant 1.96 \cdot \sqrt{r}$$
+
+Sumamos $r$ en todos lados:
+
+$$r - 1.96 \cdot \sqrt{r} \leqslant \lambda T_r \leqslant r + 1.96 \cdot \sqrt{r}$$
+
+Pasamos el tiempo observado $T_r$ dividiendo:
+
+$$\frac{r - 1.96 \cdot \sqrt{r}}{T_r} \leqslant \lambda \leqslant \frac{r + 1.96 \cdot \sqrt{r}}{T_r}$$
+
+**4. Cálculos Finales (b)**
+
+Fijate qué maravilla matemática nos quedó. Los datos ahora son: $r = 4$ eventos fijos, y el tiempo aleatorio resultó ser $T_r = 10$.
+
+Al reemplazar, los números son idénticos a los del inciso anterior, solo que intercambiaron posiciones:
+
+- $\sqrt{r} = \sqrt{4} = 2$
+    
+- Margen: $1.96 \cdot 2 = 3.92$
+    
+- **Límite Inferior:** $\frac{4 - 3.92}{10} = 0.008$
+    
+- **Límite Superior:** $\frac{4 + 3.92}{10} = 0.792$
+    
+
+**Respuesta (b):** El intervalo de confianza asintótico al $95\%$ para $\lambda$ vuelve a ser **$[0.008, 0.792]$**.
+
+> **Conclusión del ejercicio:** No importa si estructurás tu experimento midiendo cantidad de eventos en un tiempo fijo (Poisson) o midiendo el tiempo transcurrido para una cantidad fija de eventos (Gamma), si los números observados coinciden, el intervalo de confianza asintótico que respalda a $\lambda$ es exactamente el mismo.

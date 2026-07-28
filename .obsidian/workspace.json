@@ -109,6 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "estadistica/ejercicio guia 11/Guia 11.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes"
+              "title": "Enlaces entrantes de Guia 11"
             }
           },
           {
@@ -192,8 +193,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -209,20 +209,19 @@
   },
   "active": "43baf6b430a92f9c",
   "lastOpenFiles": [
+    "estadistica/5. Cap 11.md",
+    "estadistica/ejercicio guia 11/Guia 11.md",
+    "!imagenes/Pasted image 20260728024109.png",
     "!imagenes/Pasted image 20260728023834.png",
     "!imagenes/Pasted image 20260728022725.png",
     "!imagenes/Pasted image 20260728022433.png",
     "!imagenes/Pasted image 20260728022115.png",
     "estadistica/ejercicios_guia_10/Guia 10.md",
-    "estadistica/ejercicio guia 11/Guia 11.md",
     "!imagenes/Pasted image 20260728014430.png",
     "!imagenes/Pasted image 20260728014017.png",
     "!imagenes/Pasted image 20260728013242.png",
     "!imagenes/Pasted image 20260728012937.png",
     "!imagenes/Pasted image 20260728012753.png",
-    "!imagenes/Pasted image 20260728012234.png",
-    "!imagenes/Pasted image 20260728011544.png",
-    "estadistica/5. Cap 11.md",
     "estadistica/ejercicio guia 11",
     "estadistica/4. Cap 10 video 2.md",
     "estadistica/ejercicios_guia_9/Guia 9.md",
