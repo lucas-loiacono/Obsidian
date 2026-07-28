@@ -1129,3 +1129,310 @@ Reemplazamos en nuestra fórmula del intervalo:
 El intervalo de confianza al $90\%$ es **$[0.8, 1.1742]$**.
 
 Fijate cómo usando el método directo de la hoja, pero aplicando la lógica correcta de no dividir el error, llegamos exactamente al mismo resultado óptimo de $[0.8, 1.17]$ que habíamos calculado la primera vez.
+
+
+
+![[Pasted image 20260728022115.png]]
+
+
+¡Perfecto! Vamos a aplicar exactamente la misma filosofía de la **sumatoria** para este ejercicio 11.10 de la imagen **image_33be05.png**.
+
+Aunque sea un ejercicio de proporciones (porcentajes), vas a ver que el método de sumar todo funciona de maravilla y nos evita trabajar con números decimales minúsculos desde el principio.
+
+### 1. Definición de la Variable y la Sumatoria
+
+Definimos $X_i$ como el estado de un artículo, donde $X_i = 1$ si es defectuoso y $X_i = 0$ si no lo es. Esto es una variable Bernoulli con una probabilidad $p$ desconocida.
+
+Se tomó una muestra de $n = 200$ artículos. Nuestra **sumatoria total** es la cantidad de artículos defectuosos encontrados:
+
+$$S = \sum_{i=1}^{200} X_i = 11$$
+
+La suma de variables Bernoulli nos da una distribución Binomial, pero como $n$ es un número grande ($200$), invocamos al Teorema Central del Límite para usar una aproximación Normal (intervalo asintótico):
+
+$$S \sim \mathcal{N}(np, np(1-p))$$
+
+**El detalle técnico para proporciones:** Para armar el pivote, necesitamos calcular el desvío estándar ($\sqrt{np(1-p)}$). Como no conocemos la verdadera $p$, la estadística nos permite estimarla usando la proporción observada en la muestra $\hat{p} = \frac{S}{n} = \frac{11}{200} = 0.055$.
+
+### Parte (a): Intervalo de Confianza del 90%
+
+**1. Construcción del Pivote**
+
+Armamos nuestro pivote tipificando la sumatoria:
+
+$$Z = \frac{S - np}{\sqrt{n \hat{p}(1-\hat{p})}} \sim \mathcal{N}(0, 1)$$
+
+Para un nivel de confianza del **$90\%$** ($1 - \alpha = 0.90$), dejamos un $5\%$ de error en cada cola. Buscamos en la tabla Normal el valor crítico $z_{0.95}$:
+
+- **Valor crítico:** $1.645$
+    
+
+**2. Despeje de la Región de Confianza**
+
+Planteamos la inecuación:
+
+$$-1.645 \leqslant \frac{S - np}{\sqrt{n \hat{p}(1-\hat{p})}} \leqslant 1.645$$
+
+Pasamos multiplicando la raíz (el desvío de la suma):
+
+$$-1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})} \leqslant S - np \leqslant 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}$$
+
+Restamos la sumatoria $S$ en todos los lados, multiplicamos por $-1$ (dando vuelta los signos) y nos queda el término central positivo:
+
+$$S - 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})} \leqslant np \leqslant S + 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}$$
+
+Finalmente, dividimos todo por $n$ para despejar nuestra proporción $p$:
+
+$$\frac{S - 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}}{n} \leqslant p \leqslant \frac{S + 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}}{n}$$
+
+**3. Cálculos Finales (a)**
+
+Calculamos el desvío estándar de nuestra suma observada:
+
+$$\text{Desvío} = \sqrt{200 \cdot 0.055 \cdot (1 - 0.055)} = \sqrt{200 \cdot 0.055 \cdot 0.945} = \sqrt{10.395} \approx 3.2241$$
+
+Calculamos el margen de error para la sumatoria:
+
+$$\text{Margen} = 1.645 \cdot 3.2241 \approx 5.3036$$
+
+Reemplazamos en la fórmula despejada (con $S = 11$):
+
+- **Límite Inferior:** $\frac{11 - 5.3036}{200} = \frac{5.6964}{200} \approx 0.0285$
+    
+- **Límite Superior:** $\frac{11 + 5.3036}{200} = \frac{16.3036}{200} \approx 0.0815$
+    
+
+**Respuesta (a):** El intervalo de confianza asintótico al 90% para la proporción de defectuosos es **$[0.0285, 0.0815]$** (o entre 2.85% y 8.15%).
+
+### Parte (b): Cota Inferior del 95% y Evaluación
+
+**1. Planteo de la Cota Inferior**
+
+Nos piden una cota inferior de nivel **$0.95$**. Al ser un intervalo unilateral (de un solo lado), no dividimos el error de $\alpha = 0.05$ en dos. Casualmente, el valor en la tabla Normal que deja un $5\%$ en una sola cola es exactamente el mismo que usamos antes para el 90% bilateral:
+
+- **Valor crítico unilateral:** $1.645$
+    
+
+Como queremos una cota inferior para $p$ (es decir, $p \geqslant \dots$), forzamos al pivote a ser menor o igual al valor crítico:
+
+$$P\left( \frac{S - np}{\sqrt{n \hat{p}(1-\hat{p})}} \leqslant 1.645 \right) = 0.95$$
+
+**2. Despeje y Cálculo (b)**
+
+El despeje algebraico es idéntico al límite inferior del paso anterior. Llegamos directamente a:
+
+$$np \geqslant S - 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}$$
+
+$$p \geqslant \frac{11 - 5.3036}{200}$$
+
+$$p \geqslant 0.0285$$
+
+**Respuesta (b) - La Cota:** Con un nivel de confianza del 95%, la cota inferior es **$0.0285$**.
+
+**3. Evaluación de la afirmación del fabricante:**
+
+El fabricante asegura que el porcentaje de defectuosos es **como máximo un $2\%$** ($p \leqslant 0.02$).
+
+Sin embargo, nuestra estadística demuestra con un $95\%$ de seguridad que el porcentaje de defectuosos es **como mínimo un $2.85\%$** ($p \geqslant 0.0285$).
+
+**Conclusión:** Como la cota inferior calculada es estrictamente mayor al límite que promete el fabricante, **la afirmación del fabricante es falsa (se rechaza)**. La cantidad de artículos defectuosos que recibimos es innegablemente superior a lo prometido.
+
+
+![[Pasted image 20260728022433.png]]
+
+
+Aquí tienes la resolución del ejercicio 11.12 de la imagen **image_3351e0.png**, aplicando nuestra metodología de la **sumatoria** paso a paso.
+
+Como es un problema de proporciones con una muestra grande ($n=100$), la lógica es idéntica a la que usamos en el ejercicio del fabricante de artículos.
+
+### 1. Definición de la Variable y la Sumatoria
+
+Definimos $X_i$ como el voto de un ciudadano encuestado, donde $X_i = 1$ si vota al candidato azul y $X_i = 0$ si vota al amarillo (o a otro). Esta es una variable Bernoulli con una probabilidad $p$ desconocida.
+
+Se encuestaron $n = 100$ ciudadanos. Nuestra **sumatoria total** es la cantidad de personas que afirmaron que votarán al candidato azul:
+
+$$S = \sum_{i=1}^{100} X_i = 44$$
+
+Por el Teorema Central del Límite, como la muestra es grande, la sumatoria se aproxima a una distribución Normal:
+
+$$S \sim \mathcal{N}(np, np(1-p))$$
+
+Para calcular la varianza de nuestro pivote, estimamos la $p$ desconocida usando la proporción que observamos en la muestra: $\hat{p} = \frac{S}{n} = \frac{44}{100} = 0.44$.
+
+### 2. Construcción del Pivote Unilateral
+
+Armamos el pivote tipificando nuestra sumatoria:
+
+$$Z = \frac{S - np}{\sqrt{n \hat{p}(1-\hat{p})}} \sim \mathcal{N}(0, 1)$$
+
+El enunciado pide una **cota inferior** de nivel asintótico **$0.95$**. Al igual que en el ejercicio anterior, al ser un límite de un solo lado, no dividimos el error en dos colas. Todo el $5\%$ de riesgo ($\alpha = 0.05$) va a un solo extremo.
+
+Buscamos en la tabla Normal estándar el valor que acumula $0.95$ de probabilidad a su izquierda ($z_{0.95}$):
+
+- **Valor crítico:** $1.645$
+    
+
+Para que la $p$ nos quede acotada por debajo ($p \geqslant \dots$), forzamos al pivote a ser menor o igual a nuestro valor crítico:
+
+$$P\left( \frac{S - np}{\sqrt{n \hat{p}(1-\hat{p})}} \leqslant 1.645 \right) = 0.95$$
+
+### 3. Despeje de la Cota Inferior
+
+El despeje es exactamente el mismo que venimos practicando:
+
+Pasamos multiplicando el denominador (el desvío):
+
+$$S - np \leqslant 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}$$
+
+Restamos $S$ y luego multiplicamos todo por $-1$ (lo que invierte el signo de la inecuación a $\geqslant$):
+
+$$np \geqslant S - 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}$$
+
+Dividimos todo por $n$ para despejar nuestra proporción poblacional $p$:
+
+$$p \geqslant \frac{S - 1.645 \cdot \sqrt{n \hat{p}(1-\hat{p})}}{n}$$
+
+### 4. Cálculos Finales con los Datos de la Encuesta
+
+Calculamos primero el desvío estándar de nuestra sumatoria con los datos ($n=100$, $\hat{p}=0.44$, y por ende $1-\hat{p}=0.56$):
+
+$$\text{Desvío} = \sqrt{100 \cdot 0.44 \cdot 0.56} = \sqrt{24.64} \approx 4.9639$$
+
+Calculamos el margen de error para la sumatoria multiplicando por el valor crítico:
+
+$$\text{Margen} = 1.645 \cdot 4.9639 \approx 8.1656$$
+
+Reemplazamos en la fórmula despejada, sabiendo que el total de votos a favor en la muestra fue $S = 44$:
+
+$$p \geqslant \frac{44 - 8.1656}{100}$$
+
+$$p \geqslant \frac{35.8344}{100}$$
+
+$$p \geqslant 0.3583$$
+
+**Conclusión final:**
+
+Con un nivel de confianza asintótico del **$95\%$**, la cota inferior para la proporción de votantes a favor del candidato azul es **$0.3583$** (o un $35.83\%$).
+
+
+
+![[Pasted image 20260728022725.png]]
+
+Aquí tienes la resolución del ejercicio 11.13 de la imagen **image_334d05.png**.
+
+Este ejercicio tiene una trampa clásica de parcial en la que caen muchos: **las unidades de tiempo**. La intensidad $\lambda$ está definida "por segundo", pero la observación duró "4 horas". Lo primero que tenemos que hacer es unificar eso.
+
+### 1. Definición de la Variable y la Sumatoria (y la trampa del tiempo)
+
+Definimos $X_i$ como el número de partículas emitidas en el segundo $i$. Como es un proceso de Poisson, $X_i \sim \mathcal{P}(\lambda)$.
+
+El tiempo total de observación en segundos es $n = 4 \text{ horas} \cdot 60 \text{ min} \cdot 60 \text{ seg} = 14400 \text{ segundos}$.
+
+Nuestra **sumatoria total** es la cantidad de emisiones registradas en esos 14400 segundos:
+
+$$S = \sum_{i=1}^{14400} X_i = 11150$$
+
+Sabemos que la suma de variables de Poisson también es Poisson. Pero como $n$ es un número gigante, usamos el Teorema Central del Límite para aproximarlo a una Normal (intervalo asintótico):
+
+$$S \sim \mathcal{N}(n\lambda, n\lambda)$$
+
+_(Recordatorio teórico: en la distribución de Poisson, la esperanza y la varianza son iguales, ambas valen $n\lambda$ para la sumatoria)._
+
+### 2. Construcción del Pivote
+
+Para tipificar la variable y armar el pivote $Z$, deberíamos dividir por el desvío estándar ($\sqrt{n\lambda}$). Como la $\lambda$ es nuestra incógnita, la estadística nos permite estimar esa varianza usando el valor total que efectivamente observamos ($S$). Es decir, reemplazamos la varianza desconocida $n\lambda$ por la suma observada $S$.
+
+Armamos el pivote:
+
+$$Z = \frac{S - n\lambda}{\sqrt{S}} \sim \mathcal{N}(0, 1)$$
+
+El enunciado pide un nivel de confianza del **$99\%$** ($1 - \alpha = 0.99$). Dejamos un $0.5\%$ en cada cola ($\alpha/2 = 0.005$).
+
+Buscamos en la tabla Normal el valor crítico $z_{0.995}$:
+
+- **Valor crítico:** $2.575$
+    
+
+### 3. Despeje de la Región de Confianza
+
+Planteamos la inecuación doble para encerrar a la $\lambda$:
+
+$$-2.575 \leqslant \frac{S - n\lambda}{\sqrt{S}} \leqslant 2.575$$
+
+Pasamos multiplicando el desvío estimado ($\sqrt{S}$):
+
+$$-2.575 \cdot \sqrt{S} \leqslant S - n\lambda \leqslant 2.575 \cdot \sqrt{S}$$
+
+Restamos $S$ en todos los miembros, multiplicamos por $-1$ (dando vuelta los signos de la inecuación) y ordenamos:
+
+$$S - 2.575 \cdot \sqrt{S} \leqslant n\lambda \leqslant S + 2.575 \cdot \sqrt{S}$$
+
+Dividimos todo por $n$ para despejar definitivamente la intensidad $\lambda$:
+
+$$\frac{S - 2.575 \cdot \sqrt{S}}{n} \leqslant \lambda \leqslant \frac{S + 2.575 \cdot \sqrt{S}}{n}$$
+
+### 4. Cálculos Finales con los Datos de la Muestra
+
+Tenemos nuestros datos procesados:
+
+- $n = 14400$
+    
+- $S = 11150$
+    
+
+Calculamos la raíz de $S$ (nuestro desvío estimado):
+
+$$\sqrt{11150} \approx 105.5936$$
+
+Calculamos el margen de error que le sumaremos y restaremos a $S$:
+
+$$\text{Margen} = 2.575 \cdot 105.5936 \approx 271.9035$$
+
+Reemplazamos en la fórmula despejada:
+
+- **Límite Inferior:** $\frac{11150 - 271.9035}{14400} = \frac{10878.0965}{14400} \approx 0.7554$
+    
+- **Límite Superior:** $\frac{11150 + 271.9035}{14400} = \frac{11421.9035}{14400} \approx 0.7932$
+    
+
+**Conclusión final:**
+
+Con un nivel de confianza asintótico del **$99\%$**, el intervalo para la intensidad del proceso de emisión es **$[0.755, 0.793]$** partículas por segundo.
+
+
+
+
+¡Es una pregunta excelente! Toca el corazón de cómo funcionan los pivotes y las estimaciones en estadística.
+
+Para entender el porqué de esta decisión, analicemos cómo es el pivote original (el verdadero) antes de hacerle ninguna modificación:
+
+$$Z = \frac{S - n\lambda}{\sqrt{n\lambda}}$$
+
+Aquí te explico el rol de cada parte y por qué tomamos decisiones distintas arriba y abajo:
+
+### 1. El numerador: La obligación de mantener la incógnita
+
+El numerador ($S - n\lambda$) representa el error o la distancia entre tu dato observado ($S$) y la realidad teórica ($n\lambda$).
+
+Si hiciéramos el reemplazo de $n\lambda$ por $S$ en el numerador, la ecuación quedaría así:
+
+$$S - S = 0$$
+
+El pivote daría cero y la letra $\lambda$ desaparecería por completo. Al no haber incógnita, se vuelve matemáticamente imposible despejar un intervalo. El numerador **tiene que conservar obligatoriamente** al parámetro desconocido para que el despeje exista.
+
+### 2. El denominador: La regla de medir (estimable)
+
+El denominador ($\sqrt{n\lambda}$) es el desvío estándar, y su única función matemática es actuar como una "regla" para escalar ese error del numerador.
+
+Como no conocemos la verdadera $\lambda$, no sabemos qué tamaño tiene esa regla. Pero la estadística (mediante el Teorema de Slutsky) demuestra que si la muestra es grande, reemplazar esa regla teórica desconocida por una regla aproximada usando tus datos ($\sqrt{S}$) no rompe la distribución Normal. Funciona casi igual de bien.
+
+### ¿Se podría dejar $n\lambda$ en el denominador?
+
+Sí, **es estadísticamente válido y de hecho es más preciso** (se lo conoce como "Intervalo de Score").
+
+Si armás la inecuación usando el pivote original:
+
+$$-2.575 \leqslant \frac{S - n\lambda}{\sqrt{n\lambda}} \leqslant 2.575$$
+
+El problema es estrictamente algebraico. Para despejar esa $\lambda$ que está atrapada adentro de una raíz abajo y restando arriba, estás obligado a elevar todos los términos al cuadrado y resolver una **ecuación cuadrática completa (usando la fórmula resolvente o de Bhaskara)**.
+
+Reemplazar $n\lambda$ por $S$ exclusivamente en el denominador es un "atajo" universalmente aceptado (llamado "Intervalo de Wald") para poder despejar la $\lambda$ de forma lineal, rápida y sin hacer cuentas gigantescas en medio de un examen.
