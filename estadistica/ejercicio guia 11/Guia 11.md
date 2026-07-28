@@ -174,3 +174,84 @@ Dado que la cantidad de transmisiones no puede ser un número decimal, siempre d
 **Conclusión final:**
 
 El mínimo valor de transmisiones necesarias es **$n = 664$**.
+
+
+![[Pasted image 20260728011544.png]]
+
+
+Aquí tienes la resolución del ejercicio 11.3 de la imagen **image_35885a.png**, aplicando nuevamente el método de la **sumatoria** que acordamos, con la particularidad de que ahora la varianza poblacional ($\sigma^2$) es desconocida.
+
+### 1. Definición de la Variable y la Sumatoria
+
+El enunciado nos indica que las mediciones individuales tienen distribución normal: $X_i \sim \mathcal{N}(\mu, \sigma^2)$, donde tanto $\mu$ como $\sigma^2$ son desconocidos.
+
+Se realizaron $n = 12$ mediciones. Definimos nuestra **sumatoria total** de las observaciones:
+
+$$S_x = \sum_{i=1}^{12} X_i$$
+
+Por las propiedades de la distribución Normal, sabemos que la sumatoria distribuye de la siguiente manera:
+
+$$S_x \sim \mathcal{N}(n\mu, n\sigma^2)$$
+
+### 2. Construcción del Pivote (con Varianza Desconocida)
+
+Como no conocemos el verdadero desvío estándar ($\sigma$), debemos estimarlo usando el **desvío estándar muestral ($s$)**.
+
+Al introducir $s$ en nuestra ecuación en lugar de $\sigma$, el estadístico ya no se comporta como una Normal estándar ($Z$), sino que pasa a tener una distribución **t de Student** con $n-1$ grados de libertad.
+
+Adaptamos la fórmula del pivote clásico a nuestra sumatoria $S_x$:
+
+$$T = \frac{S_x - n\mu}{\sqrt{n} \cdot s} \sim t_{n-1}$$
+
+Para un nivel de confianza del **$95\%$** ($1 - \alpha = 0.95$), buscamos en la tabla de la t de Student el valor crítico para $n-1 = 11$ grados de libertad que deja un $0.025$ en cada cola ($t_{11, 0.975}$):
+
+- **Valor crítico:** $2.201$
+    
+
+### 3. Despeje de la Región de Confianza
+
+Planteamos la inecuación de probabilidad con nuestro pivote y procedemos a despejar $\mu$:
+
+$$P\left(-2.201 \leqslant \frac{S_x - n\mu}{\sqrt{n} \cdot s} \leqslant 2.201\right) = 0.95$$
+
+Pasamos multiplicando el denominador ($\sqrt{n} \cdot s$):
+
+$$-2.201 \cdot \sqrt{n} \cdot s \leqslant S_x - n\mu \leqslant 2.201 \cdot \sqrt{n} \cdot s$$
+
+Restamos la sumatoria $S_x$ en todos los miembros:
+
+$$-S_x - 2.201 \cdot \sqrt{n} \cdot s \leqslant -n\mu \leqslant -S_x + 2.201 \cdot \sqrt{n} \cdot s$$
+
+Multiplicamos todo por $-1$ (lo que invierte los signos de desigualdad) y ordenamos:
+
+$$S_x - 2.201 \cdot \sqrt{n} \cdot s \leqslant n\mu \leqslant S_x + 2.201 \cdot \sqrt{n} \cdot s$$
+
+Dividimos todo por $n$ para despejar finalmente la media $\mu$:
+
+$$\frac{S_x - 2.201 \cdot \sqrt{n} \cdot s}{n} \leqslant \mu \leqslant \frac{S_x + 2.201 \cdot \sqrt{n} \cdot s}{n}$$
+
+### 4. Cálculos con los Datos de la Muestra
+
+A partir de los 12 datos provistos por James Short, calculamos los valores necesarios:
+
+- **Sumatoria observada ($S_{obs}$):** $9.11 + 8.66 + \dots + 9.25 = 103.17$
+    
+- **Desvío estándar muestral ($s$):** Calculando la varianza de la muestra (dividiendo por $n-1 = 11$) y aplicando raíz cuadrada, obtenemos $s \approx 0.5616$.
+    
+- **Tamaño de muestra ($n$):** $12$ (por lo tanto, $\sqrt{12} \approx 3.4641$)
+    
+
+Calculamos el término del margen de error de nuestra fórmula ($2.201 \cdot \sqrt{n} \cdot s$):
+
+$$\text{Margen} = 2.201 \cdot 3.4641 \cdot 0.5616 \approx 4.2818$$
+
+Reemplazamos en la fórmula despejada:
+
+- **Límite Inferior:** $\frac{103.17 - 4.2818}{12} = \frac{98.8882}{12} \approx 8.2407$
+    
+- **Límite Superior:** $\frac{103.17 + 4.2818}{12} = \frac{107.4518}{12} \approx 8.9543$
+    
+
+**Conclusión final:**
+
+Basado en las observaciones muestrales de James Short, el intervalo de confianza del **$95\%$** para la verdadera paralaje solar $\mu$ es **$[8.24, 8.95]$** segundos de grado.
