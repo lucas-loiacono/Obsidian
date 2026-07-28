@@ -255,3 +255,218 @@ Reemplazamos en la fórmula despejada:
 **Conclusión final:**
 
 Basado en las observaciones muestrales de James Short, el intervalo de confianza del **$95\%$** para la verdadera paralaje solar $\mu$ es **$[8.24, 8.95]$** segundos de grado.
+
+
+
+
+![[Pasted image 20260728012234.png]]
+
+
+Aquí tienes la resolución del ejercicio 11.4 de la imagen **image_351f7b.png**, utilizando nuestra metodología de la **sumatoria**.
+
+Este ejercicio introduce una novedad importante: nos pide una **cota inferior** en lugar de un intervalo cerrado por ambos lados. Esto significa que todo nuestro nivel de riesgo ($\alpha$) irá a una sola cola de la distribución.
+
+### 1. Definición de la Variable y la Sumatoria
+
+Sabemos que el voltaje de ruptura tiene distribución Normal: $X_i \sim \mathcal{N}(\mu, \sigma^2)$, con varianza desconocida.
+
+Se probaron $n = 10$ capacitores. Definimos nuestra **sumatoria total** de voltajes:
+
+$$S_x = \sum_{i=1}^{10} X_i$$
+
+La sumatoria distribuye de la siguiente manera:
+
+$$S_x \sim \mathcal{N}(n\mu, n\sigma^2)$$
+
+### 2. Construcción del Pivote Unilateral
+
+Al no conocer la varianza real ($\sigma^2$), utilizamos el desvío estándar muestral ($s$) y la distribución **t de Student** con $n-1 = 9$ grados de libertad:
+
+$$T = \frac{S_x - n\mu}{\sqrt{n} \cdot s} \sim t_9$$
+
+El nivel de confianza exigido es del **$95\%$** ($1 - \alpha = 0.95$). Como buscamos exclusivamente una **cota inferior** para $\mu$, no dividimos el error en dos. Concentramos el $5\%$ de riesgo ($\alpha = 0.05$) en una sola cola.
+
+Buscamos en la tabla t de Student el cuantil $t_{9, 0.95}$:
+
+- **Valor crítico:** $1.833$
+    
+
+### 3. Despeje de la Cota Inferior
+
+Planteamos la inecuación de probabilidad asegurándonos de que el pivote sea menor o igual al valor crítico, lo que nos permitirá despejar un límite inferior para $\mu$:
+
+$$P\left( \frac{S_x - n\mu}{\sqrt{n} \cdot s} \leqslant 1.833 \right) = 0.95$$
+
+Pasamos multiplicando el denominador:
+
+$$S_x - n\mu \leqslant 1.833 \cdot \sqrt{n} \cdot s$$
+
+Pasamos la sumatoria restando:
+
+$$-n\mu \leqslant -S_x + 1.833 \cdot \sqrt{n} \cdot s$$
+
+Multiplicamos todo por $-1$ (¡esto es clave porque invierte el signo de menor a mayor!) y ordenamos:
+
+$$n\mu \geqslant S_x - 1.833 \cdot \sqrt{n} \cdot s$$
+
+Dividimos por $n$ para despejar la media $\mu$:
+
+$$\mu \geqslant \frac{S_x - 1.833 \cdot \sqrt{n} \cdot s}{n}$$
+
+Lo que nos quedó a la derecha del signo mayor o igual es la fórmula exacta de nuestra cota inferior basada en la sumatoria.
+
+### 4. Cálculos con los Datos de la Muestra
+
+Con los 10 datos de voltajes obtenidos en la prueba, calculamos los valores observados:
+
+- **Sumatoria observada ($S_{obs}$):** $196.73 + 204.37 + \dots + 202.27 = 2015.03$
+    
+- **Desvío estándar muestral ($s$):** Calculando la varianza muestral de estos 10 datos y aplicando raíz cuadrada, se obtiene $s \approx 3.3745$.
+    
+- **Tamaño de muestra ($n$):** $10$ (por lo tanto, $\sqrt{10} \approx 3.1623$)
+    
+
+Calculamos el margen que le restaremos a nuestra suma:
+
+$$\text{Margen} = 1.833 \cdot 3.1623 \cdot 3.3745 \approx 19.5606$$
+
+Reemplazamos en la fórmula despejada:
+
+$$\mu \geqslant \frac{2015.03 - 19.5606}{10}$$
+
+$$\mu \geqslant \frac{1995.4694}{10}$$
+
+$$\mu \geqslant 199.5469$$
+
+**Conclusión final:**
+
+Con un nivel de confianza del **$95\%$**, la cota inferior para la media del voltaje de ruptura es **$199.55$**. Esto garantiza estadísticamente que el voltaje medio verdadero de estos capacitores es de 199.55 o superior.
+
+
+
+
+
+
+
+![[Pasted image 20260728012753.png]]
+
+
+
+Aquí tienes la resolución del ejercicio 11.5 de la imagen **image_351343.png**, manteniendo nuestra filosofía de trabajar todo desde la **sumatoria**.
+
+Este ejercicio es excelente porque te obliga a tomar una decisión según el tamaño de la muestra ($n$):
+
+- En el caso **(a)**, como $n=10$ es un tamaño de muestra pequeño, no podemos usar la aproximación Normal. Tenemos que usar la distribución "exacta".
+    
+- En el caso **(b)**, como $n=100$ es grande, podemos invocar al Teorema Central del Límite y usar nuestra querida Normal (intervalo asintótico).
+    
+
+Vamos a resolver ambos paso a paso.
+
+### Caso (a): Muestra pequeña ($n = 10$) - Intervalo Exacto
+
+**1. Definición de la Variable y la Sumatoria**
+
+Sabemos que los tiempos individuales tienen distribución Exponencial: $T_i \sim \mathcal{E}(\lambda)$.
+
+Nuestra variable de estudio es la sumatoria total:
+
+$$S = \sum_{i=1}^{10} T_i$$
+
+Por teoría de probabilidades, la suma de variables exponenciales independientes tiene una distribución Gamma. Y, específicamente, existe un "truco" o propiedad matemática para armar el pivote exacto: si multiplicamos esa suma por $2\lambda$, obtenemos una distribución **Chi-cuadrado ($\chi^2$)** con $2n$ grados de libertad.
+
+**2. Construcción del Pivote Exacto**
+
+Para $n=10$, los grados de libertad son $2 \cdot 10 = 20$.
+
+$$U = 2\lambda S \sim \chi^2_{20}$$
+
+El nivel de confianza es $0.90$ ($1 - \alpha = 0.90$). Esto significa que dejamos un $5\%$ ($\alpha/2 = 0.05$) de error en cada cola.
+
+Buscamos en la tabla de la distribución Chi-cuadrado con 20 grados de libertad los dos valores críticos que encierran ese $90\%$:
+
+- **Valor crítico inferior ($a$):** $\chi^2_{20, 0.05} \approx 10.851$
+    
+- **Valor crítico superior ($b$):** $\chi^2_{20, 0.95} \approx 31.410$
+    
+
+**3. Despeje de la Región de Confianza**
+
+Planteamos la inecuación y despejamos la intensidad $\lambda$:
+
+$$P(10.851 \leqslant 2\lambda S \leqslant 31.410) = 0.90$$
+
+Dividimos todo por $2S$ para dejar la $\lambda$ sola en el centro:
+
+$$\frac{10.851}{2S} \leqslant \lambda \leqslant \frac{31.410}{2S}$$
+
+**4. Cálculo Final (a)**
+
+El enunciado nos da el valor de la sumatoria observada: $S = 29.51$.
+
+Reemplazamos en nuestra fórmula:
+
+- **Límite Inferior:** $\frac{10.851}{2 \cdot 29.51} = \frac{10.851}{59.02} \approx 0.1838$
+    
+- **Límite Superior:** $\frac{31.410}{2 \cdot 29.51} = \frac{31.410}{59.02} \approx 0.5322$
+    
+
+**Respuesta (a):** El intervalo de confianza exacto al 90% para $\lambda$ es **$[0.1838, 0.5322]$**.
+
+### Caso (b): Muestra grande ($n = 100$) - Intervalo Asintótico
+
+**1. El Pivote Asintótico desde la Sumatoria**
+
+Aquí $n=100$. Podríamos buscar una Chi-cuadrado con 200 grados de libertad, pero esas tablas no suelen existir. En su lugar, usamos el Teorema Central del Límite sobre nuestra sumatoria $S$.
+
+Sabemos que en una Exponencial, la media es $1/\lambda$ y la varianza es $1/\lambda^2$.
+
+Para la sumatoria $S$, la media será $n/\lambda$ y la varianza $n/\lambda^2$.
+
+Armamos el pivote tipificando la sumatoria (restando su media y dividiendo por su desvío):
+
+$$Z = \frac{S - n/\lambda}{\sqrt{n/\lambda^2}} = \frac{S - n/\lambda}{\sqrt{n}/\lambda} \sim \mathcal{N}(0,1)$$
+
+Si resolvemos esa fracción (multiplicando numerador y denominador por $\lambda$), nos queda un pivote asintótico hermosamente simple:
+
+$$Z = \frac{\lambda S - n}{\sqrt{n}} \sim \mathcal{N}(0,1)$$
+
+**2. Despeje de la Región de Confianza**
+
+Para un nivel de confianza del $0.90$, buscamos en la tabla Normal el valor crítico $z_{0.95}$:
+
+- **Valor crítico:** $1.645$
+    
+
+Planteamos la inecuación:
+
+$$-1.645 \leqslant \frac{\lambda S - n}{\sqrt{n}} \leqslant 1.645$$
+
+Pasamos $\sqrt{n}$ multiplicando:
+
+$$-1.645\sqrt{n} \leqslant \lambda S - n \leqslant 1.645\sqrt{n}$$
+
+Pasamos la $n$ sumando:
+
+$$n - 1.645\sqrt{n} \leqslant \lambda S \leqslant n + 1.645\sqrt{n}$$
+
+Dividimos todo por $S$:
+
+$$\frac{n - 1.645\sqrt{n}}{S} \leqslant \lambda \leqslant \frac{n + 1.645\sqrt{n}}{S}$$
+
+_(Nota curiosa: ¡Logramos despejar la $\lambda$ perfectamente sin necesidad de usar el teorema de Slutsky ni ecuaciones cuadráticas!)_
+
+**3. Cálculo Final (b)**
+
+El enunciado nos da $n = 100$ (por ende, $\sqrt{n} = 10$) y la nueva sumatoria $S = 223.21$.
+
+Reemplazamos en nuestra fórmula:
+
+- **Margen de error del numerador:** $1.645 \cdot 10 = 16.45$
+    
+- **Límite Inferior:** $\frac{100 - 16.45}{223.21} = \frac{83.55}{223.21} \approx 0.3743$
+    
+- **Límite Superior:** $\frac{100 + 16.45}{223.21} = \frac{116.45}{223.21} \approx 0.5217$
+    
+
+**Respuesta (b):** El intervalo de confianza asintótico al 90% para $\lambda$ es **$[0.3743, 0.5217]$**.
