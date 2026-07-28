@@ -81,3 +81,96 @@ Reemplazamos este valor observado en nuestra fórmula despejada:
 **Conclusión final:**
 
 Con un nivel de confianza del **95%**, el intervalo para el verdadero valor de la señal transmitida $\mu$ es **$[7.3846, 8.6912]$**.
+
+
+
+![[Pasted image 20260728010511.png]]
+
+
+Aquí tienes la resolución del ejercicio 11.2, manteniendo rigurosamente el planteo desde la **sumatoria** y conectándolo con el promedio que pide el enunciado.
+
+### 1. Definición de la Variable y la Sumatoria
+
+Sabemos que la señal recibida individualmente es $X_i = \mu + N$.
+
+Como el ruido es $N \sim \mathcal{N}(0, 1/100)$, nuestra variable aleatoria para cada transmisión distribuye así:
+
+$$X_i \sim \mathcal{N}\left(\mu, \frac{1}{100}\right)$$
+
+El emisor transmite la señal $n$ veces. Definimos nuestra **sumatoria total** de señales recibidas:
+
+$$S = \sum_{i=1}^{n} X_i$$
+
+Calculamos los parámetros para esta sumatoria (la suma de Normales es Normal):
+
+- **Media ($\mu_S$):** $n \cdot \mu$
+    
+- **Varianza ($\sigma_S^2$):** $n \cdot \frac{1}{100} = \frac{n}{100}$
+    
+- **Desvío estándar ($\sigma_S$):** $\sqrt{\frac{n}{100}} = \frac{\sqrt{n}}{10}$
+    
+
+Nuestra sumatoria distribuye:
+
+$$S \sim \mathcal{N}\left(n\mu, \frac{n}{100}\right)$$
+
+### 2. Construcción del Pivote
+
+Utilizamos la distribución Normal Estándar ($Z$) para tipificar nuestra sumatoria:
+
+$$Z = \frac{S - n\mu}{\frac{\sqrt{n}}{10}} = \frac{10(S - n\mu)}{\sqrt{n}} \sim \mathcal{N}(0, 1)$$
+
+Para un nivel de confianza del **$99\%$** ($1 - \alpha = 0.99$), buscamos en la tabla Normal el valor crítico que deja un $0.5\%$ en cada cola ($z_{0.995}$):
+
+- **Valor crítico:** $2.575$ (o $2.58$ dependiendo de la tabla que uses; usaremos $2.575$).
+    
+
+### 3. Del Pivote al Error del Promedio
+
+Planteamos la probabilidad con nuestro pivote:
+
+$$P\left(-2.575 \leqslant \frac{10(S - n\mu)}{\sqrt{n}} \leqslant 2.575\right) = 0.99$$
+
+El enunciado indica que el receptor decodifica la señal **promediando** los valores, es decir, calcula $\frac{S}{n}$. Además, exige que el "error" (la distancia entre ese promedio y el verdadero $\mu$) sea $\leqslant 0.01$.
+
+Vamos a manipular la inecuación del pivote para hacer aparecer ese promedio ($\frac{S}{n}$) en el centro:
+
+Pasamos multiplicando el denominador:
+
+$$-2.575 \frac{\sqrt{n}}{10} \leqslant S - n\mu \leqslant 2.575 \frac{\sqrt{n}}{10}$$
+
+Dividimos todos los miembros por $n$ (esto convierte a la sumatoria $S$ en el promedio decodificado $\frac{S}{n}$):
+
+$$-2.575 \frac{\sqrt{n}}{10n} \leqslant \frac{S}{n} - \mu \leqslant 2.575 \frac{\sqrt{n}}{10n}$$
+
+Simplificamos la expresión $\frac{\sqrt{n}}{n}$ a $\frac{1}{\sqrt{n}}$:
+
+$$-\frac{0.2575}{\sqrt{n}} \leqslant \frac{S}{n} - \mu \leqslant \frac{0.2575}{\sqrt{n}}$$
+
+Lo que nos quedó en los extremos es exactamente el **margen de error**.
+
+### 4. Cálculo del Tamaño de Muestra ($n$)
+
+El comité/enunciado exige que este error sea menor o igual a $0.01$. Por lo tanto, forzamos esa condición:
+
+$$\frac{0.2575}{\sqrt{n}} \leqslant 0.01$$
+
+Despejamos $n$:
+
+$$0.2575 \leqslant 0.01 \cdot \sqrt{n}$$
+
+$$\frac{0.2575}{0.01} \leqslant \sqrt{n}$$
+
+$$25.75 \leqslant \sqrt{n}$$
+
+Elevamos al cuadrado ambos lados:
+
+$$n \geqslant (25.75)^2$$
+
+$$n \geqslant 663.0625$$
+
+Dado que la cantidad de transmisiones no puede ser un número decimal, siempre debemos redondear al entero superior para garantizar que se cumpla el nivel de confianza del $99\%$.
+
+**Conclusión final:**
+
+El mínimo valor de transmisiones necesarias es **$n = 664$**.
