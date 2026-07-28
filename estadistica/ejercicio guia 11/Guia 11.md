@@ -599,3 +599,226 @@ $$\lambda \geqslant 0.0000513$$
 **Conclusión final:**
 
 Con un nivel de confianza del **$95\%$**, la cota inferior para la intensidad es **$\lambda \geqslant 0.0000513$** fallas por hora.
+
+
+
+![[Pasted image 20260728014017.png]]
+
+
+Aquí tienes la resolución del ejercicio 11.8 de la imagen **image_34a399.png**.
+
+Al igual que en el ejercicio anterior donde tuvimos que usar el _mínimo_ porque nos daban ese dato, acá el enunciado nos da la **máxima longitud observada**. Cuando trabajamos con distribuciones Uniformes donde el parámetro desconocido está en el extremo del intervalo, usar el estadístico del máximo es el camino indicado.
+
+Para que las cuentas sean mucho más amigables, vamos a aplicar un pequeño truco inicial: hacer un cambio de variable para "correr" la distribución hacia el cero.
+
+### 1. Definición de la Variable y el Estadístico (El Máximo)
+
+Sabemos que la longitud de cada rollo distribuye así: $X_i \sim \mathcal{U}(15, 15 + \theta)$.
+
+Para simplificar, le restamos 15 metros a todos los rollos. Definimos una nueva variable $W_i = X_i - 15$.
+
+Ahora nuestra variable arranca desde cero:
+
+$$W_i \sim \mathcal{U}(0, \theta)$$
+
+Se examinaron $n = 4$ rollos. El máximo observado de los rollos originales fue $\max(X_i) = 25$.
+
+Por lo tanto, el máximo de nuestras variables restadas ($M$) será:
+
+$$M = \max(W_1, W_2, W_3, W_4) = 25 - 15 = 10$$
+
+Por teoría, la función de probabilidad acumulada del máximo de $n$ variables uniformes $\mathcal{U}(0, \theta)$ es:
+
+$$F_M(m) = P(M \leqslant m) = \left(\frac{m}{\theta}\right)^n$$
+
+### 2. Construcción del Pivote
+
+Para armar un pivote $U$ cuya distribución no dependa de $\theta$, simplemente pasamos la $\theta$ dividiendo:
+
+$$U = \frac{M}{\theta}$$
+
+Si calculamos la probabilidad acumulada de este pivote, nos queda una fórmula facilísima que solo depende del tamaño de muestra $n$ (donde los valores posibles de $U$ van de 0 a 1):
+
+$$P(U \leqslant u) = u^n$$
+
+El enunciado pide una **cota superior** con nivel de confianza de **$0.99$** ($99\%$). Como queremos que $\theta$ nos quede acotada por _debajo_ de un número ($\theta \leqslant \dots$), necesitamos plantear que nuestro pivote sea _mayor o igual_ a un cierto valor crítico $a$:
+
+$$P(U \geqslant a) = 0.99$$
+
+Lo que es matemáticamente equivalente a decir que la probabilidad acumulada a su izquierda es del $1\%$:
+
+$$P(U \leqslant a) = 0.01$$
+
+### 3. Despeje del Valor Crítico
+
+Usamos la fórmula de la probabilidad acumulada del pivote ($u^n$) que definimos arriba, sabiendo que $n=4$:
+
+$$a^4 = 0.01$$
+
+$$a = \sqrt[4]{0.01} \approx 0.3162$$
+
+### 4. Despeje de la Cota Superior y Cálculo
+
+Planteamos la inecuación original del pivote con el valor crítico que encontramos:
+
+$$P\left( \frac{M}{\theta} \geqslant 0.3162 \right) = 0.99$$
+
+Despejamos la $\theta$. Primero la pasamos multiplicando:
+
+$$M \geqslant 0.3162 \cdot \theta$$
+
+Y pasamos el número dividiendo:
+
+$$\frac{M}{0.3162} \geqslant \theta$$
+
+$$\theta \leqslant \frac{M}{0.3162}$$
+
+Finalmente, reemplazamos el valor del máximo observado que calculamos en el primer paso ($M = 10$):
+
+$$\theta \leqslant \frac{10}{0.3162}$$
+
+$$\theta \leqslant 31.6227$$
+
+_(Nota: Como el máximo observado $M$ fue 10, lógicamente sabemos que $\theta$ jamás podría ser menor que 10. Por lo que el intervalo real de $\theta$ siempre estará entre $M$ y tu cota)._
+
+**Conclusión final:**
+
+Con un nivel de confianza del **$99\%$**, la cota superior para el parámetro es **$\theta \leqslant 31.62$**.
+
+
+
+
+
+
+¡Excelente pregunta! No sale de una galera mágica, sino de mirar con mucha atención la fórmula de la probabilidad acumulada que calculamos un renglón antes.
+
+El objetivo del **Método del Pivote** es inventar una variable matemática que mezcle tu dato (el estadístico $M$) con tu incógnita ($\theta$), pero con la condición obligatoria de que **su distribución final de probabilidades no dependa de $\theta$**.
+
+¿Cómo nos damos cuenta de que $U = \frac{M}{\theta}$ es el candidato perfecto? Por la forma estructural que tiene la función.
+
+Fijate en el paso 1 del ejercicio 11.9. Habíamos llegado a que la probabilidad acumulada del máximo era:
+
+$$F_M(m) = P(M \leqslant m) = \left( \frac{m}{\theta} \right)^6$$
+
+La variable $m$ y el parámetro $\theta$ están "atados" como una fracción. Para deshacernos de la $\theta$ en el resultado final, la estrategia algebraica natural es proponer un cambio de variable que fuerce esa cancelación.
+
+Vamos a demostrar paso a paso por qué funciona inventar $U = \frac{M}{\theta}$:
+
+1. Buscamos la función de distribución de esta nueva variable $U$:
+    
+    $$P(U \leqslant u)$$
+    
+2. Reemplazamos la $U$ por el invento que propusimos:
+    
+    $$P\left( \frac{M}{\theta} \leqslant u \right)$$
+    
+3. Despejamos la $M$ pasando la $\theta$ multiplicando (como es una longitud/parámetro positivo, el signo de la inecuación no se altera):
+    
+    $$P(M \leqslant u \cdot \theta)$$
+    
+4. ¡Acá está la magia! Eso que nos quedó adentro del paréntesis es exactamente la definición de la función de probabilidad acumulada $F_M$, pero en lugar de evaluarla en $m$, la evaluamos en $u \cdot \theta$. Reemplazamos eso en nuestra fórmula original $\left( \frac{m}{\theta} \right)^6$:
+    
+    $$P(U \leqslant u) = \left( \frac{u \cdot \theta}{\theta} \right)^6$$
+    
+5. Las $\theta$ del numerador y denominador se cancelan perfectamente:
+    
+    $$P(U \leqslant u) = u^6$$
+    
+
+### En resumen
+
+Ese pivote sale de un análisis de conveniencia algebraica. Al proponer $U = \frac{M}{\theta}$, logramos que su distribución ($u^6$) dependa puramente de un número, sin ninguna incógnita.
+
+Como regla general: en todas las distribuciones donde el parámetro $\theta$ funciona como el "techo" o límite superior del dominio (como la distribución Uniforme de la imagen anterior o esta función triangular), el pivote de turno casi siempre se va a construir dividiendo el máximo de la muestra por el parámetro.
+
+
+
+![[Pasted image 20260728014430.png]]
+
+
+Acá tenés la resolución del ejercicio 11.9 de la imagen **image_349c36.png**.
+
+Este ejercicio es un "primo hermano" del 11.8. Como el parámetro $\theta$ está limitando el dominio de la función ($0 \leqslant x \leqslant \theta$), el estadístico estrella que tenemos que usar vuelve a ser el **máximo** de la muestra.
+
+La única diferencia es que la distribución ya no es Uniforme, sino que tiene una forma triangular o cuadrática. Así que tenemos que arremangarnos y calcular su probabilidad acumulada desde cero usando integrales.
+
+### 1. Definición del Estadístico y su Probabilidad
+
+Primero, necesitamos la función de probabilidad acumulada $F(x)$ para una sola variable $X_i$. Integramos la función de densidad que nos da el enunciado:
+
+$$F(x) = \int_{0}^{x} \frac{2t}{\theta^2} dt = \left[ \frac{t^2}{\theta^2} \right]_{0}^{x} = \frac{x^2}{\theta^2}$$
+
+El tamaño de nuestra muestra es $n = 3$. El estadístico que vamos a usar es el máximo: $M = \max(X_1, X_2, X_3)$.
+
+Por teoría, la probabilidad acumulada del máximo de $n$ variables es elevar la $F(x)$ original a la $n$:
+
+$$F_M(m) = P(M \leqslant m) = [F(m)]^n = \left( \frac{m^2}{\theta^2} \right)^3 = \left( \frac{m}{\theta} \right)^6$$
+
+### 2. Construcción del Pivote
+
+Igual que en el ejercicio anterior, para "limpiar" la $\theta$ y armar un pivote $U$ cuya distribución sea independiente de parámetros desconocidos, pasamos la $\theta$ dividiendo:
+
+$$U = \frac{M}{\theta}$$
+
+Calculamos la probabilidad acumulada de este pivote reemplazando en la fórmula de arriba:
+
+$$P(U \leqslant u) = P\left(\frac{M}{\theta} \leqslant u\right) = P(M \leqslant u\theta) = F_M(u\theta) = \left( \frac{u\theta}{\theta} \right)^6 = u^6$$
+
+_(Nota: Esto vale para $0 \leqslant u \leqslant 1$, ya que el máximo de la muestra $M$ jamás puede ser más grande que el límite $\theta$)._
+
+### 3. Definición del Valor Crítico (El truco del intervalo más corto)
+
+Nos piden un intervalo de confianza del **$90\%$** ($0.9$).
+
+Acá hay un detalle estadístico clave: podríamos dejar un $5\%$ de riesgo en cada cola (colas simétricas). Pero como sabemos con total certeza que $M \leqslant \theta$, nuestro pivote $U = M/\theta$ tiene un tope inamovible en $1$.
+
+Para conseguir el intervalo más corto y preciso posible, lo mejor es anclar el límite superior del pivote en $1$, y dejar todo el $10\%$ de riesgo en la cola inferior:
+
+$$P(a \leqslant U \leqslant 1) = 0.90$$
+
+Usando nuestra fórmula acumulada $u^6$, esto significa que:
+
+$$P(U \leqslant 1) - P(U \leqslant a) = 0.90$$
+
+$$1^6 - a^6 = 0.90$$
+
+$$1 - a^6 = 0.90$$
+
+$$a^6 = 0.10$$
+
+$$a = \sqrt[6]{0.10} \approx 0.68129$$
+
+### 4. Despeje de la Región de Confianza
+
+Planteamos la inecuación de nuestro pivote con el valor $a$ que encontramos:
+
+$$0.68129 \leqslant \frac{M}{\theta} \leqslant 1$$
+
+Invertimos las fracciones en los tres miembros (¡recordá que esto da vuelta los signos de desigualdad!):
+
+$$\frac{1}{0.68129} \geqslant \frac{\theta}{M} \geqslant 1$$
+
+Multiplicamos todo por $M$ y lo ordenamos de menor a mayor para que se lea mejor:
+
+$$M \leqslant \theta \leqslant \frac{M}{0.68129}$$
+
+¡Esa es nuestra fórmula final del intervalo!
+
+### 5. Cálculo con los Datos de la Muestra
+
+El enunciado nos da los tres valores observados: $0.8$, $0.1$ y $0.3$.
+
+El máximo de esos valores es:
+
+$$M = \max(0.8, 0.1, 0.3) = 0.8$$
+
+Reemplazamos $M$ en nuestra fórmula:
+
+- **Límite Inferior:** $0.8$
+    
+- **Límite Superior:** $\frac{0.8}{0.68129} \approx 1.1742$
+    
+
+**Conclusión final:**
+
+Basado en la muestra, el intervalo de confianza del **$90\%$** para el parámetro $\theta$ es **$[0.8, 1.1742]$**.
