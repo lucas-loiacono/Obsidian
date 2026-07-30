@@ -92,3 +92,18 @@ Por lo tanto, el estimador bayesiano es:
 $$\hat{b}_{Bayes} = 3$$
 
 _(Nota: En este caso particular, como la distribución a posteriori te quedó perfectamente simétrica, la moda (MAP) y la media (Bayesiano) coincidieron y dieron 3, pero tené en cuenta que en otros ejercicios suelen dar resultados distintos)._
+
+
+
+
+Habiendo aclarado esos detalles técnicos, **tu deducción de por qué se usa esa fórmula es 100% correcta.**
+
+Tu incógnita (tu parámetro a estimar) es la cantidad de bolas blancas en la urna, a la que llamaste **$b$**. Como el enunciado te dice que en total hay 6 bolas fijas, por simple descarte lógico las bolas negras van a ser **$6-b$**.
+
+La fórmula combinatoria de la Hipergeométrica simplemente traduce tus extracciones reales a matemática pura:
+
+- **$\binom{b}{1}$:** Representa la parte blanca. Significa _"De las $b$ bolas blancas totales que hay escondidas, yo saqué exactamente **1**_".
+    
+- **$\binom{6-b}{1}$:** Representa la parte negra. Significa _"De las $6-b$ bolas negras totales que hay escondidas, yo saqué exactamente **1**_".
+    
+- **$\binom{6}{2}$:** Es el denominador que divide a todo. Representa los casos totales. Significa _"De las 6 bolas totales que hay en la urna, extraje **2** al azar"_.
