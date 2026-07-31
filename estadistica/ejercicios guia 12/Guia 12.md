@@ -695,3 +695,113 @@ Ese es tu resultado final. Dependiendo del valor exacto que tenga la priori ($\n
 
 
 
+![[Pasted image 20260731171759.png]]
+
+
+
+¡Este ejercicio es un clásico espectacular! Es la demostración matemática perfecta de lo que pasa en la vida real cuando dos personas tienen sesgos iniciales muy fuertes ("la grieta") y miran los mismos datos.
+
+Vamos a resolverlo paso a paso, armando primero la "cocina" de las distribuciones como hicimos en el ejercicio anterior.
+
+### Paso Cero: Identificar los modelos (La "Cocina")
+
+Tenemos que estimar la proporción $p$ (un parámetro continuo entre 0 y 1).
+
+**1. La Verosimilitud (La muestra):**
+
+Si encuestamos a $n$ vecinos y $x$ están irritados, esto es un experimento de éxitos y fracasos. Es decir, sigue una distribución **Binomial**, cuyo núcleo ya conocemos:
+
+$$\text{Verosimilitud} \propto p^x(1-p)^{n-x}$$
+
+**2. Identificar las Priori de los especialistas:**
+
+Las fórmulas que nos dan para los especialistas son funciones de densidad. Si recordamos que el núcleo de una distribución $\text{Beta}(\alpha, \beta)$ es $p^{\alpha-1}(1-p)^{\beta-1}$, podemos deducir qué distribución eligió cada uno:
+
+- **Especialista 1:** $f_1(p) = 10(1-p)^9$. Si acomodamos los exponentes, esto es $p^0(1-p)^9$. Por lo tanto, $\alpha-1=0$ y $\beta-1=9$.
+    
+    Este especialista está usando una priori **$\text{Beta}(1, 10)$**.
+    
+- **Especialista 2:** $f_2(p) = 10p^9$. Acomodando, es $p^9(1-p)^0$.
+    
+    Este especialista está usando una priori **$\text{Beta}(10, 1)$**.
+    
+
+**3. Armar las distribuciones A Posteriori:**
+
+Como la Binomial y la Beta son "familias conjugadas", al multiplicar la verosimilitud por cada priori (sumando los exponentes de las bases $p$ y $1-p$), sabemos que ambas posteriores también serán distribuciones Beta, con parámetros actualizados $\alpha_{post} = \alpha + x$ y $\beta_{post} = \beta + n - x$.
+
+- **Posteriori 1:** $\text{Beta}(1 + x, 10 + n - x)$
+    
+- **Posteriori 2:** $\text{Beta}(10 + x, 1 + n - x)$
+    
+
+### (a) Análisis de las opiniones y consecuencias con $n=10$
+
+**¿Qué significado tienen las opiniones?**
+
+Podemos ver el sesgo de cada especialista calculando la media _a priori_ (la fórmula de la media de la Beta es $\frac{\alpha}{\alpha+\beta}$):
+
+- Media Especialista 1: $\frac{1}{1+10} = \mathbf{1/11} \approx \mathbf{0.09}$ (Cree que casi **nadie** está irritado).
+    
+- Media Especialista 2: $\frac{10}{10+1} = \mathbf{10/11} \approx \mathbf{0.91}$ (Cree que casi **todos** están irritados).
+    
+
+**Consecuencias de encuestar solo a 10 vecinos ($n=10$):**
+
+Veamos qué estimador (la media a posteriori) entregaría cada uno a la Ciudad si hicieran una encuesta chica de 10 personas donde observan $x$ cantidad de enojados.
+
+Reemplazamos $n=10$ en las posteriores que armamos en el paso cero y calculamos sus medias:
+
+- **Estimador 1:** $\frac{\alpha_{post}}{\alpha_{post} + \beta_{post}} = \frac{1+x}{(1+x) + (10+10-x)} = \mathbf{\frac{x+1}{21}}$
+    
+- **Estimador 2:** $\frac{\alpha_{post}}{\alpha_{post} + \beta_{post}} = \frac{10+x}{(10+x) + (1+10-x)} = \mathbf{\frac{x+10}{21}}$
+    
+
+**La consecuencia analítica:**
+
+Si calculamos la diferencia entre ambos estimadores, las $x$ se cancelan:
+
+$$\frac{x+10}{21} - \frac{x+1}{21} = \frac{9}{21} \approx \mathbf{0.428}$$
+
+**Conclusión:** La consecuencia es gravísima para el Gobierno. Como la muestra ($n=10$) es muy chica frente a la terquedad de los especialistas (que pusieron "pesos" iniciales fuertes en sus parámetros), sin importar qué resultado dé la encuesta, los especialistas **siempre van a diferir en casi un 43%** en sus conclusiones. La muestra no tiene fuerza suficiente para corregir el sesgo inicial.
+
+### (b) Cantidad de encuestados para lograr consenso
+
+Acá el Gobierno se cansó de que los especialistas se peleen y quiere saber a cuánta gente (n) tiene que encuestar obligatoriamente para que los dos análisis matemáticos terminen dando casi lo mismo (una diferencia menor a **0.001**).
+
+**1. Planteamos la diferencia de las medias a posteriori en base a $n$:**
+
+En lugar de fijar $n=10$, lo dejamos como variable.
+
+- Media Post 1: $\frac{x+1}{(1+x) + (10+n-x)} = \frac{x+1}{n+11}$
+    
+- Media Post 2: $\frac{x+10}{(10+x) + (1+n-x)} = \frac{x+10}{n+11}$
+    
+
+**2. Restamos ambas medias:**
+
+$$\text{Diferencia} = \frac{x+10}{n+11} - \frac{x+1}{n+11}$$
+
+$$\text{Diferencia} = \frac{x + 10 - x - 1}{n+11} = \mathbf{\frac{9}{n+11}}$$
+
+**3. Resolvemos la inecuación del enunciado:**
+
+Queremos que esa diferencia sea menor a 0.001:
+
+$$\frac{9}{n+11} < 0.001$$
+
+Pasamos el denominador multiplicando:
+
+$$9 < 0.001(n+11)$$
+
+Pasamos el 0.001 dividiendo (que es lo mismo que multiplicar por 1000):
+
+$$9000 < n + 11$$
+
+Despejamos $n$:
+
+$$n > 9000 - 11$$
+
+$$\mathbf{n > 8989}$$
+
+Para lograr que dos especialistas con opiniones previas tan extremas y polarizadas lleguen a una diferencia menor a 0.001, **se deben encuestar como mínimo a 8990 vecinos de la Ciudad**. ¡Los datos reales finalmente aplastan a la opinión si recolectás los suficientes!
