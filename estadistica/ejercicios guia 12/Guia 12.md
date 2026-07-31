@@ -1219,3 +1219,105 @@ Calculamos los dos extremos:
     
 
 Tu intervalo de credibilidad al 95% para la media de accidentes es **$[1.835, 2.404]$**.
+
+
+
+
+¡Excelente pregunta! Es un detalle fundamental sobre cómo interpretar los datos cuando te los dan agrupados.
+
+Usás esa suma de multiplicaciones simplemente para averiguar el **total real de accidentes** que ocurrieron a lo largo de esas 100 semanas.
+
+Pensalo de esta forma: la planta industrial registró datos durante 100 semanas. En lugar de darte una lista inmensa y desordenada con 100 números sueltos (tipo: 0, 1, 1, 3, 2, 1, 0, 4...), te dieron un resumen en una **tabla de frecuencias**.
+
+Esa multiplicación es el atajo matemático para desarmar el resumen:
+
+- Hubo **10 semanas** donde ocurrieron **0 accidentes**. En total ahí tenés $0 \cdot 10 = 0$ accidentes.
+    
+- Hubo **29 semanas** donde ocurrió **1 accidente**. En vez de sumar $1+1+1+1...$ veintinueve veces en la calculadora, hacés el atajo: $1 \cdot 29 = 29$ accidentes.
+    
+- Hubo **25 semanas** donde ocurrieron **2 accidentes**. En vez de sumar $2+2+2+2...$ veinticinco veces, hacés $2 \cdot 25 = 50$ accidentes.
+    
+
+Al sumar todos esos subtotales ($0 + 29 + 50 + 51 + 52 + 30$), llegás al número **212**. Ese es el volumen total de accidentes que pasaron en tu muestra.
+
+**¿Y por qué la fórmula necesita ese 212?**
+
+Porque la distribución de Poisson se alimenta de conteos totales. Para actualizar tu parámetro $\alpha$ (y pasar de tu creencia _a priori_ a tu creencia _a posteriori_), la matemática bayesiana te exige que le ingreses toda la evidencia empírica junta. Necesita saber exactamente cuántos "éxitos" (o en este caso, accidentes) se acumularon en todo el período evaluado, que es precisamente tu $\sum x_i$.
+
+
+
+![[Pasted image 20260731201102.png]]
+
+
+
+
+¡Acá tenemos otro clásico de las familias conjugadas! En el archivo image_f73425.png vemos un problema que combina una distribución Gamma para la muestra y una Exponencial para la _a priori_.
+
+Como ya venís viendo, la Exponencial es simplemente un "disfraz" de la familia Gamma, así que la matemática se va a resolver de forma muy elegante sumando exponentes.
+
+Vamos a armar "la cocina" paso a paso:
+
+### Paso 1: Definir la Verosimilitud (La muestra)
+
+El enunciado nos dice que el tiempo de espera $X$ sigue una distribución $\text{Gamma}(2, \lambda)$.
+
+La fórmula de densidad de una Gamma genérica es proporcional a $\lambda^\alpha x^{\alpha-1} e^{-\lambda x}$.
+
+Para nuestro caso, sabemos que $\alpha = 2$ y que observamos un único dato muestral $x = 3/4$.
+
+Reemplazamos estos valores para obtener el núcleo de nuestra verosimilitud (dejando solo lo que tiene a nuestra incógnita $\lambda$):
+
+$$\text{Verosimilitud} \propto \lambda^2 e^{-\frac{3}{4}\lambda}$$
+
+### Paso 2: Definir la A Priori
+
+Nos dicen que $\lambda$ tiene una distribución **Exponencial de media 1**.
+
+La distribución Exponencial es un caso especial de la Gamma donde el primer parámetro es $\alpha = 1$.
+
+Como la media teórica de una Exponencial es $\frac{1}{\beta}$, si la media es $1$, entonces nuestro parámetro de tasa $\beta$ también vale $1$.
+
+Por lo tanto, nuestra _a priori_ es en realidad una **$\text{Gamma}(\alpha=1, \beta=1)$**.
+
+El núcleo de esta distribución es:
+
+$$\text{Priori} \propto \lambda^{1-1} e^{-1\lambda} = \mathbf{e^{-\lambda}}$$
+
+### Paso 3: Hallar la Distribución A Posteriori
+
+Multiplicamos la Verosimilitud por la A Priori para actualizar nuestras creencias:
+
+$$\text{Posteriori} \propto \text{Verosimilitud} \cdot \text{Priori}$$
+
+$$\text{Posteriori} \propto \left( \lambda^2 e^{-\frac{3}{4}\lambda} \right) \cdot \left( e^{-\lambda} \right)$$
+
+Juntamos las bases iguales sumando los exponentes de $e$:
+
+$$\text{Posteriori} \propto \lambda^2 e^{-\left(\frac{3}{4} + 1\right)\lambda}$$
+
+$$\text{Posteriori} \propto \mathbf{\lambda^2 e^{-\frac{7}{4}\lambda}}$$
+
+Si miramos la estructura matemática $\lambda^{\alpha_{post}-1} e^{-\beta_{post}\lambda}$, reconocemos inmediatamente que esto es una nueva distribución Gamma. Despejamos sus parámetros:
+
+- $\alpha_{post} - 1 = 2 \implies \mathbf{\alpha_{post} = 3}$
+    
+- $\mathbf{\beta_{post} = \frac{7}{4}}$
+    
+
+**Respuesta a la primera pregunta:** La distribución _a posteriori_ de $\lambda$ es una **$\text{Gamma}(3, 7/4)$**.
+
+### Paso 4: Calcular la Media y la Moda
+
+Ahora que ya sabemos que $\lambda \vert{} X \sim \text{Gamma}(3, 7/4)$, simplemente aplicamos las fórmulas teóricas de la distribución Gamma para responder las últimas dos cosas que nos piden.
+
+**1. La Media:**
+
+La esperanza matemática de una Gamma se calcula como $\frac{\alpha}{\beta}$.
+
+$$\text{Media} = \frac{3}{7/4} = 3 \cdot \frac{4}{7} = \mathbf{\frac{12}{7}} \approx 1.714$$
+
+**2. La Moda:**
+
+La moda (el punto más alto o más probable de la distribución) para una Gamma se calcula como $\frac{\alpha - 1}{\beta}$ (siempre que $\alpha \ge 1$).
+
+$$\text{Moda} = \frac{3 - 1}{7/4} = \frac{2}{7/4} = 2 \cdot \frac{4}{7} = \mathbf{\frac{8}{7}} \approx 1.143$$
