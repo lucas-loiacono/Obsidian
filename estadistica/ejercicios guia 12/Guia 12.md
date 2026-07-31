@@ -531,3 +531,9 @@ Y como la $n$ es una constante (los 100.000 termos fijos), la matemática te per
 $$E[Y \vert{} X=3] = n \cdot E[p \vert{} X=3]$$
 
 ¡Es brillante! Pasaste de tener una duda conceptual a escribir vos mismo la demostración formal del teorema. Entender la estadística así, desde la lógica y no desde la memoria, es lo que te asegura aprobar el parcial.
+
+
+
+
+
+![[Pasted image 20260731152118.png]]
