@@ -805,3 +805,99 @@ $$n > 9000 - 11$$
 $$\mathbf{n > 8989}$$
 
 Para lograr que dos especialistas con opiniones previas tan extremas y polarizadas lleguen a una diferencia menor a 0.001, **se deben encuestar como mínimo a 8990 vecinos de la Ciudad**. ¡Los datos reales finalmente aplastan a la opinión si recolectás los suficientes!
+
+
+
+
+
+¡Ningún problema! Es la parte más conceptual del ejercicio y es súper normal que haga ruido, porque mezcla la matemática pura con la interpretación política/estadística de los datos.
+
+Vamos a desarmar los dos incisos sin saltearnos un solo detalle para que veas qué significa cada fracción.
+
+### (a) ¿Qué está pasando con los 10 vecinos ($n=10$)?
+
+Imaginemos el escenario real del problema: el Gobierno de la Ciudad quiere saber qué porcentaje ($p$) de la gente está enojada con el ministro.
+
+#### 1. Las dos opiniones antes de encuestar a nadie (La Priori)
+
+Los especialistas tienen dos sesgos opuestos:
+
+- **Especialista 1:** Usa una $\text{Beta}(1, 10)$. Su estimación inicial (la media de la Beta) es $\frac{1}{1+10} = \mathbf{0.09}$. Es decir, antes de salir a la calle, él opina que **solo el 9%** está enojado.
+    
+- **Especialista 2:** Usa una $\text{Beta}(10, 1)$. Su estimación inicial es $\frac{10}{10+1} = \mathbf{0.91}$. Él opina que **el 91%** está enojado.
+    
+
+#### 2. La encuesta chica y la terquedad de los modelos ($n=10$)
+
+Salen a la calle y le preguntan a **10 vecinos** ($n=10$). Supongamos que encuentran $x$ vecinos enojados.
+
+Cada especialista actualiza su modelo combinando lo que él creía con lo que vio en la calle:
+
+- El **Especialista 1** entrega como resultado: $\frac{x+1}{21}$
+    
+- El **Especialista 2** entrega como resultado: $\frac{x+10}{21}$
+    
+
+#### 3. El problema (La conclusión del inciso A)
+
+Fijate qué pasa si restamos el resultado del Especialista 2 menos el del Especialista 1 para ver qué tan de acuerdo están:
+
+$$\text{Diferencia} = \frac{x+10}{21} - \frac{x+1}{21} = \frac{x + 10 - x - 1}{21} = \mathbf{\frac{9}{21}} \approx \mathbf{0.43}$$
+
+**¿Por qué desapareció la $x$?** ¡Esa es la clave de la conclusión!
+
+Desapareció porque **no importa en absoluto qué resultado dio la encuesta**.
+
+- Si de los 10 vecinos los 10 estaban enojados ($x=10$), el Especialista 1 dirá _"52% enojados"_ y el Especialista 2 dirá _"95% enojados"_. Diferencia: **43%**.
+    
+- Si de los 10 vecinos ninguno estaba enojado ($x=0$), el Especialista 1 dirá _"5% enojados"_ y el Especialista 2 dirá _"48% enojados"_. Diferencia: **43%**.
+    
+
+**La conclusión analítica:** Como $n=10$ es una muestra demasiado chica, no tiene la fuerza matemática suficiente para torcer la opinión previa de los analistas. El Gobierno gastó plata en una encuesta de 10 personas y los dos analistas le siguen dando informes que contradicen al otro por un 43%.
+
+### (b) ¿A cuánta gente hay que encuestar para que se pongan de acuerdo?
+
+El Gobierno se da cuenta de que 10 personas no alcanzan. Ahora nos preguntan: **_"¿Cuánto tiene que valer $n$ para que la diferencia entre el Especialista 2 y el Especialista 1 sea minúscula (menor a 0.001)?"_**
+
+#### 1. Armamos la fórmula de la diferencia con $n$ libre
+
+Hacemos la misma resta de recién, pero en vez de poner un $21$ abajo (que salía de hacer $11 + 10$), dejamos el tamaño de la muestra como una incógnita ($11 + n$):
+
+$$\text{Diferencia} = \text{Media 2} - \text{Media 1}$$
+
+$$\text{Diferencia} = \left( \frac{x + 10}{n + 11} \right) - \left( \frac{x + 1}{n + 11} \right)$$
+
+$$\text{Diferencia} = \frac{x + 10 - x - 1}{n + 11} = \mathbf{\frac{9}{n + 11}}$$
+
+#### 2. Planteamos la inecuación
+
+El enunciado nos exige que esa diferencia sea menor a $0.001$:
+
+$$\frac{9}{n + 11} < 0.001$$
+
+#### 3. Despejamos la $n$ paso a paso
+
+- El término $(n + 11)$ está dividiendo, lo pasamos multiplicando al otro lado:
+    
+    $$9 < 0.001 \cdot (n + 11)$$
+    
+- El número $0.001$ está multiplicando, lo pasamos dividiendo:
+    
+    $$\frac{9}{0.001} < n + 11$$
+    
+    _(Dividir por $0.001$ es exactamente lo mismo que hacer $9 \times 1000$)_:
+    
+    $$9000 < n + 11$$
+    
+- El $11$ está sumando, pasa restando:
+    
+    $$9000 - 11 < n$$
+    
+    $$\mathbf{8989 < n}$$
+    
+
+**¿Qué significa este resultado?**
+
+Significa que si el Gobierno quiere que los dos analistas le entreguen prácticamente el **mismo número** (con una diferencia menor al $0.1\%$), tiene que salir a encuestar a **por lo menos 8990 vecinos**.
+
+Es una hermosa moraleja de la estadística bayesiana: _cuando dos personas tienen prejuicios muy fuertes y opuestos, la única forma de que lleguen a un consenso es abrumándolos con una cantidad gigante de evidencia empírica ($n > 8989$)._
