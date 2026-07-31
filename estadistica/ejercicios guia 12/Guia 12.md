@@ -1127,3 +1127,95 @@ $$\mathbf{E[\mu \vert{} \text{datos}] = \frac{31}{51} \approx 0.6078}$$
 
 
 ![[Pasted image 20260731193746.png]]
+
+¡Este ejercicio es una combinación espectacular de todo lo que venís practicando! Vuelve el famoso combo **Poisson-Gamma**, pero le suma la predicción (como el canal de comunicación) y te pide un intervalo de confianza usando una aproximación clásica.
+
+### Paso 1: Armar la "Cocina" (Distribución A Posteriori)
+
+Primero definimos nuestras variables:
+
+- **Verosimilitud (La muestra):** Es una distribución Poisson. Calculamos la muestra total ($n$) y la suma de todos los accidentes observados ($\sum x_i$):
+    
+    - $n = 100$ semanas.
+        
+    - $\sum x_i = (0 \cdot 10) + (1 \cdot 29) + (2 \cdot 25) + (3 \cdot 17) + (4 \cdot 13) + (5 \cdot 6)$
+        
+    - $\sum x_i = 0 + 29 + 50 + 51 + 52 + 30 = \mathbf{212}$
+        
+- **La Priori:** El enunciado dice que es una **Exponencial de media 2**. ¡Acá hay un truquito teórico! Una distribución Exponencial es simplemente un caso especial de la distribución Gamma donde el primer parámetro es $\alpha = 1$.
+    
+    Como la media teórica de una Exponencial es $1/\lambda$, si el enunciado te dice que la media es 2, entonces despejás $\lambda = 1/2 = 0.5$.
+    
+    Por lo tanto, tu priori es en realidad una **$\text{Gamma}(\alpha=1, \lambda=0.5)$**.
+    
+
+Como Poisson y Gamma son familia conjugada, sumamos los parámetros de la muestra a la priori para sacar la posteriori:
+
+- $\alpha_{post} = \alpha + \sum x_i = 1 + 212 = \mathbf{213}$
+    
+- $\lambda_{post} = \lambda + n = 0.5 + 100 = \mathbf{100.5}$
+    
+
+Nuestra distribución actualizada final es: **$\mu \vert{} X \sim \text{Gamma}(213, 100.5)$**.
+
+### (a) Estimar la probabilidad de ningún accidente (Predicción)
+
+Te piden calcular la probabilidad de que una futura semana ($Y$) tenga 0 accidentes: $P(Y=0 \vert{} \text{muestra})$.
+
+Acá aplicamos la **Ley de Esperanza Total** (nuestro "promedio de promedios" con integrales), usando la fórmula predictiva:
+
+$$P(Y=0 \vert{} \text{muestra}) = \int_0^\infty P(Y=0 \vert{} \mu) \cdot f(\mu \vert{} \text{muestra}) d\mu$$
+
+La probabilidad de $Y=0$ en una fórmula Poisson pura es simplemente $e^{-\mu}$. Lo multiplicamos por el núcleo de nuestra nueva Gamma:
+
+$$P(Y=0 \vert{} \text{muestra}) \propto \int_0^\infty e^{-\mu} \cdot \mu^{213-1} e^{-100.5\mu} d\mu$$
+
+Juntamos las bases de $e$:
+
+$$\int_0^\infty \mu^{213-1} e^{-101.5\mu} d\mu$$
+
+¡Esto que nos quedó adentro de la integral es el núcleo de una nueva Gamma (con $\lambda=101.5$)! En estadística bayesiana, esta estructura se resuelve sola por propiedades de las integrales de la función Gamma. Para la predicción exacta de $Y=0$ en el modelo Poisson-Gamma, el atajo matemático directo es:
+
+$$P(Y=0 \vert{} \text{muestra}) = \left( \frac{\lambda_{post}}{\lambda_{post} + 1} \right)^{\alpha_{post}}$$
+
+Reemplazamos con nuestros números:
+
+$$P(Y=0 \vert{} \text{muestra}) = \left( \frac{100.5}{100.5 + 1} \right)^{213}$$
+
+$$P(Y=0 \vert{} \text{muestra}) = \left( \frac{100.5}{101.5} \right)^{213}$$
+
+$$P(Y=0 \vert{} \text{muestra}) \approx (0.990147)^{213} \approx \mathbf{0.1213}$$
+
+Hay aproximadamente un **12.13%** de probabilidad de que en esa semana específica de diciembre no ocurra ningún accidente.
+
+### (b) Intervalo de confianza al 95%
+
+Acá tenemos que estimar un rango para nuestro parámetro $\mu$.
+
+Como nuestra distribución a posteriori $\text{Gamma}(213, 100.5)$ tiene un $\alpha$ gigante (al ser mucho mayor a 30), podemos aplicar una de las propiedades más salvadoras: aproximarla a una **distribución Normal**.
+
+Para armar la Normal, necesitamos la media y el desvío estándar de nuestra Gamma:
+
+1. **Media:** $E[\mu] = \frac{\alpha_{post}}{\lambda_{post}} = \frac{213}{100.5} \approx \mathbf{2.1194}$
+    
+2. **Varianza:** $V[\mu] = \frac{\alpha_{post}}{\lambda_{post}^2} = \frac{213}{(100.5)^2} \approx \frac{213}{10100.25} \approx \mathbf{0.0211}$
+    
+3. **Desvío Estándar ($\sigma$):** $\sqrt{0.0211} \approx \mathbf{0.1452}$
+    
+
+Ahora armamos el intervalo de confianza clásico de la Normal al 95%, que usa el valor de tabla $Z_{0.975} = 1.96$:
+
+$$IC = \text{Media} \pm (1.96 \cdot \sigma)$$
+
+$$IC = 2.1194 \pm (1.96 \cdot 0.1452)$$
+
+$$IC = 2.1194 \pm 0.2846$$
+
+Calculamos los dos extremos:
+
+- Límite Inferior: $2.1194 - 0.2846 = \mathbf{1.8348}$
+    
+- Límite Superior: $2.1194 + 0.2846 = \mathbf{2.4040}$
+    
+
+Tu intervalo de credibilidad al 95% para la media de accidentes es **$[1.835, 2.404]$**.
