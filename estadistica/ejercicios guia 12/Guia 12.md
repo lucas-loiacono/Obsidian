@@ -1321,3 +1321,218 @@ $$\text{Media} = \frac{3}{7/4} = 3 \cdot \frac{4}{7} = \mathbf{\frac{12}{7}} \ap
 La moda (el punto más alto o más probable de la distribución) para una Gamma se calcula como $\frac{\alpha - 1}{\beta}$ (siempre que $\alpha \ge 1$).
 
 $$\text{Moda} = \frac{3 - 1}{7/4} = \frac{2}{7/4} = 2 \cdot \frac{4}{7} = \mathbf{\frac{8}{7}} \approx 1.143$$
+
+
+# Familias conjugadas
+
+
+¡Las **familias conjugadas** son literalmente el mejor "truco" de toda la estadística bayesiana! Es el concepto que te salva la vida en los parciales porque te permite saltearte la parte más difícil de las matemáticas.
+
+Te lo explico primero desde el concepto y después te muestro cuáles son.
+
+### ¿Qué son exactamente?
+
+En estadística bayesiana, siempre armamos nuestra "cocina" multiplicando dos cosas:
+
+$$\text{Posteriori} \propto \text{Verosimilitud (Muestra)} \cdot \text{Priori}$$
+
+Decimos que una distribución _a priori_ es **conjugada** de la verosimilitud si, al multiplicarlas, el resultado (la _a posteriori_) pertenece **a la misma familia matemática** que la _a priori_.
+
+Es decir, la muestra solo actualiza los parámetros, pero no rompe la forma de la función original. Si entraste con una distribución de un tipo, salís con una distribución de ese mismo tipo.
+
+### ¿Por qué son tan importantes?
+
+Por el infame denominador del Teorema de Bayes.
+
+Para conseguir una distribución _a posteriori_ exacta, la teoría dice que tenés que calcular una integral dificilísima en el denominador para que todas las probabilidades sumen 1.
+
+Cuando usás familias conjugadas, **la integral desaparece**. Como ya sabés de antemano qué forma va a tener el resultado (porque hereda la forma de la priori), lo único que tenés que hacer es sumar los exponentes con álgebra básica, mirar cómo quedaron los parámetros nuevos, y listo. Te ahorraste hojas y hojas de cálculos.
+
+### Las parejas famosas (Cómo son)
+
+Hay combinaciones clásicas que siempre encastran perfecto. Estas son las que más vas a usar:
+
+**1. El combo Beta - Binomial (Para proporciones)**
+
+- **Verosimilitud:** $\text{Binomial}$ (Ej: contar cuántas caras salen en $n$ tiros de moneda, o cuántos termos defectuosos hay).
+    
+- **Priori Conjugada:** $\text{Beta}(\alpha, \beta)$
+    
+- **Posteriori:** ¡Otra $\text{Beta}$!
+    
+- **La magia:** Al multiplicar, simplemente actualizás sumando los éxitos de la muestra al parámetro $\alpha$, y los fracasos al parámetro $\beta$.
+    
+
+**2. El combo Gamma - Poisson (Para conteos o tasas)**
+
+- **Verosimilitud:** $\text{Poisson}$ (Ej: cantidad de accidentes por semana, o muertes por patadas de caballo en un año).
+    
+- **Priori Conjugada:** $\text{Gamma}(\alpha, \lambda)$
+    
+- **Posteriori:** ¡Otra $\text{Gamma}$!
+    
+- **La magia:** Actualizás sumando el total de casos observados al parámetro $\alpha$, y el tamaño total de la muestra (ej: cantidad de semanas) al parámetro $\lambda$.
+    
+
+**3. El combo Gamma - Exponencial (Para tiempos de espera)**
+
+- **Verosimilitud:** $\text{Exponencial}$ o $\text{Gamma}$ (Ej: tiempo en horas hasta que falla un sistema).
+    
+- **Priori Conjugada:** $\text{Gamma}(\alpha, \beta)$
+    
+- _(Recordá que la Exponencial es solo una Gamma con $\alpha=1$)._
+    
+- **Posteriori:** ¡Otra $\text{Gamma}$!
+    
+- **La magia:** Actualizás sumando la cantidad de datos u observaciones a $\alpha$, y sumando el tiempo total transcurrido a $\beta$.
+    
+
+**4. El combo Normal - Normal (Para promedios continuos)**
+
+- **Verosimilitud:** $\text{Normal}$ (Ej: medir la altura de las personas o la longitud de una varilla).
+    
+- **Priori Conjugada:** $\text{Normal}$ (para la media $\mu$).
+    
+- **Posteriori:** ¡Otra $\text{Normal}$!
+    
+- **La magia:** La media _a posteriori_ termina siendo un "promedio ponderado" perfecto entre la media de tu creencia original y la media de tu muestra empírica.
+    
+
+En resumen: las conjugadas son parejas predeterminadas de distribuciones que se llevan tan bien matemáticamente que, al juntarlas, te devuelven una versión actualizada y más precisa de sí mismas.
+
+
+
+![[Pasted image 20260731201518.png]]
+
+Este ejercicio tiene una trampa excelente que es súper común en la estadística bayesiana: **los parámetros que definen el límite del dominio**.
+
+Cuando trabajamos con distribuciones Uniformes donde la incógnita está en el límite (en este caso el límite superior es $1+\theta$), la clave de la Verosimilitud no está solo en la fórmula, sino en las **funciones indicadoras** (las restricciones lógicas).
+
+Vamos a resolverlo paso a paso.
+
+### Paso 1: La Verosimilitud (El problema de los límites)
+
+El tiempo $X$ sigue una distribución Uniforme en el intervalo $[1, 1+\theta]$.
+
+La función de densidad de una Uniforme $[a, b]$ es $\frac{1}{b-a}$. En nuestro caso:
+
+$$f(x \vert{} \theta) = \frac{1}{(1+\theta) - 1} = \frac{1}{\theta}$$
+
+Pero esto solo vale si $1 \le x \le 1+\theta$. Si la muestra se sale de ese rango, la probabilidad es cero. Observamos tres tiempos: $x_1=3$, $x_2=5$ y $x_3=8$.
+
+La verosimilitud conjunta para los tres datos es la multiplicación de las densidades:
+
+$$L(\theta \vert{} \mathbf{x}) = \frac{1}{\theta} \cdot \frac{1}{\theta} \cdot \frac{1}{\theta} = \frac{1}{\theta^3}$$
+
+**¡La restricción fundamental!**
+
+Para que este modelo sea posible, todos los datos observados deben obligatoriamente ser menores o iguales al límite superior del intervalo ($1+\theta$). El dato más restrictivo es el valor máximo que observaste (el 8).
+
+$$8 \le 1+\theta \implies \mathbf{7 \le \theta}$$
+
+Entonces, el núcleo de nuestra Verosimilitud, incluyendo su restricción, se escribe así:
+
+$$L(\theta \vert{} \mathbf{x}) \propto \frac{1}{\theta^3} \mathbf{1}\{\theta \ge 7\}$$
+
+### Paso 2: La Distribución A Posteriori
+
+El enunciado nos da la densidad _a priori_ de $\theta$:
+
+$$f(\theta) = \frac{192}{\theta^4} \mathbf{1}\{\theta \ge 4\}$$
+
+Aplicamos el Teorema de Bayes multiplicando ambas partes:
+
+$$\text{Posteriori} \propto L(\theta \vert{} \mathbf{x}) \cdot f(\theta)$$
+
+$$\text{Posteriori} \propto \left( \frac{1}{\theta^3} \mathbf{1}\{\theta \ge 7\} \right) \cdot \left( \frac{192}{\theta^4} \mathbf{1}\{\theta \ge 4\} \right)$$
+
+Juntamos las $\theta$ sumando los exponentes del denominador ($\theta^3 \cdot \theta^4 = \theta^7$).
+
+¿Y qué pasa con las restricciones? Tenemos dos condiciones que se deben cumplir en simultáneo: $\theta \ge 7$ y $\theta \ge 4$. La condición más fuerte (la que "gana" la intersección) es $\theta \ge 7$.
+
+El núcleo de nuestra _a posteriori_ queda:
+
+$$f(\theta \vert{} \mathbf{x}) \propto \frac{1}{\theta^7} \mathbf{1}\{\theta \ge 7\}$$
+
+**Encontrar la constante:**
+
+Para que esto sea una distribución de probabilidad real, la integral desde 7 hasta infinito debe dar 1. Agregamos una constante $C$:
+
+$$\int_7^\infty \frac{C}{\theta^7} d\theta = 1$$
+
+$$C \left[ \frac{\theta^{-6}}{-6} \right]_7^\infty = 1$$
+
+$$C \left( 0 - \frac{7^{-6}}{-6} \right) = 1 \implies C \cdot \frac{1}{6 \cdot 7^6} = 1 \implies \mathbf{C = 6 \cdot 7^6}$$
+
+La distribución _a posteriori_ exacta es:
+
+$$f(\theta \vert{} \mathbf{x}) = \frac{6 \cdot 7^6}{\theta^7} \mathbf{1}\{\theta \ge 7\}$$
+
+_(Dato de color teórico: Esta estructura matemática se conoce como **Distribución de Pareto**)._
+
+### Paso 3: Estimar la media del tiempo de realización
+
+Acá te piden estimar un valor futuro (predictivo) del tiempo de tarea, al que llamaremos $X_{nuevo}$. Por la **Ley de Esperanza Total**, la esperanza del tiempo depende de la esperanza de $\theta$:
+
+$$E[X_{nuevo} \vert{} \mathbf{x}] = E \big[ E[X_{nuevo} \vert{} \theta] \big\vert{} \mathbf{x} \big]$$
+
+**1. El núcleo (La media si conociéramos $\theta$):**
+
+Como $X \sim \text{Uniforme}[1, 1+\theta]$, la media teórica de una Uniforme es el punto medio del intervalo: $\frac{a+b}{2}$.
+
+$$E[X \vert{} \theta] = \frac{1 + (1+\theta)}{2} = \frac{2 + \theta}{2} = \mathbf{1 + \frac{\theta}{2}}$$
+
+**2. La esperanza de $\theta$ a posteriori:**
+
+Tenemos que promediar ese resultado usando nuestra nueva distribución de Pareto calculando la integral de $\theta \cdot f(\theta\vert{}\mathbf{x})$:
+
+$$E[\theta \vert{} \mathbf{x}] = \int_7^\infty \theta \cdot \frac{6 \cdot 7^6}{\theta^7} d\theta$$
+
+$$E[\theta \vert{} \mathbf{x}] = \int_7^\infty \frac{6 \cdot 7^6}{\theta^6} d\theta = 6 \cdot 7^6 \left[ \frac{\theta^{-5}}{-5} \right]_7^\infty$$
+
+$$E[\theta \vert{} \mathbf{x}] = 6 \cdot 7^6 \left( 0 - \frac{7^{-5}}{-5} \right) = \frac{6 \cdot 7^6}{5 \cdot 7^5} = \frac{6 \cdot 7}{5} = \mathbf{\frac{42}{5}} = \mathbf{8.4}$$
+
+**3. El Ensamblaje Final:**
+
+Reemplazamos el valor que acabamos de conseguir en la fórmula del núcleo del paso 1:
+
+$$E[X_{nuevo} \vert{} \mathbf{x}] = 1 + \frac{E[\theta \vert{} \mathbf{x}]}{2}$$
+
+$$E[X_{nuevo} \vert{} \mathbf{x}] = 1 + \frac{8.4}{2}$$
+
+$$E[X_{nuevo} \vert{} \mathbf{x}] = 1 + 4.2 = \mathbf{5.2}$$
+
+La estimación final para la media del tiempo de realización de la tarea es de **5.2 minutos**.
+
+
+
+
+¡Es una duda excelente! La clave matemática acá está en la diferencia entre un **núcleo** (que usamos con el símbolo $\propto$) y una **distribución de probabilidad real** (que usamos con el símbolo $=$).
+
+Cuando aplicamos el Teorema de Bayes en el paso anterior, nosotros ignoramos todas las constantes numéricas que no tenían la letra $\theta$ para hacer las cuentas más rápido. Por eso llegamos a este resultado:
+
+$$f(\theta \vert{} \mathbf{x}) \propto \frac{1}{\theta^7}$$
+
+El símbolo $\propto$ significa "es proporcional a". Nos dice que la curva gráfica tiene _la forma_ de la función $1/\theta^7$, pero **le falta su escala original**.
+
+Para que una función sea considerada una distribución de probabilidad válida, tiene una regla de oro irrompible: **el área total debajo de su curva tiene que sumar exactamente 1** (que representa el 100% de la probabilidad).
+
+### ¿Qué pasa si integramos sin la C?
+
+Si vos calculás la integral de la función "pelada" $1/\theta^7$ desde 7 hasta infinito, fijate lo que da:
+
+$$\int_7^\infty \frac{1}{\theta^7} d\theta = \left[ \frac{\theta^{-6}}{-6} \right]_7^\infty = 0 - \left( \frac{7^{-6}}{-6} \right) = \mathbf{\frac{1}{6 \cdot 7^6}}$$
+
+Ese resultado es un número minúsculo, lejísimos de ser un 1. Si dejaras la función así, estarías diciendo que la suma de todas las probabilidades posibles da $0.0000014...$, lo cual matemáticamente es un error.
+
+### El rol de la C (Constante de Normalización)
+
+Como sabemos que nuestra función tiene la "forma" correcta pero le falta "volumen" para llegar al 1, le multiplicamos una constante genérica $C$ para corregirla.
+
+Planteamos la ecuación forzando a que el resultado sea 1:
+
+"La integral de mi función multiplicada por $C$ **tiene que ser igual a 1**".
+
+$$\int_7^\infty C \cdot \frac{1}{\theta^7} d\theta = 1$$
+
+Al resolver esa ecuación y despejar la letra $C$, lo que estamos descubriendo es el número exacto por el que hay que multiplicar a $1/\theta^7$ para que su área se estire hasta valer exactamente el 100%. A ese proceso en estadística se lo llama **"encontrar la constante de normalización"**.
