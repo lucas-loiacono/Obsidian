@@ -222,3 +222,144 @@ Si desarmamos esa sumatoria para las dos ramas de tu árbol, queda así:
 Como ves, el primer factor de cada paréntesis es la probabilidad del evento futuro condicionado al parámetro (que lo sacamos estandarizando con la tabla $Z$ de la Normal). El segundo factor de cada paréntesis es el peso de la rama (tu distribución "a posteriori" que sacamos con Bayes en la Etapa 1).
 
 ¡Así que tu regla mental es 100% correcta! Siempre es esa misma estructura. Perdón si el salto directo a la cuenta te hizo dudar, pero el concepto lo tenés dominado a la perfección.
+
+
+
+
+
+
+
+
+¡Te entiendo perfecto! Es súper común marearse cuando hay que hacer tantos cálculos intermedios antes de llegar a lo que realmente te pide el enunciado.
+
+Vos querés ir directo al grano y responder la pregunta final: calcular la probabilidad predictiva **$P(X_{nueva} > 13 \vert{} X=12.1)$**.
+
+Para entender por qué hicimos esos 3 pasos, volvé a mirar la fórmula de tu "diagrama de árbol" que vos mismo armaste espectacularmente en el mensaje anterior:
+
+$$P(X_{nueva} > 13 \vert{} X=12.1) = \sum_{\mu} \underbrace{P(X_{nueva} > 13 \vert{} \mu)}_{\text{Ingrediente 1}} \cdot \underbrace{P(\mu \vert{} X=12.1)}_{\text{Ingrediente 2}}$$
+
+Para poder resolver esa multiplicación final, necesitás dos ingredientes:
+
+### El Ingrediente 1: $P(X_{nueva} > 13 \vert{} \mu)$
+
+Esto es "fácil" de conseguir. Como sabés que las varillas siguen una distribución Normal, simplemente estandarizás (pasás a $Z$) y buscás en la tabla para cada valor de $\mu$.
+
+### El Ingrediente 2: $P(\mu \vert{} X=12.1)$
+
+¡Acá está el problema! El enunciado **no te da este dato**. El enunciado solo te da las probabilidades _viejas_ o "a priori" ($0.25$ para $\mu=10$ y $0.75$ para $\mu=14$).
+
+Pero vos no podés usar las probabilidades viejas en tu fórmula final, tenés que usar las probabilidades **actualizadas** con el dato de la varilla de 12.1 cm que acabás de medir.
+
+### ¿Qué son entonces esos 3 pasos que citaste?
+
+Esos 3 pasos son simplemente la **"cocina"** (el Teorema de Bayes) necesaria para conseguir el Ingrediente 2.
+
+1. **Paso 1:** Evalúa qué tan probable era ver una varilla de $12.1$ cm bajo cada escenario.
+    
+2. **Paso 2:** Cruza esa evaluación con tus creencias viejas ($0.25$ y $0.75$).
+    
+3. **Paso 3:** Ajusta los porcentajes para darte tus **nuevas creencias**.
+    
+
+El único objetivo de toda esa cuenta fea que citaste es obtener los valores **$0.2317$** y **$0.7683$**.
+
+Una vez que Bayes te entrega esos dos números actualizados, la "Etapa 1" termina. Agarrás esos números, los enchufás en el Ingrediente 2 de tu fórmula del árbol, los multiplicás por los valores de la tabla Normal (Ingrediente 1), sumás todo y llegás a tu resultado final.
+
+Es como en la programación de tus proyectos: antes de que la función principal pueda hacer el `return` final, a veces necesitás llamar a una función auxiliar para que procese y te prepare una de las variables. Acá, esos 3 pasos son tu función auxiliar.
+
+
+
+
+
+
+¡Con todo gusto! Vamos a desarmar todo el proceso lógicamente para que te quede el esqueleto perfecto de cómo se encaran estos problemas de principio a fin.
+
+Nuestra meta es armar y resolver esta sumatoria (el diagrama de árbol):
+
+$$P(X_{nueva} > 13 \vert{} X=12.1) = \sum_{\mu} P(X_{nueva} > 13 \vert{} \mu) \cdot P(\mu \vert{} X=12.1)$$
+
+### Parte 1 (El Ingrediente 1): La probabilidad del evento futuro
+
+Acá el objetivo es calcular **$P(X_{nueva} > 13 \vert{} \mu)$**.
+
+Como el enunciado te dice que la longitud de las varillas sigue una distribución Normal y te da el desvío estándar ($\sigma = 2$), resolvemos esto usando la estandarización clásica de la estadística: pasamos nuestra variable $X$ a la variable $Z$ para poder buscarla en la tabla de probabilidades.
+
+La fórmula de estandarización es: $Z = \frac{X - \mu}{\sigma}$
+
+**1. Calculamos para el caso $\mu=10$:**
+
+- Planteamos la probabilidad: $P\left(Z > \frac{13 - 10}{2}\right)$
+    
+- Resolvemos la fracción: $P(Z > 1.5)$
+    
+- Como la tabla Normal te da las áreas menores ($<$), aplicamos el complemento: $1 - \Phi(1.5)$
+    
+- Buscamos en la tabla y restamos: $1 - 0.9332 = \mathbf{0.0668}$
+    
+
+**2. Calculamos para el caso $\mu=14$:**
+
+- Planteamos la probabilidad: $P\left(Z > \frac{13 - 14}{2}\right)$
+    
+- Resolvemos la fracción: $P(Z > -0.5)$
+    
+- Por propiedades de simetría de la Normal (y para sacar el negativo), sabemos que $P(Z > -0.5)$ es equivalente a $\Phi(0.5)$.
+    
+- Buscamos el valor directo en la tabla: $\mathbf{0.6915}$
+    
+
+### Parte 2 (El Ingrediente 2): La distribución A Posteriori
+
+Acá el objetivo es conseguir **$P(\mu \vert{} X=12.1)$**.
+
+No podemos usar los porcentajes iniciales (0.25 y 0.75) en la fórmula final. Tenemos que usar el Teorema de Bayes para calibrarlos basándonos en el hecho de que observamos una varilla que midió exactamente 12.1 cm.
+
+**1. Evaluar la Verosimilitud (La fórmula de la distribución)**
+
+Usamos la función de densidad de la Normal, evaluando nuestro dato real ($12.1$). Como las constantes de la fórmula se van a simplificar en la división de Bayes, podemos usar solo la parte proporcional: $e^{-\frac{1}{2} \left( \frac{X-\mu}{\sigma} \right)^2}$
+
+- Para $\mu=10$: $e^{-\frac{1}{2} \left( \frac{12.1-10}{2} \right)^2} \approx 0.5762$
+    
+- Para $\mu=14$: $e^{-\frac{1}{2} \left( \frac{12.1-14}{2} \right)^2} \approx 0.6368$
+    
+
+**2. Multiplicar por las creencias "A Priori"**
+
+A los resultados anteriores los multiplicamos por la probabilidad inicial que nos dio el enunciado para cada $\mu$.
+
+- Rama $\mu=10$: $0.5762 \cdot 0.25 = 0.14405$
+    
+- Rama $\mu=14$: $0.6368 \cdot 0.75 = 0.4776$
+    
+
+**3. Sumar para sacar el Denominador (Probabilidad Total)**
+
+Sumamos los dos resultados del paso anterior. Este número representa la probabilidad total de que una varilla mida 12.1 cm bajo cualquier escenario.
+
+- Suma: $0.14405 + 0.4776 = 0.62165$
+    
+
+**4. Calcular el porcentaje final actualizado**
+
+Dividimos lo que vale cada rama individual por el total que calculamos en el Paso 3.
+
+- Para $\mu=10$: $\frac{0.14405}{0.62165} = \mathbf{0.2317}$
+    
+- Para $\mu=14$: $\frac{0.4776}{0.62165} = \mathbf{0.7683}$
+    
+
+### El Ensamblaje Final
+
+¡Listo! Ya procesaste por separado las dos partes que pedía la sumatoria original. Ahora solo queda reemplazar los números, multiplicar las ramas y sumarlas para obtener la predicción total.
+
+**Rama del 10:** (Ingrediente 1 $\cdot$ Ingrediente 2)
+
+$$0.0668 \cdot 0.2317 = 0.01548$$
+
+**Rama del 14:** (Ingrediente 1 $\cdot$ Ingrediente 2)
+
+$$0.6915 \cdot 0.7683 = 0.53127$$
+
+**Sumamos todo (Probabilidad Predictiva Final):**
+
+$$0.01548 + 0.53127 \approx \mathbf{0.5467}$$

@@ -207,7 +207,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -223,11 +224,11 @@
   },
   "active": "729ce9f9b85b2ba0",
   "lastOpenFiles": [
+    "6. Cap 12.md",
+    "estadistica/ejercicios guia 12/Guia 12.md",
     "!imagenes/Pasted image 20260730235001.png",
     "estadistica/ejercicio guia 11/Guia 11.md",
-    "estadistica/ejercicios guia 12/Guia 12.md",
     "estadistica/ejercicios guia 12",
-    "6. Cap 12.md",
     "!imagenes/Pasted image 20260728222833.png",
     "!imagenes/Pasted image 20260728222723.png",
     "!imagenes/Pasted image 20260728222449.png",
@@ -237,7 +238,6 @@
     "!imagenes/Pasted image 20260728212051.png",
     "!imagenes/Pasted image 20260728210719.png",
     "!imagenes/Pasted image 20260728203515.png",
-    "!imagenes/Pasted image 20260728202046.png",
     "estadistica/5. Cap 11.md",
     "estadistica/ejercicios_guia_10/Guia 10.md",
     "estadistica/ejercicio guia 11",
