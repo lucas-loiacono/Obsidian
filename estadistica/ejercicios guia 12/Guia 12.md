@@ -906,3 +906,129 @@ Es una hermosa moraleja de la estadística bayesiana: _cuando dos personas tiene
 
 
 ![[Pasted image 20260731185801.png]]
+
+
+¡Qué buen ejercicio! Este problema sube la vara y tiene una trampa matemática hermosa.
+
+Hasta ahora, en los ejercicios anteriores, veníamos trabajando con lo que se llama "familias conjugadas": al multiplicar la muestra por la priori, mágicamente podíamos sumar los exponentes y nos quedaba otra distribución perfecta (otra Beta). ¡Acá esa magia se va a romper por culpa del "ruido" del canal!
+
+Vamos a resolverlo paso a paso, remangándonos con las integrales, pero usando un súper truco para no hacer cuentas infinitas.
+
+### Paso 1: Traducir el ruido del canal
+
+El parámetro $p$ es la probabilidad de que se **emita** un 1. Pero la muestra que observamos son los números **recibidos**. Necesitamos calcular la probabilidad real de que el receptor lea un "1". Llamemos a esto $\theta$.
+
+Por la Ley de Probabilidad Total, la probabilidad de recibir un 1 es:
+
+$$\theta = P(\text{Recibir } 1 \vert{} \text{Emitir } 1) \cdot P(\text{Emitir } 1) + P(\text{Recibir } 1 \vert{} \text{Emitir } 0) \cdot P(\text{Emitir } 0)$$
+
+Reemplazamos con los datos del enunciado:
+
+- Si se envía un 1, lee 1 el $90\%$ de las veces ($9/10$ o $0.9$).
+    
+- Si se envía un 0, lee 0 el $100\%$ de las veces. Esto significa que **nunca** lee un 1 por error cuando se mandó un 0.
+    
+    $$\theta = (0.9 \cdot p) + (0 \cdot (1-p)) = \mathbf{0.9p}$$
+    
+
+Nuestra verdadera probabilidad de éxito al leer un dígito es $0.9p$.
+
+### Paso 2: Armar el núcleo de la A Posteriori
+
+Vamos a hacer nuestra clásica multiplicación: $\text{Posteriori} \propto \text{Verosimilitud} \cdot \text{Priori}$
+
+**1. Verosimilitud (La muestra):**
+
+Se recibieron 4 unos en 5 dígitos. Es una Binomial evaluada en $x=4$, usando nuestra probabilidad $\theta = 0.9p$:
+
+$$L(p) \propto (0.9p)^4 (1 - 0.9p)^1 \propto \mathbf{p^4 (1 - 0.9p)}$$
+
+_(Tiramos el $0.9^4$ y la combinatoria porque son constantes que se arreglan solas al final)._
+
+**2. Priori:**
+
+Nos dicen que $p \sim \text{Beta}(3, 3)$. El núcleo es $p^{\alpha-1}(1-p)^{\beta-1}$:
+
+$$f(p) \propto \mathbf{p^2 (1 - p)^2}$$
+
+**3. Multiplicamos (El núcleo $g(p)$):**
+
+$$g(p) = p^4 (1 - 0.9p) \cdot p^2 (1 - p)^2$$
+
+$$g(p) = \mathbf{p^6 (1 - 0.9p) (1 - p)^2}$$
+
+**¡Acá está la trampa!** Ese término $(1 - 0.9p)$ arruina la estructura. Esto ya no es una distribución Beta de manual. Para poder usar esta distribución y hacer predicciones, vamos a tener que calcular obligatoriamente la constante del denominador de la fórmula de Bayes (llamémosla $D$).
+
+### Paso 3: Calcular el denominador usando la función Beta
+
+El denominador $D$ es la integral de nuestro núcleo entre 0 y 1. Si distribuimos el $(1 - 0.9p)$, podemos separar la integral en dos pedazos fáciles:
+
+$$g(p) = p^6 (1-p)^2 - 0.9 p^7 (1-p)^2$$
+
+$$D = \int_0^1 p^6 (1-p)^2 dp - 0.9 \int_0^1 p^7 (1-p)^2 dp$$
+
+**El truco:** La integral $\int_0^1 p^{\alpha-1}(1-p)^{\beta-1} dp$ es literalmente la definición de la función matemática Beta $B(\alpha, \beta)$, que se resuelve fácil con factoriales: $B(\alpha, \beta) = \frac{(\alpha-1)! (\beta-1)!}{(\alpha+\beta-1)!}$.
+
+Mirando los exponentes de nuestras integrales, reconocemos que:
+
+- La primera integral es $B(7, 3) = \frac{6! 2!}{9!} = \frac{2}{504} = \mathbf{\frac{1}{252}}$
+    
+- La segunda integral es $B(8, 3) = \frac{7! 2!}{10!} = \frac{2}{720} = \mathbf{\frac{1}{360}}$
+    
+
+Reemplazamos:
+
+$$D = \frac{1}{252} - 0.9 \left(\frac{1}{360}\right) = \frac{10}{2520} - \frac{9}{3600}$$
+
+Buscamos denominador común y restamos:
+
+$$\mathbf{D = \frac{37}{25200}}$$
+
+Nuestra distribución a posteriori real y completa es: $f(p \vert{} \text{muestra}) = \frac{g(p)}{37/25200}$
+
+### Paso 4: La Predicción del nuevo mensaje
+
+Te piden la probabilidad de que, en un nuevo mensaje de 2 dígitos, recibas exactamente 2 unos.
+
+Llamemos $Y$ a esta nueva variable predictiva. Sigue una $\text{Binomial}(n=2, \theta=0.9p)$.
+
+La probabilidad condicionada a un $p$ exacto sería:
+
+$$P(Y=2 \vert{} p) = \binom{2}{2} (0.9p)^2 (1 - 0.9p)^0 = \mathbf{0.81 p^2}$$
+
+Como $p$ es una incógnita, usamos la Ley de Esperanza Total integrando esta probabilidad futura sobre nuestra distribución a posteriori:
+
+$$P(Y=2 \vert{} \text{muestra}) = \int_0^1 0.81 p^2 \cdot f(p \vert{} \text{muestra}) dp$$
+
+$$P(Y=2 \vert{} \text{muestra}) = \frac{0.81}{D} \int_0^1 p^2 \cdot \left[ p^6 (1-0.9p) (1-p)^2 \right] dp$$
+
+Juntamos el $p^2$ con el $p^6$ para que nos quede un $p^8$ adentro de la integral. Llamemos $N$ a esa nueva integral a resolver:
+
+$$N = \int_0^1 p^8 (1 - 0.9p) (1-p)^2 dp$$
+
+$$N = \int_0^1 p^8 (1-p)^2 dp - 0.9 \int_0^1 p^9 (1-p)^2 dp$$
+
+Aplicamos exactamente el mismo truco de las Betas que usamos en el Paso 3:
+
+- La primera integral es $B(9, 3) = \frac{8! 2!}{11!} = \mathbf{\frac{1}{495}}$
+    
+- La segunda integral es $B(10, 3) = \frac{9! 2!}{12!} = \mathbf{\frac{1}{660}}$
+    
+
+Reemplazamos:
+
+$$N = \frac{1}{495} - 0.9 \left(\frac{1}{660}\right) = \frac{40}{19800} - \frac{27}{19800} = \mathbf{\frac{13}{19800}}$$
+
+### Resultado Final
+
+Armamos la división completa:
+
+$$P(Y=2 \vert{} \text{muestra}) = \frac{0.81 \cdot N}{D}$$
+
+$$P(Y=2 \vert{} \text{muestra}) = 0.81 \cdot \frac{13 / 19800}{37 / 25200}$$
+
+Si multiplicás todo y simplificás las fracciones:
+
+$$P(Y=2 \vert{} \text{muestra}) = \mathbf{\frac{7371}{20350}} \approx \mathbf{0.3622}$$
+
+La probabilidad de recibir exactamente dos "unos" en el próximo mensaje es del **36.22%**.
