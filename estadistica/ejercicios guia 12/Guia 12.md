@@ -1032,3 +1032,98 @@ Si multiplicás todo y simplificás las fracciones:
 $$P(Y=2 \vert{} \text{muestra}) = \mathbf{\frac{7371}{20350}} \approx \mathbf{0.3622}$$
 
 La probabilidad de recibir exactamente dos "unos" en el próximo mensaje es del **36.22%**.
+
+
+![[Pasted image 20260731193528.png]]
+
+¡Este es uno de los problemas más famosos de la historia de la estadística! Los datos de las patadas de caballo de Bortkiewicz son literalmente el ejemplo clásico con el que se enseña la distribución de Poisson en todo el mundo.
+
+Acá volvemos a la zona de confort de las **familias conjugadas**. El combo **Poisson-Gamma** funciona exactamente igual de bien que el combo Binomial-Beta que venías manejando. Al multiplicar la muestra por la priori, los exponentes se suman y te devuelven otra Gamma perfecta.
+
+Vamos a desarmarlo paso a paso:
+
+### Paso 1: Resumir los datos de la muestra (Verosimilitud)
+
+La distribución de Poisson evalúa conteos. Para armar la verosimilitud de toda la muestra junta, necesitamos dos datos clave de la tabla:
+
+1. **Tamaño de la muestra ($n$):** Es la cantidad total de registros (cuerpos de caballería $\times$ años). El enunciado nos ahorra la suma y nos dice que son **200**.
+    
+2. **Total de muertes observadas ($\sum x_i$):** Es la suma de todos los casos reales. Multiplicamos la cantidad de muertes por la frecuencia con la que ocurrieron:
+    
+    $$\sum x_i = (0 \cdot 109) + (1 \cdot 65) + (2 \cdot 22) + (3 \cdot 3) + (4 \cdot 1)$$
+    
+    $$\sum x_i = 0 + 65 + 44 + 9 + 4 = \mathbf{122}$$
+    
+
+El núcleo de la verosimilitud conjunta para una Poisson es proporcional a $\mu^{\sum x_i} e^{-n\mu}$.
+
+Reemplazando nuestros datos:
+
+$$\text{Verosimilitud} \propto \mu^{122} e^{-200\mu}$$
+
+### Paso 2: Descubrir los parámetros de la "A Priori"
+
+Nos dicen que la priori es una distribución Gamma, pero en lugar de darnos sus parámetros directos ($\alpha$ y $\lambda$), nos dan su media y su varianza. Tenemos que despejarlos usando las fórmulas teóricas de la Gamma:
+
+- **Media:** $E[\mu] = \frac{\alpha}{\lambda} = \frac{1}{2}$
+    
+- **Varianza:** $V[\mu] = \frac{\alpha}{\lambda^2} = \frac{1}{8}$
+    
+
+Podemos resolver este sistema dividiendo la varianza por la media:
+
+$$\frac{V[\mu]}{E[\mu]} = \frac{\alpha / \lambda^2}{\alpha / \lambda} = \frac{1}{\lambda}$$
+
+$$\frac{1/8}{1/2} = \frac{2}{8} = \frac{1}{4}$$
+
+Entonces, si $\frac{1}{\lambda} = \frac{1}{4}$, deducimos que **$\lambda = 4$**.
+
+Reemplazamos este valor en la fórmula de la media para sacar $\alpha$:
+
+$$\frac{\alpha}{4} = \frac{1}{2} \implies \mathbf{\alpha = 2}$$
+
+Nuestra distribución a priori es una **$\text{Gamma}(\alpha=2, \lambda=4)$**.
+
+El núcleo de una Gamma es $\mu^{\alpha-1} e^{-\lambda\mu}$, que en nuestro caso queda:
+
+$$\text{Priori} \propto \mu^{2-1} e^{-4\mu} = \mu^1 e^{-4\mu}$$
+
+### Paso 3: Armar la distribución "A Posteriori"
+
+Multiplicamos el núcleo de la muestra por el núcleo de nuestra creencia inicial:
+
+$$\text{Posteriori} \propto \text{Verosimilitud} \cdot \text{Priori}$$
+
+$$\text{Posteriori} \propto \left( \mu^{122} e^{-200\mu} \right) \cdot \left( \mu^1 e^{-4\mu} \right)$$
+
+Juntamos las bases iguales sumando los exponentes:
+
+$$\text{Posteriori} \propto \mu^{122+1} e^{-(200+4)\mu}$$
+
+$$\text{Posteriori} \propto \mu^{123} e^{-204\mu}$$
+
+Este resultado tiene exactamente la forma del núcleo de una nueva distribución Gamma $\mu^{\alpha_{post}-1} e^{-\lambda_{post}\mu}$.
+
+Dedudimos los parámetros actualizados:
+
+- $\alpha_{post} - 1 = 123 \implies \mathbf{\alpha_{post} = 124}$
+    
+- $\mathbf{\lambda_{post} = 204}$
+    
+
+_Nota: La regla general para la actualización Poisson-Gamma es siempre $\alpha_{nueva} = \alpha_{vieja} + \sum x_i$ y $\lambda_{nueva} = \lambda_{vieja} + n$. ¡Coincide perfecto!_
+
+### Paso 4: Calcular la Media a posteriori
+
+El ejercicio te pide "calcular la media de la distribución a posteriori".
+
+Como sabemos que nuestra nueva distribución es una $\text{Gamma}(124, 204)$, simplemente aplicamos la fórmula de la media para esta distribución ($\frac{\alpha}{\lambda}$):
+
+$$E[\mu \vert{} \text{datos}] = \frac{124}{204}$$
+
+Simplificando la fracción (dividiendo por 4 arriba y abajo), llegamos al resultado final:
+
+$$\mathbf{E[\mu \vert{} \text{datos}] = \frac{31}{51} \approx 0.6078}$$
+
+
+![[Pasted image 20260731193746.png]]
