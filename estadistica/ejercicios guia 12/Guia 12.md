@@ -537,3 +537,161 @@ $$E[Y \vert{} X=3] = n \cdot E[p \vert{} X=3]$$
 
 
 ![[Pasted image 20260731152118.png]]
+
+
+¡Me encanta la idea! Vamos a hacer el ejercicio completo desde cero, armando cada pieza del rompecabezas como si estuviéramos escribiendo la demostración paso a paso en la hoja del parcial, sin guardarnos ningún truco algebraico.
+
+### Paso Cero: La "Cocina" (Armar la distribución A Posteriori)
+
+Antes de responder cualquier inciso, necesitamos saber cuál es nuestra nueva distribución de probabilidad para el parámetro $p$. Arrancamos con el Teorema de Bayes para variables continuas:
+
+$$f(p \vert{} x) = \frac{P(x \vert{} p) \cdot f(p)}{\text{Constante del denominador}}$$
+
+Como el denominador es solo un número para que todo sume 1, trabajamos con proporciones:
+
+$$\text{Posteriori} \propto \text{Verosimilitud} \cdot \text{Priori}$$
+
+**1. Desarrollamos la Verosimilitud (Binomial):**
+
+Observar $x$ caras en $n$ tiros sigue una Binomial. Separamos la parte constante de la parte que tiene $p$ (el núcleo):
+
+$$P(x \vert{} p) = \left[ \binom{n}{x} \right] \cdot \left[ p^x (1-p)^{n-x} \right]$$
+
+**2. Desarrollamos la Priori (Beta):**
+
+El enunciado nos dice que $p \sim \text{Beta}(\nu_1, \nu_2)$. Separamos su constante de su núcleo:
+
+$$f(p) = \left[ \frac{1}{B(\nu_1, \nu_2)} \right] \cdot \left[ p^{\nu_1 - 1} (1-p)^{\nu_2 - 1} \right]$$
+
+**3. Multiplicamos (Bayes) y aplicamos álgebra:**
+
+Metemos todo en la multiplicación y juntamos las bases iguales ($p$ con $p$, y $1-p$ con $1-p$). Al multiplicar bases iguales, los exponentes se suman:
+
+$$\text{Posteriori} \propto \left( \text{Constantes gigantes} \right) \cdot \left( p^x \cdot p^{\nu_1 - 1} \right) \cdot \left( (1-p)^{n-x} \cdot (1-p)^{\nu_2 - 1} \right)$$
+
+$$\text{Posteriori} \propto p^{x + \nu_1 - 1} (1-p)^{n - x + \nu_2 - 1}$$
+
+Al ver este núcleo, reconocemos matemáticamente que la nueva distribución es una **Beta** con parámetros actualizados:
+
+- $\alpha_{nueva} = x + \nu_1$
+    
+- $\beta_{nueva} = n - x + \nu_2$
+    
+
+### (a) Hallar la media a posteriori y mostrar dónde está comprendida
+
+La fórmula teórica de la esperanza (media) para cualquier distribución Beta$(\alpha, \beta)$ es:
+
+$$E[p] = \frac{\alpha}{\alpha + \beta}$$
+
+**1. Calculamos nuestra media:**
+
+Reemplazamos con nuestros parámetros nuevos:
+
+$$\hat{p}_{post} = \frac{x + \nu_1}{(x + \nu_1) + (n - x + \nu_2)}$$
+
+Las $x$ del denominador se cancelan ($x - x = 0$), dejándonos nuestra respuesta:
+
+$$\mathbf{\hat{p}_{post} = \frac{x + \nu_1}{n + \nu_1 + \nu_2}}$$
+
+**2. Demostración del "Promedio Ponderado":**
+
+Nos piden demostrar que este resultado es un punto medio entre la frecuencia de la muestra ($x/n$) y la media a priori ($\nu_1 / (\nu_1 + \nu_2)$).
+
+Para eso, reescribimos nuestra fracción separándola estratégicamente en dos bloques, multiplicando y dividiendo por $n$ y por $(\nu_1+\nu_2)$ para forzar que aparezcan esos términos:
+
+$$\hat{p}_{post} = \left( \frac{n}{n + \nu_1 + \nu_2} \right) \cdot \left( \frac{x}{n} \right) + \left( \frac{\nu_1 + \nu_2}{n + \nu_1 + \nu_2} \right) \cdot \left( \frac{\nu_1}{\nu_1 + \nu_2} \right)$$
+
+Fijate la magia de esa separación:
+
+- El término $(x/n)$ es tu **muestra**.
+    
+- El término $(\nu_1 / (\nu_1+\nu_2))$ es tu **priori**.
+    
+- Los paréntesis grandes que los multiplican son sus **pesos**. Si sumás esos dos pesos, dan exactamente $1$.
+    
+
+Matemáticamente, esto se llama "combinación convexa". Cualquier cosa que sea una combinación convexa de $A$ y $B$ siempre, obligatoriamente, da un número que está metido entre $A$ y $B$. ¡Demostrado!
+
+### (b) Comportamiento asintótico de la varianza
+
+La fórmula teórica de la varianza para una Beta$(\alpha, \beta)$ es:
+
+$$V[p] = \frac{\alpha \cdot \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$$
+
+**1. Reemplazamos con nuestros parámetros:**
+
+$$V_{post} = \frac{(x + \nu_1)(n - x + \nu_2)}{(n + \nu_1 + \nu_2)^2 (n + \nu_1 + \nu_2 + 1)}$$
+
+**2. Aplicamos el límite asintótico ($n \to \infty$):**
+
+Asintótico significa "qué pasa cuando los tiros ($n$) y los éxitos ($x$) son gigantes".
+
+Imaginate que $n$ es $1.000.000$. Sumarle un número chiquitito como $\nu_1$, $\nu_2$ o $1$ no cambia matemáticamente la escala del número. Entonces, para ver la estructura, "tachamos" esas constantes despreciables:
+
+$$V_{asintotica} \approx \frac{(x)(n - x)}{(n)^2 (n)}$$
+
+$$V_{asintotica} \approx \frac{x(n - x)}{n^3}$$
+
+**3. Acomodamos el álgebra:**
+
+Desarmamos el $n^3$ del denominador en tres pedazos ($n \cdot n \cdot n$) y los repartimos para que quede idéntico a lo que pide el enunciado:
+
+$$V_{asintotica} \approx \frac{x}{n} \cdot \frac{n - x}{n} \cdot \frac{1}{n}$$
+
+Separamos la fracción del medio: $\frac{n-x}{n} = \frac{n}{n} - \frac{x}{n} = 1 - \frac{x}{n}$
+
+$$\mathbf{V_{asintotica} \approx \frac{(x/n) (1 - x/n)}{n}}$$
+
+¡Demostrado exactamente igual a la foto!
+
+### (c) Estimar la probabilidad del siguiente tiro
+
+Acá usamos la **Ley de Esperanza Total** (la misma que usamos para los termos).
+
+Como el siguiente tiro es una variable Bernoulli (cara o ceca) y la probabilidad de sacar cara es $p$, la probabilidad predictiva es simplemente la esperanza matemática de $p$ condicionada a la muestra:
+
+$$P(\text{Próxima es Cara} \vert{} \text{muestra}) = E[p \vert{} \text{muestra}]$$
+
+Como a esa esperanza a posteriori ya la calculamos en el inciso (a), la respuesta es directa y no hay que hacer ninguna cuenta nueva:
+
+$$\mathbf{P(\text{Cara}) = \frac{x + \nu_1}{n + \nu_1 + \nu_2}}$$
+
+### (d) El acertijo final
+
+Acá el ejercicio nos da condiciones y nos pide despejar $n$. Traducimos el texto a matemáticas puras usando la fórmula que sacamos en (c):
+
+- **"Moneda equilibrada a priori":** Esto significa que la priori es simétrica. Entonces $\nu_1 = \nu_2$. Para no marearnos, llamémoslas a ambas simplemente $\nu$.
+    
+- **"Se observaron $n - 1$ caras":** Nuestra $x$ observable ahora vale exactamente $n - 1$.
+    
+- **"Probabilidades 2 a 1 a favor de cara":** Significa que el suceso cara tiene probabilidad doble. Matemáticamente, eso es un $2/3$ (y un $1/3$ para ceca).
+    
+
+**1. Armamos la ecuación reemplazando en nuestra fórmula:**
+
+$$\frac{(n - 1) + \nu}{n + \nu + \nu} = \frac{2}{3}$$
+
+$$\frac{n - 1 + \nu}{n + 2\nu} = \frac{2}{3}$$
+
+**2. Despejamos la $n$:**
+
+Pasamos los denominadores multiplicando cruzado:
+
+$$3 \cdot (n - 1 + \nu) = 2 \cdot (n + 2\nu)$$
+
+Hacemos distributiva:
+
+$$3n - 3 + 3\nu = 2n + 4\nu$$
+
+Juntamos las $n$ de un lado y el resto del otro:
+
+$$3n - 2n = 4\nu - 3\nu + 3$$
+
+$$\mathbf{n = \nu + 3}$$
+
+Ese es tu resultado final. Dependiendo del valor exacto que tenga la priori ($\nu$), vas a necesitar esa cantidad de tiros más 3. Si asumiéramos el clásico valor de ignorancia total ($\nu = 1$), necesitarías $n = 4$ tiros.
+
+
+
+
