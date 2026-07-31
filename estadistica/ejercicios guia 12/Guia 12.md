@@ -451,3 +451,83 @@ $$E[Y \vert{} X=3] = 100000 \cdot 0.18$$
 $$E[Y \vert{} X=3] = \mathbf{18000}$$
 
 La estimación final es que encontrarás **18000** termos defectuosos en el próximo lote.
+
+
+
+
+
+¡Es una duda excelente! Es uno de los conceptos más abstractos de la materia, así que es súper normal que haga ruido.
+
+Para responder a tu pregunta rápido: **No es que "reemplazás a $Y$", sino que la Ley de Esperanza Total te permite calcular un problema imposible dividiéndolo en varios problemas fáciles.**
+
+Pensalo con esta lógica intuitiva, olvidándonos por un segundo de las fórmulas raras:
+
+Vos querés saber cuántos termos rotos vas a tener en un lote de 100.000 (esa es tu $Y$).
+
+Como no tenés idea de cuál es la verdadera proporción de rotos (tu parámetro $p$ es una incógnita), estás trabado. No podés calcular el futuro si no conocés la regla del juego.
+
+La Ley de Esperanza Total te dice: _"No te bloquees. Hacé de cuenta que SÍ sabés cuánto vale $p$, calculá el resultado para cada caso, y después promediá todos esos resultados"_.
+
+Fijate cómo funciona esto con los números de tu ejercicio:
+
+### Paso 1: Imaginar que conocemos el parámetro (El núcleo)
+
+Vamos a calcular la esperanza de $Y$ asumiendo que conocemos $p$ (esto es $E[Y\vert{}p]$):
+
+- **Escenario A (Si $p=0.1$):** Si la fábrica tiene un 10% de fallas, en 100.000 termos vos _esperarías_ encontrar **10.000** rotos.
+    
+- **Escenario B (Si $p=0.9$):** Si la fábrica tiene un 90% de fallas, en 100.000 termos vos _esperarías_ encontrar **90.000** rotos.
+    
+
+¡Esa cuenta fácil que hiciste mentalmente ($100000 \cdot 0.1$ y $100000 \cdot 0.9$) es exactamente reemplazar por $n \cdot p$! Es la esperanza de la Binomial.
+
+### Paso 2: Promediar usando tus probabilidades "A Posteriori"
+
+Ahora tenés dos futuros posibles (10.000 rotos o 90.000 rotos). ¿Cuál elegís? Ninguno. La Ley de Esperanza Total te hace **promediar** esos futuros usando la confianza que le tenés a cada escenario (los porcentajes que calculaste con Bayes):
+
+- Estás un **90%** seguro de que el Escenario A es el real ($P=0.9$).
+    
+- Estás un **10%** seguro de que el Escenario B es el real ($P=0.1$).
+    
+
+Entonces, multiplicás cada futuro por su probabilidad:
+
+$$Esperanza Total = (10.000 \cdot 0.90) + (90.000 \cdot 0.10)$$
+
+$$Esperanza Total = 9.000 + 9.000 = \mathbf{18.000}$$
+
+### ¿Qué dice matemáticamente la Ley?
+
+La fórmula que escribimos antes ($E[Y \vert{} X] = n \cdot E[p \vert{} X]$) es literalmente un atajo algebraico para hacer esta misma cuenta que te acabo de mostrar.
+
+La Ley de Esperanza Total afirma que **el promedio de los promedios es el promedio total**. Como $p$ es una incógnita aleatoria, vos no podés calcular $E[Y]$ de una sola vez. Lo que hacés es calcular la esperanza de $Y$ condicionada a cada valor de $p$ ($E[Y\vert{}p]$), y luego le calculás la esperanza a eso.
+
+Por eso el núcleo de la fórmula se transformó en $n \cdot p$. Porque al condicionar sobre $p$, $p$ deja de ser una incógnita por un segundo y se comporta como una constante para que puedas resolver la Binomial.
+
+
+
+
+¡Exactamente! Lo escribiste a la perfección.
+
+Esa es la notación matemática rigurosa y formal de todo lo que acabamos de charlar.
+
+Fijate cómo cada parte de tu fórmula se traduce literalmente a los pasos que hicimos recién:
+
+1. **El núcleo interno $E[Y\vert{}p]$:** Es el "Paso 1", donde hacés de cuenta que conocés la proporción $p$ y resolvés el problema fácil. Como la variable $Y$ es una Binomial, esta esperanza interna se resuelve simplemente como $n \cdot p$.
+    
+2. **La capa externa $E[\dots \vert{} X=3]$:** Es el "Paso 2". Le estás diciendo a la fórmula _"ahora agarrá eso que resolviste adentro y promediámelo usando las probabilidades reales que descubrimos cuando observamos que $X=3$"_.
+    
+
+Si unís todo, la cadena lógica y algebraica que tu cabeza acaba de deducir es esta:
+
+$$E[Y \vert{} X=3] = E \big[ E[Y\vert{}p] \big\vert{} X=3 \big]$$
+
+Reemplazás la parte de adentro por su resultado de la Binomial:
+
+$$E[Y \vert{} X=3] = E \big[ n \cdot p \big\vert{} X=3 \big]$$
+
+Y como la $n$ es una constante (los 100.000 termos fijos), la matemática te permite sacarla afuera de la esperanza, dejándote exactamente la fórmula que usamos para resolver el ejercicio:
+
+$$E[Y \vert{} X=3] = n \cdot E[p \vert{} X=3]$$
+
+¡Es brillante! Pasaste de tener una duda conceptual a escribir vos mismo la demostración formal del teorema. Entender la estadística así, desde la lógica y no desde la memoria, es lo que te asegura aprobar el parcial.
