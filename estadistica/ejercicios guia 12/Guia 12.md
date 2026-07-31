@@ -367,3 +367,87 @@ $$0.01548 + 0.53127 \approx \mathbf{0.5467}$$
 
 
 ![[Pasted image 20260731015805.png]]
+
+¡Este ejercicio es genial porque te hace aplicar todo lo que venimos charlando pero con un giro en la "Etapa 2" (la predicción)!
+
+En lugar de pedirte una probabilidad pura (como "probabilidad de que sea mayor a 13"), te pide la **media** (la esperanza matemática) de una variable futura.
+
+Vamos a resolverlo respetando nuestras dos etapas clásicas:
+
+### Etapa 1: Encontrar la distribución "A Posteriori" de $p$
+
+Primero, traducimos el enunciado a variables estadísticas:
+
+- **El Parámetro ($p$):** La proporción de termos defectuosos. Es discreto: $p \in \{0.1, 0.9\}$.
+    
+- **La "A Priori":** $P(p=0.1) = 0.5$ y $P(p=0.9) = 0.5$.
+    
+- **La Muestra ($X$):** Se extraen termos hasta encontrar el primer defectuoso en la **tercera** extracción ($X=3$).
+    
+    - _Dato estadístico:_ Esto se modela con una distribución **Geométrica**, cuya fórmula para la extracción $x$ es: $(1-p)^{x-1} \cdot p$. (Básicamente: dos termos sanos y el tercero roto).
+        
+
+Ahora, hacemos nuestra "cocina" (el Teorema de Bayes) para actualizar las probabilidades del parámetro $p$:
+
+**1. Calculamos la verosimilitud (la rama) para cada $p$:**
+
+- **Si $p = 0.1$:**
+    
+    $P(X=3 \vert{} p=0.1) = (1 - 0.1)^2 \cdot 0.1 = 0.9^2 \cdot 0.1 = 0.81 \cdot 0.1 = 0.081$
+    
+- **Si $p = 0.9$:**
+    
+    $P(X=3 \vert{} p=0.9) = (1 - 0.9)^2 \cdot 0.9 = 0.1^2 \cdot 0.9 = 0.01 \cdot 0.9 = 0.009$
+    
+
+**2. Multiplicamos por la probabilidad A Priori:**
+
+- Rama $p=0.1$: $0.081 \cdot 0.5 = 0.0405$
+    
+- Rama $p=0.9$: $0.009 \cdot 0.5 = 0.0045$
+    
+
+**3. Sumamos para la Probabilidad Total (Denominador):**
+
+- $P(X=3) = 0.0405 + 0.0045 = 0.045$
+    
+
+**4. Dividimos para sacar la "A Posteriori":**
+
+- $P(p=0.1 \vert{} X=3) = \frac{0.0405}{0.045} =$ **$0.9$**
+    
+- $P(p=0.9 \vert{} X=3) = \frac{0.0045}{0.045} =$ **$0.1$**
+    
+
+_(Pausa lógica: Tiene todo el sentido del mundo. Si tuviste que esperar hasta el tercer intento para encontrar un defecto, es porque los defectos son raros. Por eso la matemática te dice que ahora estás 90% seguro de que la proporción real de defectuosos es baja)._
+
+### Etapa 2: Predecir el futuro (La Esperanza Muestral)
+
+El enunciado te pide "estimar la media de la cantidad de termos defectuosos que se encontrarán en otros 100000 termos".
+
+- **Tu variable futura ($Y$):** Cantidad de defectuosos en una muestra de tamaño $n = 100000$.
+    
+- Esta variable sigue una distribución **Binomial**: $Y \sim \text{Binomial}(n, p)$.
+    
+- La "media" (esperanza) de una Binomial es la fórmula clásica: $E[Y] = n \cdot p$.
+    
+
+Como el parámetro $p$ sigue siendo una incógnita (no es un número fijo, sino que tiene su propia distribución de probabilidades que calculamos en la Etapa 1), aplicamos la ley de esperanza total:
+
+$$E[Y \vert{} X=3] = n \cdot E[p \vert{} X=3]$$
+
+Para resolver esto, primero calculamos $E[p \vert{} X=3]$ (que no es otra cosa que el estimador de Bayes bajo pérdida cuadrática que vimos en ejercicios anteriores):
+
+**1. Calculamos la Esperanza de $p$ a posteriori:**
+
+$$E[p \vert{} X=3] = (0.1 \cdot 0.9) + (0.9 \cdot 0.1)$$
+
+$$E[p \vert{} X=3] = 0.09 + 0.09 = 0.18$$
+
+**2. Multiplicamos por la muestra futura ($n$):**
+
+$$E[Y \vert{} X=3] = 100000 \cdot 0.18$$
+
+$$E[Y \vert{} X=3] = \mathbf{18000}$$
+
+La estimación final es que encontrarás **18000** termos defectuosos en el próximo lote.
