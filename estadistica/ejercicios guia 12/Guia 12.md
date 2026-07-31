@@ -187,3 +187,38 @@ $$P(X_{nueva} > 13 \vert{} X=12.1) \approx \mathbf{0.5467}$$
 Hay aproximadamente un **54.67%** de probabilidad de que la próxima varilla que saques mida más de 13 cm.
 
 ¿Ves cómo todo se reduce siempre al mismo esqueleto metodológico sin importar qué distribución fea te pongan?
+
+
+
+¡Sí, totalmente! Y de hecho... **¡eso es exactamente lo que hicimos con esos números!**
+
+Quizás al reemplazar directamente por los valores numéricos me salté el paso de escribirte la fórmula teórica completa con las letras y por eso no la reconociste, pero tu cabeza está razonando la estructura perfecta.
+
+Vamos a ponerle "nombre y apellido" a esos números para que veas que es literalmente la fórmula que acabás de escribir (que es la misma del "machete" de la foto resumen que me pasaste antes).
+
+La fórmula teórica de la probabilidad total (tu sumatoria de ramas) es:
+
+$$P(X_{nueva} > 13 \vert{} X=12.1) = \sum_{\mu} P(X_{nueva} > 13 \vert{} \mu) \cdot P(\mu \vert{} X=12.1)$$
+
+Si desarmamos esa sumatoria para las dos ramas de tu árbol, queda así:
+
+- **Para la Rama $\mu=10$:**
+    
+    La estructura $P(X > \text{algo} \vert{} \mu) \cdot P(\mu \vert{} \text{muestra})$ se traduce en:
+    
+    $P(X_{nueva} > 13 \vert{} \mu=10) \cdot P(\mu=10 \vert{} X=12.1)$
+    
+    Que son exactamente los números que calculamos: **$(0.0668 \cdot 0.2317)$**
+    
+- **Para la Rama $\mu=14$:**
+    
+    La estructura $P(X > \text{algo} \vert{} \mu) \cdot P(\mu \vert{} \text{muestra})$ se traduce en:
+    
+    $P(X_{nueva} > 13 \vert{} \mu=14) \cdot P(\mu=14 \vert{} X=12.1)$
+    
+    Que son exactamente los números que calculamos: **$(0.6915 \cdot 0.7683)$**
+    
+
+Como ves, el primer factor de cada paréntesis es la probabilidad del evento futuro condicionado al parámetro (que lo sacamos estandarizando con la tabla $Z$ de la Normal). El segundo factor de cada paréntesis es el peso de la rama (tu distribución "a posteriori" que sacamos con Bayes en la Etapa 1).
+
+¡Así que tu regla mental es 100% correcta! Siempre es esa misma estructura. Perdón si el salto directo a la cuenta te hizo dudar, pero el concepto lo tenés dominado a la perfección.
