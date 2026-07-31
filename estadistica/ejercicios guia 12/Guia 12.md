@@ -901,3 +901,8 @@ $$\frac{9}{n + 11} < 0.001$$
 Significa que si el Gobierno quiere que los dos analistas le entreguen prácticamente el **mismo número** (con una diferencia menor al $0.1\%$), tiene que salir a encuestar a **por lo menos 8990 vecinos**.
 
 Es una hermosa moraleja de la estadística bayesiana: _cuando dos personas tienen prejuicios muy fuertes y opuestos, la única forma de que lleguen a un consenso es abrumándolos con una cantidad gigante de evidencia empírica ($n > 8989$)._
+
+
+
+
+![[Pasted image 20260731185801.png]]
