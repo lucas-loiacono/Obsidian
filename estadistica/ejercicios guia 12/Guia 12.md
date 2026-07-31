@@ -363,3 +363,7 @@ $$0.6915 \cdot 0.7683 = 0.53127$$
 **Sumamos todo (Probabilidad Predictiva Final):**
 
 $$0.01548 + 0.53127 \approx \mathbf{0.5467}$$
+
+
+
+![[Pasted image 20260731015805.png]]
