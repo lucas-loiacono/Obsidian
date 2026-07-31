@@ -1536,3 +1536,383 @@ Planteamos la ecuación forzando a que el resultado sea 1:
 $$\int_7^\infty C \cdot \frac{1}{\theta^7} d\theta = 1$$
 
 Al resolver esa ecuación y despejar la letra $C$, lo que estamos descubriendo es el número exacto por el que hay que multiplicar a $1/\theta^7$ para que su área se estire hasta valer exactamente el 100%. A ese proceso en estadística se lo llama **"encontrar la constante de normalización"**.
+
+
+
+
+
+![[Pasted image 20260731202318.png]]
+
+
+¡Este ejercicio es la secuela perfecta del anterior! Vuelve a aparecer la trampa de los límites con la distribución Uniforme, pero esta vez, en lugar de pedirte estimar una media predictiva, te pide estimar una **probabilidad predictiva**.
+
+Vamos a resolverlo respetando nuestra clásica "cocina" paso a paso.
+
+### Paso 1: La Verosimilitud y el límite oculto
+
+Sabemos que el tamaño de cada archivo $X$ sigue una distribución Uniforme en el intervalo $(0, \theta]$.
+
+La función de densidad para un solo archivo es:
+
+$$f(x \vert{} \theta) = \frac{1}{\theta}$$
+
+Como tenemos una muestra de **10 archivos** ($n=10$), la verosimilitud conjunta es multiplicar esa densidad 10 veces:
+
+$$L(\theta \vert{} \mathbf{x}) = \left( \frac{1}{\theta} \right)^{10} = \theta^{-10}$$
+
+**La restricción lógica:**
+
+Al igual que en el ejercicio anterior, para que esta distribución exista, absolutamente todos los archivos de la muestra deben ser menores o iguales al techo $\theta$.
+
+Buscamos el archivo más pesado de todos los que observamos: es el de **3.00 GB**.
+
+Por lo tanto, la matemática nos obliga a que $\theta \ge 3$.
+
+El núcleo de nuestra Verosimilitud queda:
+
+$$L(\theta \vert{} \mathbf{x}) \propto \theta^{-10} \mathbf{1}\{\theta \ge 3\}$$
+
+### Paso 2: La Distribución A Posteriori
+
+El enunciado nos da la densidad _a priori_ de $\theta$:
+
+$$f(\theta) = \frac{3}{2} \theta^{-5/2} \mathbf{1}\{\theta > 1\}$$
+
+_(Nota: Tiramos a la basura la constante $3/2$ para armar el núcleo, total la recuperamos al final)._
+
+Multiplicamos Verosimilitud por Priori:
+
+$$\text{Posteriori} \propto \left( \theta^{-10} \mathbf{1}\{\theta \ge 3\} \right) \cdot \left( \theta^{-5/2} \mathbf{1}\{\theta > 1\} \right)$$
+
+1. **Juntamos las $\theta$:** Sumamos exponentes $-10 - 2.5 = -12.5 = \mathbf{-25/2}$.
+    
+2. **Juntamos los límites:** Tenemos $\theta \ge 3$ y $\theta > 1$. El más restrictivo "gana", así que nos quedamos con $\mathbf{\theta \ge 3}$.
+    
+
+El núcleo _a posteriori_ es:
+
+$$f(\theta \vert{} \mathbf{x}) \propto \theta^{-25/2} \mathbf{1}\{\theta \ge 3\}$$
+
+**Encontramos la constante (C):**
+
+Forzamos a que la integral dé 1 para que sea una distribución real:
+
+$$\int_3^\infty C \cdot \theta^{-25/2} d\theta = 1$$
+
+$$C \left[ \frac{\theta^{-23/2}}{-23/2} \right]_3^\infty = 1$$
+
+$$C \left( 0 - \frac{3^{-23/2}}{-23/2} \right) = 1 \implies C \cdot \frac{2}{23 \cdot 3^{23/2}} = 1 \implies \mathbf{C = \frac{23}{2} 3^{23/2}}$$
+
+La distribución _a posteriori_ exacta (¡Otra Pareto!) es:
+
+$$f(\theta \vert{} \mathbf{x}) = \frac{23}{2} 3^{23/2} \cdot \theta^{-25/2} \mathbf{1}\{\theta \ge 3\}$$
+
+### Paso 3: Estimar la probabilidad predictiva
+
+Nos piden la probabilidad de que un nuevo archivo supere los 2 GB: $P(X_{nuevo} > 2 \vert{} \mathbf{x})$.
+
+Aplicamos la **Ley de Esperanza Total** (nuestra integral predictiva):
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \int_3^\infty P(X_{nuevo} > 2 \vert{} \theta) \cdot f(\theta \vert{} \mathbf{x}) d\theta$$
+
+**1. Calculamos el núcleo interno $P(X_{nuevo} > 2 \vert{} \theta)$:**
+
+Si el archivo sigue una Uniforme entre $0$ y $\theta$, la probabilidad de que sea mayor a 2 es calcular qué porcentaje del intervalo cae después del número 2.
+
+Como sabemos con total seguridad que $\theta \ge 3$, el límite siempre es más grande que 2. La fórmula geométrica para esa probabilidad es simplemente:
+
+$$P(X > 2 \vert{} \theta) = \frac{\theta - 2}{\theta} = \mathbf{1 - \frac{2}{\theta}}$$
+
+**2. Resolvemos la integral completa:**
+
+Reemplazamos eso en nuestra gran integral:
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \int_3^\infty \left(1 - \frac{2}{\theta}\right) \cdot f(\theta \vert{} \mathbf{x}) d\theta$$
+
+Podemos separar esto en dos integrales por la resta:
+
+$$= \int_3^\infty 1 \cdot f(\theta \vert{} \mathbf{x}) d\theta - \int_3^\infty \frac{2}{\theta} \cdot f(\theta \vert{} \mathbf{x}) d\theta$$
+
+- **La primera integral:** ¡Da **1** directo! (Es la integral de una distribución de probabilidad en todo su dominio).
+    
+- **La segunda integral:** Sacamos el 2 afuera e integramos lo que queda:
+    
+    $$\int_3^\infty \frac{2}{\theta} \left( \frac{23}{2} 3^{23/2} \theta^{-25/2} \right) d\theta$$
+    
+    Juntamos la $\theta$ del denominador con la otra potencia:
+    
+    $$2 \cdot \frac{23}{2} 3^{23/2} \int_3^\infty \theta^{-27/2} d\theta$$
+    
+    $$23 \cdot 3^{23/2} \left[ \frac{\theta^{-25/2}}{-25/2} \right]_3^\infty$$
+    
+    $$23 \cdot 3^{23/2} \left( 0 - \frac{3^{-25/2}}{-25/2} \right)$$
+    
+    Multiplicamos todo: $23 \cdot 3^{23/2} \cdot \frac{2}{25} \cdot 3^{-25/2}$.
+    
+    Restamos los exponentes del 3 ($23/2 - 25/2 = -2/2 = -1$).
+    
+    $$23 \cdot \frac{2}{25} \cdot 3^{-1} = \frac{46}{25 \cdot 3} = \mathbf{\frac{46}{75}}$$
+    
+
+**3. Resultado final:**
+
+Volvemos a nuestra resta original:
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = 1 - \frac{46}{75}$$
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \mathbf{\frac{29}{75}} \approx \mathbf{0.3866}$$
+
+La probabilidad predictiva estimada es de aproximadamente un **38.66%**.
+
+
+
+
+
+![[Pasted image 20260731202616.png]]
+
+
+¡Otro problema excelente! Acá seguimos con la misma familia de trampas: los límites y las funciones indicadoras. Pero esta vez, en lugar de que el parámetro $\theta$ nos ponga un "techo" (límite superior), nos pone un **"piso"** (límite inferior).
+
+Vamos a desarmar "la cocina" paso a paso.
+
+### Paso 1: La Verosimilitud y el límite
+
+La función de densidad para un archivo es:
+
+$$f(x \vert{} \theta) = \theta x^{-2} \mathbf{1}\{x \ge \theta\}$$
+
+Tenemos una muestra de $n=2$ archivos, con tamaños $x_1 = 1.75$ y $x_2 = 2.35$.
+
+Para armar la verosimilitud conjunta, multiplicamos la densidad evaluada en ambos archivos:
+
+$$L(\theta \vert{} \mathbf{x}) = (\theta \cdot 1.75^{-2}) \cdot (\theta \cdot 2.35^{-2}) \cdot \mathbf{1}\{1.75 \ge \theta\} \cdot \mathbf{1}\{2.35 \ge \theta\}$$
+
+Como los números $1.75$ y $2.35$ son constantes fijas, las descartamos para quedarnos solo con el núcleo que depende de $\theta$.
+
+Juntamos las $\theta$ y nos queda $\theta^2$.
+
+**La restricción lógica:**
+
+Tenemos dos condiciones simultáneas: $\theta \le 1.75$ y $\theta \le 2.35$.
+
+Para que el modelo sea válido, $\theta$ debe ser obligatoriamente menor o igual al archivo _más chico_ de nuestra muestra (sino, ese archivo sería imposible de observar). El más restrictivo es el 1.75.
+
+Nuestro núcleo de verosimilitud es:
+
+$$L(\theta \vert{} \mathbf{x}) \propto \theta^2 \mathbf{1}\{\theta \le 1.75\}$$
+
+### Paso 2: La Distribución A Posteriori
+
+El enunciado dice que la _a priori_ es una distribución Uniforme en el intervalo $(1, 2)$. El núcleo de una Uniforme es simplemente $1$ dentro de su intervalo:
+
+$$f(\theta) \propto 1 \cdot \mathbf{1}\{1 < \theta < 2\}$$
+
+Multiplicamos Verosimilitud por Priori:
+
+$$\text{Posteriori} \propto \left( \theta^2 \mathbf{1}\{\theta \le 1.75\} \right) \cdot \mathbf{1}\{1 < \theta < 2\}$$
+
+Al cruzar los intervalos de ambas funciones indicadoras ($\theta \le 1.75$ y $1 < \theta < 2$), el dominio final donde ambas cosas son verdad al mismo tiempo se "achica":
+
+$$f(\theta \vert{} \mathbf{x}) \propto \theta^2 \mathbf{1}\{1 < \theta \le 1.75\}$$
+
+**Encontramos la constante (C):**
+
+Para que la integral dé 1, resolvemos:
+
+$$\int_1^{1.75} C \cdot \theta^2 d\theta = 1$$
+
+Pasamos a fracciones para no perder decimales ($1.75 = 7/4$):
+
+$$C \left[ \frac{\theta^3}{3} \right]_1^{7/4} = 1$$
+
+$$C \left( \frac{(7/4)^3}{3} - \frac{1^3}{3} \right) = 1$$
+
+$$C \left( \frac{343/64}{3} - \frac{1}{3} \right) = 1$$
+
+$$C \left( \frac{343}{192} - \frac{64}{192} \right) = 1 \implies C \left( \frac{279}{192} \right) = 1$$
+
+Simplificamos la fracción dividiendo por 3 (queda $93/64$), y despejamos $C$:
+
+$$\mathbf{C = \frac{64}{93}}$$
+
+Nuestra distribución _a posteriori_ exacta es:
+
+$$f(\theta \vert{} \mathbf{x}) = \frac{64}{93} \theta^2 \mathbf{1}\{1 < \theta \le 1.75\}$$
+
+### Paso 3: Probabilidad Predictiva
+
+Nos piden la probabilidad de que un nuevo archivo supere los 2 GB: $P(X_{nuevo} > 2 \vert{} \mathbf{x})$.
+
+Aplicamos la **Ley de Esperanza Total**:
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \int_1^{1.75} P(X_{nuevo} > 2 \vert{} \theta) \cdot f(\theta \vert{} \mathbf{x}) d\theta$$
+
+**1. Calculamos el núcleo interno $P(X_{nuevo} > 2 \vert{} \theta)$:**
+
+Sabemos que la densidad del archivo es $\theta x^{-2}$ (solo si $x \ge \theta$).
+
+Como en nuestra posteriori sabemos con total seguridad que nuestro parámetro $\theta$ jamás va a superar $1.75$, entonces para el valor $x=2$ la condición siempre se cumple perfecto ($2 \ge 1.75$). Integramos la densidad del archivo desde 2 hasta infinito:
+
+$$P(X > 2 \vert{} \theta) = \int_2^\infty \theta x^{-2} dx = \theta \left[ \frac{x^{-1}}{-1} \right]_2^\infty = \theta \left[ -\frac{1}{x} \right]_2^\infty$$
+
+$$P(X > 2 \vert{} \theta) = \theta \left( 0 - \left(-\frac{1}{2}\right) \right) = \mathbf{\frac{\theta}{2}}$$
+
+**2. Resolvemos la integral final:**
+
+Reemplazamos este resultado y nuestra posteriori en la gran integral:
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \int_1^{1.75} \left( \frac{\theta}{2} \right) \cdot \left( \frac{64}{93} \theta^2 \right) d\theta$$
+
+Sacamos las constantes afuera ($1/2 \cdot 64/93 = 32/93$):
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{32}{93} \int_1^{1.75} \theta^3 d\theta$$
+
+Integramos:
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{32}{93} \left[ \frac{\theta^4}{4} \right]_1^{7/4}$$
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{32}{93 \cdot 4} \left[ \left(\frac{7}{4}\right)^4 - 1^4 \right]$$
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{8}{93} \left[ \frac{2401}{256} - 1 \right]$$
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{8}{93} \left[ \frac{2401 - 256}{256} \right] = \frac{8}{93} \left( \frac{2145}{256} \right)$$
+
+Simplificamos cruzado (el 8 con el 256 queda 32 abajo):
+
+$$P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{2145}{93 \cdot 32} = \frac{2145}{2976}$$
+
+Si dividimos numerador y denominador por 3 para la mínima expresión:
+
+$$\mathbf{P(X_{nuevo} > 2 \vert{} \mathbf{x}) = \frac{715}{992} \approx 0.7208}$$
+
+Hay aproximadamente un **72.08%** de probabilidad de que el próximo archivo supere los 2 GB.
+
+
+
+
+
+![[Pasted image 20260731202753.png]]
+
+
+¡Llegamos al último gran combo de las familias conjugadas! El modelo **Normal-Normal**.
+
+Este es uno de los modelos más usados en la práctica porque te permite actualizar promedios de variables continuas. Cuando tanto la verosimilitud (los datos) como la _a priori_ son distribuciones Normales, la matemática tiene fórmulas directas para actualizar la media y la varianza sin tener que integrar a mano.
+
+Vamos a definir los datos iniciales que nos da el problema:
+
+- **Datos (Verosimilitud):** Desvío $\sigma = 2 \implies$ Varianza $\sigma^2 = 4$. Promedio muestral $\bar{x} = 12.1$.
+    
+- **A Priori:** Media $\mu_0 = 13$. Desvío $\tau_0 = 1 \implies$ Varianza $\tau_0^2 = 1$.
+    
+
+### (a) Hallar la distribución _a posteriori_ de $\mu$
+
+Para la familia Normal-Normal, las fórmulas teóricas de actualización (basadas en la suma de las "precisiones", que son las inversas de las varianzas) son:
+
+1. **Varianza a posteriori ($\tau_n^2$):**
+    
+    $$\frac{1}{\tau_n^2} = \frac{1}{\tau_0^2} + \frac{n}{\sigma^2}$$
+    
+    $$\frac{1}{\tau_n^2} = \frac{1}{1} + \frac{n}{4} = \frac{4 + n}{4} \implies \mathbf{\tau_n^2 = \frac{4}{n + 4}}$$
+    
+2. **Media a posteriori ($\mu_n$):**
+    
+    $$\mu_n = \tau_n^2 \left( \frac{\mu_0}{\tau_0^2} + \frac{n\bar{x}}{\sigma^2} \right)$$
+    
+    $$\mu_n = \left(\frac{4}{n + 4}\right) \left( \frac{13}{1} + \frac{n(12.1)}{4} \right)$$
+    
+    $$\mu_n = \frac{4(13) + n(12.1)}{n + 4} = \mathbf{\frac{52 + 12.1n}{n + 4}}$$
+    
+
+La distribución _a posteriori_ es **$\text{Normal}\left(\frac{52 + 12.1n}{n + 4}, \frac{4}{n + 4}\right)$**.
+
+### (b) El promedio ponderado y el límite asintótico
+
+Nos piden demostrar que la media _a posteriori_ es un promedio ponderado entre la creencia original ($13$) y el dato de la muestra ($12.1$).
+
+Reescribimos la fórmula de $\mu_n$ separando la fracción en dos términos:
+
+$$\mu_n = \left( \frac{4}{n + 4} \right) \cdot 13 + \left( \frac{n}{n + 4} \right) \cdot 12.1$$
+
+Vemos claramente que tiene la forma $\gamma_n 13 + (1 - \gamma_n)12.1$, donde **$\gamma_n = \frac{4}{n + 4}$**.
+
+**Comportamiento cuando $n \to \infty$:**
+
+Calculamos el límite de nuestro peso $\gamma_n$ cuando el tamaño de la muestra crece infinitamente:
+
+$$\lim_{n \to \infty} \frac{4}{n + 4} = \mathbf{0}$$
+
+**Análisis:** Esto significa que a medida que juntamos más y más datos empíricos ($n \to \infty$), el peso de nuestra creencia _a priori_ ($\gamma_n$) desaparece y tiende a 0, haciendo que la estimación final dependa exclusivamente de lo que observamos en la realidad (la media de la muestra).
+
+### (c) Distribución Predictiva
+
+Queremos la distribución para una nueva varilla $X$. En el modelo Normal-Normal, la distribución predictiva también es **Normal**.
+
+Por la Ley de Esperanza Total y Varianza Total, sus parámetros son:
+
+- **Media Predictiva:** Es igual a la media _a posteriori_ de $\mu$.
+    
+    $$E[X \vert{} \text{datos}] = \mu_n = \mathbf{\frac{52 + 12.1n}{n + 4}}$$
+    
+- **Varianza Predictiva:** Es la varianza natural de la población ($\sigma^2$) más la incertidumbre que nos queda sobre la media ($\tau_n^2$).
+    
+    $$V[X \vert{} \text{datos}] = \sigma^2 + \tau_n^2 = 4 + \frac{4}{n+4} = \frac{4n + 16 + 4}{n+4} = \mathbf{\frac{4n + 20}{n + 4}}$$
+    
+
+### (d) Intervalos para $n=10$
+
+Reemplazamos $n=10$ en todas nuestras fórmulas.
+
+- **Media $\mu_{10}$:** $\frac{52 + 121}{14} = \frac{173}{14} \approx \mathbf{12.357}$
+    
+- **Varianza $\tau_{10}^2$:** $\frac{4}{14} = \frac{2}{7} \approx 0.2857 \implies$ Desvío $\tau_{10} = \sqrt{2/7} \approx \mathbf{0.5345}$
+    
+- **Varianza predictiva $V_X$:** $4 + \frac{2}{7} = \frac{30}{7} \approx 4.2857 \implies$ Desvío $\sigma_{pred} = \sqrt{30/7} \approx \mathbf{2.0702}$
+    
+
+Usamos el valor $Z = 1.96$ para el 95% de confianza.
+
+**1. Intervalo para $\mu$:**
+
+$$IC = \mu_{10} \pm 1.96 \cdot \tau_{10}$$
+
+$$IC = 12.357 \pm 1.96 \cdot 0.5345 \implies 12.357 \pm 1.047$$
+
+**$IC_{0.95}(\mu) = [11.310, 13.404]$**
+
+**2. Intervalo predictivo para $X$:**
+
+$$IC = \mu_{10} \pm 1.96 \cdot \sigma_{pred}$$
+
+$$IC = 12.357 \pm 1.96 \cdot 2.0702 \implies 12.357 \pm 4.057$$
+
+**$IC_{0.95}(X) = [8.300, 16.414]$**
+
+### (e) Intervalos para $n=100$
+
+Repetimos el proceso con $n=100$.
+
+- **Media $\mu_{100}$:** $\frac{52 + 1210}{104} = \frac{1262}{104} \approx \mathbf{12.1346}$
+    
+- **Varianza $\tau_{100}^2$:** $\frac{4}{104} = \frac{1}{26} \approx 0.0384 \implies$ Desvío $\tau_{100} = \sqrt{1/26} \approx \mathbf{0.1961}$
+    
+- **Varianza predictiva $V_X$:** $4 + \frac{1}{26} = \frac{105}{26} \approx 4.0384 \implies$ Desvío $\sigma_{pred} = \sqrt{105/26} \approx \mathbf{2.0096}$
+    
+
+**1. Intervalo para $\mu$:**
+
+$$IC = \mu_{100} \pm 1.96 \cdot \tau_{100}$$
+
+$$IC = 12.1346 \pm 1.96 \cdot 0.1961 \implies 12.1346 \pm 0.3843$$
+
+**$IC_{0.95}(\mu) = [11.750, 12.519]$**
+
+**2. Intervalo predictivo para $X$:**
+
+$$IC = \mu_{100} \pm 1.96 \cdot \sigma_{pred}$$
+
+$$IC = 12.1346 \pm 1.96 \cdot 2.0096 \implies 12.1346 \pm 3.9388$$
+
+**$IC_{0.95}(X) = [8.196, 16.073]$**
+
+_(Nota conceptual final: Fijate cómo en el inciso E, al tener 100 datos en vez de 10, la media saltó casi por completo al 12.1 de la muestra, y el ancho del intervalo para descubrir $\mu$ se encogió muchísimo gracias a la nueva certeza)._
