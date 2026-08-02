@@ -518,7 +518,7 @@ $$\widehat{\tau(p)} = \frac{54}{125} = 0.432$$
 
 
 
-![[Pasted image 20260708012546.png]]
+![[Pasted image 20260708012546.png|654]]
 
 ### Parte (a): La Construcción Teórica
 
