@@ -294,30 +294,33 @@ El texto de conclusión que tenés que escribir en el parcial es:
 
 ![[Pasted image 20260708005927.png]]
 
+¡Entendido! Ese formato que mencionás, donde explicitamos a qué conjunto pertenece la variable usando el símbolo $\in$ (pertenece), suele llamarse **indicadora de conjunto** y se escribe como $\mathbf{1}\{x \in A\}$. Queda mucho más claro qué valores puede tomar $x$.
+
+Reescribo todo el desarrollo aplicando este estilo a todas las distribuciones:
+
 ### (a) Bernoulli($p$)
 
-Partimos de la función original:
+**Partimos de la función original:**
 
-$$f(x; p) = p^x (1-p)^{1-x} \cdot \mathbf{1}_{\{0, 1\}}(x)$$
+$$f(x; p) = p^x (1-p)^{1-x} \cdot \mathbf{1}\{x \in \{0, 1\}\}$$
 
-1. **Separar términos:** Rompemos la resta en el exponente de $(1-p)$ para aislar lo que tiene $x$ de lo que no.
-    
-    $$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot p^x \cdot (1-p)^1 \cdot (1-p)^{-x}$$
-    
-2. **Agrupar lo suelto y juntar las $x$:** Movemos el $(1-p)$ para adelante (será nuestro $A$) y juntamos las bases que están elevadas a la $x$.
-    
-    $$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot (1-p) \cdot \left( \frac{p}{1-p} \right)^x$$
-    
-3. **Aplicar el truco a la mezcla:** Ahora sí, metemos el último término en un exponente usando el logaritmo para bajar la $x$.
-    
-    $$f(x; p) = \mathbf{1}_{\{0, 1\}}(x) \cdot (1-p) \cdot \exp\left\{ x \ln\left( \frac{p}{1-p} \right) \right\}$$
-    
+**Separar términos:** Rompemos la resta en el exponente de $(1-p)$ para aislar lo que tiene $x$ de lo que no.
+
+$$f(x; p) = \mathbf{1}\{x \in \{0, 1\}\} \cdot p^x \cdot (1-p)^1 \cdot (1-p)^{-x}$$
+
+**Agrupar lo suelto y juntar las $x$:** Movemos el $(1-p)$ para adelante (será nuestro $A$) y juntamos las bases que están elevadas a la $x$.
+
+$$f(x; p) = \mathbf{1}\{x \in \{0, 1\}\} \cdot (1-p) \cdot \left( \frac{p}{1-p} \right)^x$$
+
+**Aplicar el truco a la mezcla:** Ahora sí, metemos el último término en un exponente usando el logaritmo para bajar la $x$.
+
+$$f(x; p) = \mathbf{1}\{x \in \{0, 1\}\} \cdot (1-p) \cdot \exp\left\{ x \ln\left( \frac{p}{1-p} \right) \right\}$$
 
 **Identificamos las partes:**
 
-- $h(x) = \mathbf{1}_{\{0, 1\}}(x)$
+- $h(x) = \mathbf{1}\{x \in \{0, 1\}\}$
     
-- **$A(p) = 1-p$**
+- $A(p) = 1-p$
     
 - $c(p) = \ln\left(\frac{p}{1-p}\right)$
     
@@ -326,28 +329,27 @@ $$f(x; p) = p^x (1-p)^{1-x} \cdot \mathbf{1}_{\{0, 1\}}(x)$$
 
 ### (b) Pascal($4, p$)
 
-Partimos de la función original:
+**Partimos de la función original:**
 
-$$f(x; p) = \binom{x-1}{3} p^4 (1-p)^{x-4} \cdot \mathbf{1}_{\{x \ge 4\}}(x)$$
+$$f(x; p) = \binom{x-1}{3} p^4 (1-p)^{x-4} \cdot \mathbf{1}\{x \in \{4, 5, 6, \dots\}\}$$
 
-1. **Separar términos:** Rompemos la resta en el exponente de $(1-p)$.
-    
-    $$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot p^4 \cdot (1-p)^{-4} \cdot (1-p)^x$$
-    
-2. **Agrupar lo suelto:** Juntamos todas las $p$ que no tienen ninguna $x$ al lado para armar nuestro $A(p)$.
-    
-    $$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \left( \frac{p}{1-p} \right)^4 \cdot (1-p)^x$$
-    
-3. **Aplicar el truco a la mezcla:** Usamos el logaritmo solo para el término $(1-p)^x$.
-    
-    $$f(x; p) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x) \cdot \left( \frac{p}{1-p} \right)^4 \cdot \exp\{ x \ln(1-p) \}$$
-    
+**Separar términos:** Rompemos la resta en el exponente de $(1-p)$.
+
+$$f(x; p) = \binom{x-1}{3} \mathbf{1}\{x \in \{4, 5, 6, \dots\}\} \cdot p^4 \cdot (1-p)^{-4} \cdot (1-p)^x$$
+
+**Agrupar lo suelto:** Juntamos todas las $p$ que no tienen ninguna $x$ al lado para armar nuestro $A(p)$.
+
+$$f(x; p) = \binom{x-1}{3} \mathbf{1}\{x \in \{4, 5, 6, \dots\}\} \cdot \left( \frac{p}{1-p} \right)^4 \cdot (1-p)^x$$
+
+**Aplicar el truco a la mezcla:** Usamos el logaritmo solo para el término $(1-p)^x$.
+
+$$f(x; p) = \binom{x-1}{3} \mathbf{1}\{x \in \{4, 5, 6, \dots\}\} \cdot \left( \frac{p}{1-p} \right)^4 \cdot \exp\{ x \ln(1-p) \}$$
 
 **Identificamos las partes:**
 
-- $h(x) = \binom{x-1}{3} \mathbf{1}_{\{x \ge 4\}}(x)$
+- $h(x) = \binom{x-1}{3} \mathbf{1}\{x \in \{4, 5, 6, \dots\}\}$
     
-- **$A(p) = \left(\frac{p}{1-p}\right)^4$**
+- $A(p) = \left(\frac{p}{1-p}\right)^4$
     
 - $c(p) = \ln(1-p)$
     
@@ -356,24 +358,23 @@ $$f(x; p) = \binom{x-1}{3} p^4 (1-p)^{x-4} \cdot \mathbf{1}_{\{x \ge 4\}}(x)$$
 
 ### (c) Poisson($\lambda$)
 
-Partimos de la función original:
+**Partimos de la función original:**
 
-$$f(x; \lambda) = \frac{e^{-\lambda} \lambda^x}{x!} \cdot \mathbf{1}_{\{x \ge 0\}}(x)$$
+$$f(x; \lambda) = \frac{e^{-\lambda} \lambda^x}{x!} \cdot \mathbf{1}\{x \in \{0, 1, 2, \dots\}\}$$
 
-1. **Separar términos y agrupar:** Sacamos el $e^{-\lambda}$ (que no tiene $x$) y lo mandamos al frente.
-    
-    $$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot e^{-\lambda} \cdot \lambda^x$$
-    
-2. **Aplicar el truco a la mezcla:** Transformamos solo la $\lambda^x$.
-    
-    $$f(x; \lambda) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x) \cdot e^{-\lambda} \cdot \exp\{ x \ln(\lambda) \}$$
-    
+**Separar términos y agrupar:** Sacamos el $e^{-\lambda}$ (que no tiene $x$) y lo mandamos al frente.
+
+$$f(x; \lambda) = \frac{1}{x!} \mathbf{1}\{x \in \{0, 1, 2, \dots\}\} \cdot e^{-\lambda} \cdot \lambda^x$$
+
+**Aplicar el truco a la mezcla:** Transformamos solo la $\lambda^x$.
+
+$$f(x; \lambda) = \frac{1}{x!} \mathbf{1}\{x \in \{0, 1, 2, \dots\}\} \cdot e^{-\lambda} \cdot \exp\{ x \ln(\lambda) \}$$
 
 **Identificamos las partes:**
 
-- $h(x) = \frac{1}{x!} \mathbf{1}_{\{x \ge 0\}}(x)$
+- $h(x) = \frac{1}{x!} \mathbf{1}\{x \in \{0, 1, 2, \dots\}\}$
     
-- **$A(\lambda) = e^{-\lambda}$**
+- $A(\lambda) = e^{-\lambda}$
     
 - $c(\lambda) = \ln(\lambda)$
     
@@ -382,27 +383,25 @@ $$f(x; \lambda) = \frac{e^{-\lambda} \lambda^x}{x!} \cdot \mathbf{1}_{\{x \ge 0\
 
 ### (d) Exponencial($\lambda$)
 
-Partimos de la función original:
+**Partimos de la función original:**
 
-$$f(x; \lambda) = \lambda e^{-\lambda x} \cdot \mathbf{1}_{\{x > 0\}}(x)$$
+$$f(x; \lambda) = \lambda e^{-\lambda x} \cdot \mathbf{1}\{x \in (0, \infty)\}$$
 
-Este es el caso más directo porque las cosas ya están en su lugar. No hace falta usar ningún truco de logaritmos porque la $x$ ya está adentro de una función $e$.
+Este es el caso más directo porque las cosas ya están en su lugar. La indicadora en este caso marca que la variable es continua y positiva.
 
-1. **Acomodar visualmente:** Simplemente reordenamos para que quede igual al molde que te piden.
-    
-    $$f(x; \lambda) = \mathbf{1}_{\{x > 0\}}(x) \cdot \lambda \cdot \exp\{ -\lambda x \}$$
-    
+**Acomodar visualmente:**
+
+$$f(x; \lambda) = \mathbf{1}\{x \in (0, \infty)\} \cdot \lambda \cdot \exp\{ -\lambda x \}$$
 
 **Identificamos las partes:**
 
-- $h(x) = \mathbf{1}_{\{x > 0\}}(x)$
+- $h(x) = \mathbf{1}\{x \in (0, \infty)\}$
     
-- **$A(\lambda) = \lambda$**
+- $A(\lambda) = \lambda$
     
 - $c(\lambda) = -\lambda$
     
 - $T(x) = x$
-
 
 ![[Pasted image 20260708010651.png]]
 
