@@ -816,6 +816,21 @@ Así que tu conclusión es impecable: mientras la indicadora use a las $x_i$ coo
 
 
 
+¡Exactamente! Lo resumiste a la perfección.
+
+Esa es la mecánica fundamental y más práctica para aplicar el teorema:
+
+1. **El comodín salvador ($T$):** Para armar tu caja $g(T, \theta)$, agrupás todo lo que tiene $\theta$. Pero como a $\theta$ no se lo puede dejar en contacto con las $x_i$ individuales, usás tu comodín $T$ (que puede ser una sumatoria, una productoria, un extremo, o un vector de varios de estos) para "enmascarar" o "empaquetar" a la muestra.
+    
+2. **El filtro de limpieza ($h(\underline{x})$):** Todo lo que sea puramente muestra (las $x_i$ sueltas o constantes) y **no esté multiplicado, elevado ni interactuando de ninguna forma con $\theta$**, lo mandás a esta función. Esta caja representa la información de la muestra que no te sirve para adivinar el parámetro.
+    
+
+Mientras logres que en la caja $g$ la muestra original esté oculta y solo exista a través de tu comodín $T$, el estadístico es suficiente.
+
+¿Querés que veamos el caso de la distribución Normal para ver cómo funciona esto de usar **dos** comodines distintos al mismo tiempo cuando tenemos más de un parámetro?
+
+
+
 
 ![[Pasted image 20260708191948.png]]
 
