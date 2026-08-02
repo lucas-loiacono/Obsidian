@@ -922,6 +922,100 @@ Buscando denominador común te queda una cuenta algebraica un poco densa que se 
 
 $$Var(\hat{\theta}) = \frac{3n \theta^2}{(3n-2)(3n-1)^2}$$
 
+
+
+¡Me parece una excelente idea! Ese camino alternativo usando la probabilidad de la cola (la función de supervivencia) es mucho más elegante, directo y te ahorra lidiar con la engorrosa fórmula de $1 - [1 - F(x)]^n$.
+
+Te hago una pequeña corrección de notación: para armar la distribución, en lugar de evaluar contra $\theta$ (que es nuestro parámetro fijo), evaluamos contra una variable genérica $x$ para construir la función. Es decir, vamos a calcular $P(X_1 > x, \dots, X_n > x)$.
+
+Acá tenés el desarrollo completo de la parte **(b)** del ejercicio `image_b7d0a8.png` usando este método:
+
+### (b) Esperanza y Varianza del EMV (Método de Supervivencia)
+
+Sabemos que nuestro estimador es el mínimo de la muestra: $\hat{\theta} = \min(X_1, \dots, X_n)$.
+
+**1. Calculamos la probabilidad de que una sola variable supere $x$:**
+
+Primero buscamos la probabilidad de que una única observación $X_i$ sea mayor a un valor $x$ (con $x \ge \theta$). Integramos la función de densidad original $f_\theta(t)$ desde $x$ hasta infinito:
+
+$$P(X_i > x) = \int_x^\infty 3\theta^3 t^{-4} dt$$
+
+$$P(X_i > x) = 3\theta^3 \left[ \frac{t^{-3}}{-3} \right]_x^\infty = -\theta^3 \left( 0 - \frac{1}{x^3} \right) = \left(\frac{\theta}{x}\right)^3$$
+
+**2. Armamos la distribución conjunta del mínimo:**
+
+Por definición, para que el mínimo de una muestra sea mayor a $x$, **todas y cada una** de las variables de la muestra tienen que ser mayores a $x$. Como es una muestra aleatoria (las variables son independientes), la probabilidad conjunta es la multiplicación de las probabilidades individuales:
+
+$$P(\hat{\theta} > x) = P(X_1 > x, X_2 > x, \dots, X_n > x)$$
+
+$$P(\hat{\theta} > x) = \prod_{i=1}^n P(X_i > x)$$
+
+$$P(\hat{\theta} > x) = \left[ \left(\frac{\theta}{x}\right)^3 \right]^n = \left(\frac{\theta}{x}\right)^{3n} = \theta^{3n} x^{-3n}$$
+
+**3. Obtenemos la función de densidad del mínimo ($f_{min}(x)$):**
+
+Sabemos que la Función de Distribución Acumulada $F_{min}(x)$ es el complemento de lo que acabamos de calcular:
+
+$$F_{min}(x) = 1 - P(\hat{\theta} > x) = 1 - \theta^{3n} x^{-3n}$$
+
+Para conseguir la densidad, simplemente derivamos respecto a $x$:
+
+$$f_{min}(x) = \frac{d}{dx} \left( 1 - \theta^{3n} x^{-3n} \right) = - \theta^{3n} (-3n) x^{-3n-1}$$
+
+$$f_{min}(x) = 3n \theta^{3n} x^{-(3n+1)} \cdot \mathbf{1}\{x \ge \theta\}$$
+
+_(Como ves, llegamos exactamente a la misma función de densidad que con el otro método, pero con mucha menos fricción algebraica)._
+
+**4. Esperanza ($E[\hat{\theta}]$):**
+
+Aplicamos la definición de esperanza usando nuestra nueva densidad:
+
+$$E[\hat{\theta}] = \int_\theta^\infty x \cdot f_{min}(x) dx = \int_\theta^\infty x \cdot 3n \theta^{3n} x^{-3n-1} dx$$
+
+Agrupamos las $x$ y sacamos las constantes afuera:
+
+$$E[\hat{\theta}] = 3n \theta^{3n} \int_\theta^\infty x^{-3n} dx$$
+
+Integramos:
+
+$$E[\hat{\theta}] = 3n \theta^{3n} \left[ \frac{x^{-3n+1}}{-3n+1} \right]_\theta^\infty$$
+
+Evaluado en infinito da 0, y le restamos lo evaluado en $\theta$:
+
+$$E[\hat{\theta}] = 3n \theta^{3n} \left( 0 - \frac{\theta^{-3n+1}}{-3n+1} \right) = \frac{3n \theta^{3n} \theta^{-3n+1}}{3n-1}$$
+
+$$E[\hat{\theta}] = \frac{3n}{3n-1}\theta$$
+
+**5. Varianza ($Var(\hat{\theta})$):**
+
+Primero buscamos el momento de orden 2 ($E[\hat{\theta}^2]$):
+
+$$E[\hat{\theta}^2] = \int_\theta^\infty x^2 \cdot f_{min}(x) dx = \int_\theta^\infty x^2 \cdot 3n \theta^{3n} x^{-3n-1} dx$$
+
+$$E[\hat{\theta}^2] = 3n \theta^{3n} \int_\theta^\infty x^{-3n+1} dx$$
+
+$$E[\hat{\theta}^2] = 3n \theta^{3n} \left[ \frac{x^{-3n+2}}{-3n+2} \right]_\theta^\infty = 3n \theta^{3n} \left( 0 - \frac{\theta^{-3n+2}}{-3n+2} \right)$$
+
+$$E[\hat{\theta}^2] = \frac{3n}{3n-2}\theta^2$$
+
+Finalmente, aplicamos la fórmula de la varianza $Var(X) = E[X^2] - (E[X])^2$:
+
+$$Var(\hat{\theta}) = \frac{3n}{3n-2}\theta^2 - \left( \frac{3n}{3n-1}\theta \right)^2$$
+
+$$Var(\hat{\theta}) = \theta^2 \left[ \frac{3n}{3n-2} - \frac{9n^2}{(3n-1)^2} \right]$$
+
+Buscamos denominador común $(3n-2)(3n-1)^2$:
+
+$$Var(\hat{\theta}) = \theta^2 \left[ \frac{3n(3n-1)^2 - 9n^2(3n-2)}{(3n-2)(3n-1)^2} \right]$$
+
+$$Var(\hat{\theta}) = \theta^2 \left[ \frac{3n(9n^2 - 6n + 1) - 27n^3 + 18n^2}{(3n-2)(3n-1)^2} \right]$$
+
+$$Var(\hat{\theta}) = \theta^2 \left[ \frac{27n^3 - 18n^2 + 3n - 27n^3 + 18n^2}{(3n-2)(3n-1)^2} \right]$$
+
+$$Var(\hat{\theta}) = \frac{3n \theta^2}{(3n-2)(3n-1)^2}$$
+
+
+
 ### (c) Convergencia en Media Cuadrática
 
 Para probar esto, el **Error Cuadrático Medio (ECM) tiene que tender a $0$ cuando $n \to \infty$.**
