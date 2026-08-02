@@ -153,6 +153,49 @@ Cuando vos lográs agrupar todas tus $x_i$ adentro de una sumatoria o una produc
 
 
 
+
+¡Venís con un razonamiento impecable! Toda tu explicación sobre cómo funcionan las "cajas" $g$ y $h$, y por qué fallan los estadísticos malos, es perfecta. Entendiste el corazón del Teorema de Factorización.
+
+Pero ojo con tu última conclusión, porque ahí es donde la estadística nos da una herramienta más amplia: **sí podés tener un mínimo, un máximo y reemplazarlos por letras distintas adentro de tu caja $g$.**
+
+Ese es el concepto de un **Estadístico Suficiente Multidimensional** (o vector de estadísticos suficientes).
+
+### El empaque múltiple: $\mathbf{T} = (T_1, T_2)$
+
+El teorema de Fisher-Neyman no te obliga a que $T$ sea un único número (un escalar). Tu estadístico suficiente puede ser un _vector_ compuesto por varios "empaques" distintos, siempre y cuando juntos logren absorber a todas las $x_i$ que interactúan con el parámetro $\theta$.
+
+Si armás un $T_1$ (por ejemplo, el mínimo) y un $T_2$ (por ejemplo, el máximo), tu función $g$ simplemente recibe ambos datos: $g(T_1, T_2, \theta)$.
+
+#### El caso perfecto: Uniforme con dos parámetros
+
+Imaginate que tenés una muestra aleatoria de una distribución Uniforme entre $a$ y $b$, es decir $X \sim U(a, b)$. Acá tenés un parámetro vectorial $\theta = (a, b)$.
+
+Al armar la productoria de la conjunta, la indicadora te exige que todas las $x_i$ estén entre $a$ y $b$. Para "empaquetar" esa condición de toda la muestra, la matemática nos dice que basta con mirar los extremos: el valor más chico de la muestra no puede ser menor a $a$, y el valor más grande no puede superar a $b$.
+
+Tu conjunta factorizada queda así:
+
+$$f(\underline{x}; a, b) = \underbrace{ \frac{1}{(b - a)^n} \cdot \mathbf{1}\{\min(x_i) \ge a\} \cdot \mathbf{1}\{\max(x_i) \le b\} }_{g(T_1, T_2, a, b)} \cdot \underbrace{ 1 }_{h(\underline{x})}$$
+
+Si te fijás, la caja $g$ aceptó sin problema a **dos** representantes distintos de la muestra:
+
+- $T_1 = \min(x_i)$
+    
+- $T_2 = \max(x_i)$
+    
+
+Juntos, $\mathbf{T} = (\min(x_i), \max(x_i))$ forman tu estadístico suficiente conjunto. Las $x_i$ perdieron su identidad individual, pero en lugar de fusionarse en un solo bloque, se organizaron en dos.
+
+### Resumen de la regla de oro extendida
+
+La matriz no se rompe si tenés varias $T$. Se rompe **únicamente** si después de armar todos tus bloques ($T_1, T_2, \dots$) te sigue quedando alguna $x_i$ "rebelde y suelta" que interactúa con el parámetro y no pudiste meter en ninguno de tus empaques.
+
+¿Te gustaría que probemos aplicar esto mismo pero factorizando una distribución Normal para ver cómo conviven $\sum x_i$ y $\sum x_i^2$ en la misma función $g$?
+
+
+
+
+
+
 ![[Pasted image 20260708004802.png]]
 
 ### 1. Armar la función conjunta (La Productoria)
