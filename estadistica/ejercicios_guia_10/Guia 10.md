@@ -304,6 +304,57 @@ Por lo tanto, **el mejor test es el Test 2** (Rechazar $H_0$ si $X = 3$).
 
 
 
+
+
+
+¡Entiendo perfecto la confusión! Es muy fácil marearse con qué representa exactamente cada número al mirar la tabla.
+
+El detalle clave para destrabar esto es el siguiente: **los valores que se extraen directamente de la tabla (0.08, 0.12 y 0.09) NO son $\beta$, son en realidad $\pi$ (la Potencia del test).**
+
+Vamos a desarmar la lógica paso a paso mirando la tabla del ejercicio `image_494399.png` y usando el **Test 1** como ejemplo. Recordá que la regla de este test es rechazar $H_0$ únicamente si el resultado es 2 (Región de rechazo $R = \{2\}$).
+
+### 1. ¿De dónde sale $\pi$ (Potencia)?
+
+La potencia ($\pi$) es la probabilidad de **rechazar** $H_0$ estando en el universo donde $H_1$ es la verdad.
+
+- Como $H_1$ es verdad, tapamos la fila de arriba y miramos únicamente la fila inferior: $p_1(x)$.
+    
+- Como la regla del Test 1 dicta que solo rechazamos si sale un **2**, miramos esa columna.
+    
+- El valor en la intersección es **0.08**.
+    
+- Ese número es nuestra potencia: **$\pi = 0.08$**. Nos dice que el test detecta la verdad y rechaza correctamente solo un 8% de las veces.
+    
+
+### 2. ¿De dónde sale $\beta$ (Error Tipo II)?
+
+El error $\beta$ es el escenario opuesto: la probabilidad de equivocarte y **NO rechazar** $H_0$ a pesar de que $H_1$ es la verdad.
+
+- Seguimos parados en la fila $p_1(x)$.
+    
+- Para no rechazar $H_0$, el experimento te tiene que arrojar cualquier número que quede fuera de tu "lista negra". Es decir, te tiene que salir 0, 1, 3, 4 o 5.
+    
+- Si quisieras calcular $\beta$ "por el camino largo", tendrías que sumar a mano todas esas probabilidades restantes de la fila:
+    
+    $$\beta = 0.04 + 0.05 + 0.12 + 0.41 + 0.30 = 0.92$$
+    
+
+### 3. El atajo de la resta
+
+Acá es donde entra la fórmula $\beta = 1 - \pi$.
+
+Como sabemos que la suma de toda la fila $p_1(x)$ da obligatoriamente 1 (el 100% de los casos posibles), es un desperdicio de tiempo sumar cinco números a mano. Es mucho más rápido agarrar el total (1) y restarle el único pedacito que representaba el rechazo ($\pi = 0.08$):
+
+$$\beta = 1 - 0.08 = 0.92$$
+
+**En conclusión:** El apunte no saca $\beta$ de la tabla. Saca a $\pi$ leyendo el valor puntual de la región de rechazo, y luego usa esa simple resta para calcular indirectamente cuánto suman todas las demás columnas ($\beta$).
+
+
+
+
+
+
+
 Vamos a aplicarle esta lógica de probabilidades condicionadas leyendo estrictamente la tabla del ejercicio 10.3 para calcular todo.
 
 ### 1. Nivel de Significación ($\alpha$) / Error de Tipo I

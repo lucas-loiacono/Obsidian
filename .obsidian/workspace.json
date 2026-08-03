@@ -240,10 +240,10 @@
           }
         ],
         "direction": "vertical",
-        "x": 401,
-        "y": 230,
+        "x": 153,
+        "y": 125,
         "width": 1438,
-        "height": 898,
+        "height": 852,
         "maximize": true,
         "zoom": 0
       }
