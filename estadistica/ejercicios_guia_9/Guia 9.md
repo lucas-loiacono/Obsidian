@@ -1198,6 +1198,173 @@ Escribimos la respuesta final:
 $$\hat{\theta} \sim \mathcal{N}\left( \theta, \frac{\theta^2}{n} \right)$$
 
 
+
+
+
+![[Pasted image 20260802230557.png]]
+
+¡Excelente ejercicio! Este problema tiene una trampa inicial muy interesante: no te dan la función de densidad $f(x)$ directamente, sino la **función de intensidad** (o tasa de falla), denotada como $\lambda(x)$.
+
+Para poder aplicar todas las herramientas que ya venimos viendo (verosimilitud, factorización), el **paso previo fundamental** es reconstruir la función de densidad a partir de esa intensidad.
+
+### Paso 0: Obtener la Función de Densidad $f(x)$
+
+En teoría de confiabilidad, sabemos que la relación entre la función de densidad $f(x)$ y la función de intensidad $\lambda(x)$ está dada por:
+
+$$f(x) = \lambda(x) \cdot \exp\left\{ - \int_0^x \lambda(t) dt \right\}$$
+
+Calculamos la integral del exponente (que se llama función de intensidad acumulada):
+
+$$\int_0^x 3\theta^{-3}t^2 dt = 3\theta^{-3} \left[ \frac{t^3}{3} \right]_0^x = \theta^{-3}x^3 = \left(\frac{x}{\theta}\right)^3$$
+
+Reemplazando esto en nuestra fórmula, obtenemos por fin la función de densidad de nuestra variable (que resulta ser una distribución Weibull):
+
+$$f(x; \theta) = 3\theta^{-3}x^2 \exp\left\{ -\left(\frac{x}{\theta}\right)^3 \right\} \mathbf{1}\{x > 0\}$$
+
+Ahora sí, ¡tenemos el molde listo para trabajar!
+
+### (a) Estadístico Suficiente para $\theta$
+
+Vamos a usar tu método favorito: el Teorema de Factorización (Fisher-Neyman).
+
+**1. Armamos la Función de Probabilidad Conjunta de la muestra:**
+
+$$f(\underline{x}; \theta) = \prod_{i=1}^n \left( 3\theta^{-3}x_i^2 \exp\left\{ -\frac{x_i^3}{\theta^3} \right\} \mathbf{1}\{x_i > 0\} \right)$$
+
+**2. Agrupamos usando propiedades:**
+
+- Multiplicar $3$ y $\theta^{-3}$ $n$ veces: $3^n \theta^{-3n}$
+    
+- Multiplicar las $x_i^2$: $\prod_{i=1}^n x_i^2$
+    
+- Producto de exponenciales es la exponencial de la suma de los exponentes: $\exp\left\{ -\frac{1}{\theta^3} \sum_{i=1}^n x_i^3 \right\}$
+    
+
+$$f(\underline{x}; \theta) = 3^n \theta^{-3n} \left( \prod_{i=1}^n x_i^2 \right) \exp\left\{ -\frac{1}{\theta^3} \sum_{i=1}^n x_i^3 \right\} \prod_{i=1}^n \mathbf{1}\{x_i > 0\}$$
+
+**3. Factorizamos en las cajas $g$ y $h$:**
+
+Recordá la regla de oro: la letra $\theta$ no puede tocar a las $x_i$ sueltas. Agrupamos todo lo que tiene $\theta$ y nuestro comodín en $g$, y el resto de la muestra a $h$.
+
+$$f(\underline{x}; \theta) = \underbrace{ \theta^{-3n} \exp\left\{ -\frac{1}{\theta^3} \sum_{i=1}^n x_i^3 \right\} }_{g(T, \theta)} \cdot \underbrace{ 3^n \left( \prod_{i=1}^n x_i^2 \right) \prod_{i=1}^n \mathbf{1}\{x_i > 0\} }_{h(\underline{x})}$$
+
+Como el parámetro interactúa con la muestra únicamente a través de la suma de los cubos, el estadístico suficiente es:
+
+$$T = \sum_{i=1}^n X_i^3$$
+
+### (b) Estimador de Máxima Verosimilitud (EMV)
+
+**1. Función de Verosimilitud ($L$) y Log-Verosimilitud ($l$):**
+
+Partimos de la conjunta que ya armamos y le aplicamos logaritmo natural ($\ln$) para bajar exponentes:
+
+$$L(\theta) = 3^n \theta^{-3n} \left( \prod_{i=1}^n x_i^2 \right) \exp\left\{ -\theta^{-3} \sum_{i=1}^n x_i^3 \right\}$$
+
+$$l(\theta) = n\ln(3) - 3n\ln(\theta) + \sum_{i=1}^n \ln(x_i^2) - \theta^{-3} \sum_{i=1}^n x_i^3$$
+
+**2. Derivamos respecto a $\theta$ e igualamos a 0:**
+
+$$\frac{\partial l}{\partial \theta} = 0 - \frac{3n}{\theta} + 0 - (-3\theta^{-4}) \sum_{i=1}^n x_i^3 = 0$$
+
+$$-\frac{3n}{\theta} + \frac{3 \sum x_i^3}{\theta^4} = 0$$
+
+**3. Despejamos $\theta$:**
+
+$$\frac{3n}{\theta} = \frac{3 \sum x_i^3}{\theta^4}$$
+
+Multiplicamos ambos lados por $\theta^4$ y dividimos por $3n$:
+
+$$\theta^3 = \frac{1}{n} \sum_{i=1}^n x_i^3$$
+
+$$\hat{\theta} = \left( \frac{1}{n} \sum_{i=1}^n X_i^3 \right)^{1/3}$$
+
+### (c) Simulación y cálculo del EMV
+
+Para simular variables aleatorias a partir de números uniformes $U \sim (0,1)$, usamos el **Método de la Transformada Inversa**.
+
+Igualamos la Función de Distribución Acumulada $F(x)$ a la uniforme $U$:
+
+$$F(x) = 1 - \exp\left\{ -\left(\frac{x}{\theta}\right)^3 \right\} = U$$
+
+Despejamos $x$:
+
+$$\exp\left\{ -\left(\frac{x}{\theta}\right)^3 \right\} = 1 - U$$
+
+$$-\left(\frac{x}{\theta}\right)^3 = \ln(1 - U)$$
+
+$$x^3 = -\theta^3 \ln(1 - U)$$
+
+Como el enunciado nos dice que usemos $\theta = 1$, la fórmula para generar nuestros datos simulados nos queda hermosamente simple: **$x_i^3 = -\ln(1 - U_i)$**.
+
+_(Fijate el truco: ¡No hace falta calcular las $x_i$! El estimador $\hat{\theta}$ que hallamos en el punto anterior solo necesita la suma de los $x_i^3$, así que podemos usar este valor directamente)._
+
+Calculamos $x_i^3$ para los 10 valores dados:
+
+- $U_1 = 0.186 \Rightarrow x_1^3 = -\ln(1 - 0.186) \approx 0.2058$
+    
+- $U_2 = 0.178 \Rightarrow x_2^3 = -\ln(1 - 0.178) \approx 0.1960$
+    
+- $U_3 = 0.488 \Rightarrow x_3^3 = -\ln(1 - 0.488) \approx 0.6694$
+    
+- $U_4 = 0.255 \Rightarrow x_4^3 = -\ln(1 - 0.255) \approx 0.2944$
+    
+- $U_5 = 0.392 \Rightarrow x_5^3 = -\ln(1 - 0.392) \approx 0.4976$
+    
+- $U_6 = 0.234 \Rightarrow x_6^3 = -\ln(1 - 0.234) \approx 0.2666$
+    
+- $U_7 = 0.597 \Rightarrow x_7^3 = -\ln(1 - 0.597) \approx 0.9088$
+    
+- $U_8 = 0.205 \Rightarrow x_8^3 = -\ln(1 - 0.205) \approx 0.2294$
+    
+- $U_9 = 0.611 \Rightarrow x_9^3 = -\ln(1 - 0.611) \approx 0.9442$
+    
+- $U_{10} = 0.651 \Rightarrow x_{10}^3 = -\ln(1 - 0.651) \approx 1.0527$
+    
+
+Sumamos todos los cubos: $\sum x_i^3 = 5.2649$
+
+Ahora calculamos nuestro EMV usando la fórmula del punto (b):
+
+$$\hat{\theta} = \left( \frac{1}{10} \cdot 5.2649 \right)^{1/3} = (0.52649)^{1/3} \approx 0.8075$$
+
+### (d) EMV de una probabilidad basada en una muestra real
+
+Nos piden estimar la probabilidad de que una máquina funcione más de 2.5 años, es decir $P(X > 2.5)$.
+
+Sabemos que esta probabilidad (supervivencia) es:
+
+$$P(X > 2.5) = \exp\left\{ -\left(\frac{2.5}{\theta}\right)^3 \right\}$$
+
+Por la **Propiedad de Invarianza de los EMV**, si metemos el EMV de $\theta$ adentro de una función, el resultado es el EMV de esa función. Por lo tanto:
+
+$$\widehat{P(X > 2.5)} = \exp\left\{ - \frac{2.5^3}{\hat{\theta}^3} \right\}$$
+
+Calculamos $\hat{\theta}^3$ para la nueva muestra de tiempos:
+
+$2.00, 5.48, 2.43, 1.90, 5.85, 1.58, 2.30, 2.87, 3.62, 2.71$
+
+1. Elevamos todos al cubo y los sumamos:
+    
+    $8.00 + 164.57 + 14.35 + 6.86 + 200.20 + 3.94 + 12.17 + 23.64 + 47.44 + 19.90 = \mathbf{501.07}$
+    
+2. Calculamos $\hat{\theta}^3$ (es el promedio de los cubos, según vimos en el punto b):
+    
+    $$\hat{\theta}^3 = \frac{501.07}{10} = 50.107$$
+    
+
+Finalmente, calculamos nuestra probabilidad estimada:
+
+$$\widehat{P(X > 2.5)} = \exp\left\{ - \frac{2.5^3}{50.107} \right\} = \exp\left\{ - \frac{15.625}{50.107} \right\} = \exp\{-0.3118\}$$
+
+$$\widehat{P(X > 2.5)} \approx 0.7321 \quad \text{(o 73.21\%)}$$
+
+
+
+
+
+
+
+
 ![[Pasted image 20260708194354.png]]
 
 ¡Este es el paso natural para subir de nivel! Hasta ahora veníamos trabajando con la Familia Exponencial de 1 parámetro. Cuando tenés 2 parámetros (como en la Normal o en la Gamma), la lógica es **exactamente la misma**, solo que el "molde" se estira un poquito para hacerle lugar a los dos.
