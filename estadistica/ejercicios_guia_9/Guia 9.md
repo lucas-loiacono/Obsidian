@@ -1614,72 +1614,79 @@ Como pudimos reescribir toda la función usando únicamente 3 estadísticos ($x_
 ![[Pasted image 20260708201127.png]]
 
 
+¡Por supuesto! Es un problema común al copiar y pegar fórmulas de otras plataformas. A continuación, te reescribo todo el paso a paso del ejercicio `image_9e581f.png` utilizando el formato matemático correcto (LaTeX) para que se lea perfecto.
+
 ### 1. Ordenar los datos de la muestra
 
-Tenemos n=1200 ciudadanos en total, divididos en tres grupos:
+Tenemos $n=1200$ ciudadanos en total, divididos en tres grupos:
 
-- **Oficialistas (x1​):** 414 ciudadanos. (Probabilidad = p1​)
+- **Oficialistas** ($x_1$): 414 ciudadanos. (Probabilidad = $p_1$)
     
-- **Neutrales (x3​):** 196 ciudadanos. (Probabilidad = p3​)
+- **Neutrales** ($x_3$): 196 ciudadanos. (Probabilidad = $p_3$)
     
-- **Opositores (x2​):** El resto. Calculamos la resta: 1200−414−196=590 ciudadanos. (Probabilidad = p2​)
+- **Opositores** ($x_2$): El resto. Calculamos la resta: $1200 - 414 - 196 = 590$ ciudadanos. (Probabilidad = $p_2$)
     
 
-Como la suma de las probabilidades tiene que dar el 100% (1), sabemos que la probabilidad de los neutrales no es un parámetro nuevo, sino que es: p3​=1−p1​−p2​.
+Como la suma de las probabilidades tiene que dar el **100%** (es decir, 1), sabemos que la probabilidad de los neutrales no es un parámetro nuevo, sino que se define en función de los otros dos:
+
+$$p_3 = 1 - p_1 - p_2$$
 
 ### 2. Armar la Función de Verosimilitud
 
-La función conjunta para la Multinomial con estas 3 categorías es:
+La función conjunta para la distribución Multinomial con estas 3 categorías es:
 
-L(p1​,p2​)=C⋅p1x1​​⋅p2x2​​⋅(1−p1​−p2​)x3​
+$$L(p_1, p_2) = C \cdot p_1^{x_1} \cdot p_2^{x_2} \cdot (1 - p_1 - p_2)^{x_3}$$
 
-_(Nota: La C representa a la combinatoria x1​!x2​!x3​!n!​. Como no tiene parámetros adentro, la dejamos como una constante C porque al derivar va a desaparecer)._
+_(Nota: La letra $C$ representa a la combinatoria $\frac{n!}{x_1! x_2! x_3!}$. Como no tiene a los parámetros $p_1$ o $p_2$ adentro, la dejamos expresada como una constante $C$, ya que al aplicar derivadas terminará desapareciendo)._
 
-### 3. Aplicar logaritmo (ln)
+### 3. Aplicar logaritmo ($\ln$)
 
-Transformamos las multiplicaciones en sumas para poder derivar fácil:
+Transformamos las multiplicaciones en sumas para poder derivar con mayor facilidad:
 
-lnL(p1​,p2​)=ln(C)+x1​ln(p1​)+x2​ln(p2​)+x3​ln(1−p1​−p2​)
+$$\ln L(p_1, p_2) = \ln(C) + x_1 \ln(p_1) + x_2 \ln(p_2) + x_3 \ln(1 - p_1 - p_2)$$
 
 ### 4. Derivadas Parciales (Máxima Verosimilitud)
 
-Como nos piden estimar un vector de dos parámetros (p1​,p2​), tenemos que hacer dos derivadas parciales e igualar ambas a cero.
+Como nos piden estimar un vector de dos parámetros ($p_1, p_2$), tenemos que hacer dos derivadas parciales e igualar ambas a cero.
 
-**Derivamos respecto a p1​:**
+**Derivamos respecto a $p_1$:**
 
-∂p1​∂lnL​=p1​x1​​+0+x3​⋅1−p1​−p2​−1​=0
+$$\frac{\partial \ln L}{\partial p_1} = \frac{x_1}{p_1} + 0 + x_3 \cdot \frac{-1}{1 - p_1 - p_2} = 0$$
 
-p1​x1​​=1−p1​−p2​x3​​
+$$\frac{x_1}{p_1} = \frac{x_3}{1 - p_1 - p_2}$$
 
-**Derivamos respecto a p2​:**
+**Derivamos respecto a $p_2$:**
 
-∂p2​∂lnL​=0+p2​x2​​+x3​⋅1−p1​−p2​−1​=0
+$$\frac{\partial \ln L}{\partial p_2} = 0 + \frac{x_2}{p_2} + x_3 \cdot \frac{-1}{1 - p_1 - p_2} = 0$$
 
-p2​x2​​=1−p1​−p2​x3​​
+$$\frac{x_2}{p_2} = \frac{x_3}{1 - p_1 - p_2}$$
 
 ### 5. El remate del sistema de ecuaciones
 
-Fijate que si igualamos los dos resultados que obtuvimos (porque ambos son iguales al término de x3​), nos queda que las proporciones se mantienen constantes:
+Fijate que si igualamos los dos resultados que obtuvimos (porque ambas fracciones iniciales son iguales al mismo término de $x_3$), nos queda que las proporciones se mantienen constantes:
 
-p1​x1​​=p2​x2​​=p3​x3​​
+$$\frac{x_1}{p_1} = \frac{x_2}{p_2} = \frac{x_3}{p_3}$$
 
-Sin tener que hacer todo el álgebra pesada del sistema de ecuaciones, en la materia de Estadística esta demostración te lleva directo a una conclusión teórica universal: **El estimador de máxima verosimilitud para cualquier probabilidad en una distribución Multinomial es simplemente su proporción en la muestra.** Es decir:
+Sin tener que hacer todo el álgebra pesada para despejar el sistema de ecuaciones cruzado, en estadística esta demostración te lleva directo a una conclusión teórica universal: el estimador de máxima verosimilitud para cualquier probabilidad en una distribución Multinomial es simplemente su **proporción en la muestra**. Es decir:
 
-p^​i​=nxi​​
+$$\hat{p}_i = \frac{x_i}{n}$$
 
 ### 6. El cálculo final
 
-Sabiendo esto, el ejercicio se reduce a calcular los promedios muestrales con los numeritos que averiguamos al principio:
+Sabiendo esto, el ejercicio se reduce a calcular los promedios muestrales con los números que averiguamos al principio:
 
-- **Estimador para p1​ (Oficialistas):**
-    
-    p^​1​=1200414​=0.345
-    
-- **Estimador para p2​ (Opositores):**
-    
-    p^​2​=1200590​=0.4916...
-    
-    (O podés dejarlo como fracción irreducible: 12059​)
-    
+**Estimador para $p_1$ (Oficialistas):**
 
-**Respuesta final:** El estimador por máxima verosimilitud para el vector pedido es (p^​1​,p^​2​)=(0.345, 0.4916).
+$$\hat{p}_1 = \frac{414}{1200} = 0.345$$
+
+**Estimador para $p_2$ (Opositores):**
+
+$$\hat{p}_2 = \frac{590}{1200} \approx 0.4916$$
+
+_(También podés dejarlo expresado como la fracción irreducible: $\frac{59}{120}$)_
+
+**Respuesta final:**
+
+El estimador por máxima verosimilitud para el vector pedido es:
+
+$$(\hat{p}_1, \hat{p}_2) = \left(0.345, \frac{59}{120}\right)$$
