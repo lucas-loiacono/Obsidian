@@ -280,7 +280,7 @@ Al comparar los resultados ($0.92$, $0.88$ y $0.91$), vemos que el valor más ba
 
 Por lo tanto, **el mejor test es el Test 2** (Rechazar $H_0$ si $X = 3$).
 
-> ### Bonus: ¿Por qué ganó el Test 2? (Lema de Neyman-Pearson)
+### Bonus: ¿Por qué ganó el Test 2? (Lema de Neyman-Pearson)
 > 
 > Resolvimos el ejercicio por "fuerza bruta" probando todas las combinaciones. Pero el Lema de Neyman-Pearson nos dice que el test más potente se construye eligiendo los valores de $X$ que tengan el mayor cociente de verosimilitudes: $\frac{p_1(x)}{p_0(x)}$.
 > 
