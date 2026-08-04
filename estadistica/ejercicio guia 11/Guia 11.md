@@ -816,6 +816,174 @@ Con un nivel de confianza del **99%**, la cota superior para el parámetro es **
 Como ves, la lógica de manipular la $T$ directamente funciona a la perfección y te ahorra tener que justificar de dónde salió la fracción $M/\theta$.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+¡Esa es exactamente la decisión más importante de todo el ejercicio! Tenés dos caminos posibles para encerrar tu 99% de confianza, y solo uno te sirve.
+
+Para saber con cuál quedarte, **hacés competir a los dos símbolos** usando solamente tu Pivote ($\frac{T}{\theta}$). El que te devuelva el símbolo que buscás, gana.
+
+Aquí tenés el paso a paso definitivo de cómo tomar esa decisión y resolver el punto 8:
+
+### Paso 1: Definir tu meta
+
+El enunciado pide una **Cota Superior**.
+
+Tu meta inamovible es llegar a: **$\theta \leqslant \text{Algo}$**
+
+### Paso 2: El torneo de los símbolos (El Simulacro)
+
+Agarrás tu pivote ($\frac{T}{\theta}$) y probás qué pasa si lo enfrentás a un número de corte (llamémoslo $c$) con ambos símbolos.
+
+**Opción A: Probando el camino $P(T \leqslant K) = 0.99$**
+
+1. Planteás: $\frac{T}{\theta} \leqslant c$
+    
+2. Pasás $\theta$ multiplicando: $T \leqslant c \cdot \theta$
+    
+3. Pasás la $c$ dividiendo: $\frac{T}{c} \leqslant \theta$
+    
+4. Lo leés desde la $\theta$: **$\theta \geqslant \frac{T}{c}$**
+    
+    _Resultado:_ Te armó un piso (Cota Inferior). **Descartado.**
+    
+
+**Opción B: Probando el camino $P(T \geqslant K) = 0.99$**
+
+1. Planteás: $\frac{T}{\theta} \geqslant c$
+    
+2. Pasás $\theta$ multiplicando: $T \geqslant c \cdot \theta$
+    
+3. Pasás la $c$ dividiendo: $\frac{T}{c} \geqslant \theta$
+    
+4. Lo leés desde la $\theta$: **$\theta \leqslant \frac{T}{c}$**
+    
+    _Resultado:_ Te armó un techo (Cota Superior). **¡Este es el ganador!**
+    
+
+### Paso 3: Plantear la Confianza y el Riesgo
+
+Como ya sabés que el símbolo que te sirve es el mayor o igual ($\geqslant$), escribís tu nivel de confianza oficial:
+
+$$P(T \geqslant K) = 0.99$$
+
+Automáticamente, por regla del complemento, todo lo que queda afuera (tu 1% de error) se va al otro símbolo:
+
+$$P(T \leqslant K) = 0.01$$
+
+### Paso 4: Encontrar el valor de la $K$
+
+Ahora necesitás saber cuánto vale esa $K$. Para eso, usás la función de probabilidad acumulada que calculaste al principio del ejercicio, que tiene esta regla: $P(T \leqslant t) = \left(\frac{t}{\theta}\right)^4$.
+
+Como la fórmula de la función usa el símbolo $\leqslant$, usás tu ecuación del error (la del 1%) porque encaja perfecto:
+
+$$\left( \frac{K}{\theta} \right)^4 = 0.01$$
+
+Despejás la $K$:
+
+$$\frac{K}{\theta} = \sqrt[4]{0.01}$$
+
+$$\frac{K}{\theta} \approx 0.3162$$
+
+$$K = \theta \cdot 0.3162$$
+
+### Paso 5: Armar tu Cota Final
+
+Volvés a la ecuación ganadora que elegiste en el Paso 2 y 3:
+
+$$T \geqslant K$$
+
+Reemplazás la $K$ por lo que acabás de descubrir:
+
+$$T \geqslant \theta \cdot 0.3162$$
+
+Pasás el número dividiendo para dejar a la $\theta$ sola:
+
+$$\frac{T}{0.3162} \geqslant \theta$$
+
+Si lo acomodás, te queda tu fórmula final lista para usar:
+
+$$\theta \leqslant \frac{T}{0.3162}$$
+
+### Paso 6: Reemplazar con los datos
+
+- La máxima longitud observada era 25.
+    
+- Como al principio a todo le restamos 15 metros, tu $T = 25 - 15 = 10$.
+    
+
+Metés el 10 en la fórmula:
+
+$$\theta \leqslant \frac{10}{0.3162}$$
+
+$$\theta \leqslant 31.62$$
+
+Así es como, haciendo la prueba rápida del Paso 2, te asegurás matemáticamente de arrancar con el planteo correcto y nunca calcular una cota al revés.
+
+
+
+
+
+
+
+
+¡Diste en el blanco! Tu intuición estadística está afiladísima. **Sí, el pivote nace literalmente de mirar tu $F(x)$**.
+
+No armamos el pivote $\frac{T}{\theta}$ porque "alguien decidió que era así y hay que memorizarlo", lo armamos porque la matemática de la Función de Distribución Acumulada ($F(x)$) nos "regala" la forma perfecta para hacer desaparecer al parámetro.
+
+En estadística, esto tiene un nombre formal (el _Teorema de la Transformación Integral de Probabilidad_), pero te lo explico con la lógica que vos mismo acabás de deducir:
+
+### El Secreto de $F(x)$
+
+El único objetivo en la vida de un Pivote es mezclar a tu muestra ($T$) con tu parámetro ($\theta$) de una forma tan específica que, **al calcularle la probabilidad, el parámetro se cancele y desaparezca.**
+
+Vamos a mirar tu $F(x)$ original de la distribución Uniforme (empezando desde el 0):
+
+$$F(x) = \frac{x}{\theta}$$
+
+Esa fórmula te está gritando cómo se relacionan la variable y el parámetro. Te dice: _"La estructura natural de esta distribución es dividir la variable por el techo"_.
+
+### La Prueba de Fuego (Por qué funciona)
+
+Si le hacemos caso a la $F(x)$ y definimos que nuestro pivote será $U = \frac{T}{\theta}$, vamos a probar si logramos el objetivo de hacer desaparecer a la $\theta$ al calcular probabilidades:
+
+Queremos calcular:
+
+$$P(U \leqslant u)$$
+
+Reemplazamos nuestra $U$ por el pivote que inventamos guiándonos por la $F(x)$:
+
+$$P\left(\frac{T}{\theta} \leqslant u\right)$$
+
+Pasamos la $\theta$ multiplicando para dejar a la $T$ sola y poder usar la fórmula de la probabilidad máxima que teníamos (que era elevando a la $n$, en tu caso $n=4$):
+
+$$P(T \leqslant u \cdot \theta)$$
+
+¡Ahora metemos esto en la fórmula de la probabilidad máxima! Acordate que la fórmula era agarrar el valor, dividirlo por $\theta$ y elevarlo a la 4:
+
+$$P(T \leqslant u \cdot \theta) = \left( \frac{u \cdot \theta}{\theta} \right)^4$$
+
+Y acá ocurre la magia por la que elegiste ese pivote: **Las $\theta$ se tachan.**
+
+$$P(U \leqslant u) = u^4$$
+
+### Conclusión
+
+Llegaste a la expresión $u^4$, ¡que no tiene ninguna $\theta$ a la vista! Esto garantiza que tu riesgo del 1% o tu confianza del 99% siempre van a ser números exactos y fijos, sin importar cuánto mida realmente el rollo de tela en la fábrica.
+
+Por eso tu deducción es brillante: **cuando no sepas qué pivote usar, mirá la forma que tiene tu $F(x)$**. Casi siempre, agarrar esa misma estructura geométrica (en este caso, la división) te da el pivote perfecto.
+
+
 ![[Pasted image 20260728014430.png]]
 
 
