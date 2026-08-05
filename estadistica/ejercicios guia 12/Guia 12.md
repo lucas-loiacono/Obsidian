@@ -1,3 +1,6 @@
+
+![[Pasted image 20260805010847.png]]
+
 ¡Excelente! Este ejercicio es el ejemplo perfecto para aplicar todo lo que venimos charlando. Es idéntico en estructura al de "las monedas de Harvey": tenés un parámetro discreto (la cantidad de bolas) y una muestra que extraés. Vamos a resolverlo paso a paso usando la lógica de la "mezcla" (sumatoria).
 
 ### Definición del modelo
