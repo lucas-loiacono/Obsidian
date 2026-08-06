@@ -1037,6 +1037,250 @@ $$P(Y=2 \vert{} \text{muestra}) = \mathbf{\frac{7371}{20350}} \approx \mathbf{0.
 La probabilidad de recibir exactamente dos "unos" en el próximo mensaje es del **36.22%**.
 
 
+
+
+
+
+
+
+
+¡Vamos a reescribir todo el desarrollo de cero, dejando bien explícito cómo cada paso es una pieza fundamental del Teorema de Bayes!
+
+  
+
+### Paso 1: Definir la probabilidad real (El impacto del ruido)
+
+El parámetro $p$ es la probabilidad teórica de emitir un 1. Sin embargo, debido a que el canal es defectuoso, lo que nosotros _recibimos_ y usamos para la muestra es distinto.
+
+  
+
+Definimos $\theta$ como la probabilidad de recibir efectivamente un 1. Usando la Ley de Probabilidad Total, combinamos las chances de aciertos y errores del canal:
+
+  
+
+$$\theta = P(\text{Recibir } 1 \mid \text{Emitir } 1) \cdot P(\text{Emitir } 1) + P(\text{Recibir } 1 \mid \text{Emitir } 0) \cdot P(\text{Emitir } 0)$$
+
+Reemplazando con los datos del enunciado (el canal acierta el 90% de los unos, y el 100% de los ceros):
+
+  
+
+$$\theta = (0.9 \cdot p) + (0 \cdot (1-p)) = 0.9p$$
+
+### Paso 2: El Numerador de Bayes (Priori $\times$ Verosimilitud)
+
+El Teorema de Bayes nos pide multiplicar lo que creíamos antes (Priori) por la evidencia de la muestra (Verosimilitud).
+
+  
+
+1. **La Priori:** El enunciado nos dice que $p \sim \text{Beta}(3, 3)$. Tomamos solo la parte de la fórmula que contiene a la variable:
+    
+      
+    
+    $$f(p) \propto p^2(1-p)^2$$
+    
+2. **La Verosimilitud:** Nuestra muestra es de 5 dígitos donde se recibieron 4 "unos". Es una distribución Binomial evaluada con nuestra nueva probabilidad $\theta = 0.9p$:
+    
+      
+    
+    $$L(p) \propto (0.9p)^4(1-0.9p)^1 \propto p^4(1-0.9p)$$
+    
+3. **El Numerador (El producto):** Multiplicamos ambas partes para obtener la base de nuestra distribución a posteriori (llamémosla $g(p)$):
+    
+      
+    
+    $$g(p) = p^4(1-0.9p) \cdot p^2(1-p)^2 = p^6(1-0.9p)(1-p)^2$$
+    
+
+### Paso 3: El Denominador de Bayes (La Constante de Integración)
+
+Para que $g(p)$ se convierta en una función de probabilidad real (cuyo área total sea 1), necesitamos dividirla por la Probabilidad Total de la muestra. Como $p$ es continua, calculamos el denominador $D$ integrando el numerador entre 0 y 1.
+
+  
+
+$$D = \int_0^1 p^6(1-0.9p)(1-p)^2 dp$$
+
+Para evitar una integración larguísima, distribuimos el bloque $(1-0.9p)$ para separarlo en dos integrales que tengan la forma exacta de la Función Beta Matemática:
+
+  
+
+$$D = \int_0^1 p^6(1-p)^2 dp - 0.9 \int_0^1 p^7(1-p)^2 dp$$
+
+Aplicamos la definición de la función Beta $B(\alpha, \beta) = \frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$:
+
+  
+
+- **Primera integral:** Es $B(7, 3) = \frac{6!2!}{9!} = \frac{1}{252}$
+    
+      
+    
+- **Segunda integral:** Es $B(8, 3) = \frac{7!2!}{10!} = \frac{1}{360}$
+    
+      
+    
+
+Armamos la resta final para el denominador:
+
+  
+
+$$D = \frac{1}{252} - 0.9 \left(\frac{1}{360}\right) = \frac{10}{2520} - \frac{9}{3600} = \frac{37}{25200}$$
+
+Con esto completamos el Teorema de Bayes. Nuestra función a posteriori definitiva es:
+
+  
+
+$$f(p \mid \text{muestra}) = \frac{p^6(1-0.9p)(1-p)^2}{37/25200}$$
+
+### Paso 4: El Cálculo Predictivo (El Futuro)
+
+Nos piden calcular la probabilidad de un evento futuro: recibir exactamente 2 "unos" en un nuevo mensaje de 2 dígitos. Llamemos $Y$ a esta nueva variable Binomial.
+
+  
+
+La probabilidad de este evento futuro, condicionada a un $p$ específico, sería:
+
+  
+
+$$P(Y=2 \mid p) = \binom{2}{2}(0.9p)^2(1-0.9p)^0 = 0.81p^2$$
+
+Como no sabemos el valor exacto de $p$, integramos esta fórmula sobre toda nuestra nueva distribución a posteriori (Ley de Esperanza Total):
+
+  
+
+$$P(Y=2 \mid \text{muestra}) = \int_0^1 0.81p^2 \cdot f(p \mid \text{muestra}) dp$$
+
+Reemplazamos $f(p \mid \text{muestra})$ con la fórmula completa del Paso 3 y sacamos las constantes afuera de la integral:
+
+  
+
+$$P(Y=2 \mid \text{muestra}) = \frac{0.81}{37/25200} \int_0^1 p^2 \cdot [p^6(1-0.9p)(1-p)^2] dp$$
+
+Al multiplicar $p^2$ por $p^6$, nos queda un $p^8$ adentro. Llamemos $N$ a esta nueva integral y la resolvemos separándola igual que en el Paso 3:
+
+  
+
+$$N = \int_0^1 p^8(1-p)^2 dp - 0.9 \int_0^1 p^9(1-p)^2 dp$$
+
+Aplicamos nuevamente las propiedades de la función Beta:
+
+  
+
+- **Primera integral:** Es $B(9, 3) = \frac{8!2!}{11!} = \frac{1}{495}$
+    
+      
+    
+- **Segunda integral:** Es $B(10, 3) = \frac{9!2!}{12!} = \frac{1}{660}$
+    
+      
+    
+
+Resolvemos el bloque $N$:
+
+  
+
+$$N = \frac{1}{495} - 0.9 \left(\frac{1}{660}\right) = \frac{40}{19800} - \frac{27}{19800} = \frac{13}{19800}$$
+
+### Paso 5: Resultado Final
+
+Finalmente, juntamos la fracción predictiva del Paso 4 ($0.81 \cdot N$) con el denominador de Bayes del Paso 3 ($D$):
+
+  
+
+$$P(Y=2 \mid \text{muestra}) = 0.81 \cdot \frac{13/19800}{37/25200}$$
+
+Resolviendo las fracciones y simplificando:
+
+$$P(Y=2 \mid \text{muestra}) = \frac{7371}{20350} \approx 0.3622$$
+
+
+
+
+
+¡Es una pregunta teórica brillante! Estás tocando el engranaje principal que hace funcionar a toda la estadística predictiva.
+
+  
+
+Para responder de dónde sale esto, tenemos que unir dos conceptos fundamentales: la **Ley de Probabilidad Total** y la definición matemática de **Esperanza**.
+
+  
+
+### 1. ¿De qué ley sale? (La Ley de Probabilidad Total)
+
+En probabilidad básica, cuando un evento futuro dependía de varios escenarios posibles, usabas la clásica sumatoria del **Teorema de Probabilidad Total**:
+
+  
+
+$$P(A) = \sum P(A \mid \text{Escenario}_i) \cdot P(\text{Escenario}_i)$$
+
+En la estadística Bayesiana, tu "escenario" es el verdadero valor del parámetro $p$. Como $p$ es una variable continua y puede tomar infinitos valores decimales entre 0 y 1, la sumatoria se transforma en una integral. La ley sigue siendo exactamente la misma, pero adaptada al mundo continuo:
+
+  
+
+$$P(Y=2) = \int_0^1 P(Y=2 \mid p) \cdot f(p) dp$$
+
+Como tu predicción ocurre _después_ de haber visto la muestra, usás tu creencia actualizada (la posteriori):
+
+  
+
+$$P(Y=2 \mid \text{muestra}) = \int_0^1 P(Y=2 \mid p) \cdot f(p \mid \text{muestra}) dp$$
+
+### 2. ¿Por qué se le dice "sacar la Esperanza"?
+
+Acá es donde la matemática se vuelve poética.
+
+  
+
+Recordemos la definición genérica de Esperanza (o Valor Esperado) para cualquier función $h(x)$ que dependa de una variable aleatoria:
+
+  
+
+$$E[h(x)] = \int h(x) \cdot f(x) dx$$
+
+En nuestro problema predictivo:
+
+  
+
+- Nuestra variable aleatoria es el parámetro $p$.
+    
+      
+    
+- Nuestra función es la probabilidad futura: $h(p) = P(Y=2 \mid p)$.
+    
+      
+    
+
+Si metemos nuestra función adentro de la fórmula de la Esperanza, nos queda:
+
+  
+
+$$E[P(Y=2 \mid p)] = \int_0^1 P(Y=2 \mid p) \cdot f(p \mid \text{muestra}) dp$$
+
+¡Es idéntica a la fórmula de Probabilidad Total! Por eso, calcular esa integral es, matemáticamente hablando, calcular **el Valor Esperado de la probabilidad**.
+
+  
+
+### El concepto intuitivo (¿Qué significa esto en la vida real?)
+
+Imaginate que querés predecir si vas a recibir dos "unos" en el próximo mensaje.
+
+  
+
+- Si un oráculo te dijera "El parámetro $p$ vale exactamente 0.5", tu cuenta sería trivial. Reemplazás el 0.5 y listo.
+    
+      
+    
+- **Pero no conocés a tu variable.** Solo tenés una distribución a posteriori que te dice qué valores de $p$ son más creíbles y cuáles menos.
+    
+      
+    
+
+Como no podés jugártela por un solo número, la matemática te obliga a probarlos **todos**. La integral agarra cada valor posible de $p$ (0.01, 0.02, 0.5, 0.99...), calcula la probabilidad del futuro asumiendo ese número puntual, y luego multiplica ese resultado por el "peso" o la confianza que le tenés a ese $p$ (tu función a posteriori).
+
+  
+
+Al final del día, calcular una Esperanza no es otra cosa que calcular un **promedio ponderado**. Cuando resolvés esa integral doble, estás promediando todas las probabilidades futuras posibles, dándole más importancia a los valores de $p$ que tu muestra demostró que eran más probables.
+
+
+
 ![[Pasted image 20260731193528.png]]
 
 ¡Este es uno de los problemas más famosos de la historia de la estadística! Los datos de las patadas de caballo de Bortkiewicz son literalmente el ejemplo clásico con el que se enseña la distribución de Poisson en todo el mundo.
@@ -1246,6 +1490,16 @@ Al sumar todos esos subtotales ($0 + 29 + 50 + 51 + 52 + 30$), llegás al númer
 **¿Y por qué la fórmula necesita ese 212?**
 
 Porque la distribución de Poisson se alimenta de conteos totales. Para actualizar tu parámetro $\alpha$ (y pasar de tu creencia _a priori_ a tu creencia _a posteriori_), la matemática bayesiana te exige que le ingreses toda la evidencia empírica junta. Necesita saber exactamente cuántos "éxitos" (o en este caso, accidentes) se acumularon en todo el período evaluado, que es precisamente tu $\sum x_i$.
+
+
+
+
+
+
+
+
+
+
 
 
 
