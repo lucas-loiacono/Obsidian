@@ -1918,6 +1918,107 @@ La estimación final para la media del tiempo de realización de la tarea es de 
 
 
 
+
+
+
+
+
+
+¡Es una duda excelente! Ese paso suele marear bastante porque en realidad el apunte está combinando **dos propiedades distintas** de la esperanza matemática en una sola jugada.
+
+  
+
+Vamos a desarmar esa línea paso por paso para que veas exactamente qué leyes se aplicaron.
+
+  
+
+### 1. La primera propiedad: Ley de Esperanza Total (o "Regla de la Torre")
+
+La fórmula gigante que ves al principio:
+
+  
+
+$$E[X_{nuevo} \vert \mathbf{x}] = E \big[ E[X_{nuevo} \vert \theta] \big\vert \mathbf{x} \big]$$
+
+Proviene de la **Ley de Esperanza Total**.
+
+  
+
+La lógica intuitiva detrás de esta ley es: _"Si no conozco el verdadero valor de mi parámetro $\theta$, para calcular el promedio de $X$, primero calculo el promedio de $X$ asumiendo que $\theta$ es un valor fijo (la esperanza interior), y luego a ese resultado le calculo el promedio sobre todos los valores posibles de $\theta$ (la esperanza exterior)"_.
+
+  
+
+Por eso el ejercicio lo divide en dos etapas:
+
+  
+
+- **Esperanza interior:** $E[X_{nuevo} \vert \theta]$. Acá tratás a $\theta$ como si fuera un número conocido. Como $X$ es una Uniforme, su promedio es simplemente el punto medio de su intervalo: $1 + \frac{\theta}{2}$.
+    
+      
+    
+- **Esperanza exterior:** Ahora tenés que "promediar" ese resultado usando tu distribución a posteriori. Te queda la expresión: $E\left[1 + \frac{\theta}{2} \Big\vert \mathbf{x}\right]$.
+    
+      
+    
+
+### 2. La segunda propiedad: Linealidad de la Esperanza
+
+Acá es donde está el salto que probablemente te confundió en el "Paso 3, Ensamblaje Final".
+
+  
+
+¿Cómo pasamos de tener la $E$ envolviendo a toda la fracción a tenerla solo envolviendo a la $\theta$? Usando la propiedad de **Linealidad de la Esperanza**.
+
+  
+
+La regla matemática dice que la esperanza de una suma es la suma de las esperanzas, y que las constantes salen multiplicando (o dividiendo) para afuera:
+
+  
+
+$$E[a \cdot Y + b] = a \cdot E[Y] + b$$
+
+Si aplicamos esta propiedad exacta a nuestro núcleo $1 + \frac{\theta}{2}$, mirá cómo se desarma:
+
+  
+
+$$E\left[1 + \frac{\theta}{2} \Big\vert \mathbf{x}\right]$$
+
+1. Separamos la suma:
+    
+      
+    
+    $$E[1 \vert \mathbf{x}] + E\left[\frac{\theta}{2} \Big\vert \mathbf{x}\right]$$
+    
+2. La esperanza de una constante (el $1$) es la misma constante:
+    
+      
+    
+    $$1 + E\left[\frac{\theta}{2} \Big\vert \mathbf{x}\right]$$
+    
+3. Sacamos el divisor constante (el $/2$) afuera de la esperanza:
+    
+      
+    
+    $$1 + \frac{E[\theta \vert \mathbf{x}]}{2}$$
+    
+
+**¡Y ahí tenés la fórmula final que usa el ejercicio!**
+
+  
+
+Como en el paso anterior vos ya te habías tomado el trabajo de calcular con la integral que $E[\theta \vert \mathbf{x}] = 8.4$, gracias a la linealidad solo tuviste que agarrar ese $8.4$, meterlo en la fracción, dividirlo por 2 y sumarle el 1.
+
+
+
+
+
+
+
+
+
+
+
+
 ¡Es una duda excelente! La clave matemática acá está en la diferencia entre un **núcleo** (que usamos con el símbolo $\propto$) y una **distribución de probabilidad real** (que usamos con el símbolo $=$).
 
 Cuando aplicamos el Teorema de Bayes en el paso anterior, nosotros ignoramos todas las constantes numéricas que no tenían la letra $\theta$ para hacer las cuentas más rápido. Por eso llegamos a este resultado:
@@ -1947,6 +2048,75 @@ Planteamos la ecuación forzando a que el resultado sea 1:
 $$\int_7^\infty C \cdot \frac{1}{\theta^7} d\theta = 1$$
 
 Al resolver esa ecuación y despejar la letra $C$, lo que estamos descubriendo es el número exacto por el que hay que multiplicar a $1/\theta^7$ para que su área se estire hasta valer exactamente el 100%. A ese proceso en estadística se lo llama **"encontrar la constante de normalización"**.
+
+
+
+
+
+
+
+
+
+
+
+
+¡Exacto en la teoría, pero con un detalle engañoso en la práctica! Entendiste a la perfección la relación entre las fórmulas, pero la realidad es que **la integral no te la salvás de ninguna manera**.
+
+  
+
+Te explico por qué. El Teorema de Bayes completo y formal tiene esta estructura:
+
+  
+
+$$f(\theta \mid \mathbf{x}) = \frac{L(\theta \mid \mathbf{x}) \cdot f(\theta)}{\int L(\theta \mid \mathbf{x}) \cdot f(\theta) d\theta}$$
+
+Esa integral gigante que ves ahí abajo en el denominador **es exactamente el mismo cálculo matemático** que hacemos cuando buscamos la $C$. La única diferencia es si elegís hacer la cuenta arrastrando los números feos desde el principio o si preferís limpiarla.
+
+  
+
+Tenés dos caminos para resolverlo, y los dos te obligan a integrar:
+
+  
+
+### Camino 1: El Formal (Sin sacar las constantes)
+
+Si decidís no tirar nada a la basura y usar el teorema completo, tu numerador y tu denominador mantendrían todas las constantes originales (como el 192 de la priori).
+
+Para sacar el denominador, tendrías que resolver esta integral completa:
+
+  
+
+$$\int_7^\infty \left( \frac{1}{\theta^3} \right) \cdot \left( \frac{192}{\theta^4} \right) d\theta$$
+
+Al final vas a llegar a un número fijo, vas a dividir tu numerador por ese número, y las constantes se van a simplificar mágicamente hasta dejarte la distribución perfecta. **¡Pero tuviste que resolver una integral!**
+
+  
+
+### Camino 2: El Práctico (Usando $\propto$ y la constante $C$)
+
+Como arrastrar el 192 (y a veces factoriales o combinatorias horribles) adentro de integrales largas es la receta perfecta para equivocarse en un parcial, se usa el truco de barrer todo eso abajo de la alfombra desde el primer segundo. Te quedás solo con las letras puras (el núcleo $\frac{1}{\theta^7}$), y al final planteás la ecuación para forzar el área a 1:
+
+  
+
+$$\int_7^\infty C \cdot \frac{1}{\theta^7} d\theta = 1$$
+
+**¡También tuviste que resolver una integral!** Pero esta vez, fue una integral muchísimo más "limpia" visualmente y fácil de hacer.
+
+  
+
+### ¿Cuándo es el ÚNICO caso donde NO tenés que hacer la integral?
+
+La única forma de salvarte de integrar (ya sea calculando el denominador completo o buscando la $C$) es cuando el núcleo que te queda al multiplicar es uno famoso que pertenece a una **Familia Conjugada** (como los que hiciste antes de Poisson-Gamma o Binomial-Beta).
+
+  
+
+Si al multiplicar te quedaba el núcleo $\mu^{212} e^{-100.5\mu}$, vos frenabas el ejercicio, decías _"¡Ah, esto tiene la forma matemática de una Gamma!"_, y directamente usabas la fórmula de la constante que ya está armada en los libros, sin calcular ninguna integral a mano.
+
+  
+
+En este ejercicio en particular, como te quedó el núcleo de una distribución de **Pareto** ($\frac{1}{\theta^7}$), y la mayoría de los alumnos no tiene la constante de Pareto memorizada en la cabeza, estás obligado matemáticamente a hacer la integral a mano para descubrirla, elijas el camino que elijas.
+
+
 
 
 
