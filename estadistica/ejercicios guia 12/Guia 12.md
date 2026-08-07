@@ -2249,6 +2249,62 @@ La probabilidad predictiva estimada es de aproximadamente un **38.66%**.
 
 
 
+
+¡Es la trampa clásica de la distribución Uniforme! Esa restricción no sale de una fórmula mágica, sino del **sentido común y la lógica pura**.
+
+  
+
+Pensalo de esta manera con un ejemplo de la vida real:
+
+Imaginate que estás en un parque de diversiones y hay un cartel que dice _"Altura máxima permitida: $\theta$ metros"_. Vos no sabés cuánto vale esa $\theta$. De repente, ves pasar a una persona que mide exactamente **2 metros** y entra al juego sin problemas.
+
+Por pura lógica, ¿la altura máxima permitida ($\theta$) podría ser 1.80 metros? ¡Imposible! Si entró alguien de 2 metros, el techo del juego tiene que ser, obligatoriamente, de 2 metros para arriba.
+
+  
+
+Acá pasa exactamente lo mismo con los archivos y el límite $\theta$:
+
+  
+
+### 1. La definición de tu variable
+
+El enunciado te dice que el tamaño de los archivos sigue una distribución Uniforme en el intervalo $(0, \theta]$.
+
+Esto significa que la probabilidad de que exista un archivo más pesado que $\theta$ es literalmente **cero**. La máquina no los fabrica.
+
+  
+
+### 2. El choque con la realidad (La muestra)
+
+Vos fuiste a la computadora y observaste 10 archivos reales. Si revisás la lista que te da el enunciado, vas a ver estos tamaños:
+
+0.93, 1.55, 2.50, 1.12, 1.11, **3.00**, 1.99, 0.20, 2.61, 0.73.
+
+  
+
+Ahí está tu persona de 2 metros del parque de diversiones. Encontraste un archivo que pesa **3.00 GB**.
+
+  
+
+### 3. La conclusión lógica (La restricción)
+
+Como vos _sabés_ que ese archivo de 3.00 GB existe (porque lo acabás de medir), es matemáticamente imposible que el límite máximo de la distribución ($\theta$) sea 2.5 GB o 2.9 GB.
+
+  
+
+Para que la muestra que acabás de observar tenga sentido y sea posible, el parámetro $\theta$ tiene que ser mayor o igual al valor más grande de tu muestra (el máximo muestral).
+
+  
+
+Por eso, la función de Verosimilitud te dice: _"Mi fórmula es $\theta^{-10}$, pero ojo, esto **solo es válido** si $\theta \geqslant 3$."_
+
+  
+
+Si no le pusieras esa restricción o función indicadora ($\mathbf{1}\{\theta \geqslant 3\}$), estarías calculando probabilidades para universos paralelos absurdos donde el techo es de 2 GB pero vos tenés archivos de 3 GB guardados. ¡Esa es la función de la restricción!
+
+
+
+
 ![[Pasted image 20260731202616.png]]
 
 
