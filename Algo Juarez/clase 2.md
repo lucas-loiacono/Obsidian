@@ -2,3 +2,6 @@ se deben crear packetes para dejar separados las clases que sirven para cierto a
 
 
 ![[Pasted image 20260824003052.png]]
+
+
+![[Pasted image 20260824003800.png]]
