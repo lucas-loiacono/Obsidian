@@ -25,3 +25,5 @@ el do While primero ejecuta y después chequea la condición, por lo cual siempr
 ![[Pasted image 20260824014304.png]]
 
 ![[Pasted image 20260824022649.png]]
+
+![[Pasted image 20260824024242.png]]
