@@ -11,3 +11,7 @@ se deben crear packetes para dejar separados las clases que sirven para cierto a
 no existe el elif pero si el else if
 
 ![[Pasted image 20260824010845.png]]
+
+![[Pasted image 20260824012541.png]]
+
+![[Pasted image 20260824013358.png]]
