@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/7. Class.md",
+                "file": "Orga Musso/1. Clase.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7. Class"
+              "title": "1. Clase"
             }
           }
         ],
@@ -239,6 +239,7 @@
   },
   "active": "70cd1e979cae7905",
   "lastOpenFiles": [
+    "Python/7. Class.md",
     "Algo Juarez/clase 2.md",
     "!imagenes/Pasted image 20260824024242.png",
     "!imagenes/Pasted image 20260824022649.png",
@@ -262,7 +263,6 @@
     "Python/4. Dictionaries.md",
     "Python/5. inputs y while loops.md",
     "Python/6. Functions.md",
-    "Python/7. Class.md",
     "C/Cap1.md",
     "estadistica/ejercicios_guia_10/Guia 10.md",
     "estadistica/3. Cap 10 video 1.md",
