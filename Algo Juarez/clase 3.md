@@ -15,3 +15,7 @@ Cada objeto tiene sus atributos (guardo características del objeto) y métodos 
 Se le dice instancia a un objeto especifico
 
 ![[Pasted image 20260825184443.png]]
+
+S: unica responsabilidad, pensar una clase que cumpla un solo rol, que tenga una sola responsabilidad, por ejemplo no podria poner una clase hospital que cumpla los roles de turnos, medicos
+
+O: open cl
