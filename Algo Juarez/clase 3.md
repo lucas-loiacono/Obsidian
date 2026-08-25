@@ -23,4 +23,10 @@ O: open close, el código tiene que ser abierto a la extensión, pero cerrado a 
 
 ![[Pasted image 20260825190502.png]]
 
+![[Pasted image 20260825190803.png]]
 
+También para que no me puedan cambiar los atributos de mi objeto para que no me lo rompan, ósea que deje de ser lo mas parecido al objeto que quiero representar
+
+![[Pasted image 20260825191405.png]]
+
+![[Pasted image 20260825191520.png]]
