@@ -16,6 +16,11 @@ Se le dice instancia a un objeto especifico
 
 ![[Pasted image 20260825184443.png]]
 
-S: unica responsabilidad, pensar una clase que cumpla un solo rol, que tenga una sola responsabilidad, por ejemplo no podria poner una clase hospital que cumpla los roles de turnos, medicos
+S: única responsabilidad, pensar una clase que cumpla un solo rol, que tenga una sola responsabilidad, por ejemplo no podría poner una clase hospital que cumpla los roles de turnos, médicos
 
-O: open cl
+O: open close, el código tiene que ser abierto a la extensión, pero cerrado a la modificación (encapsulación). se tiene que poder aumentar el comportamiento, pero cuidando la salud de mi objeto, cuidando la variante de representación del objeto, ya que si se lo paso a una persona le puede cambiar cosas que quiero y cosas que no quiero, entonces se encapsula lo que no se puede cambiar, mientras que le dejo al usuario que se pueda expandir pero le pongo ese limite. para esto pongo los atributos del objeto en privado
+
+
+![[Pasted image 20260825190502.png]]
+
+
