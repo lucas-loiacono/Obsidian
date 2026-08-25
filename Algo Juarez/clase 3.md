@@ -32,3 +32,9 @@ También para que no me puedan cambiar los atributos de mi objeto para que no me
 ![[Pasted image 20260825191520.png]]
 
 ![[Pasted image 20260825192759.png]]
+
+![[Pasted image 20260825193340.png]]
+
+TDA
+
+![[Pasted image 20260825193750.png]]
