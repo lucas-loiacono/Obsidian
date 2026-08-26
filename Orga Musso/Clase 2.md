@@ -147,6 +147,48 @@ El **color rojo** representa la suma de los pesos de la **Parte Fraccionaria (PF
 El resultado de sumar todo ese choclazo matemático te da el número expresado en base 10 (eso significa el $N^\circ\vert{}_{10}$ del final). Básicamente, esta diapositiva formaliza matemáticamente por qué funcionan las cuentas que hacemos para convertir de una base a otra.
 
 
+
+El punto 2 dice que si tenés un número en base 10, lo podés representar en otra base encontrando su descomposición. Supongamos que tenemos el número decimal **25,5** (Base 10) y queremos desarmarlo para representarlo en **binario (Base $B = 2$)**.
+
+Si hacemos las divisiones y multiplicaciones que vimos en la imagen anterior, descubrimos que los dígitos (los coeficientes **$M$**) que necesitamos son **11001,1**.
+
+Vamos a meter esos coeficientes $M$ y la base $B=2$ en la fórmula de la diapositiva para comprobar cómo se reconstruye el 25,5:
+
+**Parte Entera (Lo verde en tu diapositiva - exponentes de $n$ hasta $0$):**
+
+Agarramos la parte entera del binario (**11001**) y multiplicamos cada dígito por la base 2 elevada a su posición:
+
+- $M_4 \cdot B^4 \rightarrow \mathbf{1} \times 2^4 = 16$
+    
+- $M_3 \cdot B^3 \rightarrow \mathbf{1} \times 2^3 = 8$
+    
+- $M_2 \cdot B^2 \rightarrow \mathbf{0} \times 2^2 = 0$
+    
+- $M_1 \cdot B^1 \rightarrow \mathbf{0} \times 2^1 = 0$
+    
+- $M_0 \cdot B^0 \rightarrow \mathbf{1} \times 2^0 = 1$
+    
+    _(Si sumás los resultados de la parte verde: $16 + 8 + 0 + 0 + 1 = \mathbf{25}$)_
+    
+
+**Parte Fraccionaria (Lo rojo en tu diapositiva - exponentes negativos):**
+
+Agarramos la parte decimal del binario (**,1**) y la multiplicamos por la base con exponente negativo:
+
+- $M_{-1} \cdot B^{-1} \rightarrow \mathbf{1} \times 2^{-1} = 0,5$
+    
+    _(Acá solo tenemos un término en rojo, que equivale a **0,5**)_
+    
+
+**El resultado final (la ecuación completa de la diapositiva):**
+
+Si escribimos toda la suma de corrido, queda exactamente la estructura que te muestra el profesor:
+
+$$(\mathbf{1} \times 2^4) + (\mathbf{1} \times 2^3) + (\mathbf{0} \times 2^2) + (\mathbf{0} \times 2^1) + (\mathbf{1} \times 2^0) + (\mathbf{1} \times 2^{-1}) = 25,5\vert{}_{10}$$
+
+En resumen: el punto 2 te demuestra que convertir de base 10 a otra base es simplemente el desafío de encontrar esos coeficientes específicos ($M$) que hacen que la suma matemática funcione.
+
+
 ![[Pasted image 20260825070344.png]]
 
 ![[Pasted image 20260825070355.png]]
