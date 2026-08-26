@@ -403,6 +403,186 @@ Si quisieras que el error fuera más chico (tener un número más preciso), tend
 
 ![[Pasted image 20260825070542.png]]
 
+
+
+
+Esta diapositiva marca un punto de inflexión en el tema. Hasta ahora, todas las conversiones que venías viendo asumían que los números eran positivos. Esta imagen introduce el problema de **cómo hace la computadora para representar números negativos**.
+
+  
+
+Como la PC solo entiende de ceros y unos, no le podés poner un símbolo de menos (`-`) adelante al número. Hay que usar esos mismos ceros y unos para indicar el signo. La diapositiva te presenta las dos convenciones principales teóricas para lograr esto:
+
+  
+
+### 1. Valor Absoluto + Bit de Signo (Signo y Magnitud)
+
+Es el método más humano e intuitivo. Consiste en agarrar tu número binario normal (el valor absoluto) y **agregarle un bit extra a la izquierda del todo** (lo que se llama la posición "más significativa").
+
+  
+
+- Si ese bit extra es un **`0`**, la PC entiende que el número es **positivo (+)**.
+    
+      
+    
+- Si ese bit extra es un **`1`**, la PC entiende que el número es **negativo (-)**.
+    
+      
+    
+
+**Ejemplo rápido (asumiendo que usamos 4 bits en total):**
+
+  
+
+- El número 5 en binario es `101`.
+    
+      
+    
+- Para guardar el **+5**, le agregás un 0 adelante: **`0`**`101`.
+    
+      
+    
+- Para guardar el **-5**, le agregás un 1 adelante: **`1`**`101`.
+    
+      
+    
+
+### 2. Complemento al Módulo + Bit de Signo ($C_M$)
+
+Aunque el primer método es fácil de entender para nosotros, a la hora de diseñar el procesador de una computadora, hacer sumas y restas con el método de "Bit de Signo" es muy ineficiente y complicado a nivel hardware.
+
+  
+
+Por eso se inventó el **Complemento al Módulo** (que en el sistema binario vas a terminar conociendo en la práctica como _Complemento a 2_). Es un truco matemático espectacular para representar números negativos de forma tal que **restar sea exactamente lo mismo que sumar un número negativo**.
+
+  
+
+La definición que da el profesor es la regla matemática general: el complemento de un número $N$ (que se escribe $C_M(N)$) es la cantidad exacta que le tenés que sumar a tu número original para alcanzar el límite máximo de combinaciones que permite esa base con esa cantidad de dígitos.
+
+  
+
+Por eso te muestra la fórmula:
+
+  
+
+$$N\vert{}_B + C_M(N)\vert{}_B = B^n\vert{}_B$$
+
+- **$N$**: Es tu número original.
+    
+      
+    
+- **$C_M(N)$**: Es el "complemento" de tu número (la versión negativa de tu número en este sistema).
+    
+      
+    
+- **$B^n$**: Es el total de combinaciones posibles (Base elevada a la cantidad de dígitos $n$).
+    
+      
+    
+
+_En criollo:_ El complemento es lo que le falta a tu número para "dar toda la vuelta" al cuentakilómetros y volver a quedar en cero dentro de la memoria de la computadora.
+
+
+
+
+¡Excelente idea! Vamos a poner en práctica esa fórmula paso a paso para que veas cómo ocurre la "magia" en la memoria de una computadora.
+
+  
+
+Para que el ejemplo funcione, tenemos que definir un límite físico, una "cantidad de casilleros" fijos. Vamos a suponer que nuestra memoria trabaja con **$n = 4$ bits**.
+
+  
+
+**El objetivo:** Queremos averiguar cuál es el código binario para guardar el número **-3** utilizando este método $C_M$ (que en binario se llama Complemento a 2).
+
+  
+
+### Paso 1: Identificar los elementos de la fórmula
+
+Nuestra fórmula es:
+
+  
+
+$$N\vert{}_B + C_M(N)\vert{}_B = B^n\vert{}_B$$
+
+- **$N$ (El número original en positivo):** Queremos el negativo de 3, así que nuestro número base es 3. En binario de 4 bits se escribe **0011**.
+    
+      
+    
+- **$B$ (La base):** Es 2 (sistema binario).
+    
+      
+    
+- **$n$ (Cantidad de dígitos):** Es 4.
+    
+      
+    
+- **$B^n$ (El límite máximo):** $2^4 = 16$. Si pasamos el 16 a binario, se escribe con un 1 seguido de cuatro ceros: **10000**.
+    
+      
+    
+
+### Paso 2: Aplicar la matemática
+
+Para que sea súper intuitivo, vamos a resolver la fórmula pensando en nuestros números decimales:
+
+  
+
+$$3 + C_M(3) = 16$$
+
+Despejamos el complemento (que será la versión negativa de nuestro número):
+
+  
+
+$$C_M(3) = 16 - 3$$
+
+$$C_M(3) = \mathbf{13}$$
+
+### Paso 3: El resultado en binario
+
+Ahora simplemente escribimos ese 13 en nuestro sistema binario de 4 bits. El 13 decimal equivale a **1101**.
+
+¡Listo! Para tu computadora, si está usando el sistema de Complemento al Módulo, leer **1101** significa exactamente **-3**.
+
+  
+
+### La prueba de fuego (El efecto "Cuentakilómetros")
+
+Acá es donde ves por qué los ingenieros que diseñan procesadores aman este sistema. Te dije antes que el objetivo era lograr que la computadora pudiera "restar" haciendo simplemente una suma, y que el número diera la vuelta completa para volver a cero.
+
+  
+
+En la vida real, $3 + (-3) = 0$. Veamos qué pasa si la computadora suma los dos números binarios que acabamos de usar:
+
+  
+
+`0011`    _(Este es el +3)_
+
+  
+
+- `1101`    _(Este es el -3 que calculamos)_
+    
+    ----------
+    
+     **`10000`**
+    
+      
+    
+
+El resultado de la suma binaria da **10000**.
+
+Pero acá viene el truco físico: **nuestra computadora solo tiene espacio para 4 bits**. Como el resultado tiene 5 bits, el "1" que sobra a la izquierda literalmente no entra en la memoria. Se rebalsa, se ignora y se pierde (a este fenómeno se lo llama _overflow_ o desbordamiento).
+
+  
+
+Al borrarse ese quinto bit, ¿qué le quedó guardado a la computadora en sus 4 casilleros disponibles?
+
+Exactamente: **`0000`**.
+
+  
+
+El cuentakilómetros dio la vuelta perfecta. La máquina logró resolver una resta ($3 - 3 = 0$) utilizando únicamente el hardware diseñado para sumar, todo gracias a este truco matemático de los complementos.
+
+
 ![[Pasted image 20260825070718.png]]
 
 ![[Pasted image 20260825070729.png]]
