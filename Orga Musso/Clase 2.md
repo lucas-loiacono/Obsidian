@@ -73,7 +73,79 @@ Básicamente, averiguar cómo se escribe un número en otra base es jugar a desc
 
 ![[Pasted image 20260825070314.png]]
 
+
+### 1. Obtención de la Parte Entera (Divisiones sucesivas)
+
+La regla dice que para convertir la parte entera (el **13**), tenés que dividir ese número por la base de destino (en nuestro ejemplo, 2) una y otra vez hasta que ya no puedas dividir más (cuando el cociente sea 0). **Los restos de esas divisiones van a ser tus nuevos dígitos ($d_i$).**
+
+**Ejemplo con el 13:**
+
+- $13 / 2 = 6$ y sobra **1** $\rightarrow$ (Este es tu primer dígito de derecha a izquierda, $d_0$)
+    
+- $6 / 2 = 3$ y sobra **0** $\rightarrow$ ($d_1$)
+    
+- $3 / 2 = 1$ y sobra **1** $\rightarrow$ ($d_2$)
+    
+- $1 / 2 = 0$ y sobra **1** $\rightarrow$ (Este es tu último dígito, $d_3$)
+    
+
+Para armar el número final, los restos se leen de abajo hacia arriba (o del último al primero). Entonces, el 13 en decimal es **1101** en binario.
+
+### 2. Obtención de la Parte Fraccionaria (Multiplicaciones sucesivas)
+
+Para lo que está después de la coma (el **0,375**), el proceso es inverso. En lugar de dividir, tenés que **multiplicar** por la base de destino (2). Lo que te quede a la izquierda de la coma en cada resultado será tu nuevo dígito, y seguís multiplicando solo la parte decimal restante hasta que llegues a 0 (o hasta que consigas la precisión deseada, ya que a veces es infinito).
+
+**Ejemplo con el 0,375:**
+
+- $0,375 \times 2 = \mathbf{0},75$ $\rightarrow$ Nos guardamos el **0** (primer decimal, $d_{-1}$) y seguimos multiplicando el resto (0,75).
+    
+- $0,75 \times 2 = \mathbf{1},50$ $\rightarrow$ Nos guardamos el **1** ($d_{-2}$) y seguimos multiplicando el resto (0,50).
+    
+- $0,50 \times 2 = \mathbf{1},00$ $\rightarrow$ Nos guardamos el **1** ($d_{-3}$). Como la parte decimal llegó a 0, terminamos.
+    
+
+En este caso, los números se leen en el orden normal (de arriba hacia abajo). Entonces, el 0,375 decimal es **011** en binario.
+
+**Resultado final:**
+
+Uniendo ambas partes, demostramos cómo aplicar las definiciones de tu diapositiva: el número decimal **13,375** equivale al **1101,011** en binario.
+
+
 ![[Pasted image 20260825070325.png]]
+
+
+### 1. De Cualquier Base a Base 10 (Primer párrafo)
+
+Te dice que si tenés un número "raro" (por ejemplo, en binario, octal o hexadecimal) y querés saber qué número es para nosotros en la vida real (base 10), simplemente tenés que resolver la cuenta. Agarrás cada dígito, lo multiplicás por su peso (la base elevada a su posición) y sumás todo.
+
+**Ejemplo rápido:** Pasar el binario **101,1** a decimal (base 10).
+
+- $(1 \times 2^2) + (0 \times 2^1) + (1 \times 2^0) + (1 \times 2^{-1})$
+    
+- $4 + 0 + 1 + 0,5 = \mathbf{5,5}$ en base 10.
+    
+
+### 2. De Base 10 a Cualquier Base (Segundo párrafo)
+
+Es exactamente lo que vimos en la diapositiva anterior. Si tenés el número en base 10 y querés pasarlo a otra base, tu objetivo es "desarmarlo" (descomponerlo) para encontrar cuáles son esos dígitos de la nueva base. ¿Cómo encontrás esos coeficientes? Usando las divisiones (para la parte entera) y las multiplicaciones (para la parte fraccionaria) que vimos antes.
+
+### La Fórmula (Verde y Roja)
+
+La ecuación que ves ahí abajo es exactamente el mismo **Teorema Fundamental de la Numeración** que viste hace dos diapositivas, pero le cambiaron un poco los nombres a las letras para que sea más visual:
+
+- En lugar de $d$, usan **$M$** para los dígitos (coeficientes).
+    
+- En lugar de $b$, usan **$B$** para la base.
+    
+- En lugar de $k$, usan **$m$** para la cantidad de decimales.
+    
+
+El **color verde** representa la suma de los pesos de la **Parte Entera (PE)**, donde los exponentes de $B$ van desde $n$ bajando hasta llegar a $0$.
+
+El **color rojo** representa la suma de los pesos de la **Parte Fraccionaria (PF)**, donde los exponentes de $B$ son negativos (desde $-1$ bajando hasta $-m$).
+
+El resultado de sumar todo ese choclazo matemático te da el número expresado en base 10 (eso significa el $N^\circ\vert{}_{10}$ del final). Básicamente, esta diapositiva formaliza matemáticamente por qué funcionan las cuentas que hacemos para convertir de una base a otra.
+
 
 ![[Pasted image 20260825070344.png]]
 
