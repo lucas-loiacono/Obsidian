@@ -270,6 +270,9 @@ Al unir la parte entera obtenida en el Paso 1 con la parte fraccionaria obtenida
 ![[Pasted image 20260825070355.png]]
 
 
+
+Esta diapositiva, la `image_143997.png`, responde a una pregunta muy práctica en la arquitectura de computadoras: **"Si tengo un número que ocupa cierta cantidad de dígitos en una base, ¿cuánto espacio (cuántos dígitos) voy a necesitar para guardar ese mismo número en otra base?"**
+
 Por ejemplo, si tenés un número decimal grande y querés saber cuántos bits vas a necesitar para guardarlo en la memoria de la PC, esta es la matemática que te da la respuesta.
 
 Vamos a desglosar el razonamiento matemático que hace el profesor:
@@ -350,6 +353,53 @@ Como no podés tener "9,96 bits", siempre redondeás hacia arriba. Esto signific
 ![[Pasted image 20260825070521.png]]
 
 ![[Pasted image 20260825070532.png]]
+
+
+
+Esta diapositiva (`image_21e43b.png`) muestra un ejemplo práctico de cómo convertir la parte decimal de un número de base 10 a base 2, pero introduce un problema muy común en la informática: **¿Qué pasa cuando la cuenta no termina nunca?**
+
+Vamos a dividir la explicación en las dos partes que muestra la imagen.
+
+### 1. El cálculo paso a paso
+
+El ejemplo quiere pasar el número decimal **0,35** a binario. Como vimos antes, para la parte fraccionaria se multiplica por la base destino (2) y nos vamos guardando lo que queda a la izquierda de la coma:
+
+1. $0,35 \times 2 = \mathbf{0},7$ $\rightarrow$ Nos guardamos el **0**. Nos queda $0,7$ para seguir.
+    
+2. $0,7 \times 2 = \mathbf{1},4$ $\rightarrow$ Nos guardamos el **1**. Nos queda $0,4$ para seguir.
+    
+3. $0,4 \times 2 = \mathbf{0},8$ $\rightarrow$ Nos guardamos el **0**. Nos queda $0,8$ para seguir.
+    
+
+Hasta acá, el número binario armado es **0,010...**
+
+Si siguieras multiplicando ($0,8 \times 2 = \mathbf{1},6$; luego $0,6 \times 2 = \mathbf{1},2$; luego $0,2 \times 2 = \mathbf{0},4$; y de nuevo $0,4 \times 2 = \mathbf{0},8$), entrarías en un bucle infinito. La parte fraccionaria jamás va a llegar a ser "cero exacto".
+
+### 2. El Truncamiento y el Error (El texto de abajo)
+
+Como la memoria de una computadora es limitada (no tenés infinitos bits para guardar infinitos decimales), en algún momento vas a tener que decir "basta, corto acá" (truncar el número). Al cortar la cuenta, **estás perdiendo información y generando un error de precisión**, porque el número binario que armaste no es exactamente igual al 0,35 original.
+
+El profesor te da una fórmula para calcular **cuál es el error máximo** que estás cometiendo al cortar ahí. La fórmula es:
+
+$$Error < B^{-K}$$
+
+- $B$: Es la base a la que estás convirtiendo (en este caso, 2).
+    
+- $K$: Es la cantidad de multiplicaciones que hiciste (o cuántos "lugares después de la coma" calculaste).
+    
+
+En el ejemplo de la diapositiva, como solo hicieron 3 multiplicaciones (es decir, $K = 3$), el error de precisión que tiene ese número es menor a:
+
+$$Error < 2^{-3}$$
+
+$$2^{-3} = \frac{1}{2^3} = \frac{1}{8} = 0,125$$
+
+**¿Qué significa esto en la práctica?**
+
+Significa que el binario `0,010` que acabamos de armar, si lo pasáramos de nuevo a decimal para comprobarlo, nos daría $0,25$. La diferencia (el error) entre el $0,35$ que queríamos guardar y el $0,25$ real que logramos armar es de $0,10$. Como predijo la fórmula del profesor, el error que cometimos ($0,10$) efectivamente es menor al límite máximo de $0,125$.
+
+Si quisieras que el error fuera más chico (tener un número más preciso), tendrías que hacer más multiplicaciones y usar más bits (aumentar el valor de $K$).
+
 
 ![[Pasted image 20260825070542.png]]
 
