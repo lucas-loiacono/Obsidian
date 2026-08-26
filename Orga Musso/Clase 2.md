@@ -629,6 +629,45 @@ Si prestás mucha atención a la tabla, vas a notar algo raro que pasa con este 
 Este sistema crea **dos representaciones distintas para el número cero**. En matemática el cero no tiene signo, y para una computadora, tener que lidiar con dos "ceros" distintos a la hora de hacer cálculos es un dolor de cabeza. Por este motivo, aunque el Complemento a 1 ($C_M-1$) es facilísimo de calcular, las computadoras modernas terminan usando el sistema anterior ($C_M$ o Complemento a 2) para trabajar.
 
 
+
+¡Dale! Vamos a armar ese cuadro comparativo.
+
+Para que quede bien claro, vamos a usar **4 bits** de memoria y vamos a ver cómo se escriben el **+6** y el **-6** en los tres sistemas que vimos en tus diapositivas.
+
+Lo primero que tenés que saber es que el número **+6** en binario puro (sin signo) es `110`. Como tenemos 4 bits, lo rellenamos con un cero a la izquierda, quedando **`0110`**.
+
+Fijate lo que pasa en cada sistema:
+
+|**Sistema de Representación**|**Cómo se escribe el +6**|**Cómo se escribe el -6**|
+|---|---|---|
+|**Valor Absoluto + Bit de Signo**|`0110`|`1110`|
+|**Complemento a 1 ($C_M-1$)**|`0110`|`1001`|
+|**Complemento a 2 ($C_M$)**|`0110`|`1010`|
+
+### ¿De dónde salió el -6 en cada caso?
+
+La clave para entender esta tabla es mirar qué le hicimos al `0110` original para convertirlo en negativo:
+
+1. **En Valor Absoluto + Bit de Signo:**
+    
+    Simplemente agarramos el bit de más a la izquierda (el que marca el signo) y lo cambiamos de `0` (positivo) a `1` (negativo). El resto del número (`110`) quedó intacto.
+    
+2. **En Complemento a 1 ($C_M-1$):**
+    
+    Aplicamos el "truco de la inversión" que vimos en la última diapositiva. Agarramos el `0110` e invertimos absolutamente todos sus bits: los ceros pasaron a unos, y los unos a ceros. Por eso quedó `1001`.
+    
+3. **En Complemento a 2 ($C_M$):**
+    
+    Este es el método que usan las computadoras hoy en día. Para calcularlo rápido en la práctica, se hace el Complemento a 1 (invertir los bits) y **se le suma un 1 matemático al final**.
+    
+    Si al `1001` de arriba le sumamos `1` bit, nos da `1010`.
+    
+
+**La regla de oro:** Notá que los números positivos (`0110`) **se escriben exactamente igual en los tres sistemas**. La diferencia entre estos métodos existe única y exclusivamente en cómo manejan los números negativos.
+
+¿Quedó un poco más claro cómo conviven los tres sistemas con este ejemplo?
+
+
 ![[Pasted image 20260825070729.png]]
 
 ![[Pasted image 20260825070742.png]]
