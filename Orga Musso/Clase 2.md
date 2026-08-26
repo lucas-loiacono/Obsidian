@@ -193,6 +193,76 @@ En resumen: el punto 2 te demuestra que convertir de base 10 a otra base es simp
 
 ![[Pasted image 20260825070355.png]]
 
+
+Por ejemplo, si tenés un número decimal grande y querés saber cuántos bits vas a necesitar para guardarlo en la memoria de la PC, esta es la matemática que te da la respuesta.
+
+Vamos a desglosar el razonamiento matemático que hace el profesor:
+
+### 1. El Concepto Central (La Inecuación)
+
+Para que no se pierda información al pasar de una Base 1 ($B_1$) a una Base 2 ($B_2$), la cantidad máxima de combinaciones que podés armar en la nueva base tiene que ser **mayor o igual** a la cantidad de combinaciones de la base original.
+
+Eso se expresa con esta inecuación:
+
+$$B_2^{n_2} \ge B_1^{n_1}$$
+
+- $B_1$: Es tu base original.
+    
+- $n_1$: Son los dígitos que usás en esa base original.
+    
+- $B_2$: Es tu nueva base (la de destino).
+    
+- $n_2$: Es tu incógnita, la cantidad de dígitos que vas a necesitar en la nueva base.
+    
+
+### 2. Despejando la incógnita con Logaritmos
+
+Como la incógnita ($n_2$) está en el exponente, la única forma matemática de "bajarla" para poder calcularla es aplicando logaritmos en ambos lados de la inecuación.
+
+El profesor aplica logaritmo en base $B_2$:
+
+$$\log_{B_2}(B_2^{n_2}) \ge \log_{B_2}(B_1^{n_1})$$
+
+Por propiedades de los logaritmos, el exponente pasa multiplicando adelante, y como el logaritmo de una base sobre sí misma da 1 ($\log_{B_2}(B_2) = 1$), la fórmula se simplifica a:
+
+$$n_2 \ge n_1 \cdot \log_{B_2}(B_1)$$
+
+### 3. El problema de la calculadora (Cambio de Base)
+
+La parte final de la diapositiva aborda un problema práctico: las calculadoras normales no calculan logaritmos en cualquier base, solo calculan logaritmo natural o logaritmo en base 10 (decimal).
+
+Por lo tanto, hace una demostración matemática (el bloque del medio con la $y$ y la $x$) para aplicar la regla de "Cambio de Base". Esto transforma ese logaritmo raro en una división de logaritmos decimales que sí podés poner en la calculadora.
+
+### La Fórmula Final
+
+La conclusión de toda esta diapositiva es la fórmula de la última línea, que es la que vas a usar en la práctica:
+
+$$n_2 \ge n_1 \cdot \frac{\log(B_1)}{\log(B_2)}$$
+
+### Un ejemplo práctico para entenderlo mejor:
+
+Supongamos que tenés números decimales de **3 dígitos** (van del 000 al 999). Querés saber **cuántos bits (dígitos binarios)** necesitás como mínimo para representar cualquiera de esos números.
+
+- $B_1 = 10$ (Base decimal)
+    
+- $n_1 = 3$ (Cantidad de dígitos decimales)
+    
+- $B_2 = 2$ (Base binaria)
+    
+
+Aplicamos la fórmula final:
+
+$$n_2 \ge 3 \cdot \frac{\log(10)}{\log(2)}$$
+
+$$n_2 \ge 3 \cdot \frac{1}{0,30103}$$
+
+$$n_2 \ge 3 \cdot 3,3219$$
+
+$$n_2 \ge 9,96$$
+
+Como no podés tener "9,96 bits", siempre redondeás hacia arriba. Esto significa que **necesitás al menos 10 bits** para poder representar cualquier número decimal de 3 dígitos en binario. (Y tiene sentido, porque con 9 bits llegás hasta el 511, pero con 10 bits llegás hasta el 1023, cubriendo así el 999).
+
+
 ![[Pasted image 20260825070406.png]]
 
 ![[Pasted image 20260825070418.png]]
