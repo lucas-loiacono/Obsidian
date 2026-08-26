@@ -31,6 +31,8 @@ Tomemos como ejemplo el número **107,25** en nuestro sistema decimal tradiciona
 
 El Teorema Fundamental de la Numeración básicamente usa todos estos elementos para decir que el valor total de $N$ se arma multiplicando cada dígito ($d_i$) por la base ($b$) elevada a su posición ($i$), y sumando todo.
 
+En este caso: **107,25** = ($1 \times 10^2$) + ($0 \times 10^1$) + ($7 \times 10^0$) + ($2 \times 10^{-1}$) + ($5 \times 10^{-2}$)
+
 
 ![[Pasted image 20260825070207.png]]
 
