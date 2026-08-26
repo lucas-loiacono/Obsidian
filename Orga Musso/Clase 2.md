@@ -585,6 +585,50 @@ El cuentakilómetros dio la vuelta perfecta. La máquina logró resolver una res
 
 ![[Pasted image 20260825070718.png]]
 
+
+Esta diapositiva (`image_22507b.png`) te presenta una **tercera forma** de representar números negativos en la computadora. Matemáticamente se la llama **Complemento al Módulo menos uno ($C_M-1$)**, pero en la práctica y en el sistema binario se la conoce famosamente como **Complemento a 1**.
+
+Viene a plantear una alternativa al método de la diapositiva anterior ($C_M$ o Complemento a 2) y destaca por un "truco" que a los circuitos electrónicos les encanta. Vamos a desarmarlo:
+
+### 1. La Matemática detrás del nombre
+
+La diapositiva empieza mostrándote una tabla de 3 bits.
+
+Primero te muestra cómo se representan los números en el sistema $C_M$ (van del -4 al +3). Luego, aplica la regla matemática que le da nombre a este nuevo método: literalmente le **resta una unidad** a la magnitud de los complementos.
+
+Si te fijás, el binario `100` que antes valía -4, ahora en la fila de $C_M-1$ vale -3. El `101` que valía -3, ahora vale -2, y así sucesivamente.
+
+### 2. La Magia Práctica (Inversión de bits)
+
+El último párrafo es la verdadera lección de la diapositiva. Te dice que si dejás de lado la resta matemática y simplemente mirás cómo quedaron formados los números, vas a notar un patrón espectacular: **para conseguir la versión negativa de cualquier número, simplemente tenés que invertir todos sus bits (cambiar los 0 por 1, y los 1 por 0).**
+
+**Ejemplo en la tabla:**
+
+- Buscá el **+2**. Su código binario es `010`.
+    
+- Si invertimos todos sus números (donde hay 0 ponemos 1, y viceversa), nos queda `101`.
+    
+- Si mirás qué valor tiene el `101` en la fila de $C_M-1$, vas a ver que es exactamente el **-2**.
+    
+
+### 3. ¿Por qué es importante esto?
+
+Como dice la última oración del profesor: _"Esta operación suele ser más sencilla de realizar en los circuitos digitales"_.
+
+A nivel físico/hardware, construir un circuito que haga sumas y restas complejas es caro y lento. Pero construir una compuerta lógica que simplemente invierta la corriente (si entra señal que no salga, y si no entra que salga) es facilísimo y súper rápido.
+
+### El pequeño gran problema (El doble cero)
+
+Si prestás mucha atención a la tabla, vas a notar algo raro que pasa con este sistema $C_M-1$:
+
+- Tenés el binario `000` que equivale al **+0**.
+    
+- Si invertís sus bits te queda `111`, que equivale al **-0**.
+    
+
+Este sistema crea **dos representaciones distintas para el número cero**. En matemática el cero no tiene signo, y para una computadora, tener que lidiar con dos "ceros" distintos a la hora de hacer cálculos es un dolor de cabeza. Por este motivo, aunque el Complemento a 1 ($C_M-1$) es facilísimo de calcular, las computadoras modernas terminan usando el sistema anterior ($C_M$ o Complemento a 2) para trabajar.
+
+
 ![[Pasted image 20260825070729.png]]
 
 ![[Pasted image 20260825070742.png]]
