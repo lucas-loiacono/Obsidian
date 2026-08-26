@@ -76,6 +76,11 @@ Básicamente, averiguar cómo se escribe un número en otra base es jugar a desc
 ![[Pasted image 20260825070314.png]]
 
 
+
+Esta diapositiva te da el "manual de instrucciones" o el algoritmo paso a paso para **convertir un número que está en decimal (base 10) a cualquier otra base** (por ejemplo, a binario o hexadecimal).
+
+Como el método es distinto para lo que está a la izquierda de la coma y lo que está a la derecha, te lo separa en dos reglas. Vamos a explicarlo con un ejemplo práctico: supongamos que queremos convertir el número **13,375** (base 10) a **binario** (base 2).
+
 ### 1. Obtención de la Parte Entera (Divisiones sucesivas)
 
 La regla dice que para convertir la parte entera (el **13**), tenés que dividir ese número por la base de destino (en nuestro ejemplo, 2) una y otra vez hasta que ya no puedas dividir más (cuando el cociente sea 0). **Los restos de esas divisiones van a ser tus nuevos dígitos ($d_i$).**
