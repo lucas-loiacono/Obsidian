@@ -196,6 +196,75 @@ $$(\mathbf{1} \times 2^4) + (\mathbf{1} \times 2^3) + (\mathbf{0} \times 2^2) + 
 En resumen: el punto 2 te demuestra que convertir de base 10 a otra base es simplemente el desafío de encontrar esos coeficientes específicos ($M$) que hacen que la suma matemática funcione.
 
 
+
+
+Asumo que te referís a ver el **paso a paso completo** de cómo obtuve ese número binario (`11001,1`) a partir del **25,5** decimal, haciendo las divisiones y multiplicaciones que se explican en la teoría.
+
+  
+
+Acá tenés el desarrollo para encontrar esos coeficientes $M$:
+
+  
+
+### 1. Descomposición de la Parte Entera (25)
+
+Aplicamos divisiones sucesivas por la base a la que queremos llegar ($B = 2$):
+
+  
+
+- $25 \div 2 = 12$ y sobra **1** $\rightarrow$ Este es tu primer dígito de derecha a izquierda ($M_0$)
+    
+      
+    
+- $12 \div 2 = 6$ y sobra **0** $\rightarrow$ ($M_1$)
+    
+      
+    
+- $6 \div 2 = 3$ y sobra **0** $\rightarrow$ ($M_2$)
+    
+      
+    
+- $3 \div 2 = 1$ y sobra **1** $\rightarrow$ ($M_3$)
+    
+      
+    
+- $1 \div 2 = 0$ y sobra **1** $\rightarrow$ Al llegar al cociente cero, este es tu último dígito ($M_4$)
+    
+      
+    
+
+Para armar el número, los restos se leen desde el último que calculaste hasta el primero (de abajo hacia arriba). Entonces, el 25 decimal equivale a **11001** en binario.
+
+  
+
+### 2. Descomposición de la Parte Fraccionaria (0,5)
+
+Aplicamos multiplicaciones sucesivas por la base ($B = 2$) solo a la parte decimal:
+
+  
+
+- $0,5 \times 2 = \mathbf{1},0$ $\rightarrow$ Nos guardamos el número que queda a la izquierda de la coma, que es el **1** ($M_{-1}$).
+    
+      
+    
+
+Como la parte que quedó a la derecha de la coma llegó a cero (es decir, ya no hay más decimales para seguir multiplicando), el proceso termina en este primer paso.
+
+  
+
+### Resultado Final
+
+Al unir la parte entera obtenida en el Paso 1 con la parte fraccionaria obtenida en el Paso 2, comprobamos de dónde salió el coeficiente completo:
+
+**$25,5\vert{}_{10} = 11001,1\vert{}_2$**
+
+  
+
+¿Querés que hagamos este mismo procedimiento de conversión completo con algún otro número para seguir practicando?
+
+
+
+
 ![[Pasted image 20260825070344.png]]
 
 ![[Pasted image 20260825070355.png]]
