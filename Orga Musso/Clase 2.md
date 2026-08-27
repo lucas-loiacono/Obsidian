@@ -679,3 +679,23 @@ La clave para entender esta tabla es mirar qué le hicimos al `0110` original pa
 ![[Pasted image 20260825070823.png]]
 
 ![[Pasted image 20260826210051.png]]
+
+![[Pasted image 20260826210101.png]]
+
+![[Pasted image 20260826210113.png]]
+
+![[Pasted image 20260826210124.png]]
+
+![[Pasted image 20260826210135.png]]
+
+![[Pasted image 20260826210152.png]]
+
+![[Pasted image 20260826210204.png]]
+
+![[Pasted image 20260826210213.png]]
+
+![[Pasted image 20260826210224.png]]
+
+![[Pasted image 20260826210234.png]]
+
+![[Pasted image 20260826210243.png]]
