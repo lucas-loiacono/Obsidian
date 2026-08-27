@@ -1,5 +1,29 @@
 ![[Pasted image 20260825070057.png]]
 
+**¡Exactamente!** Lo entendiste a la perfección.
+
+  
+
+Lo que nosotros llamamos un "número normal" en nuestro día a día es, en términos técnicos, un número expresado en **sistema decimal o base 10**.
+
+  
+
+Desglosando lo que acabás de decir:
+
+  
+
+- **"Por cómo está escrito":** Tal cual. Al estar en base 10, usamos 10 símbolos permitidos (0, 1, 2, 3, 4, 5, 6, 7, 8 y 9) y los ubicamos en distintas posiciones (unidades, decenas, centenas, etc.) para darle un peso a cada uno.
+    
+      
+    
+- **"Puede ser cualquier número":** Es la clave de todo. Usando esos 10 símbolos y moviéndolos de posición, podés representar **absolutamente cualquier magnitud que exista en el universo**. Podés escribir números enteros positivos, fracciones, decimales larguísimos, y números negativos (agregándole el símbolo `-` adelante, ya que nosotros sí podemos escribir ese símbolo, a diferencia de la memoria de la PC).
+    
+      
+    
+
+Le decimos "normal" pura y exclusivamente por costumbre biológica y cultural, pero es fundamental que en Organización del Computador tengas en mente que, matemáticamente, el sistema decimal es solo un idioma más. ¡Para tu computadora, el número "normal" es el binario!
+
+
 ![[Pasted image 20260825070121.png]]
 
 ![[Pasted image 20260825070151.png]]
