@@ -425,6 +425,74 @@ Significa que el binario `0,010` que acabamos de armar, si lo pasáramos de nuev
 Si quisieras que el error fuera más chico (tener un número más preciso), tendrías que hacer más multiplicaciones y usar más bits (aumentar el valor de $K$).
 
 
+
+**¡Exactamente! Lo resumiste a la perfección.**
+
+  
+
+Ese 0,125 no es el error exacto que estás cometiendo, sino tu **"peor escenario posible"** (o límite de riesgo, como muy bien lo llamaste). Te garantiza matemáticamente que, si cortás la cuenta en 3 multiplicaciones ($K = 3$), es absolutamente imposible que le pifies al número original por más de 0,125.
+
+  
+
+Y tu segunda deducción es brillante: **a mayor cantidad de números calculados (mayor $K$), el margen de error se desploma rapidísimo.**
+
+  
+
+Vamos a comprobar tu teoría matemáticamente para que veas qué rápido se achica el error:
+
+  
+
+- **Con $K = 4$ (4 decimales):**
+    
+    El error máximo garantizado por la fórmula baja a:
+    
+      
+    
+    $$2^{-4} = \frac{1}{16} = 0,0625$$
+    
+- **Con $K = 8$ (8 decimales):**
+    
+      
+    
+    $$2^{-8} = \frac{1}{256} \approx 0,0039$$
+    
+- **Con $K = 16$ (16 decimales):**
+    
+      
+    
+    $$2^{-16} = \frac{1}{65536} \approx 0,000015$$
+    
+
+Fijate que con solo calcular 16 lugares después de la coma, el margen de error ya es prácticamente invisible (estamos hablando de millonésimas).
+
+  
+
+### El impacto en el mundo real
+
+Esto que acabás de deducir es el corazón de cómo las computadoras modernas (incluyendo tu PC) manejan los números con coma.
+
+  
+
+Como los bits son limitados y ocupan espacio en la memoria, los creadores de lenguajes de programación y procesadores tienen que elegir un equilibrio:
+
+  
+
+1. **Velocidad vs. Precisión:** Si deciden usar poquitos bits para guardar la parte fraccionaria (un $K$ chico), el programa es súper ligero y rápido, pero en cálculos muy finos (como mandar un cohete al espacio o hacer transacciones bancarias) ese pequeño error de truncamiento se puede ir acumulando y generar un desastre.
+    
+      
+    
+2. **El estándar de hoy:** Para evitar eso, la mayoría de los lenguajes de programación (como C o Python) usan formatos gigantes de memoria para los decimales (llamados de "Doble Precisión" o _Double_ de 64 bits), donde el valor de $K$ es de 52. ¡Imaginate lo microscópico que es el error con un $K = 52$!
+    
+      
+    
+
+En conclusión, la cazaste al vuelo. Es exactamente una balanza entre cuántos recursos querés gastar y cuánta precisión estás dispuesto a perder.
+
+  
+
+¿Se entiende bien la lógica o querés que probemos calcular un decimal más en ese mismo ejemplo para ver cómo se acerca al 0,35 real?
+
+
 ![[Pasted image 20260825070542.png]]
 
 
