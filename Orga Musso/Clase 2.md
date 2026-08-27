@@ -638,11 +638,11 @@ Lo primero que tenés que saber es que el número **+6** en binario puro (sin si
 
 Fijate lo que pasa en cada sistema:
 
-|**Sistema de Representación**|**Cómo se escribe el +6**|**Cómo se escribe el -6**|
-|---|---|---|
-|**Valor Absoluto + Bit de Signo**|`0110`|`1110`|
-|**Complemento a 1 ($C_M-1$)**|`0110`|`1001`|
-|**Complemento a 2 ($C_M$)**|`0110`|`1010`|
+| **Sistema de Representación**     | **Cómo se escribe el +6** | **Cómo se escribe el -6** |
+| --------------------------------- | ------------------------- | ------------------------- |
+| **Valor Absoluto + Bit de Signo** | `0110`                    | `1110`                    |
+| **Complemento a 1 ($C_M-1$)**     | `0110`                    | `1001`                    |
+| **Complemento a 2 ($C_M$)**       | `0110`                    | `1010`                    |
 
 ### ¿De dónde salió el -6 en cada caso?
 
