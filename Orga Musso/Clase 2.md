@@ -760,6 +760,104 @@ La clave para entender esta tabla es mirar qué le hicimos al `0110` original pa
 ¿Quedó un poco más claro cómo conviven los tres sistemas con este ejemplo?
 
 
+
+
+
+
+
+
+Esta diapositiva te está presentando al "hermano menor" del método que vimos recién. El que calculamos antes era el **Complemento al Módulo ($C_M$)**, también conocido en la práctica como Complemento a 2.
+
+Este nuevo método de la imagen se llama **Complemento al Módulo menos uno ($C_M - 1$)**, que vas a escuchar habitualmente como **Complemento a 1**.
+
+Vamos a desarmar la diapositiva en dos partes clave para que la tabla no te maree:
+
+**1. El atajo principal (El párrafo final de la imagen)**
+
+Olvidate un segundo de las restas y enfocáte en el último párrafo, porque ahí está el verdadero motivo por el que existe este método. Los ingenieros se dieron cuenta de que calcular el $C_M$ con la fórmula matemática que usamos antes llevaba algunas fracciones de segundo extra en el hardware.
+
+En cambio, hacer el $C_M-1$ es absurdamente fácil para los circuitos de una máquina: **para conseguir el negativo de un número, solo tenés que agarrar su versión positiva e invertir absolutamente todos sus ceros y unos**.
+
+Comprobalo mirando la tabla:
+
+- El $+3$ en binario es `011`.
+    
+- Si invertís todos sus bits, te queda `100`.
+    
+- Si mirás la última fila de la tabla ($C_M-1$), vas a ver que el `100` corresponde exactamente al **$-3$**. Conseguiste el negativo al instante y sin hacer ninguna cuenta matemática.
+    
+
+**2. Qué significa la tabla del medio**
+
+La tabla te está mostrando visualmente qué pasó con el sistema viejo ($C_M$) para llegar al nuevo. Al "restarle uno" a la lógica matemática, todo el bloque de los números negativos se desplazó un lugar hacia la derecha.
+
+- En el sistema viejo que calculaste antes, el código `100` se usaba para representar al $-4$.
+    
+- En este nuevo sistema, el código `100` se corre y pasa a representar al $-3$.
+    
+
+**El "defecto" del sistema (y por qué ves un -0)**
+
+Si mirás la tabla con muchísima atención, vas a notar la consecuencia de haber desplazado todos los números negativos un lugar: **aparecen dos ceros distintos**.
+
+- Tenés un **$+0$** lógico (`000`).
+    
+- Tenés un bizarro **$-0$** (`111`), que nace justamente de invertir todos los bits del +0.
+    
+
+Tener dos formas distintas de escribir el cero es un dolor de cabeza enorme para diseñar el procesador de la computadora. Por eso, aunque este método del Complemento a 1 era facilísimo para los circuitos porque solo invertía bits, la industria lo terminó descartando.
+
+Hoy en día, tu computadora (y casi todos los ejercicios de parcial) usan el método del **Complemento a 2 ($C_M$)**, porque soluciona el problema del doble cero y aprovecha ese espacio extra para poder contar un número negativo más (el -4 que ves en la primera fila).
+
+¿Queda más claro ahora cómo funciona la inversión de bits en esta convención?
+
+
+
+
+
+
+¡Entiendo perfecto por qué te hace ruido al mirar la tabla! Pero la respuesta es que **no conviven al mismo tiempo**. El código `100` nunca va a significar dos cosas a la vez en una misma máquina.
+
+Lo que la diapositiva te está mostrando son dos "idiomas" o convenciones totalmente distintas para leer exactamente el mismo código binario.
+
+Pensalo como la palabra "pie": en inglés significa una tarta dulce, y en español significa una parte del cuerpo. El significado cambia por completo dependiendo del idioma que estés hablando. Acá pasa lo mismo:
+
+- Si tu computadora está fabricada para usar el sistema **$C_M$** (Complemento a 2, el de la primera fila), cuando el procesador lea `100` va a entender que es un **-4**.
+    
+- Si tu computadora está fabricada para usar el sistema **$C_M-1$** (Complemento a 1, el de la última fila), cuando el procesador lea `100` va a entender que es un **-3**.
+    
+
+Una computadora real opera utilizando **solo uno** de estos dos sistemas. Por lo tanto, la máquina jamás duda sobre qué número es.
+
+El profesor simplemente los apiló uno arriba del otro en la diapositiva para que puedas comparar de forma visual cómo un mismo patrón de ceros y unos (`100`) cambia de valor matemático cuando los ingenieros deciden cambiar la regla del juego.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+La regla de **invertir directamente los ceros y unos** pertenece exclusivamente al **$C_M-1$** (Complemento al Módulo menos uno, que en la práctica se llama Complemento a 1).
+
+Como viste en la diapositiva, si tenés el $+3$ (`011`) y simplemente invertís todos sus bits (`100`), ya conseguiste automáticamente el código del $-3$ para el sistema $C_M-1$. No hay que hacer absolutamente nada más.
+
+Para que veas cómo se relacionan los dos métodos a la hora de hacer un ejercicio en papel, acá tenés el "truco definitivo" que usan todos los programadores. Si a vos te dan un número positivo y te piden pasarlo a negativo, los pasos son estos:
+
+- **Para conseguir el $C_M-1$ (Complemento a 1):** Invertís todos los ceros y unos. (Ejemplo: el $+3$ es `011` $\rightarrow$ invertido te da **`100`**).
+    
+- **Para conseguir el $C_M$ (Complemento a 2):** Hacés la inversión de bits (el paso anterior) y a ese resultado **le sumás 1**. (Ejemplo: invertiste el `011` y te dio `100` $\rightarrow$ le sumás 1 y te da **`101`**).
+    
+
+Así te ahorrás tener que usar la fórmula matemática con restas y potencias que vimos antes. Invertir y sumar 1 es el camino más rápido para calcular el $C_M$ en cualquier examen.
+
+
 ![[Pasted image 20260825070729.png]]
 
 ![[Pasted image 20260825070742.png]]
