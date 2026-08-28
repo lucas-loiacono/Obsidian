@@ -1300,6 +1300,31 @@ Con este truco, en vez de gastar millones de casilleros de memoria escribiendo c
 
 ![[Pasted image 20260826210135.png]]
 
+
+Esta diapositiva te muestra la **Norma IEEE 754**, que es la regla universal que usan todas las computadoras y procesadores modernos para guardar los números de punto flotante en binario. Es la aplicación en la vida real de la fórmula matemática que viste en la diapositiva anterior.
+
+  
+
+En lugar de que cada fabricante invente su propio método de almacenamiento, este estándar dictamina exactamente cómo se deben repartir los "casilleros" físicos de la memoria para empaquetar los tres ingredientes: el signo, el exponente y la mantisa.
+
+  
+
+El estándar define dos "tamaños de caja" principales:
+
+  
+
+- **Simple Precisión (32 bits):** Reparte la memoria en 1 bit para el signo, 8 para el exponente y 23 para la mantisa. Cuando escribís código en C y declarás una variable tipo `float`, estás creando exactamente esta estructura de 32 bits. También es el formato rey en el mundo del gaming; cuando una placa de video renderiza los modelos 3D y las trayectorias en juegos tácticos o _shooters_, procesa casi todo usando Simple Precisión porque ofrece el equilibrio perfecto entre velocidad de cálculo y calidad visual sin saturar la memoria.
+    
+      
+    
+- **Doble Precisión (64 bits):** Duplica el tamaño total, asignando 1 bit de signo, 11 de exponente y una mantisa gigante de 52 bits. En la programación, este es el clásico tipo de dato `double`. Al tener 52 casilleros solo para la mantisa, podés retener muchísimos más "dígitos significativos", lo cual es vital si programás una base de datos financiera o un motor de físicas donde un mínimo error de redondeo te arruina todo el cálculo.
+    
+      
+    
+
+Finalmente, el texto de abajo te confirma que la regla para identificar si el paquete completo representa un número positivo o negativo es la convención más directa y simple posible: **`0` significa positivo y `1` significa negativo**.
+
+
 ![[Pasted image 20260826210152.png]]
 
 ![[Pasted image 20260826210204.png]]
