@@ -919,6 +919,191 @@ Acá te traduzco qué significa cada luz del tablero que muestra la diapositiva:
 Las banderas le ahorran al procesador tener que analizar el número binario completo de nuevo cada vez que necesita saber si una cuenta dio negativo, si dio cero o si hubo un error de espacio.
 
 
+
+
+
+
+
+¡Ojo acá! Se te están mezclando dos momentos distintos de la suma. Vamos a separar las aguas para que quede súper claro.
+
+  
+
+Primero: el acarreo interno ("me llevo uno") **siempre viaja hacia la izquierda**, no hacia la derecha. Pensá en la suma que hacés en papel desde que sos chico: si sumás la columna de la derecha (las unidades) y te pasás de 9, te llevás el 1 hacia la izquierda (a la columna de las decenas). En binario es exactamente igual; los unos viajan como una cascada hacia las columnas de la izquierda.
+
+  
+
+Lo de "eliminar un número" ocurre exclusivamente **al final de toda la cuenta**, cuando te chocás contra la pared física de la memoria.
+
+  
+
+Imaginate la memoria de la PC como una cubetera de hielo que tiene exactamente 8 huecos.
+
+  
+
+1. Venís sumando columna por columna, pasando los acarreos hacia la izquierda lo más bien.
+    
+      
+    
+2. Llegás a sumar la última columna de todas (el bit número 8, el de la extrema izquierda).
+    
+      
+    
+3. Si justo esa última suma genera un acarreo extra ("me llevo uno"), ese `1` debería ocupar un noveno casillero.
+    
+      
+    
+4. Como tu cubetera solo tiene 8 huecos, **ese noveno bit se cae por el borde y no entra en el resultado principal.**
+    
+      
+    
+
+Acá es donde entra en juego la **Bandera de Carry** (la luz del tablero). Ese `1` que se cayó por el borde izquierdo no desaparece en la nada, sino que va a chocar contra la luz de Carry y la prende, avisándole al procesador: _"Che, me sobró un bit que no entró en los 8 casilleros"_.
+
+  
+
+La genialidad matemática del sistema **$C_M$ (Complemento a 2)** que vimos en el ejemplo de `28 - 25`, es que está diseñado a propósito para que ese bit que se cae por la izquierda no te importe. Al "eliminarlo" o ignorarlo, los 8 bits que sí lograron quedarse adentro de la cubetera forman el resultado perfecto de tu resta.
+
+
+
+
+
+Son dos alertas totalmente independientes que vigilan problemas distintos. Aunque las dos avisan que el número "se pasó de un límite", lo hacen mirando cosas separadas.
+
+  
+
+**Carry (Falta de espacio físico)**
+
+Vigila si la cuenta generó un noveno bit que se cayó de tu registro de 8 casilleros. Como vimos antes, si estás usando números con signo en el sistema $C_M$, que se prenda esta luz es normal y ese bit que se cae por el borde simplemente se ignora.
+
+  
+
+**Overflow (Incoherencia lógica de signo)**
+
+Vigila exclusivamente el comportamiento del bit de signo (el primero de la izquierda). Solo se prende si sumás dos números positivos y el espacio te queda tan chico que invadís el bit de signo, haciendo que el resultado parezca negativo. También pasa al revés (sumar dos negativos y que dé positivo). Te avisa que corrompiste la regla de los signos.
+
+  
+
+Para demostrar que evalúan cosas separadas, mirá cómo pueden saltar de forma independiente:
+
+  
+
+- **Podés tener Overflow sin Carry:** Si sumás $+127$ (`01111111`) y $+2$ (`00000010`) en un sistema de 8 bits, el resultado encaja perfecto en los 8 casilleros dando `10000001`. Como no sobró ningún bit, la luz de Carry **no se prende**. Sin embargo, la máquina ahora lee ese `1` de la izquierda y asume que el resultado es negativo ($-127$). Como sumar dos positivos te dio un negativo, la luz de Overflow **sí se prende** gritando que hay un error lógico.
+    
+      
+    
+- **Podés tener Carry sin Overflow:** Si sumás $-1$ (`11111111`) y $-1$ (`11111111`), la cuenta te da `111111110`. Como tiene 9 bits, el `1` de la izquierda se cae del registro y prende la luz de **Carry**. Pero los 8 bits que se lograron quedar adentro (`11111110`) equivalen al número $-2$. Como la suma de dos negativos dio como resultado otro negativo, la lógica de signos se mantuvo intacta y la luz de Overflow **no se prende**.
+    
+      
+    
+
+El Overflow no es un subcaso del Carry; son dos circuitos de vigilancia que tu procesador revisa en paralelo cada vez que hace una cuenta.
+
+
+
+
+
+
+Tu intuición matemática dio en el clavo. De hecho, a nivel de los circuitos físicos del procesador, el Overflow se calcula observando **exclusivamente** el comportamiento de los acarreos alrededor del último casillero.
+
+  
+
+El secreto está en que el procesador compara dos movimientos en el último paso de la suma (la columna del bit de signo):
+
+  
+
+1. El acarreo que **ENTRA** a esa columna (el "me llevo uno" interno que viaja desde la derecha).
+    
+      
+    
+2. El acarreo que **SALE** de esa columna (el bit que se cae al vacío y prende la bandera de Carry general).
+    
+      
+    
+
+La regla de oro de la computadora es esta: **Si el acarreo que entra es distinto al acarreo que sale, se produce un Overflow.**
+
+  
+
+Mirá cómo esos acarreos generan los problemas lógicos de los que hablábamos antes:
+
+  
+
+- **Entra un `1` pero sale un `0`:** Venías sumando dos números positivos muy grandes. El "me llevo uno" interno invadió la columna del signo, transformándolo a la fuerza en un `1` (haciendo que parezca negativo). Como la cuenta terminó ahí, no sobró ningún bit para caerse afuera. **Resultado:** Se prende el Overflow (por la invasión interna) pero no el Carry.
+    
+      
+    
+- **Entra un `0` pero sale un `1`:** Sumaste dos números negativos muy grandes. La columna del signo original tenía la cuenta `1 + 1`. Eso da como resultado `0` (haciendo que el número parezca positivo), y genera un `1` extra que se cae del registro. **Resultado:** Se prende el Overflow y también el Carry.
+    
+      
+    
+- **Entran y salen iguales (`1` y `1`, o `0` y `0`):** La lógica de signos fluyó sin interrupciones y el número mantuvo su coherencia. **Resultado:** No hay Overflow.
+    
+      
+    
+
+Así que tu conclusión es 100% correcta. El Overflow no es magia; es literalmente el síntoma físico de que un acarreo interno chocó contra el bit de signo y arruinó la coherencia matemática de la suma.
+
+
+
+
+
+El Half-Carry (o acarreo de primer _nibble_) es un "me llevo uno" que cruza exactamente por la frontera central de tu registro.
+
+  
+
+Imaginate que agarrás tu registro de 8 bits y le trazás una línea vertical por el medio, dividiéndolo en dos bloques cerrados de 4 bits: una mitad derecha (el _nibble_ inferior) y una mitad izquierda (el _nibble_ superior).
+
+  
+
+La luz del Half-Carry se prende **exclusivamente** si, al sumar la cuarta columna (el último casillero de la mitad derecha), se genera un acarreo que salta esa pared divisoria y aterriza en la quinta columna (el primer casillero de la mitad izquierda).
+
+  
+
+Para visualizarlo, sumemos `0000 1000` (8) y `0000 1000` (8):
+
+  
+
+- Las primeras tres columnas de la derecha suman puros ceros.
+    
+      
+    
+- Llegás a la cuarta columna y sumás: `1 + 1 = 10`.
+    
+      
+    
+- Anotás el `0` abajo y te pasás un `1` de acarreo hacia la quinta columna.
+    
+      
+    
+- Ese cruce de frontera entre el cuarto y el quinto bit es el que hace saltar la bandera de Half-Carry.
+    
+      
+    
+
+**El motivo de su existencia**
+
+Mientras el Carry general cuida el límite físico de la memoria y el Overflow vigila la coherencia de los signos, el Half-Carry tiene un propósito hiperespecífico: el formato BCD (Decimal Codificado en Binario).
+
+  
+
+En ciertos procesos (como los relojes digitales o calculadoras financieras), la computadora no usa binario puro, sino que guarda cada dígito decimal del 0 al 9 en pequeños paquetes de 4 bits. Si una suma genera un acarreo que rompe ese paquete de 4 bits e invade el paquete de al lado, la luz de Half-Carry le avisa al procesador que los paquetes se desfasaron y que tiene que inyectar una corrección matemática extra para arreglar el número.
+
+
+
+Solo con que **cruce la frontera** ya cuenta. Lo que pase de ahí en adelante no le importa en lo más mínimo a esta bandera.
+
+  
+
+Volviendo a la analogía del peaje: el sensor de esta luz está instalado únicamente en la línea exacta que divide la cuarta y la quinta columna. Si el sensor detecta que un acarreo atravesó esa línea, prende la luz del Half-Carry automáticamente.
+
+  
+
+Si después de cruzar esa frontera el acarreo se asienta tranquilamente en la quinta columna, o si choca con otro `1` y genera un nuevo efecto dominó que viaja hacia la sexta, séptima u octava columna, es un problema que pasará a ser jurisdicción de otras banderas (como el Carry general o el Overflow).
+
+  
+
+El único trabajo del Half-Carry en el universo del procesador es gritar _"¡Alguien cruzó al nibble superior!"_ y dejar la luz prendida.
+
 ![[Pasted image 20260826210101.png]]
 
 ![[Pasted image 20260826210113.png]]
