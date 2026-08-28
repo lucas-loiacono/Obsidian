@@ -1106,9 +1106,197 @@ El único trabajo del Half-Carry en el universo del procesador es gritar _"¡Alg
 
 ![[Pasted image 20260826210101.png]]
 
+
+Esta diapositiva es la práctica integradora de todo lo que charlamos sobre el sistema de Complemento a 2 ($C_M$) y cómo reaccionan las "luces del tablero" (las Banderas) ante distintos escenarios.
+
+  
+
+El profesor te armó cuatro ejemplos distintos. Vamos a leerlos uno por uno mirando la columna de la derecha de cada cuadro, que te indica cómo quedaron las banderas al final (C=Carry, V=Overflow, N=Negativo, Z=Cero).
+
+  
+
+**1. Arriba a la Izquierda (La suma perfecta)**
+
+  
+
+- **La cuenta:** Sumás $+26$ y $+19$. El resultado entra perfecto en los 8 bits.
+    
+      
+    
+- **Las banderas:** Todo está en `0`. No sobró ningún bit (C='0'), la coherencia matemática está intacta porque positivo más positivo dio positivo (V='0'), el resultado empieza con cero así que no es negativo (N='0'), y la cuenta no dio cero (Z='0').
+    
+      
+    
+
+**2. Arriba a la Derecha (El Cero y el Carry descartado)**
+
+  
+
+- **La cuenta:** Sumás $+26$ y $-26$. Físicamente, la suma binaria genera ese noveno `1` que el profesor marcó en rojo.
+    
+      
+    
+- **Las banderas:** Como ese `1` rojo se cayó del registro de 8 bits, se prende la luz de Carry (**C='1'**). Los 8 bits que sí quedaron adentro son todos ceros, así que se prende la luz de Cero (**Z='1'**). No hay Overflow (V='0') porque sumar números de distinto signo jamás puede generar una incoherencia lógica.
+    
+      
+    
+
+**3. Abajo a la Izquierda (Suma de negativos)**
+
+  
+
+- **La cuenta:** Sumás $-19$ y $-32$. Al igual que arriba, se genera un noveno bit rojo que se cae al vacío.
+    
+      
+    
+- **Las banderas:** Ese bit caído prende el Carry (**C='1'**). El resultado final de los 8 bits empieza con un `1`, lo que indica que es negativo, así que se prende esa bandera (**N='1'**). ¡Y fijate el Overflow! Sigue apagado (V='0') porque la regla lógica se cumplió a la perfección: sumaste dos negativos y el resultado fue efectivamente negativo.
+    
+      
+    
+
+**4. Abajo a la Derecha (¡El desastre del Overflow!)**
+
+  
+
+- **La cuenta:** Acá el profesor cambió las reglas y usó registros chiquitos de solo **6 bits**. Suma $+26$ (`011010`) y $+21$ (`010101`).
+    
+      
+    
+- **El problema:** En la vida real eso da 47, pero el número máximo que entra en un sistema de 6 bits con signo es el $+31$. Físicamente, los bits no entraron y el acarreo interno invadió la columna del signo, dejando un `1` a la izquierda del todo (`101111`).
+    
+      
+    
+- **Las banderas:** Como no cayó ningún bit por el borde izquierdo, el Carry está apagado (C='0'). Pero la máquina lee ese `1` inicial y prende la luz de Negativo (**N='1'**). Como sumaste dos números positivos y mágicamente apareció un resultado negativo ($-17$), el procesador detecta la incoherencia lógica y prende la sirena de Overflow (**V='1'**), avisando que ese resultado es basura y no sirve.
+    
+      
+    
+
+¿Ves cómo en este último cuadro, con solo mirar que se prendió la bandera `V`, la computadora ya sabe que tiene que descartar toda esa cuenta sin siquiera entender qué números estaba sumando?
+
+
+
 ![[Pasted image 20260826210113.png]]
 
+
+
+
+Esta diapositiva es literalmente el "machete" definitivo para el parcial. Viene a resumir en reglas universales todo lo que venimos deduciendo en los ejemplos anteriores con las banderas.
+
+  
+
+El gráfico de arriba te muestra visualmente los límites de la computadora. Los paréntesis negros de los extremos son "la pared" (la capacidad máxima de tu sistema). Adentro tenés tu zona segura de números negativos (verde) y positivos (marrón).
+
+  
+
+Acá te traduzco las conclusiones del texto a la lógica práctica:
+
+  
+
+**Reglas de oro del Overflow (Desbordamiento)**
+
+  
+
+- **Positivo + Positivo = Peligro:** Si estás en la burbuja marrón y sumás otro número marrón, te podés pasar de largo de la pared derecha. (Puede haber Overflow).
+    
+      
+    
+- **Negativo + Negativo = Peligro:** Si estás en la burbuja verde y sumás otro número verde, te podés caer por la pared izquierda. (Puede haber Overflow).
+    
+      
+    
+- **Positivo + Negativo = Imposible desbordar:** Si das 10 pasos para adelante y 5 para atrás, es imposible que te alejes más de tu punto de partida. Como "tiran para lados contrarios", el resultado siempre va a caer adentro de la zona segura. **Nunca** hay Overflow.
+    
+      
+    
+
+**Reglas de oro del Carry (Acarreo del bit extra)**
+
+  
+
+- **Negativo + Negativo = Siempre hay Carry:** Como estás usando el sistema $C_M$, todos los números negativos empiezan con un `1` a la izquierda. Cuando llegás a sumar la última columna, vas a hacer obligatoriamente `1 + 1`. Eso da `10`, lo que garantiza al 100% que un bit se va a caer del registro.
+    
+      
+    
+- **Positivo + Negativo dando Cero = Siempre hay Carry:** Es exactamente lo que viste en la diapositiva anterior con $+26 - 26$. Para que la matemática del complemento a 2 logre que todos los casilleros queden en cero, necesita generar una cascada de acarreos que termina empujando un `1` por el borde izquierdo.
+    
+      
+    
+- **Positivo + Positivo = Nunca hay Carry:** Como los dos números son positivos, sus bits de signo (el de la extrema izquierda) son `0`. Al sumar la última columna vas a hacer `0 + 0`. Aunque arrastres un "me llevo uno" de la columna anterior (`0 + 0 + 1 = 1`), jamás vas a lograr generar un número lo suficientemente grande como para que se caiga un bit afuera del registro.
+    
+      
+    
+
+En los exámenes de Organización del Computador, a veces te dan sumas gigantes y te preguntan "sin hacer la cuenta, ¿puede haber Overflow?". Con solo mirar los signos de los números que te dieron usando estas reglas, ya tenés la respuesta.
+
+
+
 ![[Pasted image 20260826210124.png]]
+
+¡Bienvenido al mundo del **Punto Flotante**! Con esta diapositiva dejás atrás los números enteros y empezás a ver cómo hace realmente la computadora para guardar números gigantescos (como la distancia a otra galaxia) o microscópicos (como el tamaño de un átomo) sin quedarse sin memoria.
+
+  
+
+Vamos a dividir la imagen en dos para entender el salto lógico que da el profesor:
+
+  
+
+**1. El problema del modelo viejo (El dibujito de arriba)**
+
+Los casilleros de arriba muestran cómo se guardaban los números con coma antes. Se llamaba "Punto Fijo". Era un sistema rígido donde la memoria se partía a la mitad: una cantidad fija de casilleros para la parte entera, y otra fija para la parte fraccionaria.
+
+El problema es que si querías guardar el número `241506800` (que no tiene decimales pero es larguísimo), desperdiciabas toda la mitad de la memoria destinada a las fracciones, y capaz no te alcanzaban los casilleros de la parte entera. Era súper ineficiente.
+
+  
+
+**2. La solución: El Punto Flotante (La fórmula y el ejemplo)**
+
+Para arreglar esto, los ingenieros le robaron una idea a la matemática: la **Notación Científica**.
+
+  
+
+La magia de esta fórmula (`+/- Mantisa x Base^exponente`) es que la coma "flota". Ya no está clavada en el medio del registro, sino que la podés mover hasta donde te convenga, y usás un exponente para recordar cuántos lugares la moviste.
+
+  
+
+Vamos a desarmar el ejemplo de la diapositiva paso a paso (aclaración: el profesor usa un apóstrofe `0'24` para representar la coma decimal `0,24`):
+
+  
+
+- **El número original:** Tenés el `241506800`. La coma imaginaria está al final del todo (a la derecha de los ceros).
+    
+      
+    
+- **Flotando la coma:** El profesor decide empujar esa coma hacia la izquierda hasta que el número quede convertido en `0,2415068` (los ceros del final ya no importan).
+    
+      
+    
+- **El exponente:** Para que `0,2415068` vuelva a ser el número gigante original, lo tenés que multiplicar por 10 (la base) elevada a la cantidad de lugares que moviste la coma. Como la moviste 9 lugares a la izquierda, el exponente es **9**.
+    
+      
+    
+
+**¿Qué es lo que realmente se guarda en la memoria?**
+
+La computadora no guarda los ceros inútiles, ni la base (porque ya sabe que está trabajando en base 10 para este ejemplo, o base 2 en la vida real), ni el símbolo de multiplicar. Solo guarda tres "ingredientes" empaquetados:
+
+  
+
+1. **El signo:** `+` (Ocupa 1 bit).
+    
+      
+    
+2. **La mantisa:** `2415068` (Son los "dígitos significativos", el corazón del número sin ceros de relleno).
+    
+      
+    
+3. **El exponente:** `9` (Es el mapa que le dice a la computadora cuántos lugares tiene que volver a mover la coma cuando quiera leer el número original).
+    
+      
+    
+
+Con este truco, en vez de gastar millones de casilleros de memoria escribiendo ceros, la máquina guarda números enormes en un espacio chiquitito. En las próximas diapositivas seguro vas a ver cómo se aplica esta misma lógica pero usando Base 2.
+
+
 
 ![[Pasted image 20260826210135.png]]
 
