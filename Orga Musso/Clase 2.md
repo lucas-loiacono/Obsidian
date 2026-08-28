@@ -868,7 +868,56 @@ Así te ahorrás tener que usar la fórmula matemática con restas y potencias q
 
 ![[Pasted image 20260825070823.png]]
 
+
+Esta diapositiva es el "gran final" de la historia de los sistemas binarios. Te muestra en la práctica **por qué la industria informática eligió el sistema $C_M$ (Complemento a 2) como el ganador indiscutido**, descartando al resto.
+
+La idea central que te quiere transmitir el profesor es que **este sistema permite que la computadora no tenga que saber restar**. Para la máquina, restar 25 es exactamente lo mismo que "sumar un -25". Al usar solo circuitos sumadores, el procesador es mucho más barato y eficiente.
+
+Vamos a analizar el primer ejemplo de la izquierda (`28 - 25`), que es donde ocurre la verdadera magia matemática:
+
+1. **La suma:** El profesor agarra el código binario del 28 positivo y le suma directamente el código binario del 25 negativo.
+    
+2. **El desborde (Carry):** Si aplicás las reglas de sumar que vimos en la diapositiva anterior y sumás columna por columna, el resultado final que te da es **`100000011`**.
+    
+3. **El truco del $C_M$:** Si contás los dígitos de ese resultado, vas a notar que tiene **9 bits**, pero tu sistema era de 8 bits. Ese `1` extra que quedó colgando a la izquierda del todo se llama "carry" de desborde. La gran ventaja del sistema $C_M$ es que te permite agarrar ese `1` sobrante, **tirarlo a la basura e ignorarlo por completo**.
+    
+4. **El resultado perfecto:** Al tachar ese uno de la izquierda, te queda el código `00000011`, ¡que es exactamente el número 3 positivo! La cuenta da perfecto.
+    
+
+### El resumen de ventajas y desventajas (Texto inferior)
+
+El texto de abajo simplemente pone en palabras por qué este sistema es mejor que el $C_{M-1}$ que vimos un par de diapositivas atrás:
+
+- **Ventaja 1 (Única representación para el cero):** ¿Te acordás del bizarro "-0" (`11111111`) que nos generaba problemas en el sistema anterior? Acá eso no pasa. El cero es de puros ceros y no hay confusión posible.
+    
+- **Ventaja 2 (No es necesario sumar el carry):** Es justamente lo que hicimos recién con el `1` que sobró. Lo ignoramos y listo. Si estuvieras usando el sistema viejo ($C_{M-1}$), los circuitos tendrían que agarrar ese `1` sobrante, llevarlo hasta la otra punta del número y volver a sumarlo, perdiendo tiempo de procesamiento.
+    
+- **El único inconveniente:** Para armar el número negativo original te lleva un pasito matemático más. En el sistema viejo solo invertías ceros y unos; acá estás obligado a invertir los bits y **sumarle 1** al final.
+
+
 ![[Pasted image 20260826210051.png]]
+
+Pensá en las **Banderas (Flags)** como si fueran las luces del tablero de un auto. Cada vez que el procesador termina de hacer una cuenta matemática (como las sumas que estuviste practicando recién), prende o apaga de forma automática una serie de "lucecitas" de advertencia para resumir qué pasó con ese resultado.
+
+Estas luces son fundamentales porque la computadora las usa para tomar decisiones lógicas súper rápidas (por ejemplo: "si la luz de cero se prende, terminá el programa").
+
+Acá te traduzco qué significa cada luz del tablero que muestra la diapositiva:
+
+- **Carry (Acarreo):** ¡A esta ya la conocés! Es exactamente ese `1` que desbordaba a la izquierda del todo en la diapositiva anterior y que terminábamos descartando. La bandera se prende para avisar "che, me sobró un bit que no entró en el registro".
+    
+- **Overflow (Desbordamiento):** Es la luz de alerta de catástrofe matemática. Se prende exclusivamente cuando sumás dos números del mismo signo (ejemplo: dos positivos muy grandes) y por falta de espacio el resultado te da con el signo opuesto (negativo). Significa que el número que quedó guardado es incoherente y no sirve.
+    
+- **Zero (Cero):** Súper simple. Si el resultado final de toda tu cuenta dio `00000000`, esta bandera se prende en `1` para confirmarlo.
+    
+- **Negative (Negativo):** Mira directamente el último bit de la izquierda (el bit de signo) del resultado. Si quedó en `1`, esta bandera se prende para reportar que el resultado es negativo.
+    
+- **Half-Carry (Acarreo de primer nibble):** Es como un Carry interno. Se prende si cuando estabas sumando columna por columna, pasaste un "me llevo uno" desde la primera mitad del número hacia la segunda mitad (del bit 4 al bit 5).
+    
+- **Paridad (P):** Literalmente se pone a contar cuántos `1` sueltos quedaron prendidos en tu resultado final para avisar si esa cantidad es par o impar. Es una herramienta que se usa mucho a nivel de hardware para detectar si un dato se corrompió al enviarlo por una red.
+    
+
+Las banderas le ahorran al procesador tener que analizar el número binario completo de nuevo cada vez que necesita saber si una cuenta dio negativo, si dio cero o si hubo un error de espacio.
+
 
 ![[Pasted image 20260826210101.png]]
 
