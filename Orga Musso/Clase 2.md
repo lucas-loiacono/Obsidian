@@ -1460,8 +1460,113 @@ Acá tenés el desglose exacto de las cinco filas de la tabla, explicando qué s
 
 
 
+
+
+
+
+¡Pausa acá! Se te mezclaron los conceptos, pero es súper normal porque la norma hace un juego de ida y vuelta. Vamos a desenredarlo en dos partes para que quede impecable.
+
+  
+
+**Primero: El `1.` de la fórmula no tiene NADA que ver con el bit de signo.**
+
+Tu bit de signo (el que te dice si el número final es positivo o negativo) vive en su propio casillero individual al principio de todo y no participa de esta fórmula.
+
+  
+
+Ese `1.` aparece por cómo funciona la notación científica en binario. En decimal, la notación científica siempre deja un número del 1 al 9 antes de la coma (ej: $3,52 \times 10^5$). En binario, como solo existen el 0 y el 1, un número normalizado **siempre pero siempre** va a empezar con un `1` antes de la coma (ej: $1,0110 \times 2^5$). Como ese "1" es una fija universal, los ingenieros decidieron no guardarlo en la memoria para ahorrar espacio. La fórmula se lo inyecta de prepo (`1. + Mantisa`) para reconstruir el número.
+
+  
+
+**Segundo: La confusión de sumar o restar 127**
+
+El secreto para entender esto es separar el momento de **GUARDAR** un número del momento de **LEERLO**.
+
+  
+
+1. **Cuando querés GUARDAR (Pasar del papel a la memoria):** Acá aplicás tu regla de **sumar**.
+    
+    Si tu exponente matemático real en el papel es **5**, la computadora no puede guardar un 5 así nomás. Hace $5 + 127 = \mathbf{132}$. Ese `132` (en binario `10000100`) es lo que se guarda físicamente en los 8 casilleros de la memoria.
+    
+      
+    
+2. **Cuando querés LEER (La fórmula de la diapositiva):** La fórmula que pasaste es el manual de instrucciones que usa la computadora para **desempaquetar** lo que está en la memoria.
+    
+    La variable `exp` en esa fórmula representa el número físico que la máquina encontró en los 8 casilleros. En nuestro ejemplo, la compu lee un `132`. Para saber cuál era tu exponente original, tiene que deshacer el truco, por eso **resta**. Hace $132 - 127 = \mathbf{5}$. ¡Y ahí recuperó tu exponente real!
+    
+      
+    
+
+Entonces, respondiendo a tu pregunta: si tuvieras un exponente matemático de `-127` en papel, caés en la zona de números hiper microscópicos (Underflow, la fila de arriba de la tabla) y se activan otras reglas. Pero para los números normales (del -126 al 127), el proceso es simple: **le sumás 127 para meterlo en la memoria, y la fórmula le resta 127 para sacarlo.**
+
+
+
+
+
 ![[Pasted image 20260826210224.png]]
 
+
+Esta diapositiva te presenta al hermano mayor de lo que veníamos viendo: el formato de **Doble Precisión** (los famosos 64 bits). Es exactamente la misma lógica de "Punto Flotante" que ya entendiste a la perfección, pero con una caja de memoria mucho más grande. Es el tipo de dato `double` que usás cuando programás.
+
+Conceptualmente no cambia absolutamente nada, solo se escalan los números. Acá tenés los tres cambios clave:
+
+- **El nuevo reparto de los casilleros:** Pasás de tener 32 bits a 64 bits totales. El bit de signo sigue siendo 1 solo, pero ahora tenés **11 bits** para el exponente (lo que te permite guardar números ridículamente más gigantes o microscópicos) y **52 bits** para la mantisa (lo que te da una precisión milimétrica, ideal para que no haya errores de redondeo en cálculos largos).
+    
+- **El nuevo Exceso (1023 en lugar de 127):** Como ahora tu exponente tiene 11 bits, la cantidad de combinaciones salta a $2^{11} = 2048$. Los casilleros físicos van del `0` al `2047`. Si aplicás la misma fórmula que antes para buscar la mitad, hacés $(2047 - 1) / 2$ y te da **1023**. Ese es tu nuevo "Exceso".
+    
+- **La nueva regla de guardado y lectura:** La fórmula del recuadro negro es idéntica a la anterior, pero actualizada. Cuando hacés un cálculo en papel y lo querés guardar en la memoria, le **sumás 1023** a tu exponente real. Cuando la computadora quiere leer lo que está en la memoria (la fórmula del cuadro), agarra el exponente físico `E` y le **resta 1023** para recuperar tu número original. Sigue usando el `1,` implícito de siempre.
+    
+
+**¡Ojo con un pifie en la diapositiva!**
+
+Si leés el texto con atención, vas a ver que en el medio del párrafo el profesor escribió: _"El formato de simple precisión tiene un exponente de 11 bits en formato exceso 1023"_. Claramente se copió y pegó el texto de la diapositiva anterior y se olvidó de cambiar la palabra "simple" por "doble". No te confundas con eso; todo lo que dice ahí aplica exclusivamente a la Doble Precisión de 64 bits.
+
+Los extremos de este formato funcionan igual que en la tabla que vimos antes: el exponente físico de puros ceros (`0`) se guarda para el cero absoluto y los números no normalizados, y el exponente físico de puros unos (`2047`) se guarda para el Infinito y el NaN. Tus exponentes reales para cuentas normales ahora viajan desde el **-1022 hasta el +1023**.
+
+
+
 ![[Pasted image 20260826210234.png]]
+
+
+Esta es exactamente la misma tabla de excepciones (el "diccionario" del procesador) que desglosamos hace un rato, pero escalada a las grandes ligas de la **Doble Precisión (64 bits)**. La lógica conceptual no cambia ni un milímetro, solo se agrandan los límites físicos.
+
+  
+
+Vamos a marcar las tres cosas más importantes (y un error de la diapositiva):
+
+  
+
+**1. El nuevo techo (Rango de representación)**
+
+Mirá el número bestial que quedó arriba: $1,79... \times 10^{308}$.
+
+En Simple Precisión el límite máximo llegaba hasta $10^{38}$. Al sumarle casilleros al exponente, la computadora ahora puede manejar cálculos a escala astronómica sin chocar contra la pared del Overflow.
+
+  
+
+**2. ¡Ojo con el pifie del profesor! (La Precisión)**
+
+A la izquierda dice **Precisión = $2^{-32}$**. **Esto está mal**.
+
+¿Te acordás que en la diapositiva de Simple Precisión la precisión era $2^{-23}$ porque tenías exactamente 23 casilleros para la mantisa? Bueno, en Doble Precisión tenés **52 casilleros** para la mantisa. Por lo tanto, la precisión real (el escalón más ínfimo que la máquina puede medir) es **$2^{-52}$**. Al profesor le debe haber quedado pegado un número de otra filmina o se le cruzaron los cables con los 32 bits totales de la Simple Precisión. Anotátelo por las dudas.
+
+  
+
+**3. La tabla actualizada con los nuevos límites**
+
+El funcionamiento es calcado al que ya entendiste, pero usando el Exceso 1023:
+
+  
+
+- **La cuenta diaria (Exponente físico de 1 a 2046):** Es la zona segura. Acá la fórmula hace su magia de siempre: asume el `1.` implícito que no guardaste y le resta el Exceso 1023 al código de la memoria para devolverte tu exponente real.
+    
+      
+    
+- **Los códigos de Error (Exponente físico 2047):** Como ahora tu tope de combinaciones es 2047 (puros unos en los 11 bits), ese es el número que prende las alarmas. Si la mantisa está en `0`, es **Infinito**. Si la mantisa tiene algún `1`, es un error **NaN** (Not a Number).
+    
+      
+    
+- **El código Microscópico (Exponente físico 0):** Sigue funcionando igual. Si la mantisa está vacía, es el **Cero absoluto**. Si hay algo en la mantisa, entra en modo emergencia (números no normalizados): desactiva el `1.` implícito y fija el multiplicador en $2^{-1022}$ para evitar redondear a cero de golpe.
+
 
 ![[Pasted image 20260826210243.png]]
