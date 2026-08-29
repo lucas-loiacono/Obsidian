@@ -1385,7 +1385,80 @@ El recuadrito negro de abajo a la derecha resume el proceso a la inversa (el des
 
 ![[Pasted image 20260826210204.png]]
 
+
+Esta diapositiva es el mapa completo de los límites físicos de tu computadora cuando usa el formato de Simple Precisión (los famosos 32 bits). Básicamente, te muestra qué pasa cuando intentás guardar números que se salen de los márgenes.
+
+  
+
+Vamos a desglosarla en las tres partes clave que te muestra:
+
+  
+
+**1. El límite máximo (El número más gigante posible)**
+
+La fórmula de arriba te muestra el tope absoluto del sistema. Se logra cuando ponés todos los casilleros de la mantisa en `1` y usás el exponente máximo permitido (que es el 127 que charlamos recién).
+
+Al pasarlo a decimal, da ese $3.4028... \times 10^{38}$. Para que te des una idea, es un número tan grande que si intentás guardar algo mayor a eso (por ejemplo, el resultado de una multiplicación bestial o ese exponente de 254 que hablábamos antes), la computadora directamente tira la toalla y caes en las zonas de los costados llamadas **Overflow** (positivo o negativo).
+
+  
+
+**2. La Precisión**
+
+Ese $2^{-23}$ viene del hecho de que tenés exactamente 23 casilleros para la mantisa. Representa el "escalón" más chiquitito que la computadora puede notar entre dos números distintos. Si la diferencia entre dos números es menor a eso, para la computadora son exactamente el mismo número porque no tiene suficientes casilleros para escribir el detalle fino.
+
+  
+
+**3. El gráfico y el "Agujero Negro" del Underflow**
+
+El eje horizontal es una recta numérica. Las zonas rayadas son tu **zona segura** (los números que caben perfecto en los 32 bits).
+
+Pero lo más importante de este gráfico es el espacio en blanco que está en el medio, rodeando al cero: el **Underflow**.
+
+  
+
+Pensalo así: si intentás guardar un número que es microscópico, como por ejemplo la masa de un electrón (que tiene como 30 ceros después de la coma), vas a necesitar un exponente recontra negativo. Como tu límite para exponentes negativos es -126 (físicamente guardado como `00000001`), si tu número es todavía más chiquito que ese límite, te caes en la zona de Underflow.
+
+  
+
+Cuando hay un Underflow, el número es tan microscópicamente cercano a cero que la computadora se queda sin capacidad para representarlo y, en general, lo redondea directamente a un `0` absoluto.
+
+
+
 ![[Pasted image 20260826210213.png]]
+
+Acá tenés el desglose exacto de las cinco filas de la tabla, explicando qué significa cada combinación física para el procesador:
+
+  
+
+1. **Exponente = 0 y Mantisa = 0 (El Cero absoluto):**
+    
+    Cuando todos los bits del exponente y de la mantisa están apagados, el sistema representa el valor matemático cero. Como el bit de signo viaja por un carril separado, la computadora puede registrar físicamente un $+0$ (`0` en el signo) y un $-0$ (`1` en el signo).
+    
+      
+    
+2. **Exponente = 0 y Mantisa = <>0 (Números no normalizados):**
+    
+    El exponente está vacío, pero hay al menos un bit prendido en la mantisa. Este es el "salvavidas" del procesador para poder medir números microscópicos antes de caer en el cero absoluto. Para lograrlo, la máquina hace dos excepciones: desactiva el truco del "1 implícito" (fijate que en la fórmula ahora le suma la mantisa a un **`0.`**) y clava el multiplicador fijo en el límite inferior: $(0. + \text{Mantisa}) \times 2^{-126}$.
+    
+      
+    
+3. **Exponente = 1 a 254 (Números normalizados):**
+    
+    Este es el escenario estándar donde ocurre el 99% de la matemática diaria de tu computadora. Se aplica la regla general: el procesador asume automáticamente que hay un "1" entero antes de la coma, y calcula el exponente real restándole el exceso 127 al código binario que encontró guardado: $(1. + \text{Mantisa}) \times 2^{\text{exp}-127}$.
+    
+      
+    
+4. **Exponente = 255 y Mantisa = 0 (Infinito):**
+    
+    Todos los bits del exponente están prendidos en `1`, pero la mantisa está completamente limpia. Es el código de alerta para reportar **Infinito**. Salta automáticamente si un número sufre un _overflow_ masivo (superando el límite de la zona segura) o si tu programa intenta dividir un número por cero. Dependiendo de cómo haya quedado el bit de signo, indicará $+\infty$ o $-\infty$.
+    
+      
+    
+5. **Exponente = 255 y Mantisa = <>0 (Not a Number / NaN):**
+    
+    El exponente está al máximo, pero la mantisa tiene datos adentro (algún bit en `1`). Es el código de error absoluto del procesador para reportar una aberración matemática que no tiene solución. Salta si le pedís a la computadora calcular cosas imposibles, como hacer $0 \div 0$, infinito menos infinito, o la raíz cuadrada de un número negativo.
+
+
 
 ![[Pasted image 20260826210224.png]]
 
