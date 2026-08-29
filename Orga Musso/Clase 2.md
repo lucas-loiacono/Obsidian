@@ -1327,6 +1327,62 @@ Finalmente, el texto de abajo te confirma que la regla para identificar si el pa
 
 ![[Pasted image 20260826210152.png]]
 
+Esta diapositiva resuelve un problema clave de los **8 bits del exponente** en el formato de Simple Precisión (la estructura física exacta que hay detrás de una variable `float` cuando programás en C).
+
+  
+
+El problema que plantea el profesor es el siguiente: tu exponente puede ser negativo (si querés guardar un número microscópico como $2^{-50}$) o positivo (para un número gigante). Sin embargo, ya gastaste el único "bit de signo" que tenías para definir si el número completo era positivo o negativo. ¿Cómo hacés para guardar un exponente negativo en esos 8 casilleros sin complicarte la vida con el sistema de Complemento a 2?
+
+  
+
+La norma IEEE 754 lo solucionó inventando el sistema de **Exceso 127** (también conocido como desplazamiento o _bias_).
+
+  
+
+La matemática que explica el párrafo central es súper mecánica:
+
+  
+
+1. Con 8 bits podés armar 256 combinaciones (del 0 al 255).
+    
+      
+    
+2. Los ingenieros agarraron el número que está justo en la mitad: el **127**.
+    
+      
+    
+3. **La regla de oro:** Al exponente real que vos necesites guardar, le vas a sumar 127, y recién ahí vas a pasar ese resultado a binario para guardarlo en la memoria.
+    
+      
+    
+
+Fijate cómo funciona en la lista de ejemplos:
+
+  
+
+- Si tu exponente real es **0**: Hacés la suma (0 + 127 = 127). El procesador guarda el binario `01111111`.
+    
+      
+    
+- Si tu exponente es recontra negativo, por ejemplo **-126**: Hacés la suma (-126 + 127 = 1). El procesador simplemente guarda un `00000001`.
+    
+      
+    
+- Si tu exponente es positivo y gigante, como **127**: Hacés la suma (127 + 127 = 254). El procesador guarda `11111110`.
+    
+      
+    
+
+**¿Cuál es la gran ventaja de hacer este "corrimiento"?**
+
+Hace que el procesador sea rapidísimo para comparar qué número es más grande. Al sumarle 127 a todo, la máquina percibe que todos los exponentes son números positivos convencionales. Si tiene que comparar, sabe al instante que un `00000001` (que es el -126 real) es menor que un `01111111` (que es el 0 real), sin tener que analizar bits de signos extraños.
+
+  
+
+El recuadrito negro de abajo a la derecha resume el proceso a la inversa (el desempaquetado). Cuando la máquina tiene que leer de la memoria el número que guardaste, lee el exponente en binario (E) y **le resta 127** para deshacer el truco y recuperar el exponente original. Ese "1,Mantisa" que aparece en la fórmula te está spoileando el próximo gran truco de la norma: el bit implícito.
+
+
+
 ![[Pasted image 20260826210204.png]]
 
 ![[Pasted image 20260826210213.png]]
