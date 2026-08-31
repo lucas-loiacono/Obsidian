@@ -24,4 +24,26 @@ se va moviendo por la cantidad de bytes que es el tipo del vector
 
 
 
+Ese "salto" sirve justamente para decirle al programa dónde empieza el siguiente elemento. Como el programa sabe desde el principio que tu vector es de tipo `int`, sabe dos cosas fundamentales al momento de leer la memoria:
+
+1. **El tamaño del salto:** Para pasar de `vec[0]` a `vec[1]`, sabe que tiene que avanzar 4 posiciones en la memoria (por eso en tu imagen salta del 8020 al 8024).
+    
+2. **Cuánto tiene que leer (el tamaño del "casillero"):** Cuando le pedís que lea `vec[1]`, el programa va a la dirección 8024 y sabe que tiene que leer exactamente **4 bytes enteros** (es decir, lee las direcciones 8024, 8025, 8026 y 8027 juntas) para poder armar los 32 bits que componen tu número 8.
+    
+
+Por eso los lenguajes de programación usan los índices (`[0]`, `[1]`, `[2]`). Internamente, el programa hace una cuenta matemática muy simple para saber dónde leer: **Dirección de memoria inicial + (Índice * 4 bytes)**.
+
+Así se asegura de empezar a leer en el casillero correcto y detenerse justo donde termina ese número, sin pisar la información del siguiente.
+
+
+
+![[Pasted image 20260831202838.png]]
+
+
+cuanto tengo una variable dentro de una función donde se que no la voy a usar mas la tengo que declarar como null, lo que ocurre es que vec deja de refenciar a la parte de la memoria en el heap,  y se le asigna la direccion 0, lo que tiene java es que cada cierto tiempo analiza el s
+
+
+
+
+
 
