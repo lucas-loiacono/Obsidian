@@ -105,6 +105,51 @@ TDA
 
 ![[Pasted image 20260825193750.png]]
 
+Un **TDA** (Tipo de Dato Abstracto o _Abstract Data Type_) es un modelo conceptual o un "contrato" que define **qué datos almacena y qué operaciones se pueden realizar con ellos**, sin importar **cómo** está programado por dentro.
+
+### La idea central: El _Qué_ vs. El _Cómo_
+
+- **El TDA define el _QUÉ_:** Especifica las acciones disponibles (la interfaz o comportamiento público).
+    
+- **La implementación define el _CÓMO_:** Es el código real (la clase, los punteros, los arreglos o la memoria) que hace que esas operaciones funcionen.
+    
+
+### Una analogía simple: La Cafetera
+
+Piensa en una cafetera como un TDA:
+
+- **Operaciones (TDA):** `encender()`, `cargarAgua()`, `prepararCafe()`. A ti solo te interesa saber que al apretar `prepararCafe()` obtienes un café.
+    
+- **Implementación interna:** Si por dentro usa una bomba de presión, resistencias térmicas o válvulas mecánicas, al usuario le da igual. Si el fabricante cambia el circuito interno pero mantiene los mismos botones, la cafetera sigue funcionando igual para quien la usa.
+    
+
+### Desglosando los puntos de la diapositiva
+
+1. **"Es un mecanismo de descripción de alto nivel que, al implementarse, genera una clase":**
+    
+    El TDA es el diseño teórico (en papel o en abstracción). Cuando tomas ese diseño y lo programas en un lenguaje como Java, C++ o Python, escribes una **clase** con sus atributos y métodos.
+    
+2. **"Es una estructura de datos definida por las operaciones que puede hacer y no por cómo hacerlas":**
+    
+    Por ejemplo, el TDA **Pila (Stack)** se define únicamente por dos operaciones:
+    
+    - `apilar(elemento)` (push)
+        
+    - `desapilar()` (pop)
+        
+    
+    No importa si por dentro se implementó usando un arreglo estático (`int[]`) o una lista enlazada con punteros (`Node*`). Mientras cumpla con esas operaciones, sigue siendo una Pila.
+    
+
+### Resumen de la diferencia clave
+
+| **Concepto**           | **Rol**                            | **Enfoque**                                    |
+| ---------------------- | ---------------------------------- | ---------------------------------------------- |
+| **TDA**                | Modelo conceptual / Especificación | Qué hace (operaciones y comportamiento)        |
+| **Estructura / Clase** | Código real en memoria             | Cómo lo hace (variables, algoritmos, punteros) |
+
+
+
 ![[Pasted image 20260825194123.png]]
 
 ![[Pasted image 20260825194548.png]]
