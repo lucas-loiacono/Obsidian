@@ -351,3 +351,8 @@ Es tal cual lo dedujiste. Esas anotaciones (`1` y `0..*`) son fundamentales porq
 ![[Pasted image 20260831012233.png]]
 
 ![[Pasted image 20260831012540.png]]
+
+
+![[Pasted image 20260831013408.png]]
+
+![[Pasted image 20260831013643.png]]
