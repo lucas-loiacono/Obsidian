@@ -199,3 +199,5 @@ Para visualizarlo de forma práctica en código:
 ![[Pasted image 20260831004553.png]]
 
 ![[Pasted image 20260831004902.png]]
+
+![[Pasted image 20260831005523.png]]
