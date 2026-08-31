@@ -150,6 +150,46 @@ Piensa en una cafetera como un TDA:
 
 
 
+
+
+
+
+Te lo tienes que imaginar como el **boceto o contrato de todas las acciones válidas** que definen a esa entidad, no solo de una acción principal aislada.
+
+Un TDA representa el **paquete completo de comportamiento**: define qué información representa y el conjunto exacto de operaciones que se le pueden pedir desde afuera.
+
+### ¿Por qué el conjunto de acciones y no solo la principal?
+
+Tomemos como ejemplo una **Cuenta Bancaria**:
+
+- Si piensas solo en la "acción principal", podrías pensar únicamente en `transferirDinero()`.
+    
+- Sin embargo, el **TDA Cuenta Bancaria** es el conjunto completo de reglas y operaciones permitidas:
+    
+    - `depositar(monto)`
+        
+    - `extraer(monto)`
+        
+    - `consultarSaldo()`
+        
+
+El TDA define **todas las formas posibles en que el mundo exterior puede interactuar con los datos**. Todo lo que esté fuera de ese boceto simplemente no existe para quien usa el TDA.
+
+### La relación exacta entre TDA e Interfaces / Clases
+
+Para visualizarlo de forma práctica en código:
+
+1. **El TDA es el plano / contrato (en Java sería una `interface`):**
+    
+    Dice qué métodos existen, qué parámetros reciben y qué devuelven, sin una sola línea de código real dentro.
+    
+2. **La Clase es la implementación real:**
+    
+    Es donde escribes las variables (`private double saldo;`) y el código que hace funcionar cada una de esas acciones.
+
+
+
+
 ![[Pasted image 20260825194123.png]]
 
 ![[Pasted image 20260825194548.png]]
