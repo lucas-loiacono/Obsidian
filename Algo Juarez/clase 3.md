@@ -51,6 +51,9 @@ Si no encapsulas tu código (dejando todo público), cualquier otra parte del si
 
 ![[Pasted image 20260825191405.png]]
 
+
+![[Pasted image 20260830230236.png]]
+
 ![[Pasted image 20260825191520.png]]
 
 ![[Pasted image 20260825192759.png]]
