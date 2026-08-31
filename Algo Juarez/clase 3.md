@@ -58,6 +58,47 @@ Si no encapsulas tu código (dejando todo público), cualquier otra parte del si
 
 ![[Pasted image 20260825192759.png]]
 
+
+
+
+``` java
+class Persona {
+    private String nombre;
+    private Integer edad;
+
+    // Constructor de Personas
+    Persona(String n, Integer e) {
+        nombre = n;
+        if (e > 0) { // <-- Se completa la condición vacía de la imagen
+            edad = e;
+        } else {
+            System.out.println("ingresa una edad valida!"); // Sysout
+        }
+    }
+
+    // Método para modificar los datos (Setter)
+    void setPersona(String n, Integer e) {
+        nombre = n;
+        if (e > 0) {
+            edad = e;
+        } else {
+            System.out.println("ingresa una edad valida!");
+        }
+    }
+}
+```
+
+
+
+En el código de la imagen **image_f3788a.png**, el encapsulamiento se aplica declarando los atributos como `private` y usando los métodos (como el constructor y `setPersona`) como "filtros" obligatorios para validar los datos antes de guardarlos.
+
+Funciona de la siguiente manera:
+
+- **Ocultamiento (`private`):** Al definir `private Integer edad;`, bloqueas el acceso directo a la variable. Esto impide que desde la función `main` alguien haga algo como `p1.edad = -10;` y corrompa los datos.
+    
+- **Control y Validación:** Como el exterior no puede tocar `edad` directamente, la única forma de modificar ese dato es pidiéndoselo a la clase a través de `setPersona(n, e)`. Al hacerlo, la clase ejecuta su regla de negocio: `if (e > 0)`. Esto garantiza que la edad asignada tenga sentido lógico. Si el valor es negativo o cero, la variable interna se protege, no se modifica y se rechaza la operación con el mensaje "ingresa una edad valida!".
+
+
 ![[Pasted image 20260825193340.png]]
 
 TDA
