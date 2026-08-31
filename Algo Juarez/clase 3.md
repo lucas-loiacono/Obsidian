@@ -27,6 +27,28 @@ O: open close, el código tiene que ser abierto a la extensión, pero cerrado a 
 
 También para que no me puedan cambiar los atributos de mi objeto para que no me lo rompan, ósea que deje de ser lo mas parecido al objeto que quiero representar
 
+
+En la imagen **image_e81ba4.jpg** se muestran los principios **SOLID**, un conjunto de reglas fundamentales en la Programación Orientada a Objetos (POO) diseñadas para crear software más fácil de mantener, entender y escalar.
+
+El significado de cada sigla es el siguiente:
+
+- **S - Single Responsibility Principle (Principio de Responsabilidad Única):** Una clase debe tener un solo propósito o responsabilidad. Como indica la diapositiva, cada clase debe respetar su "razón de existir". Si una clase hace demasiadas cosas distintas, cualquier pequeño cambio en el sistema obligará a modificarla constantemente.
+    
+- **O - Open-Closed Principle (Principio de Abierto/Cerrado):** Las clases deben estar _abiertas a la extensión_, pero _cerradas a la modificación_. Esto significa que debes poder agregar nuevas funcionalidades (por ejemplo, creando nuevas clases hijas o implementando interfaces) sin necesidad de tocar o alterar el código fuente original que ya funciona.
+    
+- **L - Liskov Substitution Principle (Principio de Sustitución de Liskov):** Las clases derivadas (hijas) deben poder sustituir a sus clases base (padres) sin alterar el correcto funcionamiento del programa. Si el sistema espera usar la clase padre, pasarle una clase hija no debería romper nada.
+    
+- **I - Interface Segregation Principle (Principio de Segregación de Interfaces):** Es mejor crear muchas interfaces pequeñas y muy específicas en lugar de una sola interfaz gigante y de propósito general. Ninguna clase debería verse obligada a depender de o implementar métodos que no va a utilizar.
+    
+- **D - Dependency Inversion Principle (Principio de Inversión de Dependencias):** Los módulos de alto nivel no deben depender de los módulos de bajo nivel; ambos deben depender de abstracciones (interfaces). Esto asegura que tu código dependa de "contratos" generales en lugar de implementaciones concretas, facilitando los cambios a futuro.
+    
+
+**¿Qué es el encapsulamiento?** Es uno de los pilares de la POO. Consiste en **ocultar el estado interno** (los datos, atributos o variables) de un objeto para que no pueda ser leído ni alterado directamente por otras clases (lo que tu diapositiva llama "no exponerse a otras clases"). En lugar de dejar los datos públicos, se los declara como privados y se interactúa con ellos a través de métodos controlados. Esto protege la lógica interna y asegura que los datos no se corrompan desde afuera.
+
+**¿Por qué el encapsulamiento se relaciona fuertemente con la 'O' (Open-Closed)?** El encapsulamiento es la herramienta principal que te permite cumplir con la parte de **"cerrado a la modificación"**.
+
+Si no encapsulas tu código (dejando todo público), cualquier otra parte del sistema podría entrar y modificar el estado de esa clase directamente. Al encapsular, blindas la estructura interna de la clase. De este modo, garantizas que la única forma de añadirle nuevo comportamiento al sistema sea extendiéndolo (creando nuevas clases que hereden o interactúen con la base) y no abriendo la clase original para modificar su código interno, cumpliendo exactamente con el Principio de Abierto-Cerrado.
+
 ![[Pasted image 20260825191405.png]]
 
 ![[Pasted image 20260825191520.png]]
