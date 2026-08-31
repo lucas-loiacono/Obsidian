@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/7. Class.md",
+                "file": "Algo Juarez/clase 3.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7. Class"
+              "title": "clase 3"
             }
           }
         ],
@@ -267,6 +267,7 @@
   },
   "active": "56b5e2943c04eedf",
   "lastOpenFiles": [
+    "Python/7. Class.md",
     "Algo Juarez/clase 3.md",
     "!imagenes/Pasted image 20260830230236.png",
     "Orga Musso/Clase 2.md",
@@ -285,7 +286,6 @@
     "Python/biblioteca python/Diccionarios.md",
     "Python/biblioteca python/Impresion.md",
     "Python/biblioteca python/Métodos.md",
-    "Python/7. Class.md",
     "Orga Musso/Clase 1.md",
     "Algo Juarez/clase 2.md",
     "Algo Juarez/clase 1.md",
