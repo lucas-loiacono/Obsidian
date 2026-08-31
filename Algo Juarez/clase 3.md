@@ -355,4 +355,4 @@ Es tal cual lo dedujiste. Esas anotaciones (`1` y `0..*`) son fundamentales porq
 
 ![[Pasted image 20260831013408.png]]
 
-![[Pasted image 20260831013643.png]]ahi recien active las teclas rapidas para ver como funciona este teclado con el punto de activacion en 0.001
+![[Pasted image 20260831013643.png]]
