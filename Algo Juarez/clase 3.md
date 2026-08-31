@@ -341,3 +341,13 @@ La multiplicidad en UML siempre se lee en ambas direcciones cruzadas para entend
     
 
 Es tal cual lo dedujiste. Esas anotaciones (`1` y `0..*`) son fundamentales porque te dictan exactamente cómo vas a tener que estructurar el código y tu base de datos cuando pases del diseño a la programación real.
+
+
+
+
+
+![[Pasted image 20260831012222.png]]
+
+![[Pasted image 20260831012233.png]]
+
+![[Pasted image 20260831012540.png]]
