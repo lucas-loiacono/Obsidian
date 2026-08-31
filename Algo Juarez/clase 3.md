@@ -200,4 +200,144 @@ Para visualizarlo de forma práctica en código:
 
 ![[Pasted image 20260831004902.png]]
 
+El **UML** (Lenguaje Unificado de Modelado, por sus siglas en inglés) es un lenguaje visual gráfico y estandarizado que se utiliza en ingeniería de software para diseñar, documentar y planificar la estructura de un sistema antes de escribir el código.
+
+  
+
+Así como un arquitecto hace un plano antes de construir una casa, un programador usa UML para dibujar la arquitectura de su programa.
+
+  
+
+En el contexto de la Programación Orientada a Objetos y los TDAs que venías viendo, la herramienta principal del UML es el **Diagrama de Clases**, que sirve para representar visualmente tus "bocetos":
+
+  
+
+- **Estructura del diagrama:** Cada clase se dibuja como un rectángulo dividido horizontalmente en tres bloques:
+    
+      
+    1. El nombre de la clase (ej. `Complejo`).
+        
+          
+        
+    2. Los atributos o variables (el dominio).
+        
+          
+        
+    3. Los métodos u operaciones (el comportamiento).
+        
+          
+        
+- **Simbología de Encapsulamiento:** El UML usa símbolos específicos para indicar qué es visible y qué está oculto, mapeando exactamente los conceptos de público y privado:
+    
+      
+    - `-` (Signo menos): Indica que el atributo o método es **private** (ej. `- real: double`).
+        
+          
+        
+    - `+` (Signo más): Indica que es **public** (ej. `+ sumar(otro: Complejo)`).
+        
+          
+        
+    - `#` (Numeral): Indica que es **protected** (se usa cuando hay herencia).
+        
+          
+        
+- **Relaciones y Dependencias:** Permite dibujar distintos tipos de líneas y flechas conectando los rectángulos para mostrar cómo interactúan las clases entre sí (quién hereda de quién, quién depende de quién, etc.).
+    
+      
+    
+
+Básicamente, el UML es el estándar universal que te permite agarrar la definición teórica de un TDA y plasmarla en un gráfico que cualquier otro programador del mundo pueda entender rápidamente, sin importar si luego lo van a programar en Java, Python, C o cualquier otro lenguaje.
+
+
 ![[Pasted image 20260831005523.png]]
+
+La imagen **image_f63a28.png** es tu "diccionario" visual de UML. Como puedes ver, el lado izquierdo confirma exactamente lo que acabamos de hablar: el rectángulo dividido en tres partes (Nombre, Atributos, Métodos) y los signos de visibilidad (`+`, `-`, `#`) que te permiten graficar el encapsulamiento.
+
+  
+
+La parte nueva de esta diapositiva son las herramientas para conectar tus clases (TDAs) entre sí:
+
+  
+
+**1. Relaciones básicas (Las flechas)**
+
+En un programa real, las clases no están aisladas; interactúan.
+
+  
+
+- **Herencia (flecha con triángulo vacío):** Representa una relación de "es un tipo de". Por ejemplo, si tienes una clase `Perro`, usarías esta flecha apuntando hacia una clase padre llamada `Animal`.
+    
+      
+    
+- **Asociación (flecha simple):** Representa una relación de "tiene un", "conoce a" o "usa un". Por ejemplo, una clase `Cliente` tendría una flecha de asociación apuntando hacia una clase `CuentaBancaria`.
+    
+      
+    
+
+**2. Multiplicidad**
+
+Estos números se escriben en los extremos de la flecha de Asociación para definir las reglas de cantidad en esa relación:
+
+  
+
+- **`1` (Exactamente 1):** Un país tiene _exactamente 1_ ciudad capital.
+    
+      
+    
+- **`0..1` (Cero a uno):** Un conductor puede tener _0 o 1_ auto asignado en este momento.
+    
+      
+    
+- **`0..*` o `*` (Cero a muchos / Muchos):** Un profesor puede tener _0 o muchos_ alumnos en su clase.
+    
+      
+    
+
+Con estos elementos ya tienes lo necesario para dibujar el plano arquitectónico de cualquier sistema orientado a objetos antes de escribir la primera línea de código.
+
+
+
+![[Pasted image 20260831011445.png]]
+
+La dirección de la flecha en una asociación (la punta que señala desde `Persona` hacia `Coche`) indica la **navegabilidad** de la relación. Básicamente, define "quién conoce a quién".
+
+  
+
+- **Por qué apunta hacia Coche:** Significa que la clase `Persona` conoce y tiene acceso a sus coches, pero el `Coche` no tiene idea de quién es su dueño (la relación es unidireccional).
+    
+      
+    
+- **Cómo se traduce al código:** Esto implica que dentro de la clase `Persona` existirá un atributo oculto (por ejemplo, una lista o un arreglo) para guardar objetos de tipo `Coche`. Por el contrario, dentro de la clase `Coche` no habrá ninguna variable que guarde a la `Persona`.
+    
+      
+    
+
+**Explicación general de la imagen:**
+
+  
+
+La imagen **image_f641ea.jpg** es un ejemplo integrador que une los conceptos de TDA, encapsulamiento y UML. Destaca reglas prácticas para armar estos diagramas:
+
+  
+
+- **Aplicación del Encapsulamiento:** Muestra gráficamente cómo los datos (`modelo`, `marca`, `nombre`, `edad`) llevan un `-` por ser privados, mientras que las acciones (`requiereMecanico()`, `mostrarDatos()`) llevan un `+` por ser públicas. También muestra la sintaxis estandarizada para definir los parámetros y lo que devuelve un método (ej. `: Boolean`).
+    
+      
+    
+- **La regla de oro de la Asociación:** El texto a la derecha aclara un error muy común al dibujar UML: _"no se pone el atributo si se dibuja la relación"_. Como ya dibujaste la flecha que indica que la Persona tiene Coches, **está mal** escribir un atributo llamado `- misCoches: Coche[]` dentro de la caja de `Persona`. La flecha es la representación gráfica de ese atributo.
+    
+      
+    
+- **Lectura de la Multiplicidad:** Los números te dictan las reglas del negocio. Se lee combinando ambos extremos de la flecha: "Exactamente **1** `Persona` puede tener entre **0 y muchos** (`0..*`) objetos de tipo `Coche`".
+
+
+
+La multiplicidad en UML siempre se lee en ambas direcciones cruzadas para entender la regla de negocio completa que estás modelando:
+
+- **De Persona a Coche:** Te paras en la clase `Persona`, sigues la línea y miras el número que está del lado opuesto (`0..*`). Esto significa que **1 Persona puede tener de 0 a muchos Coches**.
+    
+- **De Coche a Persona:** Te paras en la clase `Coche`, haces el camino inverso y miras el número que está del lado de la clase Persona (`1`). Esto significa que **1 Coche le pertenece a exactamente 1 Persona** (es decir, en este sistema un coche no puede estar sin dueño, ni ser propiedad compartida de dos personas a la vez).
+    
+
+Es tal cual lo dedujiste. Esas anotaciones (`1` y `0..*`) son fundamentales porque te dictan exactamente cómo vas a tener que estructurar el código y tu base de datos cuando pases del diseño a la programación real.
