@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 3.md",
+                "file": "Algo Juarez/clase 4.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 3"
+              "title": "clase 4"
             }
           }
         ],
@@ -267,6 +267,8 @@
   },
   "active": "56b5e2943c04eedf",
   "lastOpenFiles": [
+    "Algo Juarez/clase 3.md",
+    "Algo Juarez/clase 4.md",
     "!imagenes/Pasted image 20260831013643.png",
     "!imagenes/Pasted image 20260831013408.png",
     "!imagenes/Pasted image 20260831012540.png",
@@ -278,8 +280,6 @@
     "!imagenes/Pasted image 20260831004553.png",
     "!imagenes/Pasted image 20260831004334.png",
     "Python/7. Class.md",
-    "Algo Juarez/clase 3.md",
-    "!imagenes/Pasted image 20260830230236.png",
     "Orga Musso/Clase 2.md",
     "C/Cap1.md",
     "Python/biblioteca python/Arreglos.md",
