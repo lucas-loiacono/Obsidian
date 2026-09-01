@@ -46,3 +46,6 @@ cuanto tengo una variable dentro de una función donde se que no la voy a usar m
 ![[Pasted image 20260831214224.png]]
 
 se libera si no tiene ninguna referencia, ya con que almenos tenga una no se elimina
+
+
+![[Pasted image 20260901000715.png]]
