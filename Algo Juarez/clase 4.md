@@ -102,3 +102,53 @@ Cuando el programa ejecuta `miVector = vectorNuevo;`, la variable `miVector` (qu
   
 
 El arreglo viejo original queda flotando en la memoria sin ninguna variable que lo referencie. El Recolector de Basura de Java (Garbage Collector) detecta esto automáticamente y elimina ese arreglo viejo para liberar el espacio.
+
+
+
+# Para eliminar elementos del vector
+
+Usar un **tamaño lógico (tope)** es la estrategia correcta, pero **no hace falta ordenar** el vector. Si lo ordenás, perdés la secuencia original en la que guardaste los datos, lo cual rara vez es el comportamiento deseado.
+
+  
+
+Para eliminar un elemento en el medio manteniendo el orden, la técnica estándar es hacer un **desplazamiento (shift) hacia la izquierda**. Esto significa mover todos los elementos que están a la derecha del número que querés borrar una posición hacia atrás para tapar el "hueco", y finalmente achicar el tope.
+
+  
+
+Así sería en código:
+
+  
+
+Java
+
+```java
+// Supongamos que queremos borrar el elemento en la posicion 'indiceABorrar'
+
+// 1. Desplazamos los elementos una posición hacia la izquierda
+for (int i = indiceABorrar; i < tope - 1; i++) {
+    vector[i] = vector[i + 1]; 
+}
+
+// 2. Reducimos el tamaño lógico
+tope--; 
+```
+
+Con esto, el número que estaba al final va a quedar duplicado físicamente en la última y penúltima posición de la memoria del arreglo, pero como achicaste el `tope`, tu programa ignora esa última celda y funciona perfectamente.
+
+  
+
+**El atajo (si el orden no importa):**
+
+Si estás haciendo un programa donde el orden de los elementos no tiene ninguna importancia, podés evitar el bucle `for` con un truco mucho más rápido:
+
+  
+
+1. Agarrás el último elemento válido del vector (`vector[tope - 1]`).
+    
+      
+    
+2. Lo usás para "pisar" (sobrescribir) la posición del número que querés borrar.
+    
+      
+    
+3. Hacés `tope--`.
