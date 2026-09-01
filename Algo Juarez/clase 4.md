@@ -43,7 +43,6 @@ Así se asegura de empezar a leer en el casillero correcto y detenerse justo don
 cuanto tengo una variable dentro de una función donde se que no la voy a usar mas la tengo que declarar como null, lo que ocurre es que vec deja de refenciar a la parte de la memoria en el heap,  y se le asigna la direccion 0, lo que tiene java es que cada cierto tiempo analiza el código y ve si hay memoria en el heap que no la referencia nada elimina esa memoria, al ponerle null a vec, deja de referenciar a la memoria en el heap y pasa a tener el  valor 0, cuando pasa el garbage collector lo ve y elimina la memoria del heap ya que no tiene referencia
 
 
+![[Pasted image 20260831214224.png]]
 
-
-
-
+se libera si no tiene ninguna referencia, ya con que almenos tenga una no se elimina
