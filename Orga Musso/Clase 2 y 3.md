@@ -500,6 +500,27 @@ En conclusión, la cazaste al vuelo. Es exactamente una balanza entre cuántos r
 	1000 con 3 bits puedo representar 8 en binario, ya que es 2^n, ese es el modulo en binomial, si yo paso 1000 a decimal es el 8
 
 
+como representar numeros con signo
+
+
+hay varios tipos de representacion:
+
+valor absoluto + bit de signo, le agrego un 0 o un 1 si es positivo o negativo
+
+complemento al modulo +bit de signo
+
+$$N\vert{}_B + C_M(N)\vert{}_B = B^n\vert{}_B$$
+
+
+
+$$N\vert{}_B $$
+este es un numero dado una base, si yo le sumo mi complemento de ese numero osea mi: 
+
+
+
+
+
+
 
 
 
