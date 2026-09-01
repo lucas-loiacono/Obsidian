@@ -495,6 +495,10 @@ En conclusión, la cazaste al vuelo. Es exactamente una balanza entre cuántos r
 
 ![[Pasted image 20260825070542.png]]
 
+	001 -> +1
+	+111 -> -1
+	1000 con 3 bits puedo representar 8 en binario, ya que es 2^n, ese es el modulo en binomial, si yo paso 1000 a decimal es el 8
+
 
 
 
