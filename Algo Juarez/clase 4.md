@@ -54,3 +54,5 @@ se libera si no tiene ninguna referencia, ya con que almenos tenga una no se eli
 ![[Pasted image 20260901002114.png]]
 
 ![[Pasted image 20260901002838.png]]
+
+![[Pasted image 20260901005304.png]]
