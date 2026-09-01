@@ -35,3 +35,7 @@ La regla de diseño de la primera imagen te da un consejo muy útil para program
 ![[Pasted image 20260901181550.png]]
 
 ![[Pasted image 20260901181706.png]]
+
+![[Pasted image 20260901181824.png]]
+
+![[Pasted image 20260901182302.png]]
