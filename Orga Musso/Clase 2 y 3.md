@@ -516,10 +516,18 @@ $$N\vert{}_B + C_M(N)\vert{}_B = B^n\vert{}_B$$
 $$N\vert{}_B $$
 este es un numero dado una base, si yo le sumo mi complemento de ese numero osea mi: 
 
+$$C_M(N)\vert{}_B$$
+
+llego a la cantidad de resultados que puedo representar con esa base y la cantidad de numeros que tengo, osea mi 
+
+
+$$B^n\vert{}_B$$
 
 
 
 
+
+(complemento al modulo -1) + bit de signo
 
 
 
