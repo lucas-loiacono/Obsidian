@@ -529,6 +529,13 @@ $$B^n\vert{}_B$$
 
 (complemento al modulo -1) + bit de signo
 
+donde 
+(complemento al modulo -1) + 1= complemento al modulo
+
+
+
+
+
 
 
 
