@@ -532,12 +532,16 @@ $$B^n\vert{}_B$$
 donde 
 (complemento al modulo -1) + 1= complemento al modulo
 
-   001
+   001   = +1
 +
-   111
+   111   = -1             -> le tengo que sumar su negativo, ya que es el modulo
 = 1000
 
-con 3 bits, puedo representar 8 numeros, por lo cual 
+con 3 bits, puedo representar 8 números, esto es por
+
+$$B^n\vert{}_B$$
+que es 2^3 = 8 que en binario es 1000, es la cantidad de números que podes representar con 3 dígitos en base 2
+
 
 
 
