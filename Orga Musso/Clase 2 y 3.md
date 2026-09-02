@@ -533,6 +533,9 @@ $$B^n\vert{}_B$$
 
 
 
+
+
+
 Esta diapositiva marca un punto de inflexión en el tema. Hasta ahora, todas las conversiones que venías viendo asumían que los números eran positivos. Esta imagen introduce el problema de **cómo hace la computadora para representar números negativos**.
 
   
