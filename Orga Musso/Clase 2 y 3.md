@@ -532,6 +532,18 @@ $$B^n\vert{}_B$$
 donde 
 (complemento al modulo -1) + 1= complemento al modulo
 
+   001
++
+   111
+= 1000
+
+con 3 bits, puedo representar 8 numeros, por lo cual 
+
+
+
+
+
+
 
 
 
