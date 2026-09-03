@@ -118,4 +118,125 @@ El método `static` es como una calculadora externa: por sí sola no tiene los n
 
 ![[Pasted image 20260901181824.png]]
 
+### 1. Casos de uso para Miembros de Instancia
+
+**Objetivo:** Definir el estado y comportamiento de una entidad. Lo usas para modelar cosas de la vida real donde cada individuo tiene sus propias características.
+
+Java
+
+```java
+public class Vehiculo {
+    // ESTADO DE LA ENTIDAD (Variables de instancia)
+    // Cada vehículo tendrá su propia marca, velocidad y estado del motor.
+    String marca;
+    int velocidadActual;
+    boolean motorEncendido;
+
+    public Vehiculo(String marca) {
+        this.marca = marca;
+        this.velocidadActual = 0;
+        this.motorEncendido = false;
+    }
+
+    // COMPORTAMIENTO DE LA ENTIDAD (Métodos de instancia)
+    // Acelerar afecta únicamente a la velocidad de ESTE vehículo en particular.
+    public void encender() {
+        this.motorEncendido = true;
+    }
+
+    public void acelerar(int cantidad) {
+        if (this.motorEncendido) {
+            this.velocidadActual += cantidad;
+        }
+    }
+}
+```
+
+### 2. Casos de uso para Miembros Static
+
+**Objetivo:** Constantes, métodos de utilidad y estado global.
+
+**A) Constantes (Valores fijos que nunca cambian para nadie)** Se suele combinar `static` con la palabra `final` (que impide que el valor sea modificado) para crear constantes globales.
+
+Java
+
+```java
+public class ConfiguracionSistema {
+    // Todos los objetos leerán exactamente este mismo límite.
+    public static final int MAX_USUARIOS_PERMITIDOS = 100;
+    public static final String URL_BASE_DATOS = "jdbc:mysql://localhost:3306/db";
+}
+```
+
+**B) Métodos de Utilidad (Herramientas genéricas)** Clases que agrupan funciones que procesan datos de entrada y devuelven un resultado, sin necesidad de guardar un estado interno.
+
+Java
+
+```java
+public class UtilidadesTexto {
+    // Un método genérico que cualquiera puede usar llamando a UtilidadesTexto.ponerMayuscula(...)
+    public static String ponerMayuscula(String texto) {
+        if (texto == null || texto.isEmpty()) {
+            return texto;
+        }
+        return texto.substring(0, 1).toUpperCase() + texto.substring(1).toLowerCase();
+    }
+}
+```
+
+**C) Estado Global (Datos compartidos por toda la aplicación)** Variables que rastrean información a nivel de clase, como cachés, contadores o configuraciones generales.
+
+Java
+
+```java
+public class Tienda {
+    // Un acumulador global de todas las ventas de la tienda, 
+    // sin importar qué caja registradora específica hizo el cobro.
+    public static double ingresosTotalesDelDia = 0.0;
+
+    public void registrarVenta(double monto) {
+        // Al vender, sumamos al pozo global compartido
+        Tienda.ingresosTotalesDelDia += monto;
+    }
+}
+```
+
+
+¡Exactamente! Has dado en el clavo con el propósito práctico, aunque hay un **pequeño detalle técnico muy interesante** sobre cómo Java maneja la memoria que vale la pena aclarar para que seas un experto en esto.
+
+A nivel de memoria, en Java **el código de todos los métodos (sean static o no) se carga una sola vez** en la memoria (en el Metaspace). Es decir, si creas 1000 estudiantes, no se copian 1000 veces los métodos en la memoria; todos los objetos usan las mismas instrucciones.
+
+Entonces, ¿cuál es el verdadero ahorro y la ventaja de usar `static` para estos métodos generales?
+
+**El ahorro está en evitar crear OBJETOS inútiles.**
+
+Imagina que tienes una clase con funciones matemáticas, pero **no** le pones `static`. Para usarla, Java te obligaría a hacer esto:
+
+Java
+
+```
+// GASTO DE MEMORIA INNECESARIO:
+// Tienes que usar 'new' y ocupar espacio en la memoria (el Heap) 
+// creando un objeto completo solo para usar su método.
+Calculadora miCalc = new Calculadora(); 
+int resultado = miCalc.sumar(5, 5);
+```
+
+Crear objetos con `new` es un proceso que consume recursos y memoria de tu computadora. Si solo querías sumar dos números, crear un objeto entero es un desperdicio.
+
+Al ponerle **`static`**, el método queda disponible globalmente y te ahorras todo ese trámite:
+
+Java
+
+```
+// AHORRO DE RECURSOS:
+// No creas ningún objeto. Vas directo a la clase.
+int resultado = Calculadora.sumar(5, 5); 
+```
+
+**En resumen:** Tu intuición es 100% correcta. Para herramientas generales de uso continuo (como validar un email, redondear un número, o convertir una fecha), las haces `static`. De esa forma, se convierten en "servicios públicos" que tu programa puede usar en cualquier momento **sin tener que gastar memoria instanciando objetos desechables** cada vez que las necesitas.
+
+
+
+
 ![[Pasted image 20260901182302.png]]
