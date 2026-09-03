@@ -42,6 +42,65 @@ aca en el caso de la suma porque siempre va a ser igual, independiente de cada i
 
 ![[Pasted image 20260901181706.png]]
 
+La imagen **image_e657a7.png** explica la regla de oro sobre qué pueden ver y tocar los métodos `static` dentro de tu código. La clave para entenderlo es el **orden cronológico** en que Java carga las cosas en la memoria.
+
+- **La causa técnica (El "por qué"):** Cuando ejecutas un programa, Java lee la plantilla (la clase) y carga todo lo que dice `static` en la memoria global de forma inmediata. Las variables y métodos de instancia (los datos individuales) solo se crean en la memoria (el "Heap") más adelante, cuando escribes la palabra `new`. Lo que nace primero no puede pedirle datos a lo que todavía no existe.
+    
+- **Lo Permitido (Lo global habla con lo global):** Un método `static` puede interactuar libremente con otras variables o métodos que también sean `static`. Como todos se cargaron al principio en el mismo espacio compartido, se conocen entre sí.
+    
+- **Lo Restringido (Lo global no conoce lo individual):** Un método `static` **no puede** acceder a variables de instancia (como el `saldo` o el `nombre`). Si intentas leer una variable de instancia desde un método estático, Java te dará un error porque dirá: _"¿El saldo de quién? ¡Este método es general y no me has especificado un objeto!"_. Por eso mismo tampoco puedes usar la palabra `this` (que significa "este objeto"), ya que el contexto estático no pertenece a ningún objeto en particular.
+    
+
+Para que lo veas con un ejemplo rápido donde Java lanzaría un error:
+
+Java
+
+``` java
+public class Usuario {
+    String nombre; // Nace cuando haces 'new Usuario()'
+
+    public static void saludar() {
+        // ERROR RESTRINGIDO: Este método es estático (global). 
+        // No puede leer "nombre" porque no sabe a qué usuario específico le pertenece.
+        System.out.println("Hola, " + nombre); 
+    }
+}
+```
+
+
+
+
+Un método `static` **sí** puede sumar los sueldos, pero la condición clave es que **debes pasarle las instancias explícitamente como parámetros**. Lo que un método `static` tiene prohibido es intentar leer una variable de instancia "desde el aire", porque no está atado a ningún objeto (no tiene la referencia `this`).
+
+Aquí tienes cómo se ve esa diferencia en la práctica:
+
+
+``` java
+public class Empleado {
+    double sueldo; // Variable de instancia (cada empleado tiene el suyo)
+
+    public Empleado(double sueldo) {
+        this.sueldo = sueldo;
+    }
+
+    // 1. LO PERMITIDO: Pasarle las instancias al método static
+    public static double sumarSueldos(Empleado e1, Empleado e2) {
+        // Funciona perfectamente. El método estático ahora conoce a e1 y e2 
+        // porque se los enviaste de forma explícita.
+        return e1.sueldo + e2.sueldo; 
+    }
+
+    // 2. LO RESTRINGIDO: Intentar acceder a la variable directamente
+    public static void imprimirSueldo() {
+        // ERROR: Java te dirá "No se puede hacer referencia estática a un campo no estático".
+        // El método no sabe de qué empleado sacar el dato.
+        // System.out.println(sueldo); 
+    }
+}
+```
+
+
+
 ![[Pasted image 20260901181824.png]]
 
 ![[Pasted image 20260901182302.png]]
