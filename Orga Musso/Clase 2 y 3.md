@@ -590,6 +590,12 @@ Básicamente, la historia de la arquitectura de computadoras pasó por estos tre
 
 
 
+como mi idioma principal para esto es complemento al modulo +bit de signo lo que hago es 
+
+(complemento al modulo -1) + 1 = complemento al modulo
+
+
+
 
 
 
@@ -972,6 +978,9 @@ Así te ahorrás tener que usar la fórmula matemática con restas y potencias q
 
 
 yo aca para encontrar el -25 lo que tendria que hacer es pasar el 25 con complemento a -1 y lo consigo rapido
+
+
+
 
 Esta diapositiva es el "gran final" de la historia de los sistemas binarios. Te muestra en la práctica **por qué la industria informática eligió el sistema $C_M$ (Complemento a 2) como el ganador indiscutido**, descartando al resto.
 
@@ -1674,3 +1683,77 @@ El funcionamiento es calcado al que ya entendiste, pero usando el Exceso 1023:
 
 
 ![[Pasted image 20260826210243.png]]
+
+El estándar IEEE 754 es el sistema universal que utiliza el procesador para representar números fraccionarios (con coma flotante) en la memoria. Se basa en la notación científica binaria y divide el espacio físico en tres bloques fundamentales.
+
+  
+
+**1. Los Componentes del Número**
+
+  
+
+- **Bit de Signo (1 bit):** Funciona de manera independiente. Un `0` indica que el número es positivo y un `1` indica que es negativo.
+    
+      
+    
+- **La Mantisa y el Bit Implícito:** Es el bloque donde se guardan los números reales. Como en binario normalizado la notación científica siempre obliga a que el número empiece con un `1` a la izquierda de la coma (ej: $1,\text{algo} \times 2^{\text{exponente}}$), ese `1,` entero **nunca se guarda en la memoria**. La mantisa almacena únicamente los decimales que van después de la coma. Al recuperar el número, el procesador inyecta ese `1,` de forma automática, permitiendo ganar un bit extra de precisión sin ocupar espacio físico.
+    
+      
+    
+- **El Exponente y el Exceso:** Para evitar lidiar con números negativos dentro del exponente, se utiliza un sistema de desplazamiento llamado Exceso. Al exponente real matemático se le **suma** un número base fijo antes de guardarlo en la memoria. Cuando la computadora necesita hacer cálculos, lee ese código físico y le **resta** el Exceso para recuperar el exponente original (la fórmula $E - \text{Exceso}$).
+    
+      
+    
+
+**2. Las Dos Escalas del Formato**
+
+  
+
+- **Simple Precisión (32 bits totales):**
+    
+      
+    - **Exponente:** 8 bits. Su Exceso es **127**. (Los exponentes matemáticos van del -126 al +127).
+        
+          
+        
+    - **Mantisa:** 23 bits (más el bit implícito).
+        
+          
+        
+- **Doble Precisión (64 bits totales):**
+    
+      
+    - **Exponente:** 11 bits. Su Exceso es **1023**. Permite manejar cálculos a escala astronómica.
+        
+          
+        
+    - **Mantisa:** 52 bits (más el bit implícito). Otorga una precisión milimétrica para evitar errores de redondeo.
+        
+          
+        
+
+**3. Casos Especiales (Los límites físicos del Exponente)**
+
+La norma reserva los valores extremos del exponente físico (todos los bits en `0` o todos los bits en `1`) para identificar situaciones anómalas:
+
+  
+
+- **Exponente físico en 0 (Puros ceros):**
+    
+      
+    - Si la mantisa está vacía (0): Representa el **Cero absoluto**.
+        
+          
+        
+    - Si la mantisa tiene datos: Son **Números No Normalizados**. El procesador desactiva el `1,` implícito para poder representar valores microscópicos extremadamente cercanos al cero sin colapsar.
+        
+          
+        
+- **Exponente físico al máximo (Puros unos: 255 o 2047):**
+    
+      
+    - Si la mantisa está vacía (0): Representa **Infinito** (suele darse por divisiones por cero o desbordamientos masivos).
+        
+          
+        
+    - Si la mantisa tiene datos: Representa **NaN (Not a Number)**, un código de error matemático para cálculos imposibles o indeterminados.
