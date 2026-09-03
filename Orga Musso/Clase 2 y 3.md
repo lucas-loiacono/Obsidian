@@ -572,6 +572,10 @@ osea el complemento al modulo es mi numero pero en el otro signo
 - **Lógica subyacente:** El número negativo calculado es matemáticamente la distancia exacta que falta para alcanzar el total de combinaciones del sistema (el Módulo). Esto garantiza que al sumar un número con su negativo ($n + (-n)$), el sistema genere un desborde perfecto por la izquierda que se descarta, reiniciando los casilleros útiles a cero puro sin necesidad de circuitos de resta.
 
 
+para conseguir el numero negativo con complemento al modulo -1 lo que hago es
+
+.invierto los 1 y los 0 y le sumo 1 bit
+
 
 
 
@@ -954,6 +958,10 @@ Así te ahorrás tener que usar la fórmula matemática con restas y potencias q
 
 ![[Pasted image 20260825070823.png]]
 
+
+
+
+yo aca para encontrar el -25 lo que tendria que hacer es pasar el 25 con complemento a -1 y lo consigo rapido
 
 Esta diapositiva es el "gran final" de la historia de los sistemas binarios. Te muestra en la práctica **por qué la industria informática eligió el sistema $C_M$ (Complemento a 2) como el ganador indiscutido**, descartando al resto.
 
