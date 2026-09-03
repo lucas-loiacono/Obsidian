@@ -580,6 +580,16 @@ para conseguir el numero negativo con complemento al modulo -1 lo que hago es
 
 
 
+Básicamente, la historia de la arquitectura de computadoras pasó por estos tres sistemas:
+
+- **Signo y Magnitud:** Es el método que dedujiste vos recién (usar el primer bit para el signo y dejar el número original intacto). Es el más fácil de leer para la cabeza humana, pero pésimo para procesar cuentas. Curiosamente, aunque ya no se usa para enteros, **es la lógica exacta que usa la Norma IEEE 754** (Punto Flotante) que vimos al principio, donde el bit de signo está totalmente separado del resto de la fórmula.
+    
+- **Complemento a 1 ($C_M-1$):** El primer intento de los ingenieros por lograr que la máquina pueda restar sumando (invertir los bits). Era rapidísimo a nivel electrónico, pero el fallo técnico de tener un $+0$ y un $-0$ lo terminó dejando en el pasado.
+    
+- **Complemento al Módulo ($C_M$ / Complemento a 2):** El campeón indiscutido. Es el estándar absoluto que usa tu computadora y cualquier procesador moderno para manejar los números enteros (como el tipo de dato `int` cuando programás). Costó un paso extra (sumarle 1), pero es el único que logra que toda la matemática binaria fluya sola por los circuitos y que el $n + (-n) = 0$ se cumpla a la perfección forzando el reinicio de los casilleros.
+
+
+
 
 
 
