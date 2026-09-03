@@ -595,6 +595,26 @@ como mi idioma principal para esto es complemento al modulo +bit de signo lo que
 (complemento al modulo -1) + 1 = complemento al modulo
 
 
+Para obtener el negativo de un número bajo el sistema actual (Complemento a 2 / Complemento al Módulo), existen efectivamente dos caminos lógicos paralelos.
+
+**Camino Matemático (El concepto teórico)**
+
+1. Se calcula el Módulo del sistema (el total de combinaciones posibles elevando $2^n$, donde $n$ es la cantidad de casilleros físicos).
+    
+2. Se ejecuta la resta de ese Módulo menos el número positivo original ($M - n$).
+    
+
+**Camino Mecánico (La receta del hardware)**
+
+1. Se aplica primero la regla del Complemento a 1, que consiste en invertir todos los ceros y unos de forma directa.
+    
+2. Al resultado invertido, se le suma una unidad (`1`) en la columna de la extrema **derecha**.
+
+
+
+
+
+
 
 
 
