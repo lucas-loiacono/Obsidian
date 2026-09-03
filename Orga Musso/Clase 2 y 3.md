@@ -545,6 +545,31 @@ que es 2^3 = 8 que en binario es 1000, es la cantidad de números que podes repr
 
 
 
+En la arquitectura de las computadoras, el "complemento" de un número es literalmente la forma en la que la máquina escribe su versión negativa.
+
+Si vos agarrás el código binario del **+5** y le calculás el complemento a 2 (invertir los bits y sumarle 1), el resultado que obtenés es el código binario exacto del **-5**.
+
+Y funciona para los dos lados: si le calculás el complemento al -5, volvés a obtener el +5. Es el método que usa el hardware para cambiarle el signo a cualquier número.
+
+osea el complemento al modulo es mi numero pero en el otro signo
+
+
+**Complemento a 1 ($C_M-1$)**
+
+- **Mecanismo:** Se calcula únicamente invirtiendo todos los bits del número binario original. Los `0` se transforman en `1`, y los `1` se transforman en `0`.
+    
+- **Ventaja física:** Es la operación más sencilla y rápida de construir en un circuito electrónico, ya que solo requiere pasar la señal por compuertas lógicas inversoras (NOT).
+    
+- **Desventaja (El doble cero):** Al invertir los bits, se crean dos representaciones distintas para el número cero: un $+0$ (ej: `000`) y un $-0$ (ej: `111`). Esto entorpece las validaciones matemáticas internas del procesador.
+    
+
+**Complemento a 2 ($C_M$)**
+
+- **Mecanismo:** Se ejecuta en dos pasos. Primero se aplica el Complemento a 1 (invertir todos los bits) y, al resultado obtenido, se le suma un `1` en la columna de la extrema derecha.
+    
+- **Ventaja física:** Elimina la redundancia del doble cero, dejando una única combinación universal para el cero absoluto (`000...`). Por este motivo, es el estándar que usan todos los procesadores modernos.
+    
+- **Lógica subyacente:** El número negativo calculado es matemáticamente la distancia exacta que falta para alcanzar el total de combinaciones del sistema (el Módulo). Esto garantiza que al sumar un número con su negativo ($n + (-n)$), el sistema genere un desborde perfecto por la izquierda que se descarta, reiniciando los casilleros útiles a cero puro sin necesidad de circuitos de resta.
 
 
 
