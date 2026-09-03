@@ -1777,3 +1777,108 @@ La norma reserva los valores extremos del exponente físico (todos los bits en `
           
         
     - Si la mantisa tiene datos: Representa **NaN (Not a Number)**, un código de error matemático para cálculos imposibles o indeterminados.
+
+
+
+
+
+
+
+**Proceso para Guardar (Codificar un número al hardware)**
+
+  
+
+El objetivo es transformar un número decimal normal en los 32 bits físicos de la norma de Simple Precisión. Vamos a guardar el número **$-5,5$**.
+
+  
+
+1. **Pasar a binario puro:**
+    
+    El $5$ entero es `101`. El $0,5$ decimal es `0,1` en binario (porque representa $2^{-1}$).
+    
+    Tu número base es: `101,1`
+    
+      
+    
+2. **Normalizar (Mover la coma):**
+    
+    Tenés que correr la coma hacia la izquierda hasta que quede un único `1` entero.
+    
+    `101,1` se transforma en $1,011 \times 2^2$ (porque corriste la coma 2 lugares).
+    
+      
+    
+3. **Armar los 3 bloques físicos:**
+    
+      
+    - **Signo:** Como es negativo ($-5,5$), el bit de signo es **`1`**.
+        
+          
+        
+    - **Exponente (Aplicar Exceso):** Tu exponente matemático es $2$. Para guardarlo, le sumás el exceso 127 ($2 + 127 = 129$). Pasás el 129 a binario: **`10000001`**.
+        
+          
+        
+    - **Mantisa (Eliminar el 1 implícito):** De tu número normalizado ($1,011$), tachás el `1,` inicial y te quedás solo con los decimales: `011`. Rellenás con ceros a la derecha hasta completar los 23 casilleros: **`01100000000000000000000`**.
+        
+          
+        
+
+El número físico guardado en la memoria de la computadora queda:
+
+`1 10000001 01100000000000000000000`
+
+  
+
+**Proceso para Leer (Decodificar desde el hardware)**
+
+  
+
+El objetivo es hacer el camino inverso: el procesador lee una cadena de 32 bits y debe reconstruir el valor matemático para usarlo en una cuenta. Vamos a leer esta cadena:
+
+`0 10000010 01000000000000000000000`
+
+  
+
+1. **Desarmar los 3 bloques:**
+    
+      
+    - **Signo:** Es `0`, por lo tanto el número es **positivo (+)**.
+        
+          
+        
+    - **Exponente físico:** Es `10000010`, que en decimal equivale a $130$.
+        
+          
+        
+    - **Mantisa física:** Es `010000...` (ignoramos los ceros de relleno).
+        
+          
+        
+2. **Recuperar el exponente real (Restar el Exceso):**
+    
+    Al exponente físico guardado le restás la base de 127 para deshacer el truco.
+    
+    $130 - 127 = 3$. Tu exponente matemático real es **$3$**.
+    
+      
+    
+3. **Reconstruir con la fórmula:**
+    
+    El procesador inyecta el "1," fantasma adelante de tu mantisa y arma la notación científica:
+    
+    $+ 1,01 \times 2^3$
+    
+      
+    
+4. **Desnormalizar (Volver a correr la coma):**
+    
+    Como el exponente es $3$, movés la coma 3 lugares hacia la derecha para desarmar la notación científica:
+    
+    `1,01` $\rightarrow$ `1010,0`
+    
+      
+    
+5. **Pasar a decimal:**
+    
+    El binario `1010` equivale exactamente al número **$10$** decimal. Ese es el valor que el procesador entrega a la pantalla.
