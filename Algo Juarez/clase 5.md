@@ -29,8 +29,14 @@ La regla de diseño de la primera imagen te da un consejo muy útil para program
 
 ![[Pasted image 20260901181131.png]]
 
+es variable de la clase en general, no de un objeto preciso
+
 
 ![[Pasted image 20260901181418.png]]
+
+
+aca en el caso de la suma porque siempre va a ser igual, independiente de cada instancia de la clase
+
 
 ![[Pasted image 20260901181550.png]]
 
