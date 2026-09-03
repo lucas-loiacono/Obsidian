@@ -101,6 +101,21 @@ public class Empleado {
 
 
 
+Para usar el método permitido, lo llamarías desde tu programa principal usando el nombre de la clase y enviándole los objetos creados previamente con el `new`:
+
+Java
+
+```java
+Empleado ana = new Empleado(1000.0);
+Empleado carlos = new Empleado(1500.0);
+
+// Usas la clase (Empleado) para llamar al método estático y le presentas las instancias
+double total = Empleado.sumarSueldos(ana, carlos); 
+```
+
+El método `static` es como una calculadora externa: por sí sola no tiene los números de tu cuenta bancaria, pero si tú le ingresas (pasas por parámetro) tus datos particulares, puede hacer la operación y devolverte el resultado.
+
+
 ![[Pasted image 20260901181824.png]]
 
 ![[Pasted image 20260901182302.png]]
