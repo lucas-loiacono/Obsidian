@@ -97,12 +97,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 5.md",
+                "file": "Algo Juarez/clase 6.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 5"
+              "title": "clase 6"
             }
           }
         ],
@@ -281,8 +281,12 @@
   },
   "active": "7d435312a5d2b405",
   "lastOpenFiles": [
-    "Orga Musso/Clase 2 y 3.md",
+    "!imagenes/Pasted image 20260906163547.png",
+    "!imagenes/Pasted image 20260906163457.png",
+    "!imagenes/Pasted image 20260906163423.png",
     "Algo Juarez/clase 5.md",
+    "Algo Juarez/clase 6.md",
+    "Orga Musso/Clase 2 y 3.md",
     "!imagenes/Pasted image 20260901182302.png",
     "!imagenes/Pasted image 20260901181824.png",
     "!imagenes/Pasted image 20260901181706.png",
@@ -295,8 +299,6 @@
     "Algo Juarez/clase 3.md",
     "Python/1. Strings.md",
     "Python/biblioteca python/Arreglos.md",
-    "!imagenes/Pasted image 20260901012210.png",
-    "!imagenes/Pasted image 20260901011849.png",
     "Python/7. Class.md",
     "C/Cap1.md",
     "Python/biblioteca python/Booleanos.md",
@@ -317,7 +319,6 @@
     "estadistica/3. Cap 10 video 1.md",
     "estadistica/4. Cap 10 video 2.md",
     "estadistica/ejercicio guia 11/Guia 11.md",
-    "estadistica/ejercicios_guia_9/Guia 9.md",
     "estadistica/ejercicios guia 12",
     "estadistica/ejercicio guia 11",
     "estadistica/ejercicios_guia_10",

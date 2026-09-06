@@ -1,4 +1,4 @@
-![[Pasted image 20260901180726.png]]
+ ![[Pasted image 20260901180726.png]]
 
 
 Sí, los conceptos que muestra la imagen **image_f08d47.png** son fundamentales en **Java** (y en la programación orientada a objetos en general).
