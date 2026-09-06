@@ -33,3 +33,5 @@ anidada
 ![[Pasted image 20260906183229.png]]
 
 ![[Pasted image 20260906183327.png]]
+
+![[Pasted image 20260906183510.png]]
