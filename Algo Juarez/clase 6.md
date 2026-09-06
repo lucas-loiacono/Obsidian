@@ -49,3 +49,127 @@ anidada
 ![[Pasted image 20260906193836.png]]
 
 ![[Pasted image 20260906194438.png]]
+
+Merge sort
+![[Pasted image 20260906203602.png]]
+
+![[Pasted image 20260906203656.png]]
+
+# 🧩 Merge Sort (Ordenamiento por Mezcla)
+
+**Paradigma:** Divide y Vencerás (Recursivo).
+
+**Complejidad de Tiempo:** $O(n \log n)$ en todos los casos (Mejor, Peor y Promedio).
+
+**Complejidad de Espacio:** $O(n)$ (Requiere arreglos auxiliares).
+
+**Estabilidad:** Sí, es estable (mantiene el orden relativo de elementos con valores iguales).
+
+  
+
+## ⚙️ Funcionamiento Lógico
+
+El algoritmo divide el problema en subproblemas más pequeños, los resuelve y luego combina las soluciones. Se divide en dos fases:
+
+  
+
+1. **Fase de División (Divide):**
+    
+      
+    - El vector original se parte a la mitad recursivamente.
+        
+          
+        
+    - La recursión se detiene al llegar al **caso base**: subvectores de tamaño 1. (Un arreglo de un solo elemento ya está ordenado por definición).
+        
+          
+        
+2. **Fase de Fusión (Merge / Vencerás):**
+    
+      
+    - Se toman dos subvectores adyacentes y se combinan en un nuevo arreglo temporal.
+        
+          
+        
+    - Para combinarlos ordenadamente, se utilizan punteros al inicio de cada subvector. Se comparan los elementos y se inserta el menor en el arreglo temporal, avanzando el puntero correspondiente.
+        
+          
+        
+    - Este proceso se repite, subiendo por el árbol de llamadas recursivas, hasta reconstruir el tamaño del vector original, ahora completamente ordenado.
+        
+          
+        
+
+## 💡 Notas Clave
+
+- **No es _in-place_:** A diferencia de algoritmos como Insertion Sort o Quick Sort, Merge Sort necesita instanciar memoria extra durante la etapa de fusión para los arreglos temporales.
+    
+      
+    
+- **Rendimiento predecible:** Como siempre divide el arreglo a la mitad sin importar cómo vengan los datos inicialmente, su tiempo de ejecución está garantizado en $O(n \log n)$, haciéndolo ideal para estructuras de datos grandes donde el peor caso de Quick Sort ($O(n^2)$) sería un riesgo.
+
+
+
+
+**Vector inicial a ordenar:** `[38, 27, 43, 3, 9, 82, 10, 19]`
+
+  
+
+**Fase 1: División**
+
+El vector original se divide exactamente por la mitad de forma sucesiva. En esta etapa no hay comparaciones ni ordenamiento, solo partición.
+
+  
+
+- **1° División (Mitades):**
+    
+    `[38, 27, 43, 3]` y `[9, 82, 10, 19]`
+    
+      
+    
+- **2° División (Cuartos):**
+    
+    `[38, 27]` , `[43, 3]` , `[9, 82]` , `[10, 19]`
+    
+      
+    
+- **3° División (Octavos - Caso base):**
+    
+    `[38]` , `[27]` , `[43]` , `[3]` , `[9]` , `[82]` , `[10]` , `[19]`
+    
+      
+    
+
+**Fase 2: Fusión (Merge)**
+
+Al llegar a los elementos individuales, el algoritmo comienza a retroceder. Toma dos subvectores adyacentes, compara sus elementos uno a uno y los unifica en un nuevo arreglo temporal ordenado.
+
+  
+
+- **1° Fusión (Subvectores de 2 elementos):**
+    
+    El `38` y el `27` se comparan y se invierten. Lo mismo con el `43` y el `3`.
+    
+    `[27, 38]` , `[3, 43]` , `[9, 82]` , `[10, 19]`
+    
+      
+    
+- **2° Fusión (Subvectores de 4 elementos):**
+    
+    Se comparan los subvectores `[27, 38]` y `[3, 43]`. El `3` es el menor de todos, luego el `27`, luego el `38` y por último el `43`.
+    
+    `[3, 27, 38, 43]` , `[9, 10, 19, 82]`
+    
+      
+    
+- **3° Fusión (Vector final de 8 elementos):**
+    
+    Se comparan los dos bloques restantes agrupándolos secuencialmente de menor a mayor.
+    
+    `[3, 9, 10, 19, 27, 38, 43, 82]`
+
+
+
+![[Pasted image 20260906204510.png]]
+
+![[Pasted image 20260906204526.png]]
