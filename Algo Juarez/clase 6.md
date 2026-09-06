@@ -36,6 +36,8 @@ anidada
 
 ![[Pasted image 20260906183510.png]]
 
+![[Pasted image 20260906193753.png]]
+
 ![[Pasted image 20260906184716.png]]
 
 ![[Pasted image 20260906184845.png]]
@@ -43,3 +45,7 @@ anidada
 ![[Pasted image 20260906185404.png]]
 
 ![[Pasted image 20260906185216.png]]
+
+![[Pasted image 20260906193836.png]]
+
+![[Pasted image 20260906194438.png]]
