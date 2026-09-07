@@ -177,3 +177,6 @@ Al llegar a los elementos individuales, el algoritmo comienza a retroceder. Toma
 ![[Pasted image 20260906204635.png]]
 
 ![[Pasted image 20260906205432.png]]
+
+
+![[Pasted image 20260906205652.png]]
