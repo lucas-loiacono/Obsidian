@@ -210,3 +210,153 @@ Aquí tienes el desglose de los tres enfoques que muestra la diapositiva:
     
 
 Este último algoritmo reduce drásticamente el costo computacional llevándolo a $O(\log n)$, demostrando que pensar el problema fraccionándolo en mitades es inmensamente superior a procesarlo de forma secuencial.
+
+
+
+
+
+
+
+
+![[Pasted image 20260906211630.png]]
+
+![[Pasted image 20260906211642.png]]
+
+
+Imagina que tienes que calcular $2^8$.
+
+  
+
+El enfoque tradicional haría $2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2$ (siete operaciones). El enfoque de "Divide y Vencerás" (Exponenciación Rápida) usa la lógica de que $2^8$ es exactamente lo mismo que $(2^4) \times (2^4)$. Si calculas $2^4$ una sola vez, solo tienes que multiplicar ese resultado por sí mismo. Te ahorraste procesar la otra mitad por completo.
+
+  
+
+Así es como avanza paso a paso el código de la tercera imagen para calcular **$2^8$**:
+
+  
+
+- **Fase 1: Dividir hacia abajo (Llamadas recursivas)**
+    
+    El algoritmo busca achicar el problema dividiendo el exponente por la mitad (`exponente / 2`) antes de hacer cualquier cuenta.
+    
+      
+    - Para calcular `potencia(2, 8)`, pausa y llama a `potencia(2, 4)`.
+        
+          
+        
+    - Para calcular `potencia(2, 4)`, pausa y llama a `potencia(2, 2)`.
+        
+          
+        
+    - Para calcular `potencia(2, 2)`, pausa y llama a `potencia(2, 1)`.
+        
+          
+        
+    - Al llegar a `potencia(2, 1)`, el código detecta el caso base (`else if (exponente == 1)`) y directamente devuelve un **2**. No divide más.
+        
+          
+        
+- **Fase 2: Vencer hacia arriba (Reconstrucción)**
+    
+    Ahora el algoritmo desanda el camino, usando la instrucción `resultado *= resultado` (multiplicar el resultado por sí mismo).
+    
+      
+    - **Vuelve a `potencia(2, 2)`:** Toma el **2** que recibió de abajo y lo eleva al cuadrado ($2 \times 2 = 4$). Devuelve **4**.
+        
+          
+        
+    - **Vuelve a `potencia(2, 4)`:** Toma el **4** que recibió de abajo y lo eleva al cuadrado ($4 \times 4 = 16$). Devuelve **16**.
+        
+          
+        
+    - **Vuelve a `potencia(2, 8)`:** Toma el **16** que recibió de abajo y lo eleva al cuadrado ($16 \times 16 = 256$). Devuelve el resultado final: **256**.
+        
+          
+        
+
+**El caso de los exponentes impares**
+
+Si quisieras calcular **$2^5$**, el código divide $5 / 2$, lo que en programación da $2$ (división entera). El algoritmo calcula $2^2$ (que da $4$) y luego lo multiplica por sí mismo dando $16$ ($2^4$).
+
+Para que no falte ese último "por dos", el código tiene una validación final: `if ((exponente % 2) == 1)`. Al detectar que el 5 era impar, hace una multiplicación extra por la base original: $16 \times 2 = 32$.
+
+  
+
+En resumen, resolver el problema dividiéndolo te permite reciclar los resultados anteriores en lugar de calcular todo desde cero una y otra vez. Por eso en la imagen, calcular $2^{64}$ solo toma 6 llamadas en lugar de 64.
+
+
+
+![[Pasted image 20260906211708.png]]
+
+![[Pasted image 20260906211725.png]]
+
+
+El fragmento de código de la **image_2f2f28.png** intenta ser la versión **iterativa** del algoritmo de exponenciación rápida (Divide y Vencerás). Su objetivo es alcanzar una eficiencia de $O(\log n)$ sin apilar llamadas recursivas, dividiendo el contador de operaciones a la mitad en cada ciclo (`i /= 2`) mediante un bucle `for`.
+
+  
+
+Para entender cómo avanza la lógica planteada, hagamos una prueba de escritorio calculando $2^4$ (`base = 2`, `exponente = 4`):
+
+  
+
+1. Se inicializa `resultado = 2`.
+    
+      
+    
+2. El bucle `for` arranca la variable de control con `i = 3` (exponente - 1).
+    
+      
+    
+3. **Primera iteración (`i = 3`):** Se evalúa la condición `(exponente % 2) == 1`. Como `4 % 2` da como resto `0` (falso), ignora el `if`. Luego hace `resultado *= resultado` (calcula $2 \times 2 = 4$).
+    
+      
+    
+4. El bucle actualiza `i /= 2` (división entera: $3 / 2 = 1$).
+    
+      
+    
+5. **Segunda iteración (`i = 1`):** La condición `4 % 2 == 1` sigue siendo falsa. El algoritmo hace `resultado *= resultado` (calcula $4 \times 4 = 16$).
+    
+      
+    
+6. El bucle actualiza `i /= 2` ($1 / 2 = 0$). Como la condición `i > 0` ya no se cumple, el ciclo se rompe.
+    
+      
+    
+7. Devuelve `16`.
+    
+      
+    
+
+Para potencias pares, el avance fraccionado funciona y devuelve el resultado esperado. Ahora veamos qué ocurre con el avance para una potencia impar, por ejemplo $2^3$ (`base = 2`, `exponente = 3`):
+
+  
+
+1. Se inicializa `resultado = 2`.
+    
+      
+    
+2. El bucle arranca con `i = 2` (exponente - 1).
+    
+      
+    
+3. **Primera iteración (`i = 2`):** Se evalúa la condición `(exponente % 2) == 1`. Como `3 % 2` es `1` (verdadero), entra al `if` y multiplica `resultado *= base` ($2 \times 2 = 4$). Inmediatamente después, fuera del `if`, el código hace `resultado *= resultado` ($4 \times 4 = 16$).
+    
+      
+    
+4. El bucle actualiza `i /= 2` ($2 / 2 = 1$).
+    
+      
+    
+5. **Segunda iteración (`i = 1`):** Vuelve a evaluar `(exponente % 2) == 1`. Como la variable `exponente` es estática y nunca se modificó en el bucle, **sigue valiendo 3, por lo que la condición vuelve a dar verdadero**. Entra al `if`, hace `resultado *= base` ($16 \times 2 = 32$) y luego `resultado *= resultado` ($32 \times 32 = 1024$).
+    
+      
+    
+6. El bucle actualiza `i = 0`, termina y devuelve `1024`.
+    
+      
+    
+
+Como demuestra el cálculo paso a paso, el algoritmo contiene un error lógico grave (bug). Al evaluar el `exponente` original en el `if` en lugar de verificar el bit correspondiente o actualizar la variable en cada iteración, cualquier cálculo con un exponente impar provocará que el resultado se dispare descontroladamente, arrojando valores completamente erróneos.
+
+![[Pasted image 20260906212355.png]]
