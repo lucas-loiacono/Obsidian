@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Constructor.md",
+                "file": "Java/Biblioteca Java.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Constructor"
+              "title": "Biblioteca Java"
             }
           }
         ],
@@ -295,10 +295,11 @@
   },
   "active": "5f6a9b6d75a0752f",
   "lastOpenFiles": [
+    "Java/Constructor.md",
+    "Java/Biblioteca Java.md",
     "Java/Estructura.md",
     "Java/Funciones o métodos.md",
     "Java/Primitivos vs Clases.md",
-    "Java/Constructor.md",
     "!imagenes/Pasted image 20260907010645.png",
     "!imagenes/Pasted image 20260907010551.png",
     "!imagenes/Pasted image 20260907004326.png",
