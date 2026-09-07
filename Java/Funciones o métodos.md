@@ -116,3 +116,67 @@ Este es un detalle técnico crucial sobre cómo Java maneja la memoria debajo de
       
     
 2. **Objetos y Arrays (`String`, `Estudiante`, `int[]`):** Lo que se pasa por valor es **la dirección de memoria** donde vive ese objeto. Esto significa que si le pasás un arreglo a un método y modificás una posición de ese arreglo adentro del método, el arreglo original afuera **sí** se va a modificar.
+
+
+
+
+
+
+
+
+  
+# Metodos estaticos
+
+
+**1. Un método estático SÍ puede llamar a otro método estático**
+
+Como ambos pertenecen a la clase (y no a un objeto particular), pueden comunicarse directamente, incluso si están en la misma clase.
+
+
+```Java
+public class Utilidades {
+    public static void iniciarProceso() {
+        System.out.println("Iniciando...");
+        verificarDatos(); // Llamada directa permitida
+    }
+    
+    public static void verificarDatos() {
+        System.out.println("Datos verificados.");
+    }
+}
+```
+
+**2. Un método estático NO puede llamar a un método de instancia directamente**
+
+Esta es la restricción más común y el típico error cuando intentas llamar a una función desde el `public static void main`. Como el método estático existe antes de que se cree cualquier objeto, no sabe a qué objeto específico le estás pidiendo que ejecute la acción.
+
+  
+```Java
+public class Sistema {
+    public void saludar() { // Método de instancia (NO es estático)
+        System.out.println("Hola");
+    }
+
+    public static void main(String[] args) {
+        // saludar(); // ❌ ERROR: no se puede hacer referencia a un método no estático desde un contexto estático
+        
+        // ✅ FORMA CORRECTA: Crear el objeto primero
+        Sistema miSistema = new Sistema();
+        miSistema.saludar(); 
+    }
+}
+```
+
+**3. Un método estático NO puede usar variables de instancia**
+
+Por la misma razón anterior: no puede acceder a variables que nacen solo cuando se hace un `new`. Un método estático solo puede modificar o leer variables que también estén declaradas como `static`.
+
+
+**4. Un método estático NO puede usar `this` ni `super`**
+
+La palabra clave `this` en Java significa "este objeto en particular". Como los métodos estáticos pertenecen al molde (la clase) y no a los objetos generados, usar `this` dentro de un método `static` da un error de compilación inmediato. Lo mismo aplica para `super` (que hace referencia al objeto de la clase padre).
+
+  
+**5. (Bonus) Un método de instancia SÍ puede llamar a un método estático**
+
+La restricción es de un solo lado. Si estás adentro de un método normal (no estático), podés llamar a métodos estáticos sin problema, porque si el objeto ya existe, la clase a la que pertenece obviamente también.
