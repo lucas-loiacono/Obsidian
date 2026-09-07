@@ -180,3 +180,33 @@ Al llegar a los elementos individuales, el algoritmo comienza a retroceder. Toma
 
 
 ![[Pasted image 20260906205652.png]]
+
+
+La imagen **image_25241c.jpg** es un ejemplo perfecto para contrastar diferentes algoritmos que resuelven un mismo problema (calcular $2^{64}$) y demuestra el impacto masivo que tiene aplicar el paradigma de "Divide y Vencerás" que vimos recién con Merge Sort.
+
+  
+
+Aquí tienes el desglose de los tres enfoques que muestra la diapositiva:
+
+  
+
+- **Enfoque Iterativo (Arriba a la izquierda):**
+    
+    Utiliza un bucle `for` clásico que multiplica la base por sí misma paso a paso. Para llegar a $2^{64}$, el ciclo se ejecuta **64 veces**. Su tiempo de ejecución crece a la misma velocidad que el exponente (complejidad lineal $O(n)$).
+    
+      
+    
+- **Enfoque Recursivo Simple (Arriba a la derecha):**
+    
+    Plantea la solución llamándose a sí mismo restando de a 1 (`exponente - 1`). Aunque evita el ciclo `for`, requiere apilar **64 llamadas recursivas** en memoria hasta llegar al caso base. Es tan ineficiente en tiempo como el iterativo ($O(n)$), pero con el riesgo adicional de desbordar la pila de llamadas (Stack Overflow) con números muy grandes.
+    
+      
+    
+- **Enfoque Divide y Vencerás / Exponenciación Rápida (Abajo):**
+    
+    Aquí entra la optimización logarítmica. En lugar de restar 1, el algoritmo **divide el problema a la mitad** en cada paso (`exponente / 2`). Al calcular la potencia de la mitad y luego multiplicarla por sí misma (`resultado *= resultado`), el número de operaciones se desploma. Como muestra el gráfico, para llegar a $64$, solo necesita **6 llamadas recursivas** ($32 \rightarrow 16 \rightarrow 8 \rightarrow 4 \rightarrow 2 \rightarrow 1$).
+    
+      
+    
+
+Este último algoritmo reduce drásticamente el costo computacional llevándolo a $O(\log n)$, demostrando que pensar el problema fraccionándolo en mitades es inmensamente superior a procesarlo de forma secuencial.
