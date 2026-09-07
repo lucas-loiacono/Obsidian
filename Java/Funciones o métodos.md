@@ -180,3 +180,26 @@ La palabra clave `this` en Java significa "este objeto en particular". Como los 
 **5. (Bonus) Un método de instancia SÍ puede llamar a un método estático**
 
 La restricción es de un solo lado. Si estás adentro de un método normal (no estático), podés llamar a métodos estáticos sin problema, porque si el objeto ya existe, la clase a la que pertenece obviamente también.
+
+
+
+![[Pasted image 20260907004326.png]]
+
+No le pasás parámetros porque `sayHello()` es un **método de instancia** (no tiene la palabra `static`), lo que significa que tiene acceso directo e interno a todos los atributos definidos en su propia clase (`name` y `age`).
+
+En la Programación Orientada a Objetos, los objetos guardan su propio estado. No necesitás enviarle la información por la "puerta" de los paréntesis porque el método simplemente lee lo que el objeto ya tiene guardado en su memoria.
+
+Así es como se vería el uso de esta clase en tu archivo principal:
+
+```java
+Person persona = new Person();
+
+// 1. Primero le cargás los datos directamente a los atributos del objeto
+persona.name = "Juan";
+persona.age = 25;
+
+// 2. Al llamar al método, este lee automáticamente su propia información interna
+persona.sayHello(); // Imprime: "Hola, soy Juan y tengo 25 años."
+```
+
+Si el método fuera una función aislada o estática que no pertenece a ningún objeto en particular, sí estarías obligado a pasarle `(String name, int age)` por parámetro para que sepa con qué textos y números trabajar. Pero al ser parte de la clase `Person`, ya es dueño de esa información.
