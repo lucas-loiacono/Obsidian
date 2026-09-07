@@ -360,3 +360,13 @@ Para potencias pares, el avance fraccionado funciona y devuelve el resultado esp
 Como demuestra el cálculo paso a paso, el algoritmo contiene un error lógico grave (bug). Al evaluar el `exponente` original en el `if` en lugar de verificar el bit correspondiente o actualizar la variable en cada iteración, cualquier cálculo con un exponente impar provocará que el resultado se dispare descontroladamente, arrojando valores completamente erróneos.
 
 ![[Pasted image 20260906212355.png]]
+
+ordenamiento por pivote
+
+
+![[Pasted image 20260906214045.png]]
+
+
+![[Pasted image 20260906214014.png]]
+
+y después uno por pivote
