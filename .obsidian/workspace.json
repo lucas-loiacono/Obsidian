@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Funciones o métodos.md",
+                "file": "Java/Constructor.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Funciones o métodos"
+              "title": "Constructor"
             }
           }
         ],
@@ -295,9 +295,12 @@
   },
   "active": "5f6a9b6d75a0752f",
   "lastOpenFiles": [
+    "!imagenes/Pasted image 20260907010645.png",
+    "!imagenes/Pasted image 20260907010551.png",
+    "Java/Funciones o métodos.md",
+    "Java/Constructor.md",
     "!imagenes/Pasted image 20260907004326.png",
     "Java/Primitivos vs Clases.md",
-    "Java/Funciones o métodos.md",
     "Java/Estructura.md",
     "Algo Juarez/clase 6.md",
     "Java",
@@ -309,8 +312,6 @@
     "!imagenes/Pasted image 20260906211642.png",
     "!imagenes/Pasted image 20260906211630.png",
     "!imagenes/Pasted image 20260906205652.png",
-    "!imagenes/Pasted image 20260906205432.png",
-    "!imagenes/Pasted image 20260906205400.png",
     "Algo Juarez/clase 5.md",
     "Orga Musso/Clase 2 y 3.md",
     "Algo Juarez/clase 4.md",
@@ -333,7 +334,6 @@
     "Python/4. Dictionaries.md",
     "Python/5. inputs y while loops.md",
     "Python/6. Functions.md",
-    "estadistica/ejercicios_guia_10/Guia 10.md",
     "estadistica/ejercicios guia 12",
     "estadistica/ejercicio guia 11",
     "estadistica/ejercicios_guia_10",
