@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
+                "file": "Java/Biblioteca java/5. Strings.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7.3 Maps"
+              "title": "5. Strings"
             }
           }
         ],
@@ -279,7 +279,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 305.5
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -295,17 +295,20 @@
   },
   "active": "5f6a9b6d75a0752f",
   "lastOpenFiles": [
-    "Java/Biblioteca java/7. Estructuras/7.2 Listas.md",
-    "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
-    "Java/Biblioteca java/7. Estructuras/7.1 Arrays.md",
-    "Java/Biblioteca java/7. Estructuras",
+    "Java/Biblioteca java/9. Funciones.md",
+    "Java/Biblioteca java/8. Loops.md",
     "Java/Biblioteca java/6. Condicionales.md",
     "Java/Biblioteca java/5. Strings.md",
-    "Java/Biblioteca java/2. Tipos de datos.md",
-    "Java/Biblioteca Java.md",
     "Java/Biblioteca java/4. Operadores.md",
     "Java/Biblioteca java/3. Variables y constantes.md",
+    "Java/Biblioteca java/2. Tipos de datos.md",
     "Java/Biblioteca java/1. Hello World.md",
+    "Java/Biblioteca java/7. Estructuras/7.4 Sets.md",
+    "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
+    "Java/Biblioteca java/7. Estructuras/7.2 Listas.md",
+    "Java/Biblioteca java/7. Estructuras/7.1 Arrays.md",
+    "Java/Biblioteca java/7. Estructuras",
+    "Java/Biblioteca Java.md",
     "Java/Biblioteca java",
     "Java/Constructor.md",
     "Java/Estructura.md",
@@ -331,9 +334,6 @@
     "Python/biblioteca python/Arreglos.md",
     "Python/7. Class.md",
     "C/Cap1.md",
-    "Python/biblioteca python/Booleanos.md",
-    "Python/biblioteca python/Diccionarios.md",
-    "Python/biblioteca python/Impresion.md",
     "Algo Juarez",
     "Orga Musso",
     "estadistica/ejercicios guia 12",
