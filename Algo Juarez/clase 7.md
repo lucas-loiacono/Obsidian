@@ -41,3 +41,9 @@ combinacion de 3 locales, = 3!
 ![[Pasted image 20260908184210.png]]
 
 ![[Pasted image 20260908184442.png]]
+
+![[Pasted image 20260908184536.png]]
+
+![[Pasted image 20260908184922.png]]
+
+![[Pasted image 20260908185017.png]]
