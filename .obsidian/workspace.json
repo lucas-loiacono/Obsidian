@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
+                "file": "Java/Biblioteca java/7. Estructuras/7.4 Sets.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7.3 Maps"
+              "title": "7.4 Sets"
             }
           }
         ],
@@ -295,11 +295,11 @@
   },
   "active": "5f6a9b6d75a0752f",
   "lastOpenFiles": [
+    "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
     "Java/Biblioteca java/7. Estructuras/7.2 Listas.md",
     "Java/Biblioteca java/7. Estructuras/7.1 Arrays.md",
     "Java/Biblioteca java/8. Loops.md",
     "Java/Biblioteca java/7. Estructuras/7.4 Sets.md",
-    "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
     "Java/Biblioteca java/6. Condicionales.md",
     "Java/Biblioteca java/5. Strings.md",
     "Java/Biblioteca java/9. Funciones.md",
