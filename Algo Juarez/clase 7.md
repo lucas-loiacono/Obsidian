@@ -83,3 +83,10 @@ por ejemplo el 90% de los casos cae en 4 y el 10% cae en 7
 
 
 ![[Pasted image 20260908192407.png]]
+
+![[Pasted image 20260908194542.png]]
+
+
+![[Pasted image 20260908194811.png]]
+
+![[Pasted image 20260908195010.png]]
