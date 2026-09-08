@@ -111,12 +111,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java/Biblioteca Java.md",
+                "file": "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Biblioteca Java"
+              "title": "7.3 Maps"
             }
           }
         ],
@@ -293,11 +293,21 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "1f11224da7f566a3",
+  "active": "5f6a9b6d75a0752f",
   "lastOpenFiles": [
-    "Java/Sin nombre",
-    "Java/Constructor.md",
+    "Java/Biblioteca java/7. Estructuras/7.2 Listas.md",
+    "Java/Biblioteca java/7. Estructuras/7.3 Maps.md",
+    "Java/Biblioteca java/7. Estructuras/7.1 Arrays.md",
+    "Java/Biblioteca java/7. Estructuras",
+    "Java/Biblioteca java/6. Condicionales.md",
+    "Java/Biblioteca java/5. Strings.md",
+    "Java/Biblioteca java/2. Tipos de datos.md",
     "Java/Biblioteca Java.md",
+    "Java/Biblioteca java/4. Operadores.md",
+    "Java/Biblioteca java/3. Variables y constantes.md",
+    "Java/Biblioteca java/1. Hello World.md",
+    "Java/Biblioteca java",
+    "Java/Constructor.md",
     "Java/Estructura.md",
     "Java/Funciones o métodos.md",
     "Java/Primitivos vs Clases.md",
@@ -324,23 +334,13 @@
     "Python/biblioteca python/Booleanos.md",
     "Python/biblioteca python/Diccionarios.md",
     "Python/biblioteca python/Impresion.md",
-    "Python/biblioteca python/Métodos.md",
-    "Orga Musso/Clase 1.md",
-    "Algo Juarez/clase 2.md",
-    "Algo Juarez/clase 1.md",
     "Algo Juarez",
     "Orga Musso",
-    "Python/2. Listas.md",
-    "Python/3. If Statments.md",
-    "Python/4. Dictionaries.md",
-    "Python/5. inputs y while loops.md",
     "estadistica/ejercicios guia 12",
     "estadistica/ejercicio guia 11",
     "estadistica/ejercicios_guia_10",
     "estadistica/ejercicios_guia_9",
     "imagenes",
-    "!imagenes",
-    "estadistica",
     "Sin título.canvas",
     "Sin título 3.canvas",
     "Sin título 2.canvas",
