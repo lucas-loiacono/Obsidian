@@ -63,3 +63,23 @@ combinacion de 3 locales, = 3!
 ![[Pasted image 20260908190816.png]]
 
 ![[Pasted image 20260908190928.png]]
+
+![[Pasted image 20260908191821.png]]
+
+![[Pasted image 20260908191849.png]]
+
+![[Pasted image 20260908191902.png]]
+
+![[Pasted image 20260908191926.png]]
+
+![[Pasted image 20260908192044.png]]
+
+OE = operaciones elementales
+
+Mejor caso = 4 y peor caso = 7, tengo que calcular mi probabilidad de salir en cada caso por el caso
+
+por ejemplo el 90% de los casos cae en 4 y el 10% cae en 7
+4 x 0.9 o 7 x 0.1
+
+
+![[Pasted image 20260908192407.png]]
