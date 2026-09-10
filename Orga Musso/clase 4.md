@@ -477,6 +477,121 @@ La ecuación final (ordenando un poco los términos) nos queda:
 
 ![[Pasted image 20260909223405.png]]
 
+### Obtención de Función Canónica: Producto de Maxitérminos (FNC)
+
+Este procedimiento detalla los pasos para obtener una expresión canónica de una función booleana como Producto de Maxitérminos, también conocida como Forma Normal Conjuntiva.
+
+
+**Paso 1: Desarrollo inicial**
+
+- Se debe desarrollar la función original como suma de minitérminos.
+
+- En el ejemplo con la función $F(A, B, C) = A \cdot B + B \cdot C$, la expansión da como resultado los minitérminos $A \cdot B \cdot C$, $A \cdot B \cdot \text{Not}(C)$ y $\text{Not}(A) \cdot B \cdot C$.
+    
+
+**Paso 2: Identificación de ceros**
+
+  
+
+- A continuación, se deben identificar los minitérminos para los cuales la función vale '0'.
+
+- En el ejemplo analizado, los minitérminos que cumplen esta condición son $\text{Not}(A) \cdot \text{Not}(B) \cdot \text{Not}(C)$, $\text{Not}(A) \cdot \text{Not}(B) \cdot C$, $\text{Not}(A) \cdot B \cdot \text{Not}(C)$, $A \cdot \text{Not}(B) \cdot \text{Not}(C)$ y $A \cdot \text{Not}(B) \cdot C$.
+
+**Paso 3: Aplicación de De Morgan**
+
+  
+
+- Se toma la suma de los minitérminos encontrados en el paso anterior, lo cual conforma la Función Negada.
+
+- En el ejemplo de aplicación, esta función negada se denomina $G(A, B, C)$.
+   
+- A esta función se le debe aplicar la ley de D'Morgan.
+   
+- La aplicación de esta ley requiere intercambiar sumas por multiplicaciones.
+
+- Adicionalmente, se deben negar todas las variables de los minitérminos para los cuales la función vale cero.
+
+- Como resultado en el ejemplo, el término original $\text{Not}(A) \cdot \text{Not}(B) \cdot \text{Not}(C)$ se transforma en el maxitérmino $(A + B + C)$, y al agrupar todos los términos mediante multiplicación, se obtiene la Forma Canónica Normal Conjuntiva final.
+
+
+# Hago el ejemplo que hicimos con conjuntiva
+
+![[Pasted image 20260910151804.png]]
+
+¡Me encanta el desafío! Vamos a hacer exactamente el mismo proceso de "rellenar" algebraicamente para llegar a la Forma Normal Conjuntiva (FNC) de la función $Z = A + B \cdot C$, pero aplicando el Principio de Dualidad.
+
+  
+
+Como ahora buscamos un **Producto de Sumas**, las reglas se invierten: en vez de multiplicar por $1$, vamos a **sumar $0$**.
+
+  
+
+**Paso 1: Convertir la ecuación a multiplicaciones**
+
+Nuestra ecuación original es una suma ($A + BC$). Para empezar a trabajar con maxitérminos, necesitamos que sea una multiplicación.
+
+¿Te acordás de la "distributiva rara" (Postulado P2b) que vimos al principio? Esa regla decía que $X + Y \cdot Z = (X + Y) \cdot (X + Z)$.
+
+Si le aplicamos eso a nuestra función, nos queda:
+
+$Z = (A + B) \cdot (A + C)$
+
+  
+
+**Paso 2: Identificar faltantes y rellenar sumando $0$**
+
+A nuestro primer bloque $(A + B)$ le falta la $C$. Al segundo bloque $(A + C)$ le falta la $B$.
+
+La regla de oro acá es que multiplicar una variable por su negada siempre da $0$ ($X \cdot \bar{X} = 0$). Como sumar $0$ no afecta a la ecuación, lo inyectamos:
+
+  
+
+- Al primer bloque le sumamos $(C \cdot \bar{C})$. Nos queda: $(A + B) + (C \cdot \bar{C})$
+    
+      
+    
+- Al segundo bloque le sumamos $(B \cdot \bar{B})$. Nos queda: $(A + C) + (B \cdot \bar{B})$
+    
+      
+    
+
+**Paso 3: Distribuir para desarmar los bloques**
+
+Volvemos a aplicar esa "distributiva rara" en cada bloque para separar la letra normal de la negada:
+
+  
+
+- El bloque de la izquierda se desarma en: $(A + B + C) \cdot (A + B + \bar{C})$
+    
+      
+    
+- El bloque de la derecha se desarma en: $(A + C + B) \cdot (A + C + \bar{B})$. Si ordenamos las letras alfabéticamente, es $(A + B + C) \cdot (A + \bar{B} + C)$
+    
+      
+    
+
+**Paso 4: Unir todo y eliminar redundancias**
+
+Juntamos todos los maxitérminos que acabamos de generar en una sola multiplicación gigante:
+
+$Z = (A + B + C) \cdot (A + B + \bar{C}) \cdot (A + B + C) \cdot (A + \bar{B} + C)$
+
+  
+
+Si te fijás, **el término $(A + B + C)$ está repetido dos veces**. Por el teorema de Idempotencia ($X \cdot X = X$), multiplicar lo mismo dos veces es redundante, así que tachamos uno.
+
+  
+
+La ecuación final nos queda:
+
+**$Z = (A + B + C) \cdot (A + B + \bar{C}) \cdot (A + \bar{B} + C)$**
+
+  
+
+¡Listo! Llegamos por puro método algebraico exactamente a la misma Forma Normal Conjuntiva que habíamos sacado antes mirando las 3 filas de ceros en la tabla de verdad.
+
+
+
 ![[Pasted image 20260909223414.png]]
 
 
