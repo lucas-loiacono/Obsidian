@@ -346,6 +346,130 @@ En resumen: el minitérmino es el grupito donde las letras se multiplican, y el 
 
 ![[Pasted image 20260909223346.png]]
 
+Estas diapositivas detallan los métodos algebraicos para obtener las funciones canónicas (o normales) a partir de una expresión lógica, sin necesidad de construir la tabla de verdad.
+
+  
+
+**Desarrollo de la Forma Normal Disyuntiva (Suma de Minitérminos)**
+
+La primera imagen muestra el proceso para expandir la función $f1(A, B, C) = A + B + C$ y convertirla en su forma canónica.
+
+  
+
+- El objetivo algebraico es rellenar la ecuación para que en cada término aparezcan todas las variables del sistema.
+    
+      
+    
+- Para lograrlo, se multiplica cada variable original por la suma de las variables faltantes y sus respectivas negaciones; por ejemplo, la variable $A$ se multiplica por $(B + \bar{B})(C + \bar{C})$.
+    
+      
+    
+- Luego de aplicar la propiedad distributiva, se genera una sumatoria extensa que contiene todos los minitérminos resultantes.
+    
+      
+    
+- Finalmente, se tachan y eliminan todos los minitérminos que quedaron duplicados en el medio de la ecuación para obtener la expresión final.
+    
+      
+    
+
+**Obtención de la Forma Normal Conjuntiva (Producto de Maxitérminos)**
+
+La segunda imagen enumera los pasos teóricos para armar la función equivalente utilizando maxitérminos.
+
+  
+
+- **Paso 1:** Se debe desarrollar primero la función como una suma de minitérminos.
+    
+      
+    
+- **Paso 2:** Se identifican los minitérminos específicos para los cuales la función vale '0'.
+    
+      
+    
+- **Paso 3:** Se toman esos minitérminos encontrados en el paso 2 y se suman, formando así la Función Negada. A esta suma se le debe aplicar la ley de D'Morgan, lo cual obliga a intercambiar las sumas por multiplicaciones y negar absolutamente todas las variables de los minitérminos para los cuales la función valía cero.
+    
+      
+    
+
+¿Hay algún paso específico del álgebra o de la aplicación de D'Morgan en estas diapositivas que te resulte confuso?
+
+# En este ejercicio seria
+
+![[Pasted image 20260910150253.png]]
+
+¡Ah, excelente pregunta! Entendí a qué apuntás. Querés ver cómo llegar a esa misma ecuación gigante pero **sin mirar la tabla**, usando el método algebraico de "rellenar" las variables que faltan (como vimos en las diapositivas anteriores).
+
+Sabemos por las primeras diapositivas que la función simplificada para esa tabla exacta de la lámpara es:
+
+**$Z = A + B \cdot C$**
+
+El objetivo es que en cada término aparezcan las tres variables ($A, B$ y $C$). Vamos a hacerlo paso a paso:
+
+
+**Paso 1: Identificar qué le falta a cada término**
+
+
+- Al primer término ($A$) le faltan la $B$ y la $C$.
+    
+- Al segundo término ($B \cdot C$) le falta la $A$.
+
+**Paso 2: Rellenar multiplicando por 1**
+
+Recordemos la regla de oro: una variable sumada a su negada siempre da 1 ($X + \bar{X} = 1$). Multiplicar por 1 no altera la ecuación, así que lo usamos para inyectar las letras faltantes.
+
+  
+
+- Al término $A$ lo multiplicamos por $(B + \bar{B})$ y por $(C + \bar{C})$.
+
+- Al término $BC$ lo multiplicamos por $(A + \bar{A})$.
+
+La ecuación nos queda así:
+
+$Z = [A \cdot (B + \bar{B}) \cdot (C + \bar{C})] + [B \cdot C \cdot (A + \bar{A})]$
+
+  
+
+**Paso 3: Aplicar propiedad distributiva (desarmar los paréntesis)**
+
+Hacemos la distributiva clásica.
+
+Primero resolvamos el bloque de la izquierda (la $A$):
+
+$A \cdot (B + \bar{B}) = AB + A\bar{B}$
+
+Ahora multiplicamos eso por la $C$:
+
+$(AB + A\bar{B}) \cdot (C + \bar{C}) = ABC + AB\bar{C} + A\bar{B}C + A\bar{B}\bar{C}$
+
+  
+
+Ahora resolvamos el bloque de la derecha (el $BC$):
+
+$BC \cdot (A + \bar{A}) = ABC + \bar{A}BC$
+
+  
+
+**Paso 4: Unir todo y eliminar redundancias**
+
+Juntamos todos los minitérminos que acabamos de generar en una sola suma gigante:
+
+$Z = ABC + AB\bar{C} + A\bar{B}C + A\bar{B}\bar{C} + ABC + \bar{A}BC$
+
+  
+
+Si te fijás bien, el término **$ABC$ está repetido dos veces**. Por el teorema de Idempotencia ($X + X = X$), sumar lo mismo dos veces es redundante, así que tachamos uno.
+
+  
+
+La ecuación final (ordenando un poco los términos) nos queda:
+
+**$Z = \bar{A}BC + A\bar{B}\bar{C} + A\bar{B}C + AB\bar{C} + ABC$**
+
+  
+
+
+
 
 ![[Pasted image 20260909223355.png]]
 
@@ -354,74 +478,6 @@ En resumen: el minitérmino es el grupito donde las letras se multiplican, y el 
 ![[Pasted image 20260909223405.png]]
 
 ![[Pasted image 20260909223414.png]]
-
-Las Formas Normales (o Canónicas) son dos maneras universales y estandarizadas de escribir exactamente la misma ecuación lógica. Sí, podés expresar el comportamiento de un mismo circuito de estas dos formas distintas, y ambas son matemáticamente equivalentes.
-
-  
-
-La diferencia radica en qué parte del comportamiento del circuito elegís mirar:
-
-  
-
-- **Forma Normal Disyuntiva (FND / Suma de Productos):** Se enfoca exclusivamente en los casos donde tu circuito tiene que dar `1` (encendido). Agrupa las variables multiplicándolas (minitérminos) y luego **suma** todos esos grupos.
-    
-      
-    
-- **Forma Normal Conjuntiva (FNC / Producto de Sumas):** Se enfoca exclusivamente en los casos donde tu circuito tiene que dar `0` (apagado). Agrupa las variables sumándolas (maxitérminos) y luego **multiplica** todos esos grupos.
-    
-      
-    
-
-Para verlo en la práctica, imaginá un circuito muy simple con dos variables ($A$ y $B$) y su salida ($Z$):
-
-  
-
-|**A**|**B**|**Z (Salida)**|
-|---|---|---|
-|0|0|**0**|
-|0|1|**1**|
-|1|0|**0**|
-|1|1|**1**|
-
-**1. Expresándolo como FND (Mirando los unos)**
-
-Buscamos las filas donde $Z=1$, que son la segunda y la cuarta.
-
-  
-
-- Fila (0, 1): La $A$ vale $0$, así que va negada. El minitérmino es $\bar{A} \cdot B$.
-    
-      
-    
-- Fila (1, 1): Ambas valen $1$. El minitérmino es $A \cdot B$.
-    
-      
-    
-- **Ecuación FND:** Sumás los bloques $\rightarrow$ $Z = (\bar{A} \cdot B) + (A \cdot B)$
-    
-      
-    
-
-**2. Expresándolo como FNC (Mirando los ceros)**
-
-Buscamos las filas donde $Z=0$, que son la primera y la tercera. Recordá que para los maxitérminos, la regla se invierte (el $1$ se niega).
-
-  
-
-- Fila (0, 0): Ambas valen $0$, ninguna se niega. El maxitérmino es $(A + B)$.
-    
-      
-    
-- Fila (1, 0): La $A$ vale $1$, así que va negada. El maxitérmino es $(\bar{A} + B)$.
-    
-      
-    
-- **Ecuación FNC:** Multiplicás los bloques $\rightarrow$ $Z = (A + B) \cdot (\bar{A} + B)$
-    
-      
-    
-
-Si aplicás los teoremas del álgebra de Boole que viste antes para simplificar cualquiera de esas dos ecuaciones, ambas se reducen a $Z = B$. Esto demuestra que tanto la FND como la FNC son dos caminos distintos para describir exactamente la misma realidad lógica.
 
 
 ![[Pasted image 20260909223723.png]]
