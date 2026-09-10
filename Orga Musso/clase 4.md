@@ -24,10 +24,6 @@ El motivo por el cual estudiás esto, tal como marcan los objetivos en `image_ed
 
 
 
-
-
-Entendiste perfecto el mecanismo de cambiar los signos y los números, pero ojo con pensar que la ecuación original y su dual son equivalentes entre sí o "dan lo mismo".
-
 Lo que el principio te dice es que **si una regla matemática es verdadera, su versión "espejo" es otra regla que también es verdadera**. Son dos leyes distintas que describen operaciones distintas, pero ambas son válidas dentro del sistema.
 
 
@@ -46,6 +42,22 @@ Las dos ecuaciones son verdades absolutas, pero una te habla del comportamiento 
   
 
 La gran ventaja de esto es que funciona como un "2x1" matemático: si el día de mañana lográs demostrar que una ley compleja para reducir circuitos es válida, automáticamente sabés que su versión dual también va a funcionar, ahorrándote el trabajo de tener que demostrarla desde cero.
+
+
+
+
+## Yo
+
+osea si es verdadera la primera, tengo que comprobar que la dual tambien sea
+
+## Gemini
+
+
+No, ¡justamente al revés! La magia de este principio es que **no tenés que comprobar la segunda**.
+
+Si vos ya sabés (o ya demostraste paso a paso) que la primera ecuación es verdadera, el Principio de Dualidad te garantiza que su versión "espejo" es **automáticamente verdadera**.
+
+No hace falta hacer ninguna demostración matemática extra para validar la dual. Por eso funciona como un "2x1": te matás demostrando una sola ecuación y, de regalo, te llevás otra ley totalmente válida para usar en tus circuitos.
 
 ![[Pasted image 20260909223123.png]]
 
