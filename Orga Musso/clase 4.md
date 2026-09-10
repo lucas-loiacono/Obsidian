@@ -77,6 +77,52 @@ No hace falta hacer ninguna demostración matemática extra para validar la dual
 
 ![[Pasted image 20260909223210.png]]
 
+Para entender estos teoremas sin memorizarlos de memoria, lo mejor es pensarlos como condiciones lógicas puras (imaginate que estás evaluando condiciones dentro de un `if` al programar, donde `1` es `True` y `0` es `False`):
+
+  
+
+- **T2) Existencia de elementos nulos:**
+    
+      
+    - **Suma ($A + 1 = 1$):** El operador OR (`+`) busca que _al menos una_ condición sea verdadera. Si yo te digo "Te apruebo la materia si hacés el trabajo práctico ($A$) **O** si me llamo Guillermo ($1$, una verdad absoluta)", la condición entera ya es verdadera. No me importa qué valor tenga $A$ (si hiciste el trabajo o no), porque el $1$ ya forzó que toda la suma sea `True`.
+        
+          
+        
+    - **Producto ($A \bullet 0 = 0$):** El operador AND (`*`) es estricto y exige que _todas_ las condiciones se cumplan. Si te digo "Te apruebo si hacés el trabajo ($A$) **Y** si los cerdos vuelan ($0$, falso)", es imposible que apruebes. La presencia de un solo $0$ destruye cualquier cadena de multiplicaciones.
+        
+          
+        
+- **T3) Involución ($\bar{\bar{A}} = A$):**
+    
+    Es la lógica pura de la doble negación que usamos al hablar. Si yo digo "No es cierto que no tengo hambre", lógicamente significa que sí tengo hambre. Si a un valor `True` le aplicás un `not` pasa a `False`, y si le aplicás otro `not`, vuelve a `True`.
+    
+      
+    
+- **T4) Absorción:** Esta es la regla dorada para eliminar código o compuertas redundantes.
+    
+      
+    - **$A + A \bullet B = A$:** Imaginate este requisito: "Podés entrar al recital si traés tu entrada ($A$) **O** si (traés tu entrada ($A$) **Y** venís con un amigo ($B$))". Analizalo lógicamente: si tenés la entrada ($A=1$), entrás por la primera regla. Si no tenés la entrada ($A=0$), la segunda regla tampoco te sirve porque te exige la entrada. En definitiva, que vengas con el amigo ($B$) es un dato completamente inútil. La ecuación "absorbe" a $B$ y la descarta, porque todo depende exclusivamente de $A$.
+        
+          
+        
+- **T5) Asociatividad:**
+    
+    Significa que el orden en que agrupás evaluaciones lógicas idénticas no cambia el resultado. Si para un alta de usuario exijo "Mail válido ($A$) Y Contraseña fuerte ($B$) Y Mayor de edad ($C$)", da exactamente lo mismo si mi sistema primero verifica $(A \bullet B)$ y luego $C$, o si arranca por $(B \bullet C)$ y luego $A$. El rigor es el mismo. _Ojo: esto solo vale si todos los operadores son exactamente iguales (todas sumas o todos productos)._
+    
+      
+    
+- **T6) Leyes de De Morgan:**
+    
+    Llevémoslo a sentencias de la vida cotidiana para entender por qué los operadores se invierten.
+    
+      
+    - **T6a ($\overline{A + B} = \bar{A} * \bar{B}$):** Imaginate que afirmo: _"Es mentira que voy a comer pizza o hamburguesa"_ ($\overline{A+B}$). ¿Qué significa esto lógicamente? Significa que _"NO voy a comer pizza"_ **Y** _"NO voy a comer hamburguesa"_ ($\bar{A} * \bar{B}$).
+        
+          
+        
+    - **T6b ($\overline{A * B} = \bar{A} + \bar{B}$):** Ahora imaginate que afirmo: _"Es mentira que tengo un auto y una moto"_ ($\overline{A*B}$). Para que mi mentira sea cierta, no hace falta que no tenga ninguno de los dos; simplemente alcanza con que _"NO tenga auto"_ **O** _"NO tenga moto"_ ($\bar{A} + \bar{B}$). Al fallar uno solo, la afirmación original ya era mentira.
+
+
 ![[Pasted image 20260909223228.png]]
 
 ![[Pasted image 20260909223245.png]]
