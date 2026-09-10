@@ -307,9 +307,74 @@ El detalle interesante acá es que en el lado derecho menciona que esto se obtie
 
 ¿Querés que veamos cómo usar el álgebra de Boole para empezar a simplificar este choclazo de ecuación, o pasamos a la siguiente diapositiva que tengas?
 
+
+Estás muy cerca con la idea, pero hay una pequeña confusión con la estructura del maxitérmino. Vamos a separar el "ladrillo" (el término individual) de la "pared" (la ecuación completa).
+
+  
+
+**1. Los ladrillos (Términos individuales)**
+
+Tanto el minitérmino como el maxitérmino son un solo bloque individual que contiene a todas las variables ($A, B, C$) una sola vez:
+
+  
+
+- **Minitérmino:** Es una **multiplicación** interna de las variables. Ejemplo: $A \cdot B \cdot C$
+    
+      
+    
+- **Maxitérmino:** Es una **suma** interna de las variables. Ejemplo: $A + B + C$ (no es $ABC + ABC$, sino las letras separadas por signos de suma).
+    
+      
+    
+
+**2. La pared (Las Funciones Normales)**
+
+Acá es donde unimos varios ladrillos para armar el circuito final, y creo que a esto apuntabas con tu ejemplo:
+
+  
+
+- **Forma Normal Disyuntiva (SPm):** Agarrás varios minitérminos y los sumás entre sí. Te queda: $(A \cdot B \cdot C) + (\bar{A} \cdot B \cdot \bar{C}) + (A \cdot \bar{B} \cdot C)$.
+    
+      
+    
+- **Forma Normal Conjuntiva (PSM):** Agarrás varios maxitérminos y los multiplicás entre sí. Te queda: $(A + B + C) \cdot (\bar{A} + B + \bar{C}) \cdot (A + \bar{B} + C)$.
+    
+      
+    
+
+En resumen: el minitérmino es el grupito donde las letras se multiplican, y el maxitérmino es el grupito donde las letras se suman. ¿Se ve más clara ahí la diferencia visual?
+
 ![[Pasted image 20260909223346.png]]
 
+Estas diapositivas detallan los métodos algebraicos para construir ambas funciones canónicas a partir de una ecuación, sin depender visualmente de la tabla de verdad.
+
+**Armando los Minitérminos (Forma Normal Disyuntiva)**
+
+En `image_fb0cc9.png`, se muestra el desarrollo para expandir la función original $f1(A, B, C) = A + B + C$.
+
+- El objetivo es asegurar que en cada término aparezcan todas las variables del sistema.
+    
+- Se rellenan las variables faltantes multiplicando el término original por la suma de la variable que falta y su negación, tal como se hace al multiplicar $A$ por $(B + \bar{B})(C + \bar{C})$.
+    
+- Tras aplicar la propiedad distributiva, se obtiene una sumatoria larga que contiene múltiples minitérminos.
+    
+- Para obtener el resultado limpio, se tachan todos los minitérminos duplicados en el medio de la ecuación.
+
 ![[Pasted image 20260909223355.png]]
+
+**Armando los Maxitérminos (Forma Normal Conjuntiva)** En `image_fb0ce6.png`, se enumeran los tres pasos teóricos exactos para obtener la expresión canónica como Producto de Maxitérminos.
+
+- **Paso 1:** Primero se debe desarrollar la función como una suma de minitérminos.
+    
+- **Paso 2:** Luego, se deben identificar los minitérminos en los que la función original vale '0'.
+    
+- **Paso 3:** Esos minitérminos identificados que valen cero se suman, lo cual conforma la Función Negada.
+    
+- Sobre esa suma de minitérminos se debe usar la ley D'Morgan.
+    
+- La aplicación de esta ley consiste en intercambiar las sumas por multiplicaciones.
+    
+- En este mismo paso, se deben negar todas las variables que componen los minitérminos para los cuales la función valía cero.
 
 ![[Pasted image 20260909223405.png]]
 
