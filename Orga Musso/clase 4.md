@@ -380,6 +380,75 @@ En `image_fb0cc9.png`, se muestra el desarrollo para expandir la función origin
 
 ![[Pasted image 20260909223414.png]]
 
+Las Formas Normales (o Canónicas) son dos maneras universales y estandarizadas de escribir exactamente la misma ecuación lógica. Sí, podés expresar el comportamiento de un mismo circuito de estas dos formas distintas, y ambas son matemáticamente equivalentes.
+
+  
+
+La diferencia radica en qué parte del comportamiento del circuito elegís mirar:
+
+  
+
+- **Forma Normal Disyuntiva (FND / Suma de Productos):** Se enfoca exclusivamente en los casos donde tu circuito tiene que dar `1` (encendido). Agrupa las variables multiplicándolas (minitérminos) y luego **suma** todos esos grupos.
+    
+      
+    
+- **Forma Normal Conjuntiva (FNC / Producto de Sumas):** Se enfoca exclusivamente en los casos donde tu circuito tiene que dar `0` (apagado). Agrupa las variables sumándolas (maxitérminos) y luego **multiplica** todos esos grupos.
+    
+      
+    
+
+Para verlo en la práctica, imaginá un circuito muy simple con dos variables ($A$ y $B$) y su salida ($Z$):
+
+  
+
+|**A**|**B**|**Z (Salida)**|
+|---|---|---|
+|0|0|**0**|
+|0|1|**1**|
+|1|0|**0**|
+|1|1|**1**|
+
+**1. Expresándolo como FND (Mirando los unos)**
+
+Buscamos las filas donde $Z=1$, que son la segunda y la cuarta.
+
+  
+
+- Fila (0, 1): La $A$ vale $0$, así que va negada. El minitérmino es $\bar{A} \cdot B$.
+    
+      
+    
+- Fila (1, 1): Ambas valen $1$. El minitérmino es $A \cdot B$.
+    
+      
+    
+- **Ecuación FND:** Sumás los bloques $\rightarrow$ $Z = (\bar{A} \cdot B) + (A \cdot B)$
+    
+      
+    
+
+**2. Expresándolo como FNC (Mirando los ceros)**
+
+Buscamos las filas donde $Z=0$, que son la primera y la tercera. Recordá que para los maxitérminos, la regla se invierte (el $1$ se niega).
+
+  
+
+- Fila (0, 0): Ambas valen $0$, ninguna se niega. El maxitérmino es $(A + B)$.
+    
+      
+    
+- Fila (1, 0): La $A$ vale $1$, así que va negada. El maxitérmino es $(\bar{A} + B)$.
+    
+      
+    
+- **Ecuación FNC:** Multiplicás los bloques $\rightarrow$ $Z = (A + B) \cdot (\bar{A} + B)$
+    
+      
+    
+
+Si aplicás los teoremas del álgebra de Boole que viste antes para simplificar cualquiera de esas dos ecuaciones, ambas se reducen a $Z = B$. Esto demuestra que tanto la FND como la FNC son dos caminos distintos para describir exactamente la misma realidad lógica.
+
+
 ![[Pasted image 20260909223723.png]]
 
 ![[Pasted image 20260909223732.png]]
