@@ -294,6 +294,19 @@ El problema es que construir un circuito con 5 sumas y multiplicaciones de a 3 v
 
 ![[Pasted image 20260909223335.png]]
 
+¡Justamente esta diapositiva, `image_fa3008.png`, es la resolución oficial del ejercicio que acabamos de hacer a mano en el mensaje anterior!
+
+Acá el profesor te formaliza en limpio cómo se construyen esas dos ecuaciones:
+
+- **Lado izquierdo (FND / SPm):** Te escribe la regla teórica exacta que aplicamos: buscar los $1$ de la salida, reemplazar los $0$ de la entrada por variables negadas y los $1$ por variables normales. Al lado de la tabla podés ver listados exactamente los mismos cinco minitérminos que armamos recién, y abajo de todo, la sumatoria final gigante.
+    
+- **Lado derecho (FNC / PSM):** Te muestra directamente el resultado final del producto de sumas (los tres maxitérminos multiplicados) correspondiente a las filas donde la $Z$ vale $0$.
+    
+
+El detalle interesante acá es que en el lado derecho menciona que esto se obtiene teniendo en cuenta el **Principio de Dualidad**. Como charlamos al principio, esto es porque para pasar de la técnica de minitérminos a maxitérminos estás invirtiendo todas las reglas del juego: pasás de buscar unos a buscar ceros, pasás de multiplicar a sumar, y pasás de negar los ceros a negar los unos. Todo es el "espejo" lógico de lo anterior.
+
+¿Querés que veamos cómo usar el álgebra de Boole para empezar a simplificar este choclazo de ecuación, o pasamos a la siguiente diapositiva que tengas?
+
 ![[Pasted image 20260909223346.png]]
 
 ![[Pasted image 20260909223355.png]]
