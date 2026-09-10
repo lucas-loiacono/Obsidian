@@ -346,35 +346,10 @@ En resumen: el minitérmino es el grupito donde las letras se multiplican, y el 
 
 ![[Pasted image 20260909223346.png]]
 
-Estas diapositivas detallan los métodos algebraicos para construir ambas funciones canónicas a partir de una ecuación, sin depender visualmente de la tabla de verdad.
-
-**Armando los Minitérminos (Forma Normal Disyuntiva)**
-
-En `image_fb0cc9.png`, se muestra el desarrollo para expandir la función original $f1(A, B, C) = A + B + C$.
-
-- El objetivo es asegurar que en cada término aparezcan todas las variables del sistema.
-    
-- Se rellenan las variables faltantes multiplicando el término original por la suma de la variable que falta y su negación, tal como se hace al multiplicar $A$ por $(B + \bar{B})(C + \bar{C})$.
-    
-- Tras aplicar la propiedad distributiva, se obtiene una sumatoria larga que contiene múltiples minitérminos.
-    
-- Para obtener el resultado limpio, se tachan todos los minitérminos duplicados en el medio de la ecuación.
 
 ![[Pasted image 20260909223355.png]]
 
-**Armando los Maxitérminos (Forma Normal Conjuntiva)** En `image_fb0ce6.png`, se enumeran los tres pasos teóricos exactos para obtener la expresión canónica como Producto de Maxitérminos.
 
-- **Paso 1:** Primero se debe desarrollar la función como una suma de minitérminos.
-    
-- **Paso 2:** Luego, se deben identificar los minitérminos en los que la función original vale '0'.
-    
-- **Paso 3:** Esos minitérminos identificados que valen cero se suman, lo cual conforma la Función Negada.
-    
-- Sobre esa suma de minitérminos se debe usar la ley D'Morgan.
-    
-- La aplicación de esta ley consiste en intercambiar las sumas por multiplicaciones.
-    
-- En este mismo paso, se deben negar todas las variables que componen los minitérminos para los cuales la función valía cero.
 
 ![[Pasted image 20260909223405.png]]
 
