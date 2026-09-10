@@ -61,6 +61,14 @@ No hace falta hacer ninguna demostración matemática extra para validar la dual
 
 ![[Pasted image 20260909223123.png]]
 
+**1. El Vocabulario (Diapositiva 4)**
+
+- **Magnitud y Variable:** La magnitud es el estado real (`0` o `1`), y la variable es la letra abstracta que usás para representarlo (como $A$, $B$, $C$).
+    
+- **Complemento:** Es la negación (el NOT). Acá te introducen la notación más común que vas a usar al diseñar circuitos: en vez de un apóstrofo, se le pone una línea arriba a la variable ($\bar{A}$).
+    
+- **Literal:** Esta es una distinción importante. Una "variable" es la letra base (por ejemplo, $A$). Un "literal" es cualquier aparición de esa variable en una ecuación, ya sea en su forma normal ($A$) o complementada ($\bar{A}$).
+
 ![[Pasted image 20260909223133.png]]
 
 ![[Pasted image 20260909223144.png]]
