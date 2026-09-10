@@ -131,7 +131,166 @@ Para entender estos teoremas sin memorizarlos de memoria, lo mejor es pensarlos 
 
 ![[Pasted image 20260909223307.png]]
 
+Esta imagen (`image_f9afc9.png`) aísla la parte teórica de la diapositiva que vimos recién, definiendo las reglas de juego para empezar a diseñar circuitos reales a partir de ecuaciones.
+
+  
+
+Vamos a desglosar los cuatro conceptos:
+
+  
+
+- **Función Lógica:** Es simplemente la ecuación matemática que describe qué va a hacer tu circuito. Representa el resultado final (la salida) basándose en las variables de entrada que le des.
+    
+      
+    
+- **Equivalencia de Funciones Lógicas:** Este es el motivo por el cual estudiaste todos los teoremas anteriores. Podés tener un circuito con 50 compuertas y otro con solo 3; si al probar todas las combinaciones posibles de ceros y unos en sus entradas ambos devuelven exactamente los mismos resultados, **tienen la misma tabla de verdad**. Por lo tanto, son funciones equivalentes. El objetivo siempre va a ser encontrar la función equivalente más barata y chica posible.
+    
+      
+    
+- **Minitérmino y Maxitérmino:** La regla de oro acá es que en estos términos **tienen que aparecer absolutamente todas las variables** del sistema. Si tu circuito depende de $A$, $B$ y $C$:
+    
+      
+    - Un **minitérmino** es una multiplicación que incluye a las tres (ej: $A \cdot \bar{B} \cdot C$).
+        
+          
+        
+    - Un **maxitérmino** es una suma que incluye a las tres (ej: $A + \bar{B} + C$).
+        
+        Como cada variable tiene solo 2 estados posibles ($0$ o $1$), la cantidad de combinaciones (y por ende, la cantidad máxima de minitérminos o maxitérminos que vas a tener en tu tabla) siempre se calcula como $2^n$, donde $n$ es la cantidad de variables.
+        
+          
+        
+- **Redundancia (Condiciones "No importa"):** Este es un concepto que te va a salvar la vida cuando quieras simplificar circuitos complejos. A veces, hay combinaciones de entrada que son imposibles en el mundo real. Por ejemplo, si un sensor mide el estado de una puerta, la puerta no puede estar "abierta" y "cerrada" exactamente al mismo tiempo. Como esa combinación nunca va a ocurrir, el valor que devuelva tu circuito para ese caso específico **no está definido ni nos interesa**. Estas redundancias (conocidas en la bibliografía como _Don't Cares_) se usan como comodines a tu favor para achicar aún más las ecuaciones.
+
 ![[Pasted image 20260909223317.png]]
+
+Esta diapositiva (`image_f9b70d.png`) te muestra exactamente cómo pasar del comportamiento deseado (la tabla de verdad) a una ecuación matemática concreta para armar el circuito.
+
+  
+
+Para lograr esto, se usan las **Funciones Canónicas**, que son formas universales y estandarizadas de escribir la ecuación basándote directamente en los resultados de la tabla. Tenés dos caminos para hacerlo:
+
+  
+
+- **Forma Normal Disyuntiva (Suma de Productos - SPm):** Vas a la columna de salida ($Z$) y te fijás **únicamente en las filas que dan $1$**. Para cada una de esas filas armás un minitérmino (multiplicando las entradas) y al final sumás todos esos bloques.
+    
+      
+    
+- **Forma Normal Conjuntiva (Producto de Sumas - PSM):** Hacés el proceso inverso. Buscás las filas donde **$Z$ da $0$**. Armás un maxitérmino para cada una (sumando las entradas) y al final multiplicás todos los bloques entre sí.
+    
+      
+    
+
+**El ejemplo de la lámpara paso a paso**
+
+Tenés 3 variables: Llave $A$, Puerta $B$ y Ventana $C$. Como la fórmula para saber la cantidad de combinaciones es $2^n$, el cuadro se arma con $2^3 = 8$ filas.
+
+  
+
+La regla lógica que te dan es $Z = A + B \cdot C$. Si mirás la columna $Z$, el resultado es $1$ (lámpara encendida) en estos casos específicos:
+
+  
+
+1. Cuando $B$ y $C$ valen $1$ al mismo tiempo (fila 011).
+    
+      
+    
+2. Cuando $A$ vale $1$, sin importar qué pase con el resto (las últimas 4 filas de la tabla: 100, 101, 110, 111).
+    
+      
+    
+
+**¿Por qué está resaltado en amarillo "(¿pero es la mínima?)"?**
+
+Esta es la pregunta que define el resto de la materia. Si vos armás la función canónica guiándote por los cinco $1$s de esa tabla, te va a quedar una ecuación original gigantesca con 5 minitérminos sumados. Construir un circuito literal con esa ecuación enorme es carísimo y ocupa muchísimo espacio físico.
+
+  
+
+Justamente por eso aprendiste todos los postulados y teoremas anteriores (y los mapas de Karnaugh que seguro vas a ver pronto): el objetivo es agarrar esa función canónica monstruosa y simplificarla algebraicamente hasta llegar a su mínima expresión posible, que en este caso es el simple y elegante $Z = A + B \cdot C$.
+
+
+Vamos a armar las dos ecuaciones paso a paso usando la tabla de verdad de la diapositiva para que veas cómo se construyen en la práctica.
+
+  
+
+La regla de oro antes de empezar:
+
+  
+
+- Para los **minitérminos** (buscando los `1`), la variable normal vale `1` y la negada vale `0`.
+    
+      
+    
+- Para los **maxitérminos** (buscando los `0`), la lógica se invierte: la variable normal vale `0` y la negada vale `1`.
+    
+      
+    
+
+### 1. Forma Normal Disyuntiva (Suma de Productos / SPm)
+
+Acá nos interesan **únicamente las filas donde $Z = 1$**. Si mirás la tabla, son las últimas 5 filas. Para cada una, armamos un minitérmino multiplicando las variables ($A \cdot B \cdot C$):
+
+  
+
+- Fila (0, 1, 1) $\rightarrow$ La $A$ es $0$, así que va negada. Queda: **$\bar{A} \cdot B \cdot C$**
+    
+      
+    
+- Fila (1, 0, 0) $\rightarrow$ La $B$ y la $C$ son $0$, van negadas. Queda: **$A \cdot \bar{B} \cdot \bar{C}$**
+    
+      
+    
+- Fila (1, 0, 1) $\rightarrow$ La $B$ es $0$, va negada. Queda: **$A \cdot \bar{B} \cdot C$**
+    
+      
+    
+- Fila (1, 1, 0) $\rightarrow$ La $C$ es $0$, va negada. Queda: **$A \cdot B \cdot \bar{C}$**
+    
+      
+    
+- Fila (1, 1, 1) $\rightarrow$ Todas son $1$, ninguna va negada. Queda: **$A \cdot B \cdot C$**
+    
+      
+    
+
+Ahora, la "Forma Normal Disyuntiva" se arma sumando todos esos bloquecitos que acabamos de conseguir:
+
+**$Z = (\bar{A} \cdot B \cdot C) + (A \cdot \bar{B} \cdot \bar{C}) + (A \cdot \bar{B} \cdot C) + (A \cdot B \cdot \bar{C}) + (A \cdot B \cdot C)$**
+
+  
+
+### 2. Forma Normal Conjuntiva (Producto de Sumas / PSM)
+
+Acá hacemos lo contrario: nos interesan **únicamente las filas donde $Z = 0$**. Si mirás la tabla, son las primeras 3 filas. Para cada una, armamos un maxitérmino sumando las variables ($A + B + C$), recordando que **acá el $1$ es el que se niega**:
+
+  
+
+- Fila (0, 0, 0) $\rightarrow$ Todas son $0$, ninguna se niega. Queda: **$(A + B + C)$**
+    
+      
+    
+- Fila (0, 0, 1) $\rightarrow$ La $C$ es $1$, así que va negada. Queda: **$(A + B + \bar{C})$**
+    
+      
+    
+- Fila (0, 1, 0) $\rightarrow$ La $B$ es $1$, así que va negada. Queda: **$(A + \bar{B} + C)$**
+    
+      
+    
+
+La "Forma Normal Conjuntiva" se arma multiplicando todos esos bloquecitos:
+
+**$Z = (A + B + C) \cdot (A + B + \bar{C}) \cdot (A + \bar{B} + C)$**
+
+  
+
+**Conclusión:**
+
+Tanto la ecuación gigante de sumas (SPm) como la ecuación de multiplicaciones (PSM) son matemáticamente **equivalentes**. Si construís un circuito con cualquiera de las dos, la lámpara se va a encender y apagar exactamente en los mismos momentos.
+
+  
+
+El problema es que construir un circuito con 5 sumas y multiplicaciones de a 3 variables es un desperdicio físico y económico. Ahí es donde entran los teoremas del álgebra de Boole que viste antes: para agarrar cualquiera de esas dos ecuaciones monstruosas, factorizarlas y reducirlas hasta llegar a la expresión mínima que te dio el profesor al principio: $Z = A + B \cdot C$.
 
 ![[Pasted image 20260909223335.png]]
 
