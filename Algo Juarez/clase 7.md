@@ -76,6 +76,10 @@ combinacion de 3 locales, = 3!
 
 ![[Pasted image 20260908185017.png]]
 
+Esto depende de mi n por ejemplo en factorial seria n! donde mi n es el tamaño del problema, ya que 30! es mas difícil calcularlo que 5!, entonces mi tamaño del problema es mayor con un n = 30
+
+En ordenar un vector, un vector mas grande es mas difícil de ordenar que un o chico, lo mismo con la búsqueda
+
 ![[Pasted image 20260908185737.png]]
 
 ![[Pasted image 20260908185841.png]]
