@@ -50,6 +50,8 @@ Por eso, en lenguajes como C, Java o Python, la operación te obliga a escribir 
 
 ![[Pasted image 20260908183247.png]]
 
+![[Pasted image 20260911171045.png]]
+
 ![[Pasted image 20260908183258.png]]
 
 ![[Pasted image 20260908183119.png]]
