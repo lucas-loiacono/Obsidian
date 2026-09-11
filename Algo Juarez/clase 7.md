@@ -214,3 +214,14 @@ es lo mismo, ya que si tengo una constante lo multiplico por 1/100 y me queda ma
 
 acá lo que pasa es que si lo multiplico por un numero tiene que ser cota inferior y si lo multiplico por otro numero tiene que ser cota superior
 si a n^2 lo multiplico por 1/100 me da una cota inferior y si lo multiplico por 100 me da una superior
+
+![[Pasted image 20260911193505.png]]
+
+![[Pasted image 20260911193515.png]]
+
+
+![[Pasted image 20260911193542.png]]
+
+![[Pasted image 20260911193556.png]]
+
+![[Pasted image 20260911193251.png]]
