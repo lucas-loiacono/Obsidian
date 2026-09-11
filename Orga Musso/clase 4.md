@@ -619,9 +619,11 @@ X-OR: todo lo que sea la union menos la interseccion
 
 ![[Pasted image 20260909223808.png]]
 
-X-NOR: es la union y todo 
+X-NOR: es la interseccion y todo lo que no sea la union
 
 ![[Pasted image 20260909223819.png]]
+
+
 
 ![[Pasted image 20260909223829.png]]
 
