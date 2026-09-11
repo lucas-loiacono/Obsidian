@@ -126,6 +126,25 @@ por ejemplo el 90% de los casos cae en 4 y el 10% cae en 7
 
 ![[Pasted image 20260908192407.png]]
 
+
+![[Pasted image 20260911182337.png]]
+En total = 15
+
+En el mejor caso
+
+Acceder al vector cuesta 1 y luego igualar cuesta otro
+
+El while es una vez que entra, luego de cumplir 1 ciclo lo vuelve a examinar la condición (en el mejor caso)
+
+![[Pasted image 20260911182804.png]]
+
+El 1 en el while se da ya que analiza la primera condición nomas, como ve que ya mi i = n deja de seguir con la siguiente condición y lo corta ahí
+ 
+En el peor de los casos tienen que iterar por todo el vector hasta la ultima posición
+
+![[Pasted image 20260911183051.png]]
+
+
 ![[Pasted image 20260908194542.png]]
 
 
