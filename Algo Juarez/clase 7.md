@@ -94,6 +94,8 @@ vamos a descartar el código que genere el compilador o interprete y la maquina,
 
 ![[Pasted image 20260908190457.png]]
 
+La relación es maso menos el doble, por eso se estudia solo el algirtmo y los datos de entrada
+
 ![[Pasted image 20260908190740.png]]
 
 ![[Pasted image 20260908190816.png]]
