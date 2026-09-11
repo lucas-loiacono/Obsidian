@@ -186,3 +186,16 @@ Con la suma de los algoritmos me tengo que quedar con el mas grande
 ![[Pasted image 20260911191015.png]]
 
 # Anidados ->  se multiplica
+
+
+![[Pasted image 20260911191557.png]]
+
+![[Pasted image 20260911191840.png]]
+
+![[Pasted image 20260911191935.png]]
+
+![[Pasted image 20260911191955.png]]
+
+![[Pasted image 20260911192052.png]]
+
+![[Pasted image 20260911192138.png]]
