@@ -151,7 +151,17 @@ Los azules se ejecutan 1 sola vez, mientras que los amarillos depende de mi n
 
 ![[Pasted image 20260908194542.png]]
 
-
 ![[Pasted image 20260908194811.png]]
 
 ![[Pasted image 20260908195010.png]]
+
+![[Pasted image 20260911184459.png]]
+
+Le pongo que es 9n ya que le hago una cota superior, como le puedo hacer una mucho mas grande como una mucho mas chica, pero nos alejamos del orden exacto
+
+![[Pasted image 20260911184937.png]]
+
+Acá tenemos el orden exacto que es 7n+7 
+
+Tambien podemos poner 5n ya que una constante cualquiera multiplicado por mi orden tiene que ser mas grande que mi orden exacto, entonces si yo tengo 5n y lo multiplico por 2 me da 10n que tambien funciona como techo
+Por esta razon lo que se hace es sacar todas las constantes y poner la n sola, en este caso O(n)
