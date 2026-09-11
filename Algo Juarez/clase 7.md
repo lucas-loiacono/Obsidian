@@ -111,9 +111,10 @@ La relación es maso menos el doble, por eso se estudia solo el algirtmo y los d
 
 ![[Pasted image 20260908191926.png]]
 
-el caso 
 
 ![[Pasted image 20260908192044.png]]
+
+el caso promedio depende de la cantidad de veces que entre en el if o en el else
 
 OE = operaciones elementales
 
