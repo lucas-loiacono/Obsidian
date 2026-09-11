@@ -108,7 +108,10 @@ La relación es maso menos el doble, por eso se estudia solo el algirtmo y los d
 
 ![[Pasted image 20260908191902.png]]
 
+
 ![[Pasted image 20260908191926.png]]
+
+el caso 
 
 ![[Pasted image 20260908192044.png]]
 
