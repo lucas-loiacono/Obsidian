@@ -173,3 +173,16 @@ Por esta razón lo que se hace es sacar todas las constantes y poner la n sola, 
 de todas estas me quedo con n^2 
 
 ![[Pasted image 20260911185900.png]]
+
+![[Pasted image 20260911190539.png]]
+
+Una puede ser el orden de la otra, ya que se multiplican por una constante y el orden de las dos son O(n^2)
+
+
+![[Pasted image 20260911190904.png]]
+
+Con la suma de los algoritmos me tengo que quedar con el mas grande
+
+![[Pasted image 20260911191015.png]]
+
+# Anidados ->  se multiplica
