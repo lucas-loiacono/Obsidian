@@ -82,7 +82,11 @@ En ordenar un vector, un vector mas grande es mas difícil de ordenar que un o c
 
 ![[Pasted image 20260908185737.png]]
 
+vamos a descartar el código que genere el compilador o interprete y la maquina, por el principio de invarianza, que si corro un mismo algoritmo en una maquina o en otra, la diferencia de tiempo siempre va a estar acotada, nunca se va a disparar demasiado
+
 ![[Pasted image 20260908185841.png]]
+
+
 
 ![[Pasted image 20260908190145.png]]
 
