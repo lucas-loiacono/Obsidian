@@ -15,8 +15,34 @@
 
 ![[Pasted image 20260908181948.png]]
 
+El tercer $n$ sale de **la cantidad de elementos que tiene la fila y la columna que estás enfrentando.**
 
-![[Pasted image 20260908183044.png]]S
+Piensa que cuando ya elegiste una fila de la matriz A y una columna de la matriz B, todavía no tienes el resultado. Tienes en tus manos dos arreglos (arrays) de tamaño $n$.
+
+Para convertir esos dos arreglos en un solo número, tienes que recorrerlos de principio a fin, multiplicando el índice 1 con el 1, el 2 con el 2, el 3 con el 3... hasta llegar al índice $n$. Ese recorrido elemento por elemento es tu tercer $n$.
+
+Desglosemos exactamente qué hace cada $n$:
+
+1. **El primer $n$:** Recorre todas las filas de la matriz A.
+    
+2. **El segundo $n$:** Recorre todas las columnas de la matriz B.
+    
+    _(Al multiplicar estos dos, obtienes $n^2$. Esto representa simplemente la cantidad de celdas vacías que tiene la matriz final $C$ que debes llenar)._
+    
+1. **El tercer $n$ (el que no encontrabas):** Es la caminata que haces dentro de esa fila y esa columna específicas para calcular el valor de la celda. Como la matriz es de $n \times n$, la fila tiene $n$ elementos y la columna tiene $n$ elementos. Debes hacer $n$ multiplicaciones individuales para resolver esa única celda.
+    
+
+
+Por eso, en lenguajes como C, Java o Python, la operación te obliga a escribir tres bucles `for` anidados:
+
+
+- El `for i` (primer $n$) y el `for j` (segundo $n$) solo sirven para posicionarte en una celda vacía de la matriz final, por ejemplo `C[i][j]`.
+    
+   
+- El `for k` (tercer $n$) es el que hace el trabajo pesado: da $n$ pasos a lo largo de la fila `i` y la columna `j` para multiplicar y sumar los valores.
+
+
+![[Pasted image 20260908183044.png]]
 
 ![[Pasted image 20260908183009.png]]
 
