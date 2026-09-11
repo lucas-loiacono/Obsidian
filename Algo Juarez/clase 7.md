@@ -199,3 +199,18 @@ Con la suma de los algoritmos me tengo que quedar con el mas grande
 ![[Pasted image 20260911192052.png]]
 
 ![[Pasted image 20260911192138.png]]
+
+![[Pasted image 20260911192254.png]]
+
+
+![[Pasted image 20260911192440.png]]
+
+es lo mismo, ya que si tengo una constante lo multiplico por 1/100 y me queda mas chico que el de arriba
+
+
+![[Pasted image 20260911192530.png]]
+
+![[Pasted image 20260911192642.png]]
+
+acá lo que pasa es que si lo multiplico por un numero tiene que ser cota inferior y si lo multiplico por otro numero tiene que ser cota superior
+si a n^2 lo multiplico por 1/100 me da una cota inferior y si lo multiplico por 100 me da una superior
