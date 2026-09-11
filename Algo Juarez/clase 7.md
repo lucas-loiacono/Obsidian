@@ -145,6 +145,10 @@ En el peor de los casos tienen que iterar por todo el vector hasta la ultima pos
 ![[Pasted image 20260911183051.png]]
 
 
+![[Pasted image 20260911184036.png]]
+
+Los azules se ejecutan 1 sola vez, mientras que los amarillos depende de mi n
+
 ![[Pasted image 20260908194542.png]]
 
 
