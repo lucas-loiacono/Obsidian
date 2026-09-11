@@ -597,15 +597,29 @@ La ecuación final nos queda:
 
 ![[Pasted image 20260909223723.png]]
 
+lo que me entrega es lo que no se da, entra A y sale A negada
+
 ![[Pasted image 20260909223732.png]]
+
+se activa el circuito cuando al menos una de las dos esta activada
 
 ![[Pasted image 20260909223740.png]]
 
+las dos tienen que estar cerradas
+
 ![[Pasted image 20260909223750.png]]
+
+NOR: todo lo que no sea la unión
+
+NAND: todo lo que no sea la intersección
 
 ![[Pasted image 20260909223759.png]]
 
+X-OR: todo lo que sea la union menos la interseccion
+
 ![[Pasted image 20260909223808.png]]
+
+X-NOR: es la union y todo 
 
 ![[Pasted image 20260909223819.png]]
 
