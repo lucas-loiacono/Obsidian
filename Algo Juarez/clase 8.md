@@ -36,3 +36,18 @@ Acá le tengo que pasar de que tipo es la caja entre los <>, pero si a la de str
 ![[Pasted image 20260912193004.png]]
 
 java acá con los métodos java es mas inteligente, ya que le pasamos los argumentos y java ya lee el tipo que son compilando normal
+
+
+
+![[Pasted image 20260912195741.png]]
+
+Contrato: te obliga a programar ciertos métodos
+En este caso el contrato que me debe dar dos métodos, k y v getclave y getvalor
+
+
+![[Pasted image 20260912200143.png]]
+
+A lo genéricos los restrinjo para que no me pueda tomar ciertos tipos de datos, por ejemplo si yo tengo una calculadora puedo hacer que me tome tipos de datos como int, float, doble, pero no quiero que me tome un string
+De todos los datos que puede tomar el genérico lo restrinjo a unos pocos
+
+en el caso
