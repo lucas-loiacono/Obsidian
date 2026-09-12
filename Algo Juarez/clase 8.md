@@ -50,4 +50,7 @@ En este caso el contrato que me debe dar dos métodos, k y v getclave y getvalor
 A lo genéricos los restrinjo para que no me pueda tomar ciertos tipos de datos, por ejemplo si yo tengo una calculadora puedo hacer que me tome tipos de datos como int, float, doble, pero no quiero que me tome un string
 De todos los datos que puede tomar el genérico lo restrinjo a unos pocos
 
-en el caso
+En el caso es acepta cualquier tipo t, pero que sea heredado de la clase Numbers
+Es como "t se extiende de Numbers" ósea que t extiende una rama de la clase Numbers
+
+![[Pasted image 20260912200735.png]]
