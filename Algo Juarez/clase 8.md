@@ -54,3 +54,6 @@ En el caso es acepta cualquier tipo t, pero que sea heredado de la clase Numbers
 Es como "t se extiende de Numbers" ósea que t extiende una rama de la clase Numbers
 
 ![[Pasted image 20260912200735.png]]
+
+
+![[Pasted image 20260912201626.png]]
