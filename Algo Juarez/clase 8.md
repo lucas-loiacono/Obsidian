@@ -14,4 +14,8 @@ Esto esta mal
 Casteo todo a clase object, el tema es que cuando quiero sacar un elemento de la caja, se olvida de lo que es y lo tengo que castear de nuevo a la fuerza
 
 
-Para esto se crearon lo genericos
+Para esto se crearon lo genéricos
+
+![[Pasted image 20260912190022.png]]
+
+declaro entre <> una variable que todavia no se sabe el tipo de dato que va a contener
