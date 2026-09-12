@@ -19,3 +19,11 @@ Para esto se crearon lo genéricos
 ![[Pasted image 20260912190022.png]]
 
 declaro entre <> una variable que todavia no se sabe el tipo de dato que va a contener
+
+![[Pasted image 20260912190714.png]]
+
+acá guardo el dato, pero a la hora que lo quiero mostrar si lo casteo mal el archivo se rompe en tiempo de ejecución
+
+## Solución
+
+![[Pasted image 20260912191328.png]]
