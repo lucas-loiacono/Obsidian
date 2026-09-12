@@ -29,3 +29,10 @@ acá guardo el dato, pero a la hora que lo quiero mostrar si lo casteo mal el ar
 ![[Pasted image 20260912191328.png]]
 
 Acá le tengo que pasar de que tipo es la caja entre los <>, pero si a la de string le paso in interger lo que hace es que se no deja compilar desde el principio
+
+
+
+
+![[Pasted image 20260912193004.png]]
+
+java acá con los métodos java es mas inteligente, ya que le pasamos los argumentos y java ya lee el tipo que son compilando normal
