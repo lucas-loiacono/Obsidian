@@ -6,3 +6,12 @@ si yo quiero guardar datos, lo tengo que hacer de esta forma, me tengo que crear
 ![[Pasted image 20260912183312.png]]
 
 ![[Pasted image 20260912184301.png]]
+
+
+Esto esta mal
+![[Pasted image 20260912184604.png]]
+
+Casteo todo a clase object, el tema es que cuando quiero sacar un elemento de la caja, se olvida de lo que es y lo tengo que castear de nuevo a la fuerza
+
+
+Para esto se crearon lo genericos
