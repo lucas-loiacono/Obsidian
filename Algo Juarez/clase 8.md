@@ -252,8 +252,113 @@ La diferencia entre la `CajaMal` de tu foto y usar Genéricos (`Caja<T>`) es que
 sino se puede poner así sin flecha pero asignando el vehículo
 
 
+![[Pasted image 20260913172709.png]]
 
-![[Pasted image 20260913171839.png]]
 
 
 ![[Pasted image 20260913171855.png]]
+
+
+![[Pasted image 20260913172535.png]]
+
+![[Pasted image 20260913172739.png]]
+
+
+```java
+
+package org.example;
+
+public class Estacionamiento<T> {
+
+    private T vehiculoGuardado;
+
+    public Estacionamiento() {
+        this.vehiculoGuardado = null;
+    }
+
+    public void estacionar(T vehiculo) {
+        if (vehiculo == null) {
+            System.out.println("Error: No se puede estacionar un vehículo nulo.");
+        } else if (this.estaOcupado()) {
+            System.out.println("Error: El estacionamiento ya está ocupado.");
+        } else {
+            this.vehiculoGuardado = vehiculo;
+        }
+    }
+
+    public T retirar() {
+        T vehiculoTemporal = null;
+        if (this.estaOcupado()) {
+            vehiculoTemporal = this.vehiculoGuardado;
+            this.vehiculoGuardado = null;
+        } else {
+            System.out.println("Error: El estacionamiento está vacío.");
+        }
+
+        return vehiculoTemporal;
+    }
+    public boolean estaOcupado() {
+        return this.vehiculoGuardado != null;
+    }
+}
+```
+
+
+
+```java
+package org.example;
+
+public class Auto {
+    private final String patente;
+    private final String marca;
+
+    public Auto(String patente, String marca) {
+        this.patente = patente;
+        this.marca = marca;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+}
+```
+
+
+```java
+package org.example;
+
+public class Main {
+    public static void main(String[] args) {
+        Auto miFitito;
+        Auto miFerrari;
+        Estacionamiento<Auto> cochera;
+        Auto autoRetirado;
+
+        miFitito = new Auto("ABC-123", "Fiat");
+        miFerrari = new Auto("ZZZ-999", "Ferrari");
+
+        cochera = new Estacionamiento<>();
+
+        System.out.println("PRUEBA DEL ESTACIONAMIENTO ");
+        System.out.println("Cochera ocupada? " + cochera.estaOcupado());
+
+        System.out.println("\nEstacionando el Fiat");
+        cochera.estacionar(miFitito);
+        System.out.println("Cochera ocupada? " + cochera.estaOcupado());
+
+        System.out.println("\nIntentando estacionar la Ferrari");
+        cochera.estacionar(miFerrari);
+
+        System.out.println("\nRetirando vehículo");
+        autoRetirado = cochera.retirar();
+
+        System.out.println("Se retiró un auto marca: " + autoRetirado.getMarca() + " con patente: " + autoRetirado.getPatente());
+
+        System.out.println("Cochera ocupada? " + cochera.estaOcupado());
+    }
+}
+```
