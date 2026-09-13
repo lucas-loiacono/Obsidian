@@ -237,3 +237,5 @@ La diferencia entre la `CajaMal` de tu foto y usar Genéricos (`Caja<T>`) es que
 
 
 ![[Pasted image 20260912212158.png]]
+
+![[Pasted image 20260913162438.png]]
