@@ -250,3 +250,10 @@ La diferencia entre la `CajaMal` de tu foto y usar Genéricos (`Caja<T>`) es que
 
 
 sino se puede poner así sin flecha pero asignando el vehículo
+
+
+
+![[Pasted image 20260913171839.png]]
+
+
+![[Pasted image 20260913171855.png]]
