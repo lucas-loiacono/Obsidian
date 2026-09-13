@@ -239,3 +239,8 @@ La diferencia entre la `CajaMal` de tu foto y usar Genéricos (`Caja<T>`) es que
 ![[Pasted image 20260912212158.png]]
 
 ![[Pasted image 20260913162438.png]]
+
+
+### Acá seria que 1 estacionamiento guarda entre 0 y 1 auto
+
+![[Pasted image 20260913164336.png]]
