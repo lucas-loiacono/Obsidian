@@ -389,3 +389,150 @@ El diagrama UML se construye dividiendo cada clase en tres compartimentos horizo
     
 
 Para armar estos diagramas desde cero, la regla general es extraer los sustantivos del enunciado para crear las clases, buscar las características propias de cada entidad para definir los atributos privados, y localizar las acciones requeridas para plantear los métodos públicos.
+
+
+
+
+
+Los genéricos (representados con letras como `<T>`, `<E>`, `<K>`, etc.) son esencialmente **plantillas o comodines para los tipos de datos**. Permiten definir una clase, interfaz o método sin especificar de antemano qué tipo de dato exacto va a manejar, delegando esa decisión al momento en que se usa la clase.
+
+  
+
+Para entender por qué se usan y para qué sirven, lo mejor es ver los problemas que resuelven:
+
+  
+
+**1. Reutilización de código (El problema de repetir código)**
+
+Pensá en el concepto de un Tipo de Dato Abstracto (TDA). Si quisieras hacer una estructura, como una Pila, una Lista, o el `Estacionamiento` del ejercicio, y no existieran los genéricos, tendrías que programar una clase distinta para cada cosa que quieras guardar: un `EstacionamientoDeAutos`, un `EstacionamientoDeMotos`, un `EstacionamientoDeCamiones`.
+
+Al usar `<T>`, programás la lógica de guardar y retirar una sola vez. Cuando instancias la clase en el código, le decís qué es esa "T": `Estacionamiento<Auto> miEstacionamiento = new Estacionamiento<>();`.
+
+  
+
+**2. Seguridad de tipos (El problema de usar `Object` o punteros)**
+
+En lenguajes orientados a objetos como Java, la alternativa antigua a los genéricos era usar la clase superpadre `Object` (que acepta cualquier cosa). En lenguajes de más bajo nivel como C, la alternativa para hacer estructuras genéricas es usar punteros vacíos (`void *`).
+
+El gran peligro de esas alternativas es que no hay control estricto. Si tu estacionamiento guarda un `Object` o un `void *`, el compilador te va a dejar guardar un objeto `Gato` adentro de un estacionamiento pensado para vehículos. El programa va a compilar bien, pero cuando intentes sacar ese elemento y llamar al método `getPatente()`, el programa va a fallar (lanzando un error en tiempo de ejecución o problemas de memoria).
+
+Al usar genéricos, el compilador valida todo estrictamente. Si definiste un `Estacionamiento<Auto>`, y le querés pasar un `Gato`, el código directamente no compila. Te avisa del error antes de probar el programa.
+
+  
+
+**3. Eliminación de conversiones forzadas (Casting)**
+
+Siguiendo con el punto anterior, si guardás un dato como un tipo genérico absoluto (como `Object`), al retirarlo el programa no sabe qué es. Para poder usarlo, tendrías que forzar su tipo manualmente:
+
+`Auto miAuto = (Auto) estacionamiento.retirar();`
+
+  
+
+Con los genéricos `<T>`, como el sistema ya sabe de qué tipo es la instancia desde que la creaste, te ahorrás ese paso. El método `retirar(): T` ya devuelve un `Auto` directamente:
+
+`Auto miAuto = estacionamiento.retirar();`
+
+  
+
+En resumen: sirven para escribir código mucho más flexible y reutilizable, manteniendo al mismo tiempo una validación estricta por parte del compilador para evitar errores inesperados mientras el programa está funcionando.
+
+
+# Genéricos del ejemplo
+
+
+
+  
+
+**1. Avisarle a la clase que es genérica (en Estacionamiento.java)**
+
+En tu código pusiste `public class Estacionamiento`, pero luego adentro usás la `T`. Para que Java sepa que esa `T` es un comodín genérico y no una clase real llamada "T", tenés que poner el `<T>` en el encabezado de la clase.
+
+
+```Java
+package org.example;
+
+// ACÁ ESTÁ EL CAMBIO: Se agrega <T> al lado del nombre de la clase
+public class Estacionamiento<T> { 
+
+    private T vehiculoGuardado;
+
+    public Estacionamiento() {
+        this.vehiculoGuardado = null;
+    }
+
+    // El resto de tus métodos quedan exactamente igual
+    public void estacionar(T vehiculo) {
+        // ...
+    }
+    
+    // ...
+}
+```
+
+**2. Definir qué es la "T" al crear el objeto (en Main.java)**
+
+Acá es exactamente donde respondo tu duda de "cómo pasar la `<T>`". Cuando declarás la variable `cochera`, es el momento de decirle al compilador: _"Para esta cochera específica, quiero que la `T` sea reemplazada por la clase `Auto`"_.
+
+Tenés que agregarlo en la declaración de la variable:
+
+
+
+```Java
+package org.example;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Auto miFitito;
+        Auto miFerrari;
+        
+        // ACÁ ESTÁ EL CAMBIO: Le decís que la T va a ser un <Auto>
+        Estacionamiento<Auto> cochera; 
+        
+        Auto autoRetirado;
+
+        miFitito = new Auto("ABC-123", "Fiat");
+        miFerrari = new Auto("ZZZ-999", "Ferrari");
+
+        // Al instanciar, el <> vacío (operador diamante) ya entiende que es un Auto 
+        // porque se lo dijiste en la línea de arriba.
+        cochera = new Estacionamiento<>(); 
+
+        // ... resto de tu código ...
+```
+
+**¿Qué pasa por detrás una vez que hiciste esto?**
+
+Al escribir `Estacionamiento<Auto> cochera;`, el compilador de Java lee tu clase `Estacionamiento` e imaginariamente reemplaza todas las `T` por `Auto`. Entonces tu método `estacionar(T vehiculo)` internamente se transforma de forma segura en `estacionar(Auto vehiculo)`.
+
+Si el día de mañana creás una clase `Moto`, podrías crear otra variable en el Main que sea `Estacionamiento<Moto> cocheraMotos = new Estacionamiento<>();`, y para esa variable, todas las `T` se comportarán como motos, reutilizando todo tu código sin haber programado la clase dos veces.
+
+
+## Yo
+osea yo como tipo de dato a lo que tenga ahi adentro le paso la clase, y ahi me reemplaza todas las t por mi clase
+
+## Gemini
+
+¡Exactamente, lo entendiste a la perfección!
+
+  
+
+Esa es la forma más fácil y correcta de pensarlo. Cuando vos escribís `Estacionamiento<Auto>`, le estás diciendo a Java: _"Agarrá la plantilla de la clase `Estacionamiento` y, en todos los lugares donde veas una `T`, hacé de cuenta que dice `Auto`"_.
+
+  
+
+Por eso se llama "plantilla" o "comodín". Si mañana decidís hacer un `Estacionamiento<String>`, entonces:
+
+  
+
+- `private T vehiculoGuardado;` pasa a ser `private String vehiculoGuardado;`
+    
+- `public void estacionar(T vehiculo)` pasa a ser `public void estacionar(String vehiculo)`
+    
+- `public T retirar()` pasa a ser `public String retirar()`
+    
+
+
+¡Es así de directo! Te ahorra muchísimo tiempo porque te permite programar y probar toda la lógica de guardar y retirar una sola vez, y después reutilizarla con la clase que se te ocurra.
+
