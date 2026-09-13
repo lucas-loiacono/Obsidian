@@ -233,3 +233,7 @@ La diferencia entre la `CajaMal` de tu foto y usar Genéricos (`Caja<T>`) es que
       
     
 - **Con Genéricos (`Caja<T>`):** Escribes la clase una sola vez (adiós código duplicado). El compilador vigila estrictamente qué metes, él mismo hace el casteo invisible al sacar el dato, y te garantiza al 100% que el programa nunca va a explotar por un error de tipos.
+
+
+
+![[Pasted image 20260912212158.png]]
