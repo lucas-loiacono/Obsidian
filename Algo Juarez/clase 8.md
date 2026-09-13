@@ -244,3 +244,9 @@ La diferencia entre la `CajaMal` de tu foto y usar Genéricos (`Caja<T>`) es que
 ### Acá seria que 1 estacionamiento guarda entre 0 y 1 auto,, 0 si esta vacío, 1 si esta ocupado
 
 ![[Pasted image 20260913164336.png]]
+
+
+![[Pasted image 20260913171403.png]]
+
+
+sino se puede poner así sin flecha pero asignando el vehículo
