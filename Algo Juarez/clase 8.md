@@ -362,3 +362,30 @@ public class Main {
     }
 }
 ```
+
+
+
+El diagrama UML se construye dividiendo cada clase en tres compartimentos horizontales: nombre de la clase, atributos (estado) y métodos (comportamiento). Al traducir el enunciado de la **image_34ce62.jpg** a los esquemas, la lógica se desglosa de la siguiente manera:
+
+**1. Clase `Auto` (Entidad concreta)**
+
+- **Atributos (Compartimento medio):** Se definen los datos internos. El símbolo `-` indica que son de visibilidad **privada**, respetando el principio de encapsulamiento. Por eso se modela como `-patente: String` y `-marca: String`.
+    
+- **Métodos (Compartimento inferior):** Se define cómo interactuar con la clase. El símbolo `+` indica que son **públicos**. Aquí se ubican el constructor `+ Auto(patente: String, marca: String)` y los métodos _getters_ para consultar los atributos privados.
+    
+
+**2. Clase `Estacionamiento<T>` (Clase Genérica)** El enunciado exige que la clase guarde un elemento de _cualquier_ tipo, lo que en lenguajes orientados a objetos como Java se resuelve con Tipos Genéricos.
+
+- **Definición del Genérico:** La **image_34ce84.png** representa mejor este concepto que la anterior, ya que incluye la etiqueta `<<T>>` debajo del nombre `Estacionamiento`, indicando explícitamente que es una clase parametrizada.
+    
+- **Atributo interno:** En esa misma imagen se agrega el atributo `vehiculo: T` (nota: por convención de encapsulamiento, en un diseño formal debería llevar un `-` para ser privado, es decir, `- vehiculo: T`). Esto señala que el espacio de guardado no está atado a la clase `Auto`, sino al tipo genérico `T`.
+    
+- **Métodos:** Las firmas de los métodos utilizan el parámetro genérico en lugar de clases concretas. `estacionar(vehiculo: T)` recibe el elemento, y `retirar(): T` especifica que devuelve un objeto de ese mismo tipo `T`.
+    
+
+**3. La Relación (Asociación y Multiplicidad)** Los números `1` y `0..1` sobre la línea que conecta ambas clases definen la multiplicidad de la asociación, es decir, cuántas instancias de una clase se relacionan con la otra.
+
+- **Significado lógico:** Un objeto `Estacionamiento` (`1`) puede contener cero o un objeto (`0..1`). Esto modela perfectamente la restricción del enunciado de "guardar un único elemento": el estacionamiento puede estar vacío (`0`) o estar ocupado por exactamente un vehículo (`1`).
+    
+
+Para armar estos diagramas desde cero, la regla general es extraer los sustantivos del enunciado para crear las clases, buscar las características propias de cada entidad para definir los atributos privados, y localizar las acciones requeridas para plantear los métodos públicos.
