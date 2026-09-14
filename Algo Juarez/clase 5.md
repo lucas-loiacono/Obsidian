@@ -240,3 +240,523 @@ int resultado = Calculadora.sumar(5, 5);
 
 
 ![[Pasted image 20260901182302.png|669]]
+
+
+# TDA Vector
+
+```java
+package src;
+
+  
+import exceptions.Vector_TDA_Exception;
+
+public class Vector_TDA {
+
+    private int[] elementos;
+
+    private int tamanio;
+
+    private int capacidad;
+
+    private int capacidadInicial = 10;
+
+  
+
+    /**
+
+     * Redimensiona la capacidad del vector.
+
+     *
+
+     * @param nuevaCapacidad Nueva capacidad del vector.
+
+     * @throws Vector_TDA_Exception Si la nueva capacidad es menor o igual a 0.
+
+     */
+
+  
+    private void redimensionar(int nuevaCapacidad) {
+
+        if (nuevaCapacidad <= 0) {
+
+            throw new Vector_TDA_Exception("La capacidad debe ser mayor a 0");
+
+        }
+
+  
+
+        System.out.println("Redimensionando a " + nuevaCapacidad);
+
+  
+
+        int[] nuevoArray = new int[nuevaCapacidad];
+
+        System.arraycopy(elementos, 0, nuevoArray, 0, Math.min(capacidad, nuevaCapacidad));
+
+  
+
+        elementos = nuevoArray;
+
+        capacidad = nuevaCapacidad;
+
+    }
+
+  
+
+    /**
+
+     * Constructor por defecto. Inicializa el vector con una capacidad
+
+     * predeterminada.
+
+     */
+
+    public Vector_TDA() {
+
+        this.capacidad = capacidadInicial;
+
+        this.tamanio = 0;
+
+        this.elementos = new int[capacidad];
+
+    }
+
+  
+
+    /**
+
+     * Constructor que inicializa el vector con una capacidad específica.
+
+     *
+
+     * @param capacidad Capacidad inicial del vector.
+
+     */
+
+    public Vector_TDA(int capacidad) {
+
+        this.capacidad = capacidad;
+
+        this.capacidadInicial = capacidad;
+
+        this.tamanio = 0;
+
+        this.elementos = new int[capacidad];
+
+    }
+
+  
+
+    /**
+
+     * Agrega un elemento al final del vector.
+
+     *
+
+     * @param valor Valor a agregar.
+
+     */
+
+    public void agregar(int valor) {
+
+        if (tamanio < capacidad) {
+
+            elementos[tamanio] = valor;
+
+            tamanio++;
+
+        } else {
+
+            redimensionar(capacidad * 2);
+
+            agregar(valor);
+
+        }
+
+    }
+
+  
+
+    /**
+
+     * Remueve un elemento del vector en el índice especificado.
+
+     *
+
+     * @param index Índice del elemento a eliminar.
+
+     * @throws Vector_TDA_Exception Si el índice está fuera de rango.
+
+     */
+
+    public void remover(int index) {
+
+        if (index >= 0 && index < tamanio) {
+
+            for (int i = index; i < tamanio - 1; i++) {
+
+                elementos[i] = elementos[i + 1];
+
+            }
+
+            tamanio--;
+
+  
+
+            if (tamanio < capacidad / 2) {
+
+                redimensionar(capacidad / 2);
+
+            }
+
+        } else {
+
+            throw new Vector_TDA_Exception("Indice fuera de rango");
+
+        }
+
+    }
+
+  
+
+    /**
+
+     * Obtiene un elemento del vector en el índice especificado.
+
+     *
+
+     * @param index Índice del elemento a obtener.
+
+     * @return El valor almacenado en el índice dado.
+
+     * @throws Vector_TDA_Exception Si el índice está fuera de rango.
+
+     */
+
+    public int obtener(int index) {
+
+        if (index >= 0 && index < tamanio) {
+
+            return elementos[index];
+
+        }
+
+        throw new Vector_TDA_Exception("Indice fuera de rango");
+
+    }
+
+  
+
+    /**
+
+     * Inserta un valor en una posición específica del vector.
+
+     *
+
+     * @param index Índice donde insertar el valor.
+
+     * @param valor Valor a insertar.
+
+     * @throws Vector_TDA_Exception Si el índice está fuera de rango.
+
+     */
+
+    public void insertar(int index, int valor) {
+
+        if (index >= 0 && index < tamanio) {
+
+            elementos[index] = valor;
+
+        } else {
+
+            throw new Vector_TDA_Exception("Indice fuera de rango");
+
+        }
+
+    }
+
+  
+
+    /**
+
+     * Verifica si el vector está vacío.
+
+     *
+
+     * @return true si el vector está vacío, false en caso contrario.
+
+     */
+
+    public boolean estaVacio() {
+
+        return tamanio == 0;
+
+    }
+
+  
+
+    /**
+
+     * Elimina todos los elementos del vector y lo restablece a su capacidad
+
+     * inicial.
+
+     */
+
+    public void borrar() {
+
+        tamanio = 0;
+
+        capacidad = capacidadInicial;
+
+        elementos = new int[capacidad];
+
+    }
+
+  
+
+    /**
+
+     * Muestra los elementos del vector en formato de lista.
+
+     */
+
+    public void mostrar() {
+
+        System.out.print("[");
+
+        for (int i = 0; i < tamanio; i++) {
+
+            System.out.print(elementos[i]);
+
+            if (i < tamanio - 1)
+
+                System.out.print(", ");
+
+        }
+
+        System.out.println("]");
+
+    }
+
+}
+```
+
+
+
+
+
+
+
+### Constructor por defecto: `Vector_TDA()`
+
+
+```Java
+    public Vector_TDA() {
+        this.capacidad = capacidadInicial;
+        this.tamanio = 0;
+        this.elementos = new int[capacidad];
+    }
+```
+
+1. **`this.capacidad = capacidadInicial;`**: Asigna a la capacidad actual el valor por defecto (que en las variables de clase estaba definido como 10).
+    
+2. **`this.tamanio = 0;`**: Establece la cantidad de elementos guardados en 0, ya que el vector arranca vacío.
+    
+3. **`this.elementos = new int[capacidad];`**: Crea físicamente el arreglo en la memoria de la computadora, reservando 10 espacios enteros vacíos.
+### Constructor parametrizado: `Vector_TDA(int capacidad)`
+
+```Java
+    public Vector_TDA(int capacidad) {
+        this.capacidad = capacidad;
+        this.capacidadInicial = capacidad;
+        this.tamanio = 0;
+        this.elementos = new int[capacidad];
+    }
+```
+
+1. **`this.capacidad = capacidad;`**: Toma el número que le pasaste entre paréntesis al crear el objeto y lo define como la capacidad actual.
+    
+2. **`this.capacidadInicial = capacidad;`**: Guarda ese mismo número como la capacidad original, para recordar a qué tamaño debe volver si algún día llamás al método `borrar()`.
+    
+3. **`this.tamanio = 0;`**: Inicializa el contador de elementos reales guardados en 0.
+    
+4. **`this.elementos = new int[capacidad];`**: Crea el arreglo en memoria con la cantidad exacta de espacios que pediste.
+### Método privado: `redimensionar(int nuevaCapacidad)`
+
+
+```Java
+    private void redimensionar(int nuevaCapacidad) {
+        if (nuevaCapacidad <= 0) {
+            throw new Vector_TDA_Exception("La capacidad debe ser mayor a 0");
+        }
+
+        System.out.println("Redimensionando a " + nuevaCapacidad);
+
+        int[] nuevoArray = new int[nuevaCapacidad];
+        System.arraycopy(elementos, 0, nuevoArray, 0, Math.min(capacidad, nuevaCapacidad));
+
+        elementos = nuevoArray;
+        capacidad = nuevaCapacidad;
+    }
+```
+
+1. **`if (nuevaCapacidad <= 0)`**: Valida que no se intente crear un arreglo con tamaño negativo o cero. Si pasa esto, frena el programa lanzando una excepción.
+    
+2. **`System.out.println(...)`**: Imprime un aviso en la consola indicando el nuevo tamaño (útil para ver cuándo el vector crece o se achica).
+    
+3. **`int[] nuevoArray = new int[nuevaCapacidad];`**: Crea un arreglo temporal en memoria, totalmente vacío, con el nuevo tamaño.
+    
+4. **`System.arraycopy(...)`**: Copia los datos del arreglo viejo (`elementos`) al `nuevoArray`. Usa `Math.min` para asegurarse de copiar solo la cantidad de datos que entren, evitando errores si el nuevo arreglo es más chico que el anterior.
+    
+5. **`elementos = nuevoArray;`**: Reemplaza el arreglo viejo por el nuevo. El viejo queda descartado y será borrado de la memoria por Java.
+    
+6. **`capacidad = nuevaCapacidad;`**: Actualiza la variable interna para reflejar el nuevo tamaño total
+
+### Método: `agregar(int valor)`
+
+
+
+```Java
+    public void agregar(int valor) {
+        if (tamanio < capacidad) {
+            elementos[tamanio] = valor;
+            tamanio++;
+        } else {
+            redimensionar(capacidad * 2);
+            agregar(valor);
+        }
+    }
+```
+
+1. **`if (tamanio < capacidad)`**: Pregunta si todavía hay lugares vacíos en el arreglo.
+    
+2. **`elementos[tamanio] = valor;`**: Si hay lugar, usa la variable `tamanio` como índice para guardar el dato exactamente en el primer espacio libre al final de la lista.
+    
+3. **`tamanio++;`**: Aumenta en 1 el contador de elementos guardados.
+    
+4. **`else { redimensionar(capacidad * 2); agregar(valor); }`**: Si el arreglo estaba lleno, llama a la función de redimensionar pasándole el doble de la capacidad actual. Luego, se vuelve a llamar a sí misma para intentar guardar el dato nuevamente, ahora que hay espacio
+
+### Método: `remover(int index)`
+
+
+``` Java
+    public void remover(int index) {
+        if (index >= 0 && index < tamanio) {
+            for (int i = index; i < tamanio - 1; i++) {
+                elementos[i] = elementos[i + 1];
+            }
+            tamanio--;
+
+            if (tamanio < capacidad / 2) {
+                redimensionar(capacidad / 2);
+            }
+        } else {
+            throw new Vector_TDA_Exception("Indice fuera de rango");
+        }
+    }
+```
+
+1. **`if (index >= 0 && index < tamanio)`**: Valida que la posición que querés borrar exista realmente. Si no existe, salta al `else` y lanza un error.
+    
+2. **`for (int i = index; i < tamanio - 1; i++)`**: Inicia un bucle desde la posición que querés borrar hasta el final de los elementos válidos.
+    
+3. **`elementos[i] = elementos[i + 1];`**: Copia el valor de la celda derecha hacia la celda izquierda. Esto "aplasta" el dato que querías borrar y mueve todos los demás un espacio hacia atrás.
+    
+4. **`tamanio--;`**: Resta 1 al contador de elementos válidos.
+    
+5. **`if (tamanio < capacidad / 2)`**: Verifica si, tras borrar, el arreglo quedó más de un 50% vacío.
+    
+6. **`redimensionar(capacidad / 2);`**: Si está muy vacío, achica el tamaño del arreglo a la mitad para ahorrar memoria.
+
+### Método: `obtener(int index)`
+
+```Java
+    public void insertar(int index, int valor) {
+        if (index >= 0 && index < tamanio) {
+            elementos[index] = valor;
+        } else {
+            throw new Vector_TDA_Exception("Indice fuera de rango");
+        }
+    }
+```
+
+1. **`if (index >= 0 && index < tamanio)`**: Valida que la posición que pedís contenga un dato válido.
+    
+2. **`return elementos[index];`**: Si existe, devuelve el número guardado en ese casillero.
+    
+3. **`throw new Vector_TDA_Exception(...)`**: Si el índice es menor a cero o mayor a la cantidad de elementos, frena el programa con un error.
+
+### Método: `insertar(int index, int valor)`
+
+
+```Java
+    public void insertar(int index, int valor) {
+        if (index >= 0 && index < tamanio) {
+            elementos[index] = valor;
+        } else {
+            throw new Vector_TDA_Exception("Indice fuera de rango");
+        }
+    }
+```
+
+1. **`if (index >= 0 && index < tamanio)`**: Valida que el índice a modificar esté dentro del rango de los datos que ya agregaste.
+    
+2. **`elementos[index] = valor;`**: Sobreescribe directamente lo que había en esa posición con el nuevo número.
+    
+3. **`else { throw ... }`**: Lanza un error si intentás insertar fuera de los límites.
+
+### Método: `estaVacio()`
+
+
+```Java
+    public boolean estaVacio() {
+        return tamanio == 0;
+    }
+```
+
+1. **`return tamanio == 0;`**: Es una evaluación lógica. Si la variable `tamanio` vale 0, la expresión es verdadera (`true`) y el vector está vacío. Si vale cualquier otro número, la expresión es falsa (`false`).
+
+### Método: `borrar()`
+
+
+```Java
+    public void borrar() {
+        tamanio = 0;
+        capacidad = capacidadInicial;
+        elementos = new int[capacidad];
+    }
+```
+
+1. **`tamanio = 0;`**: Indica que ya no hay elementos guardados.
+    
+2. **`capacidad = capacidadInicial;`**: Resetea el límite de memoria al tamaño original con el que fue creado.
+    
+3. **`elementos = new int[capacidad];`**: Crea un arreglo totalmente nuevo y vacío. El arreglo anterior con todos los datos queda desconectado y es eliminado automáticamente por el Recolector de Basura (Garbage Collector) de Java.
+
+### Método: `mostrar()`
+
+
+```Java
+    public void mostrar() {
+        System.out.print("[");
+        for (int i = 0; i < tamanio; i++) {
+            System.out.print(elementos[i]);
+            if (i < tamanio - 1)
+                System.out.print(", ");
+        }
+        System.out.println("]");
+    }
+```
+
+1. **`System.out.print("[");`**: Imprime el corchete de apertura sin saltar de línea.
+    
+2. **`for (int i = 0; i < tamanio; i++)`**: Recorre uno por uno todos los elementos válidos del vector.
+    
+3. **`System.out.print(elementos[i]);`**: Imprime el número almacenado en esa posición.
+    
+4. **`if (i < tamanio - 1)`**: Pregunta si el elemento actual NO es el último de la lista.
+    
+5. **`System.out.print(", ");`**: Si no es el último, imprime una coma y un espacio para separarlo del siguiente número.
+    
+6. **`System.out.println("]");`**: Al terminar el bucle, imprime el corchete de cierre y salta a la línea siguiente.
