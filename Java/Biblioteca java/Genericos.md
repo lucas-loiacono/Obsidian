@@ -117,12 +117,72 @@ public static <T extends Number> double sumar(T num1, T num2) {
 
 
 
+# 5. Arrays genericos
 
 
 
+Aquí te muestro cómo se hace paso a paso:
 
+### 1. Definir el atributo (La Declaración)
+
+Para definir el atributo en tu clase, simplemente usas los corchetes `[]` junto a la `T`. Esto **sí está permitido** porque en este punto solo estás "reservando el nombre", no estás creando memoria real todavía.
+
+
+
+```Java
+public class Coleccion<T> {
+    // Así defines un atributo como array genérico
+    private T[] miArreglo;
+    private int cantidad;
+}
+```
+
+### 2. Hacer el `new` del array genérico
+
+Aquí es donde debes usar el truco del casteo (`Object`) que vimos al principio. No puedes hacer `new T[10]` por culpa del Type Erasure. Tienes que inicializarlo en tu constructor (o en un método) creando un arreglo de `Object` y forzando la conversión a `T[]`.
+
+
+```Java
+public class Coleccion<T> {
+    private T[] miArreglo;
+    private int cantidad;
+
+    // Constructor
+    public Coleccion(int capacidad) {
+        // Así haces el 'new' de un array genérico
+        this.miArreglo = (T[]) new Object[capacidad];
+        this.cantidad = 0;
+    }
+}
+```
+
+### 3. ¿Y si quiero hacer un `new` de un objeto genérico normal (no array)?
+
+Si lo que quieres es instanciar una sola variable genérica haciendo algo como `T miObjeto = new T();`, te encontrarás con otra pared: **Está estrictamente prohibido en Java.**
+
+Por el mismo _Type Erasure_, en tiempo de ejecución Java no sabe si `T` es un `String`, un `Scanner` o un `Usuario`. Al no saber qué clase es, no sabe qué constructor llamar ni cuánta memoria reservar.
 
   
+Si necesitas guardar un objeto genérico en un atributo, la forma correcta es **pedirlo ya creado por parámetro**:
+
+
+
+```Java
+public class Contenedor<T> {
+    private T miObjeto; // Atributo genérico simple
+
+    // No hacemos 'new T()'. Obligamos a que nos pasen el objeto ya instanciado
+    public Contenedor(T objetoYaCreado) {
+        this.miObjeto = objetoYaCreado;
+    }
+}
+```
+
+
+
+
+
+
 
 Vamos a desarmar exactamente qué hace cada parte de esta línea para que veas por qué se escribe así:
 
