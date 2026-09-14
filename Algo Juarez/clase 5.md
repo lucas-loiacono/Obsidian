@@ -886,3 +886,36 @@ Por eso es necesario hacerlo como te mostré en el mensaje anterior:
         this.datos[i] = otro.datos[i];
     }
 ```
+
+
+# 3) ¡Exactamente! Ahí es donde entra en acción el comportamiento que mencionabas del Garbage Collector.
+
+  
+
+Si tu intención es descartar el vector actual para reemplazarlo por una copia de otro, en Java no necesitas vaciarlo o borrarlo manualmente posición por posición (ni usar funciones para liberar memoria como se haría en lenguajes como C).
+
+
+El proceso funciona simplemente reasignando la referencia:
+
+
+```Java
+// Imagina que tu arreglo actual ya tiene datos y un tamaño
+elementos = new int[]{1, 2, 3, 4, 5};
+
+// Ahora quieres descartar eso y preparar el espacio para copiar otro vector
+elementos = new int[nuevoTamaño]; 
+```
+
+**¿Qué pasa en la memoria cuando se ejecuta esa segunda línea?**
+
+
+1. Se crea un nuevo bloque de memoria con el `new int[nuevoTamaño]` lleno de ceros.
+    
+2. La variable `elementos` deja de apuntar al bloque viejo `{1, 2, 3, 4, 5}` y pasa a apuntar a este nuevo bloque.
+    
+    
+3. El arreglo viejo `{1, 2, 3, 4, 5}` queda totalmente desconectado. Como ya no hay ninguna variable en tu código que apunte hacia él, se convierte en "basura".
+    
+4. El Garbage Collector, en su próximo ciclo de revisión, detecta que a ese bloque de memoria no se puede acceder desde ningún lado y lo elimina automáticamente, liberando el espacio.
+    
+Así que sí, con solo reasignar la variable a una nueva dirección (un nuevo `new` o asignarle directamente la referencia de otro arreglo copiado), Java se encarga de "juntar y borrar" lo que había antes.
