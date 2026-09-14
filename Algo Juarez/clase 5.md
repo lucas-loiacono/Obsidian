@@ -760,3 +760,44 @@ public class Vector_TDA {
 5. **`System.out.print(", ");`**: Si no es el último, imprime una coma y un espacio para separarlo del siguiente número.
     
 6. **`System.out.println("]");`**: Al terminar el bucle, imprime el corchete de cierre y salta a la línea siguiente.
+
+
+
+
+
+
+
+En Java, `throw new` es la instrucción que se utiliza para **crear y lanzar un error intencionalmente** cuando el programa detecta una situación inválida y necesita abortar la operación.
+
+
+Se compone de dos palabras clave trabajando juntas:
+
+- **`new`**: Crea un objeto en memoria. En este caso, en lugar de crear una entidad como un `Auto` o un `Estacionamiento`, crea un objeto que representa un error (una Excepción), como tu `Vector_TDA_Exception`.
+    
+      
+    
+- **`throw`**: Significa "lanzar". Toma ese objeto de error recién creado y lo activa, obligando al programa a interrumpir su flujo normal inmediatamente.
+    
+      
+    
+
+**¿Por qué lo usás en tu código?**
+
+Si alguien llama a tu método `obtener(-5)`, el programa se encontraría con un problema grave porque los arreglos no tienen posiciones negativas. Si lo dejaras continuar, el programa eventualmente fallaría lanzando un error genérico del sistema, que suele ser difícil de rastrear.
+
+  
+
+Al usar `throw new Vector_TDA_Exception("Indice fuera de rango");`, vos tomás el control de ese fallo. Hacés dos cosas muy útiles:
+
+  
+
+1. **Frenás la ejecución al instante:** Cualquier línea de código que esté por debajo del `throw` dentro de ese método ya no se va a ejecutar.
+    
+      
+    
+2. **Das un mensaje claro:** Le explicás exactamente a quien esté usando tu clase por qué falló, facilitando la corrección del problema.
+    
+      
+    
+
+Es el equivalente a tirar del freno de emergencia en un tren y dejar un cartel luminoso explicando exactamente cuál fue el problema.
