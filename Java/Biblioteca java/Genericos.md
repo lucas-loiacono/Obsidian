@@ -126,7 +126,6 @@ public static <T extends Number> double sumar(T num1, T num2) {
 
 Vamos a desarmar exactamente qué hace cada parte de esta línea para que veas por qué se escribe así:
 
-
 `public static <T> T obtenerPrimerElemento(T[] arreglo)`
 
 Imagínate que cada una de esas tres partes tiene un rol distinto:
@@ -157,30 +156,19 @@ La tercera parte le indica lo que va a recibir. Le dices: _"Te voy a mandar un a
 
 A diferencia de las clases (donde ponías el diamante en el `new Respuesta<String>()`), en las funciones no hace falta que tú escribas de qué tipo son. **Java lo adivina (lo infiere) viendo qué le pasas.**
 
-  
-
 Si tú en tu código escribes esto:
 
-  
 
-Java
-
-```
+```Java
 String[] misTextos = {"Hola", "Mundo"};
 String resultado = Utilidades.obtenerPrimerElemento(misTextos);
 ```
 
 Cuando Java lee esa línea, dice: _"Ah, me pasó un arreglo de `String`. Entonces voy a reemplazar TODAS las `T` de esa función por `String`"_.
 
-  
-
 Mentalmente, el compilador transforma tu función genérica para que en ese instante se vea así:
 
-  
-
-Java
-
-```
+```Java
 // Avisa <String> | Devuelve String | Recibe un arreglo String[]
 public static <String> String obtenerPrimerElemento(String[] arreglo) {
     if (arreglo == null || arreglo.length == 0) return null;
@@ -191,5 +179,3 @@ public static <String> String obtenerPrimerElemento(String[] arreglo) {
 Si en la siguiente línea del código tú le pasas un arreglo de números (`Integer[]`), el compilador vuelve a hacer el mismo proceso, pero reemplazando absolutamente todas las `T` por `Integer`.
 
   
-
-¿Queda un poco más claro por qué necesitas poner la `<T>` al principio para "avisarle" al compilador antes de usarla en el resto de la función?
