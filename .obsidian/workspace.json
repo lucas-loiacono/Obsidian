@@ -139,12 +139,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 5.md",
+                "file": "Java/Biblioteca java/Genericos.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 5"
+              "title": "Genericos"
             }
           }
         ],
@@ -323,8 +323,9 @@
   },
   "active": "5ee8df872e087a64",
   "lastOpenFiles": [
-    "Algo Juarez/clase 4.md",
     "Algo Juarez/clase 5.md",
+    "Java/Biblioteca java/Genericos.md",
+    "Algo Juarez/clase 4.md",
     "Algo Juarez/clase 6.md",
     "Algo Juarez/clase 8.md",
     "Algo Juarez/Trabajo practico.md",
@@ -361,7 +362,6 @@
     "Java/Estructura.md",
     "Java/Primitivos vs Clases.md",
     "Java",
-    "Orga Musso/Clase 2 y 3.md",
     "Algo Juarez",
     "Orga Musso",
     "estadistica/ejercicios guia 12",
