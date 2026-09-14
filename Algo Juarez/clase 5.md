@@ -239,4 +239,4 @@ int resultado = Calculadora.sumar(5, 5);
 
 
 
-![[Pasted image 20260901182302.png]]
+![[Pasted image 20260901182302.png|669]]
