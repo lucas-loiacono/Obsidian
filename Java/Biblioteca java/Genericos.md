@@ -305,3 +305,73 @@ Si hiciéramos eso, los métodos estarían desconectados. Podrías usar el méto
  
 
 ¿Queda claro cómo el `<T>` en la clase actúa como un contrato que obliga a todas sus partes internas a comportarse igual?
+
+
+
+
+
+
+
+# RESUMEN
+
+Aquí tienes el resumen definitivo con todos los escenarios posibles donde puedes aplicar genéricos en Java, funcionando como tu hoja de trucos o guía rápida.
+
+## 1. Clases e Interfaces (Definición Global)
+
+- **Clase con un tipo:** Usar `public class Caja<T>` define un molde donde todo el interior (atributos y métodos) compartirá el mismo tipo de dato.
+    
+      
+    
+- **Múltiples tipos:** Usar `public class Par<K, V>` te permite gestionar dos o más datos distintos al mismo tiempo (por convención se usan para Key y Value).
+    
+- **Contratos:** Al crear `public interface Repositorio<T>`, obligas a cualquier clase que la implemente a usar el mismo estándar genérico.
+    
+      
+    
+- **Instanciación:** La creación se hace con `Caja<String> c = new Caja<>();`, usando el operador diamante vacío al final para que Java lo deduzca.
+    
+      
+    
+
+## 2. Métodos Genéricos (Definición Local)
+
+- **Declaración de función:** Escribir `public static <T> T procesar(T entrada)` crea una función genérica que es totalmente independiente del resto de la clase.
+    
+      
+    
+- **Uso automático:** Al ejecutar `procesar(100)`, el compilador de Java infiere automáticamente que la `T` es un `Integer` basándose en el parámetro, sin que debas especificarlo.
+    
+      
+    
+
+## 3. Atributos y Arreglos (Limitaciones por memoria)
+
+- **Variables de clase:** Definir `private T dato;` es totalmente correcto para reservar el nombre y el tipo del atributo.
+    
+      
+    
+- **Prohibición directa:** Está estrictamente prohibido intentar crear el objeto genérico desde cero usando `new T()` debido al borrado de tipos en tiempo de ejecución.
+    
+      
+    
+- **Declaración de arreglos:** Definir `private T[] arreglo;` es válido y muy utilizado para armar estructuras de datos personalizadas.
+    
+      
+    
+- **Inicialización forzada:** Para inicializar el arreglo en tu constructor debes hacer un casteo explícito con `this.arreglo = (T[]) new Object[10];`.
+    
+      
+    
+
+## 4. Restricciones y Comodines
+
+- **Familias obligatorias (`extends`):** Usar `<T Number extends>` bloquea el acceso a textos o clases ajenas, asegurando que tu genérico tenga capacidades matemáticas.
+    
+      
+    
+- **El Comodín absoluto (`?`):** Usar un parámetro como `List<?>` en un método te permite recibir una lista genérica que contenga cualquier tipo de dato desconocido.
+    
+      
+    
+
+¿Te gustaría armar juntos una clase funcional de principio a fin, como una estructura de "Inventario", aplicando todos estos conceptos para que los veas operando en conjunto?
