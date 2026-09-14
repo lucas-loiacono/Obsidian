@@ -801,3 +801,31 @@ Al usar `throw new Vector_TDA_Exception("Indice fuera de rango");`, vos tomás e
     
 
 Es el equivalente a tirar del freno de emergencia en un tren y dejar un cartel luminoso explicando exactamente cuál fue el problema.
+
+
+
+
+
+
+# TDA VECTOR DEL TP
+
+# 1)   
+En Java, no puedes instanciar directamente un arreglo de un tipo genérico usando `new T[...]` debido a una restricción del lenguaje llamada **borrado de tipos** (type erasure).
+
+Durante el proceso de compilación, Java elimina la información del tipo genérico (`T`), lo que significa que en tiempo de ejecución el programa no sabe qué clase específica debe instanciar para el arreglo. Por lo tanto, la línea `this.datos = new T[CAPACIDAD_INICIAL];` genera un error de compilación.
+
+
+Para solucionarlo, debes inicializar el arreglo utilizando la clase base `Object` y luego hacer un _cast_ (conversión explícita) al tipo genérico `T[]`.
+
+  
+
+Debes cambiar esa línea por la siguiente:
+
+
+```JAVA
+this.datos = (T[]) new Object[CAPACIDAD_INICIAL];
+```
+
+La anotación `@SuppressWarnings("unchecked")` que ya incluiste antes de la firma del constructor es precisamente la forma correcta de manejar esto, ya que le indica al compilador que ignore la advertencia de seguridad que normalmente arroja al realizar este tipo de _cast_ desde `Object[]` a `T[]`.
+
+# 2
