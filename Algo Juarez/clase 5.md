@@ -828,4 +828,61 @@ this.datos = (T[]) new Object[CAPACIDAD_INICIAL];
 
 La anotación `@SuppressWarnings("unchecked")` que ya incluiste antes de la firma del constructor es precisamente la forma correcta de manejar esto, ya que le indica al compilador que ignore la advertencia de seguridad que normalmente arroja al realizar este tipo de _cast_ desde `Object[]` a `T[]`.
 
-# 2
+# 2) 
+No, lamentablemente no puede ser así. Si intentas compilar y ejecutar ese código, vas a tener varios problemas muy importantes.
+
+Aquí te explico los tres errores principales de hacerlo de esa manera:
+
+**1. Error de compilación en el `if` (No es un booleano)**
+
+En lenguajes como JavaScript o C++, puedes hacer `if (objeto)` para saber si existe, pero **en Java esto es un error de compilación**. El `if` en Java requiere estrictamente una condición booleana (`true` o `false`). Para saber si un objeto existe o no, debes compararlo explícitamente: `if (otro != null)`.
+
+  
+**2. No estás cumpliendo con el contrato (Falta la excepción)**
+
+El comentario de tu método (el _JavaDoc_) dice explícitamente: `@throws IllegalArgumentException si el vector a copiar es nulo`.
+
+Con tu código, si pasas un vector nulo, el programa simplemente ignorará el bloque de código, no copiará nada y continuará, lo cual dejará a tu nuevo vector en un estado inválido y no lanzará la excepción que se requiere.
+
+
+**3. El error más grave: La copia superficial (Shallow Copy)**
+
+La línea `this.datos = otro.datos;` es un error lógico muy grave en estructuras de datos.
+
+En Java, los arreglos son objetos. Si haces esto, **no estás copiando los elementos**, sino que le estás diciendo a tu nuevo vector que apunte a la **misma ubicación en memoria** que el vector original.
+
+  
+
+¿Qué pasa si haces eso?
+
+
+- Si al vector original le modificas el elemento en la posición 0, el elemento en la posición 0 del nuevo vector **también va a cambiar**.
+    
+- Si le agregas elementos a uno, afectarás al otro.
+    
+- Dejan de ser independientes y tu programa tendrá comportamientos inesperados.
+    
+
+**Para solucionarlo:**
+
+Debes hacer una **copia profunda** (Deep Copy) del arreglo. Es decir, crear un arreglo completamente nuevo (`new`) y pasar los elementos uno por uno.
+
+Por eso es necesario hacerlo como te mostré en el mensaje anterior:
+
+
+```JAVA
+    // 1. Lanzar la excepción si es nulo
+    if (otro == null) {
+        throw new IllegalArgumentException("El vector a copiar no puede ser nulo.");
+    }
+    
+    this.cantidadElementos = otro.cantidadElementos;
+    
+    // 2. Crear un arreglo NUEVO en memoria para que sean independientes
+    this.datos = (T[]) new Object[otro.datos.length];
+    
+    // 3. Copiar los elementos del viejo al nuevo
+    for (int i = 0; i < otro.cantidadElementos; i++) {
+        this.datos[i] = otro.datos[i];
+    }
+```
