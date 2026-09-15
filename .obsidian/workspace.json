@@ -139,12 +139,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Orga Musso/clase 4.md",
+                "file": "Orga Musso/clase 5.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 4"
+              "title": "clase 5"
             }
           }
         ],
@@ -323,6 +323,14 @@
   },
   "active": "5ee8df872e087a64",
   "lastOpenFiles": [
+    "!imagenes/Pasted image 20260915072918.png",
+    "!imagenes/Pasted image 20260915072904.png",
+    "!imagenes/Pasted image 20260915072813.png",
+    "!imagenes/Pasted image 20260915072448.png",
+    "!imagenes/Pasted image 20260915072333.png",
+    "!imagenes/Pasted image 20260915072005.png",
+    "Orga Musso/clase 4.md",
+    "Orga Musso/clase 5.md",
     "!imagenes/Pasted image 20260915015940.png",
     "Java/ARRAYCOPY.md",
     "Algo Juarez/clase 8.md",
@@ -336,13 +344,6 @@
     "!imagenes/Pasted image 20260913172709.png",
     "!imagenes/Pasted image 20260913172535.png",
     "!imagenes/Pasted image 20260913171855.png",
-    "!imagenes/Pasted image 20260913171839.png",
-    "!imagenes/Pasted image 20260913171403.png",
-    "!imagenes/Pasted image 20260913164336.png",
-    "!imagenes/Pasted image 20260913162438.png",
-    "!imagenes/Pasted image 20260912212158.png",
-    "!imagenes/Pasted image 20260912201626.png",
-    "Orga Musso/clase 4.md",
     "Java/Biblioteca java/10. Poo.md",
     "Java/Constructor.md",
     "Java/Biblioteca java/9. Funciones.md",
@@ -358,7 +359,6 @@
     "Java/Biblioteca java/4. Operadores.md",
     "Java/Biblioteca java/3. Variables y constantes.md",
     "Java/Biblioteca java/2. Tipos de datos.md",
-    "Java/Biblioteca java/1. Hello World.md",
     "Java/Biblioteca java/7. Estructuras",
     "Java/Biblioteca java",
     "Java",
