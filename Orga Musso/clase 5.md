@@ -128,3 +128,10 @@ menos negadores
 
 
 
+
+
+![[Pasted image 20260915091848.png]]
+
+![[Pasted image 20260915091917.png]]
+
+![[Pasted image 20260915092038.png]]
