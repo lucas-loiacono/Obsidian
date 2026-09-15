@@ -70,7 +70,24 @@ la variable D es la mas significativa y la variable A es la menos significativa
 ![[Pasted image 20260915081807.png]]
 
 
+
+![[Pasted image 20260915082310.png]]
+
+
 filas = implicantes primos descubiertos
 columnas = miniterminos de la funcion
 
-y ahi voy marcando que miniterminos me cubre cada implicante
+y ahí voy marcando que miniterminos me cubre cada implicante
+
+![[Pasted image 20260915082737.png]]
+
+el ip1 es un implicante escencial
+
+![[Pasted image 20260915082818.png]]
+
+y lo tengo que tomar con el primo 13
+
+
+![[Pasted image 20260915083002.png]]
+
+con el resto tengo que cubrir el resto de términos
