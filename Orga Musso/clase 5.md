@@ -35,4 +35,16 @@ con redundancias uso las x como comodín, ya que no se su resultado al 100%, per
 
 ![[Pasted image 20260915075849.png]]
 
-un implicante primo debe tener 1 minitermino bien definido, por eso x x no c
+un implicante primo debe tener 1 minitermino bien definido, por eso x x no cuenta, ya que no hay ninguno definido
+
+![[Pasted image 20260915080324.png]]
+
+es el producto de la variable que no cambia, acá no cambia mi b, el cual es b negado
+
+![[Pasted image 20260915080627.png]]
+
+![[Pasted image 20260915080919.png]]
+
+multiplico, cambio las negadas y las sumo, 
+
+c negado x b negado x a negado = c + b + a
