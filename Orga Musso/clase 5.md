@@ -48,3 +48,29 @@ es el producto de la variable que no cambia, acá no cambia mi b, el cual es b n
 multiplico, cambio las negadas y las sumo, 
 
 c negado x b negado x a negado = c + b + a
+
+
+![[Pasted image 20260915081114.png]]
+
+
+![[Pasted image 20260915081152.png]]
+
+
+![[Pasted image 20260915081302.png]]
+
+![[Pasted image 20260915081313.png]]
+
+![[Pasted image 20260915081400.png]]
+
+
+![[Pasted image 20260915081558.png]]
+
+la variable D es la mas significativa y la variable A es la menos significativa
+
+![[Pasted image 20260915081807.png]]
+
+
+filas = implicantes primos descubiertos
+columnas = miniterminos de la funcion
+
+y ahi voy marcando que miniterminos me cubre cada implicante
