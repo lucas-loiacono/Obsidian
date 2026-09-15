@@ -135,3 +135,23 @@ menos negadores
 ![[Pasted image 20260915091917.png]]
 
 ![[Pasted image 20260915092038.png]]
+
+![[Pasted image 20260915092137.png]]
+
+![[Pasted image 20260915092200.png]]
+
+![[Pasted image 20260915092240.png]]
+
+![[Pasted image 20260915092325.png]]
+
+![[Pasted image 20260915092349.png]]
+
+![[Pasted image 20260915092424.png]]
+
+![[Pasted image 20260915092604.png]]
+
+![[Pasted image 20260915092634.png]]
+
+![[Pasted image 20260915092942.png]]
+
+![[Pasted image 20260915092959.png]]
