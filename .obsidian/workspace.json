@@ -160,9 +160,23 @@
               "icon": "lucide-file",
               "title": "Pasar clase como parámetro de funcion"
             }
+          },
+          {
+            "id": "89df4e0d8a2741c4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Algo Juarez/clase 9.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "clase 9"
+            }
           }
         ],
-        "currentTab": 10
+        "currentTab": 11
       }
     ],
     "direction": "vertical"
@@ -335,10 +349,13 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "1f11224da7f566a3",
+  "active": "89df4e0d8a2741c4",
   "lastOpenFiles": [
-    "Orga Musso/clase 5.md",
+    "!imagenes/Pasted image 20260915180639.png",
+    "!imagenes/Pasted image 20260915180609.png",
     "Java/Pasar clase como parámetro de funcion.md",
+    "Algo Juarez/clase 9.md",
+    "Orga Musso/clase 5.md",
     "!imagenes/Pasted image 20260915092959.png",
     "!imagenes/Pasted image 20260915092942.png",
     "!imagenes/Pasted image 20260915092634.png",
@@ -348,7 +365,6 @@
     "!imagenes/Pasted image 20260915092325.png",
     "!imagenes/Pasted image 20260915092240.png",
     "!imagenes/Pasted image 20260915092200.png",
-    "!imagenes/Pasted image 20260915092137.png",
     "Orga Musso/clase 4.md",
     "Java/ARRAYCOPY.md",
     "Algo Juarez/clase 8.md",
@@ -371,8 +387,6 @@
     "Java/Biblioteca java/6. Condicionales.md",
     "Java/Biblioteca java/5. Strings.md",
     "Java/Biblioteca java/4. Operadores.md",
-    "Java/Biblioteca java/3. Variables y constantes.md",
-    "Java/Biblioteca java/2. Tipos de datos.md",
     "Java/Biblioteca java/7. Estructuras",
     "Java/Biblioteca java",
     "Java",
