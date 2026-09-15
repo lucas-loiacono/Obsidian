@@ -91,3 +91,38 @@ y lo tengo que tomar con el primo 13
 ![[Pasted image 20260915083002.png]]
 
 con el resto tengo que cubrir el resto de términos
+
+![[Pasted image 20260915083035.png]]
+
+así también se puede hacer
+
+![[Pasted image 20260915083101.png]]
+
+la mínima es la que tenga menos variables
+
+
+## ahora por ceros
+
+![[Pasted image 20260915083315.png]]
+
+los maxitérminos los saco por la tabla
+
+acá no existen esenciales
+
+me salteo ese paso, voy con el siguiente
+
+
+primero elijo el implicante con mayor maxitérminos a cubrir
+
+![[Pasted image 20260915083544.png]]
+
+f2 es mínima, ya que tengo menos variables, 
+
+## Como conseguir las mínimas
+menos variables
+menos términos de suma y menos terminas de productos
+menos negadores
+
+
+![[Pasted image 20260915083556.png]]
+
