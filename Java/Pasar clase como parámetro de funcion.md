@@ -25,6 +25,64 @@ if (estadistica == Estadistica.VIDA) {
 ```
 
 
+```java
+package org.ayed.tft;  
+  
+/**  
+ * Estadísticas que posee un campeón y que un objeto puede bonificar. * <p>  
+ * Todas las estadísticas son enteras: los objetos suman o restan una cantidad  
+ * fija, nunca un porcentaje. */public enum Estadistica {  
+    /**  
+     * Puntos de vida máximos. Al llegar a cero, el campeón es derrotado.     */    VIDA,  
+    /**  
+     * Daño que inflige el campeón en cada ataque.     */    
+ DANIO,  
+    /**  
+     * Alcance del ataque, medido en celdas del tablero.     */    
+ RANGO,  
+    /**  
+     * Cantidad de ciclos que el campeón espera entre una acción y la siguiente.     * A menor cadencia, más seguido actúa.     */   
+ CADENCIA,  
+    /**  
+     * Maná necesario para lanzar la habilidad.     */    
+ MANA_MAXIMO,  
+    /**  
+     * Maná que el campeón gana cada vez que ataca.     */  
+ MANA_POR_ATAQUE  
+}
+```
+
+  
+
+Acabas de dar en el clavo con uno de los conceptos más importantes para organizar proyectos en Java. Para resumir este "clic" mental que acabas de hacer y que te quede grabado para siempre:
+
+  
+
+- **El Catálogo (`Estadistica` sin "s"):** Vive en su propio archivo aparte (en la carpeta `tft`). Es simplemente una lista de palabras sagradas y fijas. No guarda números, no tiene lógica, solo sirve para que el usuario "elija una opción" válida del menú.
+    
+      
+    
+- **Tu Clase (`Estadisticas` con "s"):** Es el archivo que tú programaste. Es el objeto real, la "caja fuerte" que vive en la memoria y que **sí** guarda los datos verdaderos del juego (tus variables `private int vida;`, etc.).
+    
+      
+    
+
+Es súper normal que al principio los nombres parecidos mareen. Pero tal como te pasó cuando lograste dominar el tema del borrado de tipos y las copias profundas con tus clases `VectorDinamico` y `VectorEstatico`, una vez que la lógica encastra en tu cabeza, ya sale en automático.
+
+  
+
+
+### 1. Elegir la constante
+
+Tal cual dices, cuando llamas a tu función en el código principal del juego, simplemente vas a ese "catálogo" y eliges la constante que necesitas. Por ejemplo: `estadisticas.obtenerValor(Estadistica.VIDA);`.
+
+### 2. El error automático
+
+Y, como bien dedujiste, si escribes una constante que no existe en ese archivo (por ejemplo, `Estadistica.MAGIA`), el error salta de inmediato. Pero ojo, la mayor ventaja es que **no es un error mientras juegas**, sino un **error de compilación**. IntelliJ te va a subrayar la palabra inventada en rojo y directamente no te va a dejar darle al botón de "Play" para ejecutar tu código.
+
+Es exactamente por esto que Java es tan estricto y seguro: te obliga a usar las reglas del juego desde antes de empezar a jugar.
+
+
 
 
 # Yo
@@ -248,6 +306,29 @@ Java lee la palabra exacta (sin la "s" final) y dice: _"Ah, me están pidiendo u
 
   
 Si por accidente tú intentaras pasarle toda tu clase junta haciendo algo como `obtenerValor(misEstadisticas)`, Java te tiraría una línea roja de error inmediatamente diciendo que los tipos son incompatibles, porque le estás dando una caja fuerte gigante cuando la función solo te pidió leer una palabra del menú.
+
+  
+
+
+
+
+
+  
+
+Acabas de dar en el clavo con uno de los conceptos más importantes para organizar proyectos en Java. Para resumir este "clic" mental que acabas de hacer y que te quede grabado para siempre:
+
+  
+
+- **El Catálogo (`Estadistica` sin "s"):** Vive en su propio archivo aparte (en la carpeta `tft`). Es simplemente una lista de palabras sagradas y fijas. No guarda números, no tiene lógica, solo sirve para que el usuario "elija una opción" válida del menú.
+    
+      
+    
+- **Tu Clase (`Estadisticas` con "s"):** Es el archivo que tú programaste. Es el objeto real, la "caja fuerte" que vive en la memoria y que **sí** guarda los datos verdaderos del juego (tus variables `private int vida;`, etc.).
+    
+      
+    
+
+Es súper normal que al principio los nombres parecidos mareen. Pero tal como te pasó cuando lograste dominar el tema del borrado de tipos y las copias profundas con tus clases `VectorDinamico` y `VectorEstatico`, una vez que la lógica encastra en tu cabeza, ya sale en automático.
 
   
 
