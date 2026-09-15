@@ -638,3 +638,4 @@ X-NOR: es la interseccion y todo lo que no sea la union
 ![[Pasted image 20260909223923.png]]
 
 ![[Pasted image 20260909223940.png]]
+
