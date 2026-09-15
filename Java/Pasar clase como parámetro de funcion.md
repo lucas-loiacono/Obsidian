@@ -315,20 +315,6 @@ Si por accidente tú intentaras pasarle toda tu clase junta haciendo algo como `
 
   
 
-Acabas de dar en el clavo con uno de los conceptos más importantes para organizar proyectos en Java. Para resumir este "clic" mental que acabas de hacer y que te quede grabado para siempre:
-
-  
-
-- **El Catálogo (`Estadistica` sin "s"):** Vive en su propio archivo aparte (en la carpeta `tft`). Es simplemente una lista de palabras sagradas y fijas. No guarda números, no tiene lógica, solo sirve para que el usuario "elija una opción" válida del menú.
-    
-      
-    
-- **Tu Clase (`Estadisticas` con "s"):** Es el archivo que tú programaste. Es el objeto real, la "caja fuerte" que vive en la memoria y que **sí** guarda los datos verdaderos del juego (tus variables `private int vida;`, etc.).
-    
-      
-    
-
-Es súper normal que al principio los nombres parecidos mareen. Pero tal como te pasó cuando lograste dominar el tema del borrado de tipos y las copias profundas con tus clases `VectorDinamico` y `VectorEstatico`, una vez que la lógica encastra en tu cabeza, ya sale en automático.
 
   
 
