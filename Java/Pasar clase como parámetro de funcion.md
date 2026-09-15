@@ -142,3 +142,112 @@ case VIDA:
 Le estás dando a Java una instrucción muy clara: _"Si el usuario me manda la etiqueta en mayúsculas `VIDA` (la pregunta), yo le voy a escupir para afuera el número que tengo guardado en mi variable privada `this.vida` (la respuesta)"_.
 
 El programa no relaciona las palabras mágicamente porque se escriban parecido. Tú eres el puente. Si el usuario te pasa `VIDA` y tú adentro de ese `case` pones `return this.danio;`, el programa va a devolver el daño, porque hace exactamente lo que tú le conectes.
+
+
+
+
+
+
+
+
+
+  
+Tu confusión viene de mezclar lo que pasa _adentro_ de tu clase con lo que viene de _afuera_. Vamos a separarlo:
+
+  
+
+### 1. ¿Dónde se define el catálogo?
+
+El catálogo **NO se define en tu archivo**. Tus atributos en minúscula (`private int vida;`) son tuyos y viven solo en tu clase.
+
+  
+
+El catálogo se define en un archivo completamente diferente que seguramente creó tu profesor. Si te fijas bien en la línea 3 de tu código, escribiste:
+
+`import org.ayed.tft.Estadistica;`
+
+  
+
+Con esa línea, le indicas a Java que vaya a buscar ese otro archivo. Si pudieras abrir ese archivo `Estadistica.java`, verías que por dentro es algo tan simple como esto:
+
+
+
+```Java
+public enum Estadistica {
+    VIDA,
+    DANIO,
+    RANGO,
+    CADENCIA,
+    MANA_MAXIMO,
+    MANA_POR_ATAQUE
+}
+```
+
+¿Ves? Ahí adentro **no hay minúsculas, no hay números y no están tus atributos**. Es literalmente una lista estricta de palabras sagradas.
+
+  
+
+### 2. ¿Por qué el `case` no necesita atrapar a `PERRO`?
+
+Imagina que Java funciona como un guardia de seguridad (un patovica) muy estricto que se para en la puerta de tu función `obtenerValor`.
+
+  
+
+- Alguien intenta usar tu código y escribe: `obtenerValor(Estadistica.PERRO);`
+    
+- El guardia de Java inmediatamente saca la lista del catálogo (el código que te mostré arriba) y busca la palabra `PERRO`.
+    
+- Como `PERRO` no está en esa lista, **el guardia no lo deja entrar a tu función**
+
+El juego directamente tira un error de compilación (una línea roja en IntelliJ) y ni siquiera arranca. Como el código nunca llega a ejecutarse, tu `switch` jamás se entera de que alguien intentó pasarle la palabra `PERRO`. ¡El error fue bloqueado en la puerta!
+
+  
+
+Por eso tú solo debes programar los `case` para las opciones válidas, porque es físicamente imposible que te llegue una opción inventada a esa parte del código.
+
+  
+
+
+  
+# YO
+
+y como se que por parametro quiere que le pase eso, si tambien tengo la clase llamada estadistica?
+
+# Gemini
+
+
+El truco aquí está en leer los nombres con lupa, porque en realidad **no tienes una clase llamada `Estadistica`**.
+
+  
+
+Si prestas atención, hay una diferencia de una sola letra (la "s" final) que para Java significa que son dos cosas de mundos completamente distintos:
+
+  
+
+### 1. `Estadisticas` (Plural - Tu Clase)
+
+Es el archivo que tú programaste recién. Representa el **conjunto entero** de números (la caja fuerte donde guardaste la vida, el daño, el rango, etc.).
+
+  
+
+### 2. `Estadistica` (Singular - El Catálogo)
+
+Es el Enum que creó tu profesor y que acabas de encontrar en la carpeta `tft`. Representa **una sola opción** de ese catálogo.
+
+  
+
+### ¿Cómo sabe Java qué le estás pidiendo?
+
+Java es extremadamente estricto con la ortografía. Cuando en la firma de tu método se escribió:
+
+`public int obtenerValor(Estadistica estadistica)`
+
+  
+
+Java lee la palabra exacta (sin la "s" final) y dice: _"Ah, me están pidiendo un valor del catálogo (el Enum)"_.
+
+  
+Si por accidente tú intentaras pasarle toda tu clase junta haciendo algo como `obtenerValor(misEstadisticas)`, Java te tiraría una línea roja de error inmediatamente diciendo que los tipos son incompatibles, porque le estás dando una caja fuerte gigante cuando la función solo te pidió leer una palabra del menú.
+
+  
+
