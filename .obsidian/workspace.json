@@ -146,9 +146,23 @@
               "icon": "lucide-file",
               "title": "clase 5"
             }
+          },
+          {
+            "id": "24c33df56b3c2762",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Java/Pasar clase como parámetro de funcion.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Pasar clase como parámetro de funcion"
+            }
           }
         ],
-        "currentTab": 9
+        "currentTab": 10
       }
     ],
     "direction": "vertical"
@@ -321,8 +335,10 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "5ee8df872e087a64",
+  "active": "1f11224da7f566a3",
   "lastOpenFiles": [
+    "Orga Musso/clase 5.md",
+    "Java/Pasar clase como parámetro de funcion.md",
     "!imagenes/Pasted image 20260915092959.png",
     "!imagenes/Pasted image 20260915092942.png",
     "!imagenes/Pasted image 20260915092634.png",
@@ -333,9 +349,7 @@
     "!imagenes/Pasted image 20260915092240.png",
     "!imagenes/Pasted image 20260915092200.png",
     "!imagenes/Pasted image 20260915092137.png",
-    "!imagenes/Pasted image 20260915092038.png",
     "Orga Musso/clase 4.md",
-    "Orga Musso/clase 5.md",
     "Java/ARRAYCOPY.md",
     "Algo Juarez/clase 8.md",
     "Java/Biblioteca java/Genericos.md",
