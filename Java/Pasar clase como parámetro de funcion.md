@@ -76,3 +76,32 @@ En resumen: gracias a que usamos el catálogo (Enum) y a tu validación de `null
 
   
 
+# Yo
+
+por que pasas estadistica en el case con mayuscula?
+# Gemini
+¡Es una excelente pregunta sobre el formato y las convenciones de código!
+
+
+Se escriben completamente en mayúsculas (`VIDA`, `DANIO`, `MANA_MAXIMO`, etc.) porque en Java existe una regla universal (una **convención de nomenclatura**) muy fuerte para las constantes y los **Enum**.
+
+Como charlamos antes, `Estadistica` es un Enum (nuestro "catálogo" de opciones fijas). Los elementos dentro de un Enum se consideran **constantes**, es decir, valores predefinidos que nunca van a cambiar durante la ejecución del juego.
+
+  
+
+En Java, los programadores acordaron escribir las cosas con distintos formatos para que el código se entienda con solo darle un vistazo:
+
+  
+
+1. **minúsculas (camelCase):** Se usa para las variables y los atributos. Ejemplo: `vida`, `manaMaximo`, `cantidadElementos`.
+    
+2. **MayúsculaInicial (PascalCase):** Se usa para los nombres de las clases y los Enums. Ejemplo: `Campeon`, `Estadisticas`, `VectorDinamico`.
+    
+3. **MAYÚSCULAS_CON_GUION_BAJO (Screaming Snake Case):** Se usa exclusivamente para las opciones de un Enum y para las constantes. Ejemplo: `VIDA`, `MANA_MAXIMO`, o `CAPACIDAD_INICIAL`.
+
+De esta manera, cuando tú o cualquier otro programador lee un código y ve `case VIDA:`, el cerebro automáticamente sabe: _"Ah, como está todo en mayúsculas, esto es un valor fijo de un catálogo (Enum), no es una variable normal que pueda ser modificada"_.
+
+  
+
+Para que tu código funcione, el `switch` tiene que coincidir exactamente con cómo están escritos los valores dentro del archivo original del Enum. Si abres el archivo original donde tu profesor definió `Estadistica` (o si miras el archivo `Rareza.java` que me compartiste en nuestros mensajes anteriores), notarás que todas las opciones adentro fueron creadas obligatoriamente en mayúsculas.
+
