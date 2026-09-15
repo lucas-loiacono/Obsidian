@@ -85,7 +85,7 @@ el ip1 es un implicante escencial
 
 ![[Pasted image 20260915082818.png]]
 
-y lo tengo que tomar con el primo 13
+y lo tengo que tomar con el primo 13, ya que con ip1 consigo el 1 y el 13
 
 
 ![[Pasted image 20260915083002.png]]
@@ -125,4 +125,6 @@ menos negadores
 
 
 ![[Pasted image 20260915083556.png]]
+
+
 
