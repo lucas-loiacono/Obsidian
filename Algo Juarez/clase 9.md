@@ -27,3 +27,21 @@ Prácticamente copia  y pega el constructor de animal y sigue con el constructor
 
 
 ![[Pasted image 20260920192151.png]]
+
+![[Pasted image 20260920192356.png]]
+
+como se comportan los animales
+
+![[Pasted image 20260920192621.png]]
+
+Poder modelar para cada tipo de objeto distintos comportamientos
+
+
+![[Pasted image 20260920192800.png]]
+
+En este caso el polimorfismo dinámico, ya que se llaman igual y tienen los mismos parámetros.
+Esto se resuelve dentro de los métodos de las subclases
+
+![[Pasted image 20260920193026.png]]
+
+Es una clase que no se instancia, es como que instancie la clase animal, y de ahí saque dos subclases como por ejemplo perro y gato, pero nunca instancio la clase animal. sirve para guardar todo dentro de una misma bolsa
