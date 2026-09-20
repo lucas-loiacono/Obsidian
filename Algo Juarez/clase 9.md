@@ -61,3 +61,7 @@ Una interfaz lo que tiene que hacer es la firma de los métodos de una clase, qu
 ![[Pasted image 20260920195304.png]]
 
 ![[Pasted image 20260920200004.png]]
+
+![[Pasted image 20260920204236.png]]
+
+![[Pasted image 20260920204318.png]]
