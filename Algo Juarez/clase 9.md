@@ -45,3 +45,9 @@ Esto se resuelve dentro de los métodos de las subclases
 ![[Pasted image 20260920193026.png]]
 
 Es una clase que no se instancia, es como que instancie la clase animal, y de ahí saque dos subclases como por ejemplo perro y gato, pero nunca instancio la clase animal. sirve para guardar todo dentro de una misma bolsa
+
+También se puede definir métodos abstractos, en el cual lo que hago es definirlo pero no implementarlo. Es como dejar un molde para que las subclases luego las modifiquen
+
+![[Pasted image 20260920193347.png]]\
+
+![[Pasted image 20260920194314.png]]
