@@ -4,7 +4,7 @@
 
  heredan los atributos y métodos de la clase padre, pero por ejemplo mostrar cambia el método, ya que es distinto al de la clase rodado
 
-sobreescritura:(overwriting) es un método que se llama igual y que tiene los mismos parámetros que la clase base, 
+sobreescritura:(override) es un método que se llama igual y que tiene los mismos parámetros que la clase base, 
 sobrecarga(overloading): es un método que se llama igual pero tiene distintos parámetros
 
 
@@ -51,3 +51,9 @@ También se puede definir métodos abstractos, en el cual lo que hago es definir
 ![[Pasted image 20260920193347.png]]\
 
 ![[Pasted image 20260920194314.png]]
+
+yo al poner el override le estoy avisando al compilador como actúa ese método
+
+![[Pasted image 20260920194633.png]]
+
+![[Pasted image 20260920195304.png]]
