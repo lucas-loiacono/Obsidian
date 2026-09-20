@@ -56,4 +56,8 @@ yo al poner el override le estoy avisando al compilador como actúa ese método
 
 ![[Pasted image 20260920194633.png]]
 
+Una interfaz lo que tiene que hacer es la firma de los métodos de una clase, que métodos debería tener
+
 ![[Pasted image 20260920195304.png]]
+
+![[Pasted image 20260920200004.png]]
