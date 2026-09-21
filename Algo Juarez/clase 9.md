@@ -71,3 +71,20 @@ Una interfaz lo que tiene que hacer es la firma de los métodos de una clase, qu
 ![[Pasted image 20260920223106.png]]
 
 ![[Pasted image 20260920223526.png]]
+
+Lo que tenías entendido es _casi_ correcto, pero la regla real es más específica.
+
+**La regla de Java:** un archivo `.java` puede tener **una sola clase `public`**, y si existe, el archivo debe llamarse igual que esa clase. Pero puede tener **todas las clases sin modificador de acceso** (package-private) que quieras.
+
+En tu código, ninguna de las clases (`Vehiculo`, `Auto`, `Moto`, `Colectivo`, `Terminal`) tiene `public`, así que el compilador no te exige nada sobre el nombre del archivo ni sobre la cantidad de clases. Por eso compila sin problemas, aunque tu archivo se llame `8.java`.
+
+Si escribieras `public class Auto`, ahí sí:
+
+- el archivo tendría que llamarse `Auto.java`
+- no podrías tener otra clase `public` en ese mismo archivo
+
+**Cómo se mezcla con el resto:** las clases sin `public` solo son visibles dentro del mismo paquete (en tu caso `EJ2_15`). Desde otro paquete no podrías usarlas.
+
+**Buena práctica:** en proyectos reales se usa un archivo por clase, porque es más fácil de organizar y mantener. Meter varias clases en un mismo archivo es común en ejercicios de práctica o pruebas rápidas, como este caso.
+
+Un detalle aparte: tu método `main` está dentro de `Terminal`, que tampoco es `public`. Funciona igual si ejecutás desde el IDE, pero por convención el `main` suele ir en una clase pública.
