@@ -96,6 +96,8 @@ Cuando voy hacia adelante, tiene que reconstruir la pila, sacando de una y poni√
 
 me queda la inversa de la pila original
 
+![[Pasted image 20260921015659.png]]
+
 # Colas
 
 ![[Pasted image 20260921013955.png]]
