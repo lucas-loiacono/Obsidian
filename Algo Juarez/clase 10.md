@@ -81,4 +81,27 @@ Lo mismo en un editor de texto con el Ctrl + Z
 
 ![[Pasted image 20260921013415.png]]
 
-Cada vez que v
+Cada vez que voy hacia atrás lo que hace es desapilar y apilar en otra pila
+
+Cuando voy hacia adelante, tiene que reconstruir la pila, sacando de una y poniéndosela a la otra
+
+![[Pasted image 20260921013633.png]]
+
+![[Pasted image 20260921013638.png]]
+
+
+### si yo voy desapilando y apilando en otra pila: 
+
+![[Pasted image 20260921013802.png]]
+
+me queda la inversa de la pila original
+
+# Colas
+
+![[Pasted image 20260921013955.png]]
+
+Es como la fila del colectivo, yo llego y me pongo al final, y la gente empieza a subir al colectivo del principio, se empieza a procesar mientras va avanzando, por eso es "baja al principio"
+
+Acá se representan de izquierda a derecha
+
+![[Pasted image 20260921014527.png]]
