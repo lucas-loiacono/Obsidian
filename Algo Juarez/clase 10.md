@@ -66,3 +66,19 @@ Yo con la consulta lo único que puedo averiguar es el que esta al final de la p
 Con las bajas es lo mismo, ya que voy eliminando primero los del final
 
 ![[Pasted image 20260921012256.png]]
+
+Un ejemplo de uso son en las paginas web cuando volvemos para atrás, ya que vamos desapilando.
+Podemos decir que estamos apilando cuando empezamos a buscar y profundizar desde el navegador y desapilando cuando estamos volviendo para atrás
+
+Lo mismo en un editor de texto con el Ctrl + Z
+
+
+## Lo que pasa con ir hacia atrás y hacia adelante
+
+![[Pasted image 20260921013340.png]]
+
+![[Pasted image 20260921013359.png]]
+
+![[Pasted image 20260921013415.png]]
+
+Cada vez que v
