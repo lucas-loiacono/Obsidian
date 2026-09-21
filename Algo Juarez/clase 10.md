@@ -132,3 +132,5 @@ Por ejemplo si yo hago una cola del supermercado, llego a la caja pago(ósea me 
 ![[Pasted image 20260921164209.png]]
 
 para esto usamos un array para implementarlo
+
+![[Pasted image 20260921170859.png]]
