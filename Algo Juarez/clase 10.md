@@ -105,3 +105,24 @@ Es como la fila del colectivo, yo llego y me pongo al final, y la gente empieza 
 Acá se representan de izquierda a derecha
 
 ![[Pasted image 20260921014527.png]]
+
+Van llegando y lo voy poniendo al final
+
+![[Pasted image 20260921014542.png]]
+
+![[Pasted image 20260921014613.png]]
+
+Con la consulta y las bajas siempre se van los primeros
+
+![[Pasted image 20260921014629.png]]
+
+El sentido en la mayoría de casos que se le da a la baja en las colas es el sentido de procesamiento
+Por ejemplo si yo hago una cola del supermercado, llego a la caja pago(ósea me proceso) y me voy, una vez que lo procesan lo sacan de la cola
+
+![[Pasted image 20260921014659.png]]
+
+![[Pasted image 20260921014710.png]]
+
+# Listas generales
+
+![[Pasted image 20260921015339.png]]
