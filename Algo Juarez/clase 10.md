@@ -45,5 +45,24 @@ Consulta: consultar elementos de la lista
 
 Falta modificación, pero esta no hace falta mucho ya que es lo mismo que de de baja y de de alta para modificar
 
+
+# Pila 
+Es un tipo de lista con ciertas restricciones
+El ultimo que entra es el primero que sale, por lo cual si yo quiero consultar varias cosas lo que hace es consultar el ultimo
+Siempre trabaja con el ultimo
+
 ![[Pasted image 20260921011407.png]]
 
+Para el alta lo tengo que poner arriba de todo, suponiendo que arriba esta el final
+
+![[Pasted image 20260921012019.png]]
+
+![[Pasted image 20260921012054.png]]
+
+Yo con la consulta lo único que puedo averiguar es el que esta al final de la pila
+
+![[Pasted image 20260921012201.png]]
+
+Con las bajas es lo mismo, ya que voy eliminando primero los del final
+
+![[Pasted image 20260921012256.png]]
