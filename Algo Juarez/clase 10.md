@@ -142,3 +142,13 @@ para esto usamos un array para implementarlo
 Para dar de baja lo que hace es reducir la cantidad de elementos, así no le doy acceso, sino tengo que crear otro vector
 
 ![[Pasted image 20260921194419.png]]
+
+## Si lo quiero genérico
+
+![[Pasted image 20260921195115.png]]
+
+![[Pasted image 20260921195159.png]]
+
+![[Pasted image 20260921195312.png]]
+
+![[Pasted image 20260921195351.png]]
