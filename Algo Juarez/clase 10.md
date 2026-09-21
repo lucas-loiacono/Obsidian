@@ -36,4 +36,14 @@ Son estructuras lineales ya que siguen una secuencia
 Las listas sirven para almacenar datos
 
 Alta: agregar elementos a la lista
-Baja: eliminar elementos d e
+Baja: eliminar elementos de la lista
+Consulta: consultar elementos de la lista
+
+![[Pasted image 20260921010722.png]]
+
+![[Pasted image 20260921010751.png]]
+
+Falta modificación, pero esta no hace falta mucho ya que es lo mismo que de de baja y de de alta para modificar
+
+![[Pasted image 20260921011407.png]]
+
