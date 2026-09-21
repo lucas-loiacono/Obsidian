@@ -136,3 +136,7 @@ para esto usamos un array para implementarlo
 ![[Pasted image 20260921170859.png]]
 
 ![[Pasted image 20260921191758.png]]
+
+![[Pasted image 20260921193459.png]]
+
+Para dar de baja lo que hace es reducir la cantidad de elementos, así no le doy acceso, sino tengo que crear otro vector
