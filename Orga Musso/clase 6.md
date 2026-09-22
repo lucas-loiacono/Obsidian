@@ -91,6 +91,12 @@ habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa y la de 
 
 ![[Pasted image 20260922083656.png]]
 
-
-
 ![[Pasted image 20260922084117.png]]
+
+![[Pasted image 20260922084328.png]]
+
+![[Pasted image 20260922084750.png]]
+
+
+
+![[Pasted image 20260922084950.png]]
