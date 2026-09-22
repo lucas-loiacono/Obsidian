@@ -181,12 +181,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 10.md",
+                "file": "Java/ARRAYCOPY.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 10"
+              "title": "ARRAYCOPY"
             }
           }
         ],
@@ -365,6 +365,7 @@
   },
   "active": "ee19d639f6b07fef",
   "lastOpenFiles": [
+    "Algo Juarez/clase 10.md",
     "!imagenes/Pasted image 20260921195351.png",
     "!imagenes/Pasted image 20260921195312.png",
     "!imagenes/Pasted image 20260921195159.png",
@@ -375,7 +376,6 @@
     "!imagenes/Pasted image 20260921191621.png",
     "!imagenes/Pasted image 20260921170859.png",
     "!imagenes/Pasted image 20260921164209.png",
-    "!imagenes/Pasted image 20260921015659.png",
     "Algo Juarez/Trabajo practico.md",
     "Algo Juarez/clase 4.md",
     "Algo Juarez/clase 5.md",
@@ -383,7 +383,6 @@
     "Algo Juarez/clase 7.md",
     "Algo Juarez/clase 8.md",
     "Algo Juarez/clase 9.md",
-    "Algo Juarez/clase 10.md",
     "C/Cap1.md",
     "Java/Pasar clase como parámetro de funcion.md",
     "Orga Musso/clase 5.md",
