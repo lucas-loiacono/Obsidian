@@ -69,4 +69,10 @@ Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
 ![[Pasted image 20260922075958.png]]
 
 
-habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa
+habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa y la de 0 no, ósea mis respectivos c
+
+![[Pasted image 20260922080408.png]]
+
+![[Pasted image 20260922080442.png]]
+
+![[Pasted image 20260922080644.png]]
