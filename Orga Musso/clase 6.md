@@ -55,3 +55,5 @@ Circuitos combinacionales
 ![[Pasted image 20260922074022.png]]
 
 ![[Pasted image 20260922074146.png]]
+
+Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
