@@ -57,3 +57,16 @@ Circuitos combinacionales
 ![[Pasted image 20260922074146.png]]
 
 Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
+
+![[Pasted image 20260922075257.png]]
+
+
+![[Pasted image 20260922075719.png]]
+
+
+
+
+![[Pasted image 20260922075958.png]]
+
+
+habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa
