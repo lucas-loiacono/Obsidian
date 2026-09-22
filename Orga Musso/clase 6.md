@@ -19,6 +19,39 @@ los tengo que sumar, con el guion lo que hago es eliminar la variable que cambia
 una vez que reduje , ahora tengo que seguir reduciendo
 
 
+![[Pasted image 20260922073338.png]]
+
+
+como el 4 no esta en ninguno de los anteriores lo tengo que agregar con su pareja
+
+![[Pasted image 20260922073417.png]]
+
+lo mismo para el 10
+
+![[Pasted image 20260922073449.png]]
+
+![[Pasted image 20260922073621.png]]
+
+De aca saco los implicante primo esenciales
+
+
+![[Pasted image 20260922073816.png]]
 
 
 
+
+
+
+
+
+
+
+Circuitos combinacionales
+
+![[Pasted image 20260922073927.png]]
+
+![[Pasted image 20260922073948.png]]
+
+![[Pasted image 20260922074022.png]]
+
+![[Pasted image 20260922074146.png]]
