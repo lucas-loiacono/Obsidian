@@ -71,4 +71,3 @@ Fijate que `vida` es un atributo **privado** de `Estadisticas` — desde `Campeo
 
 Y usar un solo método genérico con un parámetro `Estadistica` (en vez de 6 métodos separados `obtenerVida()`, `obtenerDanio()`, etc.) es justamente la ventaja del enum que veníamos charlando: un único método sirve para consultar cualquiera de las 6 estadísticas, según cuál le pases como argumento.
 
-¿Te queda más claro el flujo completo ahora, o querés que sigamos el mismo rastreo con otra línea del constructor, como `objetos = new Objeto[3]`?
