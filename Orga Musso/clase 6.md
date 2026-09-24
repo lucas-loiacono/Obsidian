@@ -154,5 +154,30 @@ También puedo conseguir sus funciones
 
 ![[Pasted image 20260924020630.png]]
 
+El biestable J-K (Jack Kilby) es una mejora directa del biestable RS, diseñada para solucionar su principal limitación: el estado prohibido.
+
+- **Estructura interna:** Como se ve en el primer esquema, el núcleo del circuito J-K es literalmente un biestable RS convencional. La diferencia física radica en que se agregan compuertas AND a las nuevas entradas J y K, y se conectan cables de retroalimentación adicionales que viajan desde las salidas (Q y Not Q) de vuelta hacia estas compuertas de entrada.
+    
+- **Comportamiento similar:** Analizando la "Tabla Reducida", el J-K actúa de forma casi idéntica al RS en tres de sus cuatro combinaciones. Si ingresás J=0 y K=0, el circuito mantiene su memoria (Qn). Si J=1 y K=0, actúa como el comando Set y guarda un 1. Si J=0 y K=1, actúa como el comando Reset y guarda un 0.
+    
+- **La diferencia clave:** La ventaja del J-K se evidencia cuando activás ambas entradas a la vez (J=1 y K=1). En el circuito RS, ingresar dos unos simultáneos generaba un error lógico o estado "Prohibido". En el J-K, gracias a esa retroalimentación cruzada extra, esta combinación ahora es funcional y hace que el biestable invierta su valor actual (Not Qn). Esto significa que si tenía guardado un 0, pasará a 1; y si tenía un 1, pasará a 0.
+
+El circuito interno funciona conectando una sola salida a cada compuerta AND de entrada:
+
+- **Para llegar a S:** La compuerta AND de arriba toma tu entrada **$J$** y la conecta exclusivamente con la salida de abajo, es decir, **Not Q** (o $Q'$).
+    
+- **Para llegar a R:** La compuerta AND de abajo toma tu entrada **$K$** y la conecta exclusivamente con la salida de arriba, que es **$Q$**.
+    
+
+Por lo tanto, al núcleo interno le llegan exactamente estas operaciones lógicas: $S = J \cdot Q'$ y $R = K \cdot Q$.
+
+Ese cableado cruzado es justamente el truco maestro de este diseño. Como $Q$ y $Q'$ siempre tienen valores opuestos (si uno es '1', el otro obligatoriamente es '0'), las compuertas AND actúan como un filtro de seguridad.
+
+Si vos intentás forzar el error mandando $J=1$ y $K=1$ al mismo tiempo, la retroalimentación cruzada se asegura de que solo una de las compuertas AND se active (la que esté conectada a la salida que actualmente valga '1'). Así, al núcleo RS interno siempre le llega la orden correcta para invertir su estado (Not Qn) en lugar de bloquearse en un estado prohibido
+
+
+
+
+
 ![[Pasted image 20260924020913.png]]
 
