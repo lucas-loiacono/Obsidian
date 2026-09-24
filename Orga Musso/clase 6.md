@@ -100,9 +100,16 @@ habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa y la de 
 
 ![[Pasted image 20260922084950.png]]
 `
-q y q' son salidas y entradas a la vez, y
+q y q' son salidas y entradas a la vez, ya que la primera vez que entran, entran con el valor de la memoria, entran al circuito y salen por el mismo lugar solo que con el valor cambiado en ciertos casos
 
 MI Q Y Q' estaban al principio en un valor logico 0 y 1, pero una vez que retroalimento cambian, dependiendo de mi r y s, y se quedan estables, ya que si realimento sigue dando el mismo valor
 
 ![[Pasted image 20260922090058.png]]
 
+como después de la retroalimentación me dio q y notq el mismo valor, ósea 0, es incoherente, por lo cual no tiene sentido
+
+![[Pasted image 20260924015658.png]]
+
+aca tenggo mis valores de r y s, y el resultado es que devuelve despues d
+
+![[Pasted image 20260924015828.png]]
