@@ -181,3 +181,46 @@ Si vos intentás forzar el error mandando $J=1$ y $K=1$ al mismo tiempo, la retr
 
 ![[Pasted image 20260924020913.png]]
 
+Estos dos circuitos son simplificaciones muy prácticas que se construyen utilizando como base el biestable J-K que acabamos de ver. Al agrupar las entradas J y K de distintas maneras, logran comportamientos específicos:
+
+  
+- **Biestable "D" (Data):** Está diseñado específicamente para almacenar un bit de información.
+    
+      
+    - Como muestra el esquema, tiene una sola entrada $D$. Esta entrada se conecta directamente a la terminal J del bloque J-K interno, y pasa por una compuerta NOT (inversora) antes de llegar a la terminal K. Esto asegura que J y K siempre reciban valores opuestos.
+        
+    
+    - Su comportamiento es el más simple de todos: la "Tabla Reducida" y su Ecuación Característica ($Q_{n+1} = D$) indican que la salida siempre va a copiar exactamente el valor que le pongas en la entrada. Si ingresás un 0, guarda un 0; si ingresás un 1, guarda un 1.
+        
+          
+        
+- **Biestable "T" (Toggle):** Su función principal es alternar o "bascular" el estado de la salida, como si fuera el botón de encendido/apagado de un control remoto.
+    
+      
+    - En este diseño físico, la única entrada $T$ se ramifica y se conecta directamente tanto a J como a K al mismo tiempo.
+        
+    
+    - Según su "Tabla Reducida", si la entrada $T$ es 0, el circuito simplemente retiene su memoria actual ($Q_{n+1} = Q$).
+        
+    - Pero si la entrada $T$ es 1, el circuito invierte o cambia de estado ($Q_{n+1} = Q'$). Su Ecuación Característica formaliza esto como $Q_{n+1} = T \cdot (\text{Not } Q_n) + (\text{Not } T) \cdot Q_n$.
+
+
+
+Como los esquemas muestran un bloque J-K en su interior, si "abrimos" esa cajita, vamos a encontrar exactamente la misma estructura que vimos en la imagen del biestable Jack Kilby: un núcleo SR que tiene esas compuertas AND en sus entradas (recibiendo J y K) junto con los cables de retroalimentación cruzada desde las salidas.
+
+  
+
+Lo que hacen estos diseños D y T es tomar ese circuito J-K completo (con sus compuertas AND ya incluidas adentro) y simplemente cambiar cómo se conectan los cables _por fuera_ para forzarlo a hacer tareas específicas:
+
+  
+
+- En el **Biestable D**, le ponen una compuerta NOT externa en la pata K para asegurarse de que las compuertas AND internas siempre reciban valores opuestos.
+    
+- En el **Biestable T**, simplemente empalman el mismo cable a las patas J y K para que ambas compuertas AND internas reciban la misma señal simultáneamente.
+
+Así que sí, toda la "magia" de evitar los estados prohibidos gracias a esas compuertas AND sigue estando presente adentro de estos dos nuevos circuitos.
+
+
+![[Pasted image 20260924162839.png]]
+
+![[Pasted image 20260924162956.png]]
