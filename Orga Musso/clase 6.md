@@ -126,3 +126,6 @@ También puedo conseguir sus funciones
 
 ![[Pasted image 20260924020630.png]]
 
+![[Pasted image 20260924020913.png]]
+
+![[Pasted image 20260924021113.png]]
