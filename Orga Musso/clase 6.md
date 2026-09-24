@@ -110,6 +110,19 @@ como después de la retroalimentación me dio q y notq el mismo valor, ósea 0, 
 
 ![[Pasted image 20260924015658.png]]
 
-aca tenggo mis valores de r y s, y el resultado es que devuelve despues d
+aca tenggo mis valores de r y s, y el resultado es que devuelve despues de la retroalimentacion
 
 ![[Pasted image 20260924015828.png]]
+
+esto me da mi estado inicial y el resultado al que quiero llegar, y cuales serian los valores que tienen que tomar mi r y s para ese caso
+
+
+![[Pasted image 20260924020119.png]]
+
+
+También puedo conseguir sus funciones
+
+![[Pasted image 20260924020442.png]]
+
+![[Pasted image 20260924020630.png]]
+
