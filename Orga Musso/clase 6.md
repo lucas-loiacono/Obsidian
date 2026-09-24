@@ -224,3 +224,5 @@ Así que sí, toda la "magia" de evitar los estados prohibidos gracias a esas co
 ![[Pasted image 20260924162839.png]]
 
 ![[Pasted image 20260924162956.png]]
+
+![[Pasted image 20260924163121.png]]
