@@ -99,6 +99,10 @@ habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa y la de 
 
 
 ![[Pasted image 20260922084950.png]]
+`
+q y q' son salidas y entradas a la vez, y
+
+MI Q Y Q' estaban al principio en un valor logico 0 y 1, pero una vez que retroalimento cambian, dependiendo de mi r y s, y se quedan estables, ya que si realimento sigue dando el mismo valor
 
 ![[Pasted image 20260922090058.png]]
 
