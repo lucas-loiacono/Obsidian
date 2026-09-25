@@ -69,9 +69,49 @@ Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
 ![[Pasted image 20260922075958.png]]
 
 
+El concepto de "reducir" y "devolver al original" está bien orientado en cuanto a la cantidad de cables o líneas físicas del circuito, pero la diferencia principal radica en qué formato tiene la información en cada extremo.
+
+- **El Codificador:** Recibe múltiples señales de entrada individuales y le asigna un código binario de salida a la señal que esté aplicada al dispositivo. Es decir, pasa de una "posición física" (muchas líneas de entrada, donde generalmente se enciende de a una) a un formato comprimido en "código binario" (pocas líneas de salida).
+    
+ 
+- **El Decodificador:** Realiza exactamente el trabajo inverso. Detecta la presencia de una combinación específica de valores lógicos (un código binario) en sus entradas y, en base a eso, activa una sola de sus múltiples líneas de salida. Pasa del "código binario" de vuelta a una "posición física" específica.
+
+
+Para visualizarlo en la práctica, imaginá un teclado de computadora conectado a un monitor:
+
+Cuando presionás la tecla del número '9', estás activando mecánicamente una sola línea física. Un **codificador** integrado en el teclado toma esa única señal física y la transforma ("comprime") en un código binario corto para que el procesador de la computadora lo pueda leer e interpretar.
+
+Por otro lado, cuando la computadora decide que tiene que prender una luz indicadora específica en un panel, le envía un código binario a un **decodificador**. Este componente lee el código y activa exclusivamente la única línea eléctrica de salida que enciende esa luz en particular.
+
 habilitación lee la entrada, si mi A0 =1 la salida 1 va a estar activa y la de 0 no, ósea mis respectivos c
 
+
+Exactamente, tu razonamiento es muy acertado. Las salidas **C** ($C_0, C_1, C_2, C_3$) representan esos "cables" individuales o líneas físicas de destino.
+
+Lo que "devuelve" el decodificador no es un código nuevo, sino la **activación de uno solo de esos cables** dependiendo exclusivamente del número binario que ingresó. Actúa como un distribuidor que lee una dirección en formato binario y enciende únicamente la salida correspondiente a esa dirección.
+
+Si mirás la tabla del **Decodificador de dos entradas** en la imagen, podés ver exactamente a qué cable le da la señal (el valor '1') según el código que recibe en las entradas $A_1$ y $A_0$:
+
+
+- Si entra el código binario **00** (cero en decimal), enciende solo el cable **$C_0$**.
+
+- Si entra el código binario **01** (uno en decimal), enciende solo el cable **$C_1$**.
+
+- Si entra el código binario **10** (dos en decimal), enciende solo el cable **$C_2$**.
+
+- Si entra el código binario **11** (tres en decimal), enciende solo el cable **$C_3$**.
+
+Por lo tanto, si conectaras un codificador y un decodificador juntos, el decodificador efectivamente estaría volviendo a encender "el cable original" que inició todo el proceso del otro lado, traduciendo ese binario intermedio de vuelta a una posición física.
+
 ![[Pasted image 20260922080408.png]]
+
+
+
+- El **codificador** toma la activación de una señal física en una de sus múltiples entradas y la traduce entregando un código binario en sus salidas.
+    
+- El **decodificador** hace el camino inverso: recibe un código binario en sus entradas y lo traduce activando una única señal física de salida correspondiente a ese valor.
+
+Son procesos completamente complementarios. ¡Muy buena deducción!
 
 ![[Pasted image 20260922080442.png]]
 
@@ -176,6 +216,22 @@ Ese cableado cruzado es justamente el truco maestro de este diseño. Como $Q$ y 
 Si vos intentás forzar el error mandando $J=1$ y $K=1$ al mismo tiempo, la retroalimentación cruzada se asegura de que solo una de las compuertas AND se active (la que esté conectada a la salida que actualmente valga '1'). Así, al núcleo RS interno siempre le llega la orden correcta para invertir su estado (Not Qn) en lugar de bloquearse en un estado prohibido
 
 
+¡Exactamente! Lo entendiste a la perfección. Ese "volver a entrar al circuito" es el corazón de todo este tema.
+
+
+En diseño digital, a ese cableado se lo llama **retroalimentación cruzada**.
+
+Las compuertas lógicas básicas por sí solas no tienen memoria; si les cortás la señal de entrada, su salida desaparece al instante. Pero al agarrar los cables de salida (Q y Q') y obligarlos a volver hacia atrás para entrar en las compuertas del lado opuesto, creás un **bucle infinito de validación**.
+
+Funciona como un mecanismo donde las dos salidas se sostienen mutuamente:
+
+1. Si **Q** logró ponerse en '1', ese '1' viaja por el cable de retroalimentación hacia la compuerta de abajo.
+    
+2. Al recibir ese '1', la compuerta de abajo es forzada a apagar su salida, garantizando que **Not Q** sea '0'.
+    
+3. Ese '0' viaja por el otro cable de retroalimentación hacia la compuerta de arriba, lo que le confirma a la de arriba que debe mantener a **Q** en '1'.
+    
+Es un sistema que se auto-mantiene. Gracias a que las salidas vuelven a entrar, cuando vos dejás de mandar órdenes externas (por ejemplo, dejás las entradas R y S en 0), el circuito no se "apaga". Se queda trabado en ese bucle, reteniendo el último estado para siempre (mientras la computadora siga encendida).
 
 
 
@@ -219,6 +275,29 @@ Lo que hacen estos diseños D y T es tomar ese circuito J-K completo (con sus co
 - En el **Biestable T**, simplemente empalman el mismo cable a las patas J y K para que ambas compuertas AND internas reciban la misma señal simultáneamente.
 
 Así que sí, toda la "magia" de evitar los estados prohibidos gracias a esas compuertas AND sigue estando presente adentro de estos dos nuevos circuitos.
+
+
+
+
+
+
+
+
+# Resumen
+
+Las diferencias principales radican en la cantidad de entradas y en la función específica para la que fue optimizada su memoria:
+
+
+- **Biestable R-S (Reset-Set):** Es la estructura base original. Tiene dos entradas independientes donde S (Set) graba un 1 y R (Reset) borra a 0. Su mayor desventaja es su vulnerabilidad lógica: si recibe un 1 en ambas entradas simultáneamente, entra en un estado lógico prohibido o inestable.
+    
+    
+- **Biestable J-K:** Es la versión perfeccionada del R-S. Mantiene las dos entradas, pero incorpora la retroalimentación cruzada para solucionar el estado prohibido. Si recibe la orden simultánea (1,1), en lugar de colapsar, ejecuta una orden segura de alternancia (invierte el valor actual de su memoria).
+    
+      
+- **Biestable D (Data):** Es una especialización orientada a la integridad de los datos. Tiene una sola entrada de información (D) y utiliza una compuerta NOT interna para garantizar que al núcleo nunca le lleguen señales iguales. Simplemente "copia y retiene" el valor de la entrada en la salida. Es la pieza ideal para almacenar bits de forma pura.
+    
+    
+- **Biestable T (Toggle):** Es otra especialización de una sola entrada, lograda al unir físicamente los pines J y K. Funciona como el botón de encendido de un control remoto: si T recibe un 0, retiene su estado; si recibe un 1, bascula hacia el estado opuesto. Es el componente central para diseñar circuitos contadores.
 
 
 ![[Pasted image 20260924162839.png]]
