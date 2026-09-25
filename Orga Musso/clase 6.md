@@ -226,3 +226,99 @@ Así que sí, toda la "magia" de evitar los estados prohibidos gracias a esas co
 ![[Pasted image 20260924162956.png]]
 
 ![[Pasted image 20260924163121.png]]
+
+
+![[Pasted image 20260925010920.png]]
+
+Esta es la solución ingeniosa para lograr que un circuito funcione verdaderamente **"Por Flanco"** (reaccionando solo en el instante del salto) utilizando los componentes que funcionaban por nivel. Se conoce como **Sincronización Maestro-Esclavo**.
+
+Para lograrlo, el circuito encadena dos biestables R-S internamente:
+
+1. El primero es el **Maestro**, que recibe tus señales externas S y R.
+    
+2. El segundo es el **Esclavo**, que está conectado a las salidas del Maestro y es el que entrega el resultado final del circuito.
+
+El "truco" está en cómo se conecta la señal de reloj (`clk`): Si observás el esquema de la izquierda, el cable de `clk` se divide. Va directo hacia el Esclavo, pero para entrar al Maestro pasa primero por un pequeño círculo (un inversor o compuerta NOT). Esto significa que trabajan en turnos opuestos, como muestra el **Diagrama Temporal**:
+
+- **Cuando el reloj está en '0':** El Maestro está activo y se encarga de leer y procesar los cambios que hagas en S y R ("Q del Maestro conmuta"). Mientras tanto, el Esclavo está bloqueado e ignora al Maestro, manteniendo intacta la salida final ("Q del Esclavo no conmuta").
+    
+- **En el instante que el reloj salta a '1' (Flanco Ascendente):** Los roles se invierten. El Maestro se bloquea automáticamente y congela el dato que acababa de leer ("Q del Maestro no cambia"). En ese mismísimo instante, el Esclavo se activa, lee el dato congelado por el Maestro y lo copia en la salida final ("Q del Esclavo cambia").
+
+El resultado de esta carrera de relevos es que **la salida final del sistema solo se actualiza en el microsegundo exacto en que la señal de reloj pasa de 0 a 1**, logrando la sincronización por flanco. En la "Simbología" a la derecha, esto se representa dibujando un pequeño **triángulo** en la entrada del reloj, indicando que este componente es sensible a los flancos y no a los niveles fijos.
+
+![[Pasted image 20260925010822.png]]
+
+Este circuito es una alternativa ingeniosa para lograr la sincronización por flanco (Edge Triggered), pero usando un truco físico con los tiempos de retardo de las compuertas en lugar de acoplar dos biestables enteros como en el sistema Maestro-Esclavo.
+
+
+Si analizás el esquema de la izquierda, la señal de reloj principal (la línea **`a`**) se divide en dos caminos antes de entrar a la compuerta AND verde:
+
+- El camino de abajo (**`c`**) va directo, sin alteraciones.
+    
+- El camino de arriba pasa por una compuerta NOT (inversor), convirtiéndose en la señal **`b`**.
+    
+
+La "magia" ocurre por un detalle físico del mundo real: las compuertas lógicas no son instantáneas. La compuerta NOT tarda una mínima fracción de segundo en procesar la electricidad y cambiar su salida.
+
+Si mirás el diagrama temporal de abajo, podés ver cómo se aprovecha ese retraso:
+
+1. Cuando la señal `a` pega el salto de 0 a 1 (un flanco ascendente), la señal de abajo `c` copia ese salto a '1' inmediatamente.
+    
+2. Sin embargo, la señal de arriba `b` (que estaba en '1' porque invierte el '0' inicial) tarda un microsegundo en darse cuenta de que tiene que bajar a '0'.
+    
+3. Durante ese brevísimo instante de retraso (el hueco marcado con el símbolo $\Delta$), se da una condición especial: **tanto `b` como `c` valen '1' al mismo tiempo**.
+    
+4. Como la compuerta verde es una AND, al recibir esos dos '1' simultáneos en sus entradas, dispara un pulso en su salida (**`d`**) extremadamente corto (el pico vertical que ves arriba con el punto rojo).
+
+Ese pulso microscópico `d` es el que se conecta finalmente al pin `clk` del biestable R-S.
+
+Básicamente, este diseño "engaña" a un biestable normal. Agarra una señal de reloj que sube y se queda en nivel alto durante mucho tiempo, y la exprime hasta convertirla en un "pinchazo" de energía que dura solo una fracción de segundo. Así, obliga al biestable a activarse y leer las entradas S y R de forma ultra-rápida, logrando que reaccione únicamente en el instante exacto del flanco.
+
+![[Pasted image 20260925010322.png]]
+
+
+¡Exactamente! Hiciste un resumen perfecto de las dos filosofías de diseño. Ambas estrategias logran el mismo objetivo (que el circuito reaccione solo en el salto), pero lo hacen con mecánicas físicas completamente distintas:
+
+- **El sistema Maestro-Esclavo (Sincronización lógica):** Utiliza dos circuitos que funcionan "por nivel", pero desfasados. El maestro lee la información durante el nivel bajo ('0') y el esclavo la bloquea. En el instante exacto del **flanco** (el salto a '1'), ocurre el "cambio de guardia": el maestro se bloquea reteniendo la información, y el esclavo se abre para dejarla salir. Juegan en equipo para asegurar que el dato final solo cambie en ese punto de transición.
+    
+- **El sistema de retardo "Edge Triggered" (Sincronización física):** Es una estrategia más directa. Toma un circuito normal y usa el retardo físico de la compuerta NOT para exprimir la señal de reloj, convirtiéndola en un pulso microscópico. Como bien dijiste, esto obliga al biestable a despertarse **una sola vez y por un instante tan fugaz** que físicamente solo tiene tiempo de leer las entradas durante el flanco positivo, volviendo a cerrarse casi de inmediato.
+
+Ambos son trucos brillantes de la ingeniería digital para domar el tiempo y asegurar que millones de componentes dentro de una computadora se actualicen en el mismo microsegundo exacto sin pisarse entre sí.
+
+
+Esa es exactamente la principal diferencia práctica entre ambas arquitecturas, y tiene un impacto enorme en la ventana de tiempo que tienen disponible para "escuchar" la información.
+
+En el **sistema Maestro-Esclavo**, la ventana de lectura es amplia. El circuito Maestro está activo y reaccionando a las entradas $S$ y $R$ durante **todo el tiempo que dura el nivel bajo ('0')**. Si mientras el reloj está en '0' cambiás los valores de entrada varias veces, el Maestro va a registrar todos esos cambios internamente. Recién en el instante del salto a '1', el Maestro cierra sus puertas y "congela" el último valor que llegó a leer para pasárselo al Esclavo.
+
+En el **sistema "Edge Triggered" por retardo**, la ventana de lectura es drásticamente menor. El circuito ignora tus entradas durante todo el nivel '0' y todo el nivel '1'. Únicamente se despierta y permite el ingreso de datos durante ese **instante microscópico ($\Delta$)** que dura el pulso generado por la compuerta NOT.
+
+Esta diferencia hace que el diseño por retardo sea mucho más robusto frente a errores transitorios (conocidos como _glitches_). En un Maestro-Esclavo, si hay un pico de ruido eléctrico en los cables de entrada mientras el reloj está en '0', el Maestro podría asimilarlo accidentalmente. En el diseño por retardo, como la puerta lógica solo se abre por una fracción de nanosegundo, es estadísticamente mucho más difícil que una interferencia indeseada logre colarse justo en ese milisegundo exacto.
+
+![[Pasted image 20260925010446.png]]
+
+Esta imagen muestra cómo se le agregan **entradas de anulación o emergencia** a un biestable sincronizado, conocidas como Entradas Asincrónicas.
+
+Estas nuevas terminales se llaman **Pr (Preset)** para forzar un 1 en la memoria, y **Cl (Clear)** para forzar un 0. Se denominan "asincrónicas" porque **no necesitan esperar al reloj (`clk`)** para actuar. Mientras que las entradas normales R y S tienen que esperar a que el reloj les dé permiso a través de las compuertas AND de la izquierda, las señales Pr y Cl ingresan mediante compuertas OR que están ubicadas _después_ de la barrera del reloj, inyectando la orden directo en el núcleo del circuito.
+
+La tabla de verdad inferior demuestra esta prioridad absoluta utilizando la letra **X**, que en lógica digital significa "no importa qué valor tenga" (Don't Care):
+
+- Si activás el Preset (`Pr = 1` y `Cl = 0`), la salida $Q_{n+1}$ será 1 de manera instantánea, sin importar (X) en qué nivel esté el reloj o qué valores tengan R y S en ese momento.
+    
+ 
+- Si activás el Clear (`Pr = 0` y `Cl = 1`), la salida se borra a 0 al instante, ignorando por completo al reloj y a las entradas normales.
+    
+- Si ambas entradas de emergencia están apagadas (`Pr = 0` y `Cl = 0`), el biestable retoma su funcionamiento normal y vuelve a obedecer a las señales R, S y al reloj.
+    
+- Si intentás mandar la orden de forzar un 1 y forzar un 0 al mismo tiempo (`Pr = 1` y `Cl = 1`), el circuito entra en el clásico estado "Prohibida", generando un error lógico.
+
+En la práctica, la entrada `Cl` (Clear) es el equivalente funcional al botón físico de "Reset" en el gabinete de una computadora: suprime y puentea cualquier cálculo normal que se esté ejecutando en ese milisegundo y fuerza a todos los componentes a volver a un estado inicial en cero para arrancar en limpio.
+
+
+
+¡Exactamente! Esa es la forma perfecta de verlo. Tienen **prioridad absoluta** sobre todo el resto del circuito.
+
+Al estar conectadas a través de esas compuertas OR que están ubicadas después de la barrera del reloj, las señales asincrónicas `Pr` y `Cl` actúan como una orden de "fuerza mayor".
+
+Por eso en la tabla de verdad aparecen tantas **X** cuando `Pr` o `Cl` valen 1. Esa X (Don't Care) demuestra esa prioridad: al circuito literalmente no le importa si el reloj está subiendo, bajando, o si en las entradas normales R y S hay un 0 o un 1. Si vos activás el Preset o el Clear, el circuito interrumpe inmediatamente cualquier proceso sincronizado que estuviera haciendo y obedece esa orden directa para forzar el 1 o el 0 en la memoria.
+
+Es el mismo concepto que un botón de "parada de emergencia" en una máquina: no importa qué instrucciones normales esté recibiendo el motor en ese momento, si tocás la emergencia, la máquina ignora todo lo demás y acata esa única orden al instante.
