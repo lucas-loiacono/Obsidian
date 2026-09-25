@@ -117,9 +117,47 @@ Son procesos completamente complementarios. ¡Muy buena deducción!
 
 ![[Pasted image 20260922080644.png]]
 
+Esta imagen muestra una aplicación muy práctica del decodificador: usarlo como un **Generador de Funciones Lógicas**. Básicamente, te enseña cómo aprovechar ese comportamiento de "encender un solo cable" que vimos antes para implementar cualquier tabla de verdad de manera muy sencilla.
+
+El proceso funciona así:
+
+- **El objetivo:** Mirá la tabla de verdad de la izquierda. Se busca crear un circuito cuya salida $F$ sea '1' únicamente cuando las entradas (A, B, C) representan los números decimales 1, 3, 5 o 7. Esto se resume en la ecuación matemática $F(A,B,C) = \sum(1,3,5,7)$.
+    
+- **El decodificador:** Se utiliza un decodificador estándar donde las entradas del circuito (A, B, C) se conectan a los pines receptores ($A_0, A_1, A_2$). El pin de habilitación ($E$) se conecta directamente a $VCC$ (+5 voltios) para que el circuito esté encendido y funcionando permanentemente.
+    
+- **La magia de la compuerta OR:** Como ya sabemos, si ingresa por ejemplo el número 3 en binario (011), el decodificador va a encender exclusivamente el "cable" de salida $D_3$. Para lograr que la salida final $F$ se active con los valores deseados (1, 3, 5 o 7), simplemente se toman los cables de salida $D_1, D_3, D_5$ y $D_7$ y se conectan todos juntos a una **compuerta OR**.
+
+
+De esta forma, si el decodificador recibe cualquiera de esos cuatro códigos binarios, encenderá su cable respectivo, la compuerta OR detectará esa señal y devolverá un '1' en la salida $F$, cumpliendo perfectamente con la tabla de verdad requerida.
+
 ![[Pasted image 20260922081910.png]]
 
+Un **multiplexor** es básicamente un selector electrónico. Es un circuito combinacional que recibe información digital desde varias líneas de entrada diferentes y dirige solo una de ellas hacia una única línea de salida compartida.
+
+Para entenderlo visualmente, podés mirar el esquema de la derecha en la imagen: el circuito funciona como una llave o un interruptor de múltiples posiciones. Para que el dispositivo sepa exactamente cuál de todas las entradas de datos debe conectar físicamente con la salida, utiliza un segundo grupo de conexiones llamadas **entradas de control** o selector.
+
+La regla matemática que lo define indica que para un multiplexor de $2^n$ líneas de entrada, siempre se van a necesitar $n$ entradas de control. Estas entradas de control reciben un número binario que le indica al interruptor qué canal debe abrir.  
+
+El esquema inferior izquierdo muestra el **Multiplexor de Una Entrada de Control**, que es la versión más básica para entender el concepto:
+
+
+- Tiene dos líneas de entrada de datos (D0 y D1) y una única salida final (Y).
+    
+- Utiliza una sola línea de control (S) que actúa como selector.
+    
+- Dependiendo del valor binario que ingrese por ese cable selector S (que puede ser '0' o '1'), el circuito hace un "puente" interno y deja pasar la información de D0 o la de D1 hacia la salida Y.
+
 ![[Pasted image 20260922082017.png]]
+
+Tus dos canales de entrada de datos son efectivamente $D_1$ y $D_0$. La letra **$S$** significa **Selector** y funciona como tu entrada de control.
+
+Siguiendo la analogía anterior, $S$ es el "botón" que decide cuál de los dos canales se conecta a la pantalla (la salida $Y$). La tabla de verdad en el centro de la imagen muestra exactamente cómo toma la decisión:
+
+- Si la señal en **$S$ es 0**, el multiplexor elige el canal **$D_0$** y deja pasar su información a la salida $Y$.
+    
+- Si la señal en **$S$ es 1**, el multiplexor cambia de posición y conecta el canal **$D_1$** a la salida $Y$.
+
+El diagrama gris a la derecha muestra cómo se construye esa "llave" físicamente en el hardware: el valor de $S$ se usa para encender (habilitar) una sola compuerta lógica AND a la vez, bloqueando el paso de un canal y permitiendo el paso del otro hacia la salida final.
 
 ![[Pasted image 20260922082130.png]]
 
@@ -128,6 +166,26 @@ Son procesos completamente complementarios. ¡Muy buena deducción!
 ![[Pasted image 20260922082640.png]]
 
 ![[Pasted image 20260922082745.png]]
+
+
+El **demultiplexor** hace exactamente la operación inversa al multiplexor. Es un circuito combinacional que recibe información de **una sola línea de entrada** y la transmite o distribuye a **una de varias líneas de salida posibles**.
+
+  
+Siguiendo con el ejemplo de la tele, imaginate el caso contrario: tenés un solo decodificador de cable o una sola consola (tu única entrada de datos) pero tenés cables yendo a 4 pantallas distintas en diferentes habitaciones (tus múltiples salidas).
+
+¿Cómo decidís a qué pantalla mandar la imagen? Usando nuevamente las **entradas de control (o selector $S$)**. El valor binario que le pases a ese selector actúa como la "llave" que direcciona la señal de entrada hacia una pantalla específica, bloqueando el paso hacia el resto.
+
+  
+**Un dato clave de diseño lógico:**
+
+Estructuralmente, un demultiplexor es idéntico al **decodificador** que vimos un par de imágenes atrás. Para usar un decodificador como demultiplexor, se hace lo siguiente:
+
+
+- Conectás tu señal de entrada (el dato que querés transmitir) directamente al pin general de **Habilitación ($E$)**.
+
+- Usás las entradas normales del decodificador ($A_1, A_0$) como tus pines **selectores ($S$)**.
+
+Dependiendo del código binario que pongas en esos selectores, la señal de datos va a salir por una y solo una de las líneas de salida ($C_0, C_1, C_2$ o $C_3$).
 
 ![[Pasted image 20260922083656.png]]
 
