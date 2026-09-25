@@ -223,10 +223,60 @@ Así que sí, toda la "magia" de evitar los estados prohibidos gracias a esas co
 
 ![[Pasted image 20260924162839.png]]
 
+A diferencia de los circuitos anteriores (que reaccionaban de forma inmediata a cualquier cambio en sus entradas), estos introducen el concepto clave de **Sincronización** mediante una **Señal de reloj** o `clk` (clock).
+
+
+En los modelos que veníamos viendo, si vos cambiabas el valor de una entrada, la salida cambiaba al instante (circuitos asincrónicos). En estos sistemas secuenciales sincronizados, el circuito funciona con un "director de orquesta" (el reloj) que emite una onda cuadrada periódica que alterna entre 0 y 1 a lo largo del tiempo. El biestable solo tiene permitido "leer" sus entradas y cambiar su memoria en los momentos precisos que le dicta este reloj.
+
+La segunda imagen detalla los tipos de sincronización posibles:
+
+- **Por Nivel:** El circuito se habilita y "escucha" a sus entradas durante todo el lapso de tiempo en el que el reloj se mantiene en un estado estable, que puede ser **Nivel 1** (alto) o **Nivel 0** (bajo). Si mirás la última imagen, el **Biestable R-S Sincronizado por Nivel Alto** se construye agregándole simplemente dos compuertas AND controladas por el pin `clk`. Si el `clk` envía un '1', la compuerta se abre y deja pasar tus órdenes R y S hacia el núcleo del circuito. Si envía un '0', se bloquea e ignora lo que hagas.
+    
+  
+- **Por Flanco:** Es un control de tiempo mucho más estricto y veloz. El circuito solo se habilita para leer las entradas en el instante milimétrico en el que la señal de reloj está transicionando de un nivel a otro: ya sea cuando sube de 0 a 1 (**Flanco Ascendente**) o cuando cae de 1 a 0 (**Flanco Descendente**). Fuera de ese instante exacto de transición, el circuito queda ciego a cualquier cambio en las entradas.
+
+Exactamente. El pin `clk` (clock) es por donde ingresa físicamente esa señal que está constantemente alternando entre 1 y 0.
+
+Sin embargo, hay que hacer una pequeña distinción para no mezclar los conceptos, ya que al final mencionaste "cuando hay un flanco":
+
+- En la imagen que muestra el circuito armado (**Biestable "R-S" Sincronizado por Nivel Alto**), la activación **no es por flanco**, sino por **nivel**. Esto significa que las compuertas de entrada se "abren" y el circuito se activa durante _todo el tiempo_ que la señal `clk` se mantenga en el valor 1 (toda la línea plana superior de la onda). En el momento que `clk` baja a 0, las compuertas se bloquean y el circuito se desactiva.
+    
+- Si el circuito estuviera diseñado para funcionar verdaderamente **por flanco** (como mostraba el esquema con las flechas verticales de la imagen anterior), su comportamiento sería distinto: no se mantendría activado durante todo el tiempo que dura el "1", sino que solo se activaría en el instante exacto y milimétrico en el que la señal pega el salto de 0 a 1 (flanco ascendente).
+
+En resumen: sí, el `clk` es tu cable que trae los 1 y 0. Pero es el diseño del circuito el que decide si va a "prestar atención" durante todo el rato que dura ese 1 (nivel), o si solo va a reaccionar en el instante del cambio (flanco).
+
+  
+
+¿Se logra visualizar esa sutil pero importante diferencia en los tiempos de activación?
+
 ![[Pasted image 20260924162956.png]]
 
 ![[Pasted image 20260924163121.png]]
 
+
+Como el pin `clk` está conectado directamente a las dos compuertas AND de la entrada, si el reloj marca **'0'**, la multiplicación lógica (AND) obliga a que el resultado de ambas compuertas sea '0', sin importar qué valores estés intentando mandar por tus cables R o S.
+
+
+¿Y qué pasaba cuando al núcleo de un biestable R-S le llegaban dos ceros? Como vimos en las tablas anteriores, entraba automáticamente en su **estado de memoria o retención**.
+
+  
+
+Así es como funciona el "bloqueo" físico: al mandar un '0', el reloj anula tus señales R y S y obliga al circuito interno a recibir (0,0), asegurándose de que no haga otra cosa más que retener el dato que ya tenía guardado de antes. Recién cuando el `clk` vuelve a subir a '1', las compuertas AND se "abren" y dejan pasar el verdadero valor de tus señales R y S hacia el núcleo.
+
+  
+
+Si mirás con detalle el esquema del **Biestable "D" Sincronizado por Nivel Alto** en la imagen, vas a notar que en el centro hay un bloque rectangular interno que ya tiene sus pines J, K, Q, Q' y **su propia entrada etiquetada como `clk`**.
+
+  
+Lo que sucede en la práctica es lo siguiente:
+
+- Las compuertas AND que controlan el paso de la señal no desaparecieron, sino que **ya están integradas adentro** de ese bloque central J-K.
+    
+- El diseño del biestable D simplemente agarra un circuito J-K (que ya viene sincronizado de fábrica) y le agrega la entrada D con su compuerta NOT por fuera.
+    
+- El cable `clk` que ves entrar viaja directo hacia el interior de ese bloque central para cumplir la misma función de barrera.
+    
+El mecanismo es idéntico: cuando el `clk` manda un '0', las compuertas internas de ese bloque J-K se cierran, ignorando por completo cualquier cambio que hagas en la entrada D. Recién cuando el reloj manda un '1', el bloque interno se "despierta", lee si en D pusiste un 0 o un 1, y actualiza su memoria.
 
 ![[Pasted image 20260925010920.png]]
 
@@ -322,3 +372,34 @@ Al estar conectadas a través de esas compuertas OR que están ubicadas después
 Por eso en la tabla de verdad aparecen tantas **X** cuando `Pr` o `Cl` valen 1. Esa X (Don't Care) demuestra esa prioridad: al circuito literalmente no le importa si el reloj está subiendo, bajando, o si en las entradas normales R y S hay un 0 o un 1. Si vos activás el Preset o el Clear, el circuito interrumpe inmediatamente cualquier proceso sincronizado que estuviera haciendo y obedece esa orden directa para forzar el 1 o el 0 en la memoria.
 
 Es el mismo concepto que un botón de "parada de emergencia" en una máquina: no importa qué instrucciones normales esté recibiendo el motor en ese momento, si tocás la emergencia, la máquina ignora todo lo demás y acata esa única orden al instante.
+
+
+
+
+
+
+
+Pensá en la mecánica de una partida de un juego táctico como Counter-Strike o Valorant para entender la diferencia en cómo reaccionan a las entradas.
+
+**Sistema Maestro-Esclavo (Ventana de tiempo amplia)**
+
+Funciona como la "Fase de Compra" antes de que caigan las barreras. Durante esos segundos previos (mientras el reloj se mantiene en un nivel estable), el sistema Maestro está completamente abierto y escuchando. En esa ventana de tiempo podés alterar tus entradas todas las veces que quieras: comprar un arma, arrepentirte, venderla y comprar otra. El Maestro absorbe y registra todas esas fluctuaciones. Recién en el instante en que el tiempo se acaba y cae la barrera (el flanco de bajada), tu decisión final se congela y el sistema Esclavo se abre para publicar ese inventario definitivo en la ronda activa.
+
+  
+
+**Sistema Edge-Triggered (Instante microscópico)**
+
+Funciona como sacar una captura de pantalla pulsando la tecla F12. No existe una "fase" previa en la que el circuito esté asimilando información. El sistema simplemente dispara un flash ultrarrápido y captura el estado exacto de tus entradas en ese milisegundo puntual. Cualquier cambio que hayas hecho un nanosegundo antes o un nanosegundo después de apretar el botón, el circuito lo ignora por completo.
+
+  
+Respecto a tu segunda duda: **sí, por supuesto que podés tener varias entradas.**
+
+Acá es fundamental separar dos conceptos que en los esquemas a veces se mezclan:
+
+
+- **Qué función lógica cumple:** Esto determina tu cantidad de entradas de datos. Un biestable R-S o J-K va a tener dos entradas principales. Un D o T va a tener solo una.
+    
+- **Cómo se sincroniza con el reloj:** Esto es el Maestro-Esclavo o el Edge-Triggered. Es la arquitectura de seguridad que gestiona el tiempo.
+    
+
+Podés construir perfectamente un biestable J-K (que procesa dos variables a la vez) utilizando una arquitectura Maestro-Esclavo. En ese caso, el circuito Maestro interno tendría conectados los cables J y K. El sistema Maestro-Esclavo solo dicta las reglas de _cuándo_ y _cómo_ se habilita el paso del tiempo, pero no impone ninguna restricción sobre _cuántas_ entradas de datos lógicos podés conectar.
