@@ -195,12 +195,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/TP.md",
+                "file": "Algo Juarez/clase 10.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TP"
+              "title": "clase 10"
             }
           }
         ],
@@ -379,8 +379,17 @@
   },
   "active": "0eb89d63b2db7a1f",
   "lastOpenFiles": [
-    "Orga Musso/clase 6.md",
+    "Algo Juarez/clase 9.md",
+    "Algo Juarez/clase 8.md",
+    "Algo Juarez/clase 7.md",
+    "Algo Juarez/clase 6.md",
+    "Algo Juarez/clase 5.md",
+    "Algo Juarez/clase 4.md",
+    "Algo Juarez/clase 3.md",
+    "Algo Juarez/clase 2.md",
+    "Algo Juarez/clase 1.md",
     "Algo Juarez/TP.md",
+    "Orga Musso/clase 6.md",
     "!imagenes/Pasted image 20260925010920.png",
     "!imagenes/Pasted image 20260925010822.png",
     "!imagenes/Pasted image 20260925010446.png",
@@ -396,12 +405,6 @@
     "Java/Trabajo practico.md",
     "Java/ENUM.md",
     "Java/ARRAYCOPY.md",
-    "Algo Juarez/clase 4.md",
-    "Algo Juarez/clase 5.md",
-    "Algo Juarez/clase 6.md",
-    "Algo Juarez/clase 7.md",
-    "Algo Juarez/clase 8.md",
-    "Algo Juarez/clase 9.md",
     "C/Cap1.md",
     "Java/Pasar clase como parámetro de funcion.md",
     "Orga Musso/clase 5.md",
@@ -412,9 +415,6 @@
     "Java/Biblioteca java/9. Funciones.md",
     "Java/Funciones o métodos.md",
     "Java/Biblioteca java/8. Loops.md",
-    "Java/Biblioteca Java.md",
-    "Java/Biblioteca java/7. Estructuras/7.4 Maps.md",
-    "Java/Biblioteca java/7. Estructuras/7.3 Sets.md",
     "Java/Biblioteca java/7. Estructuras",
     "Java/Biblioteca java",
     "Java",
