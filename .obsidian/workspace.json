@@ -195,12 +195,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 10.md",
+                "file": "Algo Juarez/TP.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 10"
+              "title": "TP"
             }
           }
         ],
@@ -379,6 +379,7 @@
   },
   "active": "0eb89d63b2db7a1f",
   "lastOpenFiles": [
+    "Algo Juarez/clase 10.md",
     "Algo Juarez/clase 9.md",
     "Algo Juarez/clase 8.md",
     "Algo Juarez/clase 7.md",
@@ -400,7 +401,6 @@
     "!imagenes/Pasted image 20260924021113.png",
     "!imagenes/Pasted image 20260924021024.png",
     "!imagenes/Pasted image 20260924020913.png",
-    "Algo Juarez/clase 10.md",
     "Algo Juarez/clase 11.md",
     "Java/Trabajo practico.md",
     "Java/ENUM.md",
