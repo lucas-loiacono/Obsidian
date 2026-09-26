@@ -1,1 +1,3 @@
-Tienda: bien
+campeon: chequeado
+estadistica: chequeado
+rareza: chequeado
