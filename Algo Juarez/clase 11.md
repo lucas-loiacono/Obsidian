@@ -6,3 +6,9 @@ cada uno tiene lo que tiene que representar y la referencia al de delante suyo, 
 para la pila se hace la referencia al anterior y para la cola al posterior
 
 ![[Pasted image 20260927193255.png]]
+
+![[Pasted image 20260927195027.png]]
+
+![[Pasted image 20260927195203.png]]
+
+si corto mi cadena, una parte se pierde de la otra, se separan
