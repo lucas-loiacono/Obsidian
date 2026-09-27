@@ -12,3 +12,16 @@ para la pila se hace la referencia al anterior y para la cola al posterior
 ![[Pasted image 20260927195203.png]]
 
 si corto mi cadena, una parte se pierde de la otra, se separan
+
+![[Pasted image 20260927200442.png]]
+
+para referenciar a otro nodo se le pasa la misma clase a siguiente, ya que es del mismo tipo de dato
+
+![[Pasted image 20260927200502.png]]
+
+
+# Pila dinámica
+
+![[Pasted image 20260927200718.png]]
+
+antes metíamos la pila dentro de un vector, ahora como tenemos nodos, podemos no tener un vector y tener referencias enlazadas 
