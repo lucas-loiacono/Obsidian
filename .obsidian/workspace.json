@@ -195,12 +195,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Trabajo practico java/Vector dinamico.md",
+                "file": "Trabajo practico java/ENUM.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Vector dinamico"
+              "title": "ENUM"
             }
           }
         ],
@@ -379,8 +379,8 @@
   },
   "active": "0eb89d63b2db7a1f",
   "lastOpenFiles": [
-    "Trabajo practico java/ENUM.md",
     "Trabajo practico java/Vector dinamico.md",
+    "Trabajo practico java/ENUM.md",
     "Trabajo practico java",
     "Algo Juarez/TP.md",
     "Algo Juarez/clase 11.md",
