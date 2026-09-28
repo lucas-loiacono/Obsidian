@@ -26,3 +26,9 @@ para referenciar a otro nodo se le pasa la misma clase a siguiente, ya que es de
 
 Lo único que necesito es tener la referencia al ultimo dato, que se encarga de quien le viene delante 
 antes metíamos la pila dentro de un vector, ahora como tenemos nodos, podemos no tener un vector y tener referencias enlazadas 
+
+![[Pasted image 20260927232404.png]]
+
+Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
+
+![[Pasted image 20260927232513.png]]
