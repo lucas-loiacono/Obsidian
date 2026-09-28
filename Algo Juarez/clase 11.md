@@ -75,3 +75,7 @@ los nuevos van al final, y se van procesando y consultando los primeros de la co
 Para esto tengo que tener dos referencias, una al primero y otra al ultimo, asi para las funciones del ultimo, por ejemplo procesar o consultar no me tengo que recorrer todo para llevar al ultimo al primer lugar
 
 ![[Pasted image 20260928005843.png]]
+
+![[Pasted image 20260928010916.png]]
+
+![[Pasted image 20260928011208.png]]
