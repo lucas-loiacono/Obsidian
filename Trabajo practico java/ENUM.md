@@ -71,3 +71,35 @@ Fijate que `vida` es un atributo **privado** de `Estadisticas` — desde `Campeo
 
 Y usar un solo método genérico con un parámetro `Estadistica` (en vez de 6 métodos separados `obtenerVida()`, `obtenerDanio()`, etc.) es justamente la ventaja del enum que veníamos charlando: un único método sirve para consultar cualquiera de las 6 estadísticas, según cuál le pases como argumento.
 
+
+
+
+
+Pensarlo como un menú es exactamente la forma correcta de entenderlo. Un `enum` en Java es, literalmente, una lista cerrada y oficial de opciones permitidas.
+
+  
+Sirve principalmente para evitar errores humanos. Si pidieras la vida usando texto normal (un `String`), podrías escribir `"Vida"`, otro programador podría poner `"salud"`, u otro equivocarse tipeando `"vidda"`. Tu programa fallaría porque no sabría qué hacer con esas palabras.
+
+  
+Al usar tu archivo `Estadistica.java`, creaste un menú estricto. Las únicas opciones que existen en todo tu juego son `VIDA`, `DANIO`, `RANGO`, `CADENCIA`, `MANA_MAXIMO` y `MANA_POR_ATAQUE`. No se puede pedir ni inventar nada que no esté en esa lista.
+
+  
+Cuando escribes `Estadistica.VIDA`, la sintaxis funciona así:
+
+  
+- **`Estadistica`**: "Traéme el menú de estadísticas".
+    
+
+- **`.VIDA`**: "De ese menú, selecciono la opción VIDA".
+
+Entonces, cuando tu código dice `base.obtenerValor(Estadistica.VIDA)`, simplemente le estás entregando esa opción exacta, inmodificable y segura al método. El método toma tu elección, revisa sus datos internos y te devuelve el número (por ejemplo, 500) que le corresponde.
+
+
+Para resumir los roles de cada uno:
+
+- **La clase `Estadisticas` (en plural):** Es la que realmente guarda los números y la información. Aquí es donde se hace el `new` y se guardan el 500 de vida, el 60 de daño, etc., dentro de sus atributos privados.
+    
+- **El enum `Estadistica` (en singular):** No guarda ningún número. Funciona puramente como un sistema de etiquetas o llaves estandarizadas.
+    
+
+El `enum` simplemente te da una forma segura y obligatoria de pedirle los datos a la clase `Estadisticas`. Cuando le pasas la "etiqueta" (por ejemplo, `Estadistica.VIDA`), la clase revisa internamente qué número tiene guardado para esa etiqueta y te lo devuelve.
