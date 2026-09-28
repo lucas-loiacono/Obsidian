@@ -36,3 +36,19 @@ Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
 ![[Pasted image 20260927235305.png]]
 
 cuando doy de baja al ultimo, mi referencia queda en null
+
+![[Pasted image 20260928000330.png]]
+
+Cuando doy de baja al ultimo, tengo que pasar mi referencia de ultimo a siguiente
+
+
+
+
+![[Pasted image 20260928000539.png]]
+
+Para dar de alta un dato lo que tengo que hacer es meter el dato en un nodo
+
+1. Primero lo tengo que enganchar al ultimo,
+2. Después le paso la referencia de mi ultimo al nuevo
+
+![[Pasted image 20260928001058.png]]
