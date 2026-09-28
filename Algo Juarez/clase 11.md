@@ -93,3 +93,5 @@ por lo cual al tener doble referencia y yo quiero dar de baja para que pasa el r
 ![[Pasted image 20260928012008.png]]
 
 para el alta, mi ultimo si esta la cola vacía va a estar apuntando a null, entonces al hacer el movimiento de apuntar al nuevo no lo puedo hacer
+
+![[Pasted image 20260928012353.png]]
