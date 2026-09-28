@@ -195,12 +195,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 11.md",
+                "file": "Trabajo practico java/Vector dinamico.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 11"
+              "title": "Vector dinamico"
             }
           }
         ],
@@ -379,6 +379,11 @@
   },
   "active": "0eb89d63b2db7a1f",
   "lastOpenFiles": [
+    "Trabajo practico java/ENUM.md",
+    "Trabajo practico java/Vector dinamico.md",
+    "Trabajo practico java",
+    "Algo Juarez/TP.md",
+    "Algo Juarez/clase 11.md",
     "!imagenes/Pasted image 20260928012353.png",
     "!imagenes/Pasted image 20260928012122.png",
     "!imagenes/Pasted image 20260928012008.png",
@@ -389,10 +394,7 @@
     "!imagenes/Pasted image 20260928005525.png",
     "!imagenes/Pasted image 20260928004048.png",
     "!imagenes/Pasted image 20260928003849.png",
-    "!imagenes/Pasted image 20260928001058.png",
     "Algo Juarez/clase 10.md",
-    "Algo Juarez/clase 11.md",
-    "Algo Juarez/TP.md",
     "Algo Juarez/clase 9.md",
     "Algo Juarez/clase 8.md",
     "Algo Juarez/clase 7.md",
@@ -403,7 +405,6 @@
     "Algo Juarez/clase 2.md",
     "Algo Juarez/clase 1.md",
     "Orga Musso/clase 6.md",
-    "Java/Trabajo practico.md",
     "Java/ENUM.md",
     "Java/ARRAYCOPY.md",
     "C/Cap1.md",
@@ -424,7 +425,6 @@
     "estadistica/ejercicio guia 11",
     "estadistica/ejercicios_guia_10",
     "estadistica/ejercicios_guia_9",
-    "imagenes",
     "Sin título.canvas",
     "Sin título 3.canvas",
     "Sin título 2.canvas",
