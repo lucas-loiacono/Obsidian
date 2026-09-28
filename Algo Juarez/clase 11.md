@@ -79,3 +79,17 @@ Para esto tengo que tener dos referencias, una al primero y otra al ultimo, asi 
 ![[Pasted image 20260928010916.png]]
 
 ![[Pasted image 20260928011208.png]]
+
+
+![[Pasted image 20260928011547.png]]
+
+Cuando me queda un elemento los dos me apuntan a ese, el siguiente se simboliza con la pata de la derecha
+
+por lo cual al tener doble referencia y yo quiero dar de baja para que pasa el recolector de basura voy a tener que eliminar las dos
+
+![[Pasted image 20260928012122.png]]
+
+
+![[Pasted image 20260928012008.png]]
+
+para el alta, mi ultimo si esta la cola vacía va a estar apuntando a null, entonces al hacer el movimiento de apuntar al nuevo no lo puedo hacer
