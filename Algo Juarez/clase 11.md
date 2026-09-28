@@ -65,3 +65,13 @@ yo cuando creo una pila, mi ultimo no va a estar referenciando a nada
 
 # Cola
 
+entra por el final y sale al principio
+
+los nuevos van al final, y se van procesando y consultando los primeros de la cola
+
+![[Pasted image 20260928005525.png]]
+
+
+Para esto tengo que tener dos referencias, una al primero y otra al ultimo, asi para las funciones del ultimo, por ejemplo procesar o consultar no me tengo que recorrer todo para llevar al ultimo al primer lugar
+
+![[Pasted image 20260928005843.png]]
