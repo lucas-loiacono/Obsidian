@@ -32,3 +32,7 @@ antes metíamos la pila dentro de un vector, ahora como tenemos nodos, podemos n
 Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
 
 ![[Pasted image 20260927232513.png]]
+
+![[Pasted image 20260927235305.png]]
+
+cuando doy de baja al ultimo, mi referencia queda en null
