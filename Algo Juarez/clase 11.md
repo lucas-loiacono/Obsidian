@@ -24,4 +24,5 @@ para referenciar a otro nodo se le pasa la misma clase a siguiente, ya que es de
 
 ![[Pasted image 20260927200718.png]]
 
+Lo único que necesito es tener la referencia al ultimo dato, que se encarga de quien le viene delante 
 antes metíamos la pila dentro de un vector, ahora como tenemos nodos, podemos no tener un vector y tener referencias enlazadas 
