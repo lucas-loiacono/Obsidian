@@ -62,3 +62,6 @@ Para dar de alta un dato lo que tengo que hacer es meter el dato en un nodo
 yo cuando creo una pila, mi ultimo no va a estar referenciando a nada
 
 ![[Pasted image 20260928004048.png]]
+
+# Cola
+
