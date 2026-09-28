@@ -52,3 +52,13 @@ Para dar de alta un dato lo que tengo que hacer es meter el dato en un nodo
 2. Después le paso la referencia de mi ultimo al nuevo
 
 ![[Pasted image 20260928001058.png]]
+
+
+
+
+
+![[Pasted image 20260928003849.png]]
+
+yo cuando creo una pila, mi ultimo no va a estar referenciando a nada
+
+![[Pasted image 20260928004048.png]]
