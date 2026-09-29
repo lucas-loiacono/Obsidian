@@ -5,6 +5,10 @@ cada uno tiene lo que tiene que representar y la referencia al de delante suyo, 
 
 para la pila se hace la referencia al anterior y para la cola al posterior
 
+![[Pasted image 20260929180531.png]]
+
+El primero tiene referencia nula
+
 ![[Pasted image 20260927193255.png]]
 
 ![[Pasted image 20260927195027.png]]
