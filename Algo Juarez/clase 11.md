@@ -17,6 +17,11 @@ El primero tiene referencia nula
 
 si corto mi cadena, una parte se pierde de la otra, se separan
 
+![[Pasted image 20260929181807.png]]
+
+![[Pasted image 20260929181846.png]]
+ya no necesito memoria contigua, puede estar separado dentro de la memoria, pero si corto la cadena pierdo la referencia a los siguientes
+
 ![[Pasted image 20260927200442.png]]
 
 para referenciar a otro nodo se le pasa la misma clase a siguiente, ya que es del mismo tipo de dato
