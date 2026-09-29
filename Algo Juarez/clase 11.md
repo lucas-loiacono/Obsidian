@@ -154,9 +154,13 @@ Como le saco la referencia de ultimo a mi elemento, pasa el recolector de basura
 ![[Pasted image 20260928000539.png]]
 
 Para dar de alta un dato lo que tengo que hacer es meter el dato en un nodo
+1. me creo un nodo
+2. Primero lo tengo que enganchar al ultimo,
+3. Después le paso la referencia de mi ultimo al nuevo
 
-1. Primero lo tengo que enganchar al ultimo,
-2. Después le paso la referencia de mi ultimo al nuevo
+Siempre gira entorno al ultimo, y voy referenciando, se pasa la bola con el ultimo, es como un asignador
+
+si yo saco mi referencia de ultimo, ya no tengo acceso, ya que antes no hice la conexión, siempre me tengo que ir pasando el ultimo si tengo conexión
 
 ![[Pasted image 20260928001058.png]]
 
