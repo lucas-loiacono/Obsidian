@@ -125,6 +125,9 @@ public class PilaD<T> {
 }
 ```
 
+
+en  una pila siempre se da de baja y consulta el ultimo
+
 ![[Pasted image 20260927232404.png]]
 
 Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
@@ -135,9 +138,15 @@ Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
 
 cuando doy de baja al ultimo, mi referencia queda en null
 
+
+
+
 ![[Pasted image 20260928000330.png]]
 
+![[Pasted image 20260929194740.png]]
+
 Cuando doy de baja al ultimo, tengo que pasar mi referencia de ultimo a siguiente
+Como le saco la referencia de ultimo a mi elemento, pasa el recolector de basura y lo elimina, y le asigno mi ultimo al siguiente elemento
 
 
 
