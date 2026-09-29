@@ -29,6 +29,46 @@ para referenciar a otro nodo se le pasa la misma clase a siguiente, ya que es de
 ![[Pasted image 20260927200502.png]]
 
 
+```java 
+package estructuras;
+
+public class Nodo<T> {
+	// atributos
+	private T dato;//el tipo de dato que quiero guardar
+	private Nodo<T> siguiente; //referencia al siguiente nodo
+
+	// metodos
+	// Constructor
+	public Nodo(T elem) {
+		dato = elem;
+		siguiente = null;
+	}
+
+	
+	public Nodo(T elem, Nodo<T> sig) {
+		dato = elem;
+		siguiente = sig;
+	}
+	
+	
+	// get y set
+	public T obtenerDato() {
+		return dato;
+	}
+	
+	public void asignarDato(T dato) {
+		this.dato = dato;
+	}
+	
+	public Nodo<T> obtenerSiguiente() {
+		return siguiente;
+	}
+	
+	public void asignarSiguiente(Nodo<T> siguiente) {
+		this.siguiente = siguiente;
+	}
+```
+
 # Pila dinámica
 
 ![[Pasted image 20260927200718.png]]
