@@ -76,6 +76,55 @@ public class Nodo<T> {
 Lo único que necesito es tener la referencia al ultimo dato, que se encarga de quien le viene delante 
 antes metíamos la pila dentro de un vector, ahora como tenemos nodos, podemos no tener un vector y tener referencias enlazadas 
 
+```java
+package estructuras;
+
+public class PilaD<T> {
+	// Atributos
+	private Nodo<T> ultimo; //lo unico que tengo que saber es cual es el ultimo, despues de ahi tengo que ver cuales son los siguientes
+	
+	
+	
+	// Metodos
+	// Constructor
+	// PRE: - 
+	// POS: crea una pila vacia
+	public PilaD() {
+		System.out.println("------------ Pila dinamica ------------------------");
+		ultimo = null;
+	}
+	
+	// Alta
+	// PRE: -
+	// POS: agrega el elemento al final de la Pila 
+	public void alta(T elem) {
+		Nodo<T> nuevo = new Nodo<>(elem, ultimo); // paso 1 y 2
+		//nuevo.asignarSiguiente(ultimo);   // paso 2
+		ultimo = nuevo;					  // paso 3
+	}
+	
+	// Consulta
+	// PRE: la Pila no tiene que estar vacia: --> vacia() -> false
+	// POS: devuelve el ultimo elemento
+	public T consulta() {
+		return ultimo.obtenerDato();
+	}
+
+	// PRE: -
+	// POS: devuelve true si la pila esta vacia, false de lo contrario
+	public boolean vacia() {
+		return (ultimo == null);
+	}
+
+	// Baja
+	// PRE: la Pila no tiene que estar vacia: --> vacia() -> false
+	// POS: da de baja al ultimo elemento
+	public void baja() {
+		ultimo = ultimo.obtenerSiguiente();
+	}
+}
+```
+
 ![[Pasted image 20260927232404.png]]
 
 Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
