@@ -91,7 +91,7 @@ public class PilaD<T> {
 	// POS: crea una pila vacia
 	public PilaD() {
 		System.out.println("------------ Pila dinamica ------------------------");
-		ultimo = null;
+		ultimo = null; //como creo una pila vacia, no tengo elemento, por lo cual                                                es null
 	}
 	
 	// Alta
