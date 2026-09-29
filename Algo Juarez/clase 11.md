@@ -41,7 +41,7 @@ public class Nodo<T> {
 	// Constructor
 	public Nodo(T elem) {
 		dato = elem;
-		siguiente = null;
+		siguiente = null; //lo puedo dejar en null y despues pasarle asignar aparte
 	}
 
 	
