@@ -198,3 +198,39 @@ Puedo meter estos dos en una misma funcion, como el teclado de la computadora
 ![[Pasted image 20260930194012.png]]
 
 Agrego mi nuevo nodo que se va a ir moviendo
+
+
+iniciar
+
+![[Pasted image 20260930194908.png]]
+
+
+
+
+Queda espacio en el vector
+
+![[Pasted image 20260930194352.png]]
+
+Yo acá cuando para saber si queda espacio por recorrer en el array tengo que devolver un booleano
+
+Pero yo al obtener el dato y pasar el siguiente tengo que preguntar si el actual tiene datos dentro, por lo cual no puedo hacer
+
+```java
+return actual.obtenerSiguente() != null;
+```
+
+si hago esto y por ejemplo estoy parado en el 8, y mi siguiente es null, pero yo a mi 8 todavía no lo use, como no lo use a mi actual le queda ese espacio al array
+
+![[Pasted image 20260930194850.png]]
+
+
+
+Obtener siguiente
+
+![[Pasted image 20260930195025.png]]
+
+
+
+Main
+
+![[Pasted image 20260930195203.png]]
