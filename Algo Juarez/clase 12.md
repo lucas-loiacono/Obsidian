@@ -114,3 +114,30 @@ public class Lista<T> {
 		return aux;
 	}
 ```
+
+
+Siempre me tengo que ir moviendo entre nodos hasta llegar al nodo que necesito para ejecutar mi accion
+
+como tengo que usar tanto en la baja como en el alta me creo una funcion que me devuelva el nodo
+![[Pasted image 20260930001023.png]]
+
+si yo quiero una referencia al numero 3, tengo que hacer 2 saltos, por eso mi for es < pos
+
+
+
+
+
+
+Alta
+
+![[Pasted image 20260930000339.png]]
+
+Acá tengo que recorrer todo el nodo hasta el 4to para asociar el 4 con el nuevo
+
+Baja
+
+![[Pasted image 20260930000437.png]]
+
+Acá tengo que recorrer todo el nodo hasta llegar al 4to y cambiar al que esta señalando 
+
+
