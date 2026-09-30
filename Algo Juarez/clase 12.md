@@ -187,4 +187,6 @@ Antes para la consulta en pila o cola teníamos a ultimo, ósea teníamos una va
 
 
 
-Consulta de nodos de forma secuencial
+Consulta de nodos de forma secuencial (como un cursor)
+
+![[Pasted image 20260930192912.png]]
