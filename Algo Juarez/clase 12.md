@@ -116,6 +116,8 @@ public class Lista<T> {
 ```
 
 
+Obtener nodo
+
 Siempre me tengo que ir moviendo entre nodos hasta llegar al nodo que necesito para ejecutar mi accion
 
 como tengo que usar tanto en la baja como en el alta me creo una funcion que me devuelva el nodo
@@ -126,6 +128,8 @@ si yo quiero una referencia al numero 3, tengo que hacer 2 saltos, por eso mi fo
 ![[Pasted image 20260930155857.png]]
 
 me creo mi auxiliar y lo voy moviendo nodo por nodo hasta llegar al que quiero
+
+![[Pasted image 20260930170403.png]]
 
 
 
@@ -140,6 +144,10 @@ El problema del alta es cuando quiero dar de alta al principio
 ![[Pasted image 20260930165258.png]]
 
 Tengo que cambiar la referencia del primero
+
+Caso general
+
+![[Pasted image 20260930165634.png]]
 
 ![[Pasted image 20260930165617.png]]
 
