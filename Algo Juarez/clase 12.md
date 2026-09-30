@@ -190,3 +190,11 @@ Antes para la consulta en pila o cola teníamos a ultimo, ósea teníamos una va
 Consulta de nodos de forma secuencial (como un cursor)
 
 ![[Pasted image 20260930192912.png]]
+
+![[Pasted image 20260930193807.png]]
+
+Puedo meter estos dos en una misma funcion, como el teclado de la computadora
+
+![[Pasted image 20260930194012.png]]
+
+Agrego mi nuevo nodo que se va a ir moviendo
