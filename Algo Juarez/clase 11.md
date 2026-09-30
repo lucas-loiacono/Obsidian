@@ -148,6 +148,7 @@ cuando doy de baja al ultimo, mi referencia queda en null
 Cuando doy de baja al ultimo, tengo que pasar mi referencia de ultimo a siguiente
 Como le saco la referencia de ultimo a mi elemento, pasa el recolector de basura y lo elimina, y le asigno mi ultimo al siguiente elemento
 
+yo mi ultimo lo tengo como salvador de mi ultimo elemento, ya que al ser el ultimo no lo referencia nadie, pero al pasarle a la variable ultimo mi ultimo nodo ahi queda referenciada y evita el recolector de basura
 
 
 
