@@ -200,6 +200,64 @@ Para esto tengo que tener dos referencias, una al primero y otra al ultimo, asi 
 
 ![[Pasted image 20260928011208.png]]
 
+```java
+package estructuras;
+
+public class Cola<T> {
+	// Atributos
+	private Nodo<T> primero; // usa en la consulta y la baja
+	private Nodo<T> ultimo;  // usa en el alta
+	
+	// Metodos
+	// Constructor
+	// PRE: - 
+	// POS: crea una cola vacia
+	public Cola() {
+		primero = null;
+		ultimo = null;
+	}
+	
+	// Alta
+	// PRE: la Pila no tiene que estar llena --> llena() -> false
+	// POS: agrega el elemento al final de la Pila e incrementa el tamanio logico
+	public void alta(T elem) {
+		Nodo<T> nuevo = new Nodo<>(elem); // paso 1
+		if (vacia()) {			// paso 2A
+			primero = nuevo;
+		}
+		else {					// paso 2B
+			ultimo.asignarSiguiente(nuevo);
+		}
+		ultimo = nuevo;			// paso 3
+	}
+	
+	// Consulta
+	// PRE: la Cola no tiene que estar vacia: --> vacia() -> false
+	// POS: devuelve el primer elemento
+	public T consulta() {
+		return primero.obtenerDato();
+	}
+
+	// PRE: -
+	// POS: devuelve true si la cola esta vacia, false de lo contrario
+	public boolean vacia() {
+		return (primero == null);
+	}
+
+	// Baja
+	// PRE: la Cola no tiene que estar vacia: --> vacia() -> false
+	// POS: da de baja al primer elemento
+	public void baja() {
+		primero = primero.obtenerSiguiente();
+		if (primero == null)
+			ultimo = null;
+	}
+}
+```
+
+
+
+
 
 ![[Pasted image 20260928011547.png]]
 
