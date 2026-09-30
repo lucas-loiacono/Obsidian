@@ -178,6 +178,10 @@ ahora con un nodo nuevo, mi ultimo pasa a referenciar al 8, pero como es el prim
 
 ![[Pasted image 20260928004048.png]]
 
+ahora mi ultimo pasa a referenciar a 5, mi 5 como va atras del 8 referencia al 8, y el 8 al ser el primero no referencia a nada
+
+Siempre primero tengo que enlazar y despues reasignar el ultimo
+
 # Cola
 
 entra por el final y sale al principio
