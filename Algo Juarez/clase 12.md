@@ -135,6 +135,17 @@ Alta
 
 Acá tengo que recorrer todo el nodo hasta el 4to para asociar el 4 con el nuevo
 
+El problema del alta es cuando quiero dar de alta al principio
+
+![[Pasted image 20260930165258.png]]
+
+Tengo que cambiar la referencia del primero
+
+![[Pasted image 20260930165617.png]]
+
+
+
+
 Baja
 
 ![[Pasted image 20260930000437.png]]
@@ -151,6 +162,11 @@ tengo que cambiar mi referencia del primero y lo tengo que pasar al siguiente
 
 ![[Pasted image 20260930164349.png]]
 
+También lo puedo hacer así
+
+```java
+anterior.asignarSiguiente(anterior.obtenerSiguiente().obtenerSiguiente());
+```
 
 Consulta
 
