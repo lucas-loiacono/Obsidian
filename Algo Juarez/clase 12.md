@@ -149,6 +149,8 @@ si yo doy de baja al ultimo no pasa nada, ya que pasa a referenciar a null, pero
 
 tengo que cambiar mi referencia del primero y lo tengo que pasar al siguiente
 
+![[Pasted image 20260930164349.png]]
+
 
 Consulta
 
