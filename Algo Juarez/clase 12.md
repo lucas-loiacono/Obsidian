@@ -234,3 +234,9 @@ Obtener siguiente
 Main
 
 ![[Pasted image 20260930195203.png]]
+
+
+Esto lo puedo pensar para usar ordenamiento en el cual tengo que avanzar de forma secuencial
+
+![[Pasted image 20260930200559.png]]
+
