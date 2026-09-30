@@ -256,16 +256,21 @@ public class Cola<T> {
 ```
 
 
-
-
-
 ![[Pasted image 20260928011547.png]]
+
+![[Pasted image 20260929231823.png]]
 
 Cuando me queda un elemento los dos me apuntan a ese, el siguiente se simboliza con la pata de la derecha
 
 por lo cual al tener doble referencia y yo quiero dar de baja para que pasa el recolector de basura voy a tener que eliminar las dos
 
+ya que cuando doy de baja se mueve solo el primero, ósea primero deja de apuntar al siguiente elemento, como no hay apunta a null, pero yo no muevo a ultimo, entonces siempre queda referenciándolo, por lo cual no lo puedo borrar de la memoria, para esto tengo que los dos apunten a null
+
 ![[Pasted image 20260928012122.png]]
+
+Baja
+
+![[Pasted image 20260929231108.png]]
 
 
 ![[Pasted image 20260928012008.png]]
