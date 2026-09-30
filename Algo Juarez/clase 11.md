@@ -172,6 +172,10 @@ si yo saco mi referencia de ultimo, ya no tengo acceso, ya que antes no hice la 
 
 yo cuando creo una pila, mi ultimo no va a estar referenciando a nada
 
+![[Pasted image 20260929221816.png]]
+
+ahora con un nodo nuevo, mi ultimo pasa a referenciar al 8, pero como es el primero mi 8 este referencia a null
+
 ![[Pasted image 20260928004048.png]]
 
 # Cola
