@@ -121,7 +121,7 @@ Siempre me tengo que ir moviendo entre nodos hasta llegar al nodo que necesito p
 como tengo que usar tanto en la baja como en el alta me creo una funcion que me devuelva el nodo
 ![[Pasted image 20260930001023.png]]
 
-si yo quiero una referencia al numero 3, tengo que hacer 2 saltos, por eso mi for es < pos
+si yo quiero una referencia al numero 3, tengo que hacer 2 saltos, por eso mi for es < pos 
 
 
 
