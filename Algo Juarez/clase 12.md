@@ -141,6 +141,14 @@ Baja
 
 Acá tengo que recorrer todo el nodo hasta llegar al 4to y cambiar al que esta señalando 
 
+![[Pasted image 20260930161349.png]]
+
+si yo doy de baja al ultimo no pasa nada, ya que pasa a referenciar a null, pero el tema es cuando doy de baja el primero
+
+![[Pasted image 20260930161437.png]]
+
+tengo que cambiar mi referencia del primero y lo tengo que pasar al siguiente
+
 
 Consulta
 
