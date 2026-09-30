@@ -183,3 +183,8 @@ Consulta
 Primero tengo que obtener mi nodo con un auxiliar, y después preguntar sobre el auxiliar 
 
 Antes para la consulta en pila o cola teníamos a ultimo, ósea teníamos una variable que referenciaba al nodo, y ahí aplicábamos la consulta, sobre la variable
+
+
+
+
+Consulta de nodos de forma secuencial
