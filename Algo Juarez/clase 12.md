@@ -123,8 +123,9 @@ como tengo que usar tanto en la baja como en el alta me creo una funcion que me 
 
 si yo quiero una referencia al numero 3, tengo que hacer 2 saltos, por eso mi for es < pos 
 
+![[Pasted image 20260930155857.png]]
 
-
+me creo mi auxiliar y lo voy moviendo nodo por nodo hasta llegar al que quiero
 
 
 
@@ -141,3 +142,10 @@ Baja
 Acá tengo que recorrer todo el nodo hasta llegar al 4to y cambiar al que esta señalando 
 
 
+Consulta
+
+![[Pasted image 20260930160105.png]]
+
+Primero tengo que obtener mi nodo con un auxiliar, y después preguntar sobre el auxiliar 
+
+Antes para la consulta en pila o cola teníamos a ultimo, ósea teníamos una variable que referenciaba al nodo, y ahí aplicábamos la consulta, sobre la variable
