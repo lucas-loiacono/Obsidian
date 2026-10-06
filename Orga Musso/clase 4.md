@@ -633,6 +633,21 @@ X-NOR: es la interseccion y todo lo que no sea la union
 
 ![[Pasted image 20260909223903.png]]
 
+En el contexto del cálculo del costo lógico detallado en el archivo `image_5a8623.png`, estos componentes definen la estructura y eficiencia de un circuito:
+
+  
+
+- **Compuerta:** Son los símbolos geométricos que ejecutan las operaciones lógicas del Álgebra de Boole. En los diagramas puedes ver las compuertas AND (el símbolo con el frente recto, utilizado para la multiplicación $\bullet$) y las compuertas OR (el símbolo curvo en forma de punta, utilizado para la suma $+$). El circuito de la izquierda utiliza 2 compuertas en total, mientras que el de la derecha utiliza 3.
+    
+      
+    
+- **Entrada:** Son las líneas por donde ingresan los datos (como las variables originales A, B y C, o las conexiones intermedias) hacia cada compuerta. Buscar la "menor cantidad de entradas" como criterio de costo lógico implica contar y reducir el número total de pines de conexión que reciben señales en todas las compuertas del circuito.
+    
+      
+    
+- **Cantidad de niveles:** Es el número máximo de compuertas conectadas en secuencia que una señal debe atravesar desde su origen hasta la salida final ($Z$). El texto indica que buscar la menor cantidad de niveles garantiza "menos retardo", ya que cada compuerta añade un tiempo físico de procesamiento a la señal. En ambos diagramas mostrados, la señal atraviesa un máximo de 2 compuertas en cascada, por lo que ambos circuitos tienen 2 niveles.
+
+
 ![[Pasted image 20260909223912.png]]
 
 ![[Pasted image 20260909223923.png]]
