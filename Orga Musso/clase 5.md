@@ -41,6 +41,8 @@ un implicante primo debe tener 1 minitermino bien definido, por eso x x no cuent
 
 es el producto de la variable que no cambia, acá no cambia mi b, el cual es b negado
 
+![[Pasted image 20261007003709.png]]
+
 ![[Pasted image 20260915080627.png]]
 
 ![[Pasted image 20260915080919.png]]
