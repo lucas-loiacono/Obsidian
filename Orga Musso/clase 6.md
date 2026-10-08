@@ -235,6 +235,70 @@ El diagrama gris a la derecha muestra cómo se construye esa "llave" físicament
 
 ![[Pasted image 20260922082130.png]]
 
+Es súper normal que esto maree al principio, pero si ya entendés cómo funciona un multiplexor individual, tenés el 90% del trabajo hecho.
+
+La forma más fácil de entender la interconexión de multiplexores es pensar en **un torneo de eliminación directa (como un cuadro de tenis o un mundial)**.
+
+El objetivo de este circuito es que de los 8 cables que entran arriba ($D_0$ a $D_7$), solo uno llegue a la salida final ($Y$). Como solo tenemos multiplexores chiquitos de 2 entradas, tenemos que ir filtrando a los candidatos por etapas:
+
+**Etapa 1: Los Cuartos de Final (Nivel Superior)**
+
+
+- Acá entran los 8 cables agrupados de a pares: ($D_7, D_6$), ($D_5, D_4$), ($D_3, D_2$) y ($D_1, D_0$).
+    
+  
+- El selector **$S_0$** es el árbitro de esta etapa. Como está conectado a los cuatro multiplexores de arriba al mismo tiempo, toma la misma decisión para todos.
+    
+ 
+- Si $S_0$ vale `0`, deja pasar a los que están conectados en el pin `0` (los pares). Si vale `1`, deja pasar a los impares.
+    
+
+- De los 8 cables originales, la mitad queda eliminada. Solo **4 cables** avanzan a la siguiente ronda.
+
+**Etapa 2: Las Semifinales (Nivel Medio)**
+
+  
+
+- Los 4 cables ganadores entran a la segunda fila de multiplexores, nuevamente de a pares.
+    
+
+- Ahora el árbitro es el selector **$S_1$**. Vuelve a elegir qué cables pasan por el pin `0` y cuáles por el pin `1`.
+    
+- Se elimina otra mitad. Solo quedan **2 cables** vivos.
+
+**Etapa 3: La Gran Final (Nivel Inferior)**
+
+  
+
+- Los últimos 2 cables llegan al último multiplexor.
+    
+
+- El selector **$S_2$** toma la decisión final y elige al único ganador que va a salir por **$Y$**.
+    
+
+
+### Veamos un ejemplo práctico siguiendo los cables:
+
+Imaginá que en los selectores ponemos la combinación binaria **`1 0 1`** ($S_2=1, S_1=0, S_0=1$). Según la tabla, debería salir **$D_5$**. Vamos a comprobarlo:
+
+  
+
+1. **$S_0$ vale 1:** En la fila de arriba, todos los multiplexores dejan pasar el cable conectado al pin `1`. Pasan a la siguiente ronda: $D_7, D_5, D_3$ y $D_1$.
+    
+      
+    
+2. **$S_1$ vale 0:** En la fila del medio, los multiplexores dejan pasar lo que les llega por su pin `0`. Si mirás las líneas, al pin `0` del MUX izquierdo le llega lo que era $D_5$, y al MUX derecho le llega $D_1$. Pasan a la final: $D_5$ y $D_1$.
+    
+      
+    
+3. **$S_2$ vale 1:** En el último MUX abajo de todo, se elige lo que entra por el pin `1`. ¿Qué cable venía por ahí bajando desde la izquierda? Exacto, **$D_5$**. $D_5$ es el ganador y sale por $Y$.
+    
+      
+    
+
+Básicamente, los bits del selector ($S_2, S_1, S_0$) van armando un "camino" a través del árbol para ir a buscar exactamente el cable que querés, descartando mitades en cada paso.
+
+
 ![[Pasted image 20260922082448.png]]
 
 ![[Pasted image 20260922082640.png]]
