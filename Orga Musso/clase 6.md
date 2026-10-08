@@ -159,6 +159,34 @@ Por lo tanto, si conectaras un codificador y un decodificador juntos, el decodif
 
 Son procesos completamente complementarios. ¡Muy buena deducción!
 
+
+![[Pasted image 20261008015837.png]]
+
+
+El bit $A_2$ funciona como un interruptor principal que divide todas las combinaciones posibles en dos grandes grupos. Si mirás la tabla de verdad a la izquierda de la imagen, vas a ver este patrón clarísimo:
+
+- **Cuando $A_2 = 0$:** Las combinaciones binarias van desde `000` hasta `011`. Estas corresponden a la primera mitad de las salidas: $C_0, C_1, C_2$ y $C_3$. Por eso, el decodificador inicial enciende exclusivamente el chip de abajo, habilitando esa ruta de "cables".
+    
+
+- **Cuando $A_2 = 1$:** Las combinaciones binarias van desde `100` hasta `111`. Estas corresponden a la segunda mitad de las salidas: $C_4, C_5, C_6$ y $C_7$. El decodificador inicial apaga el chip de abajo y enciende el de arriba, dándote acceso a ese otro grupo de "cables".
+
+Básicamente, usás el bit de mayor peso ($A_2$) para elegir en qué bloque está tu resultado, y dejás que los bits de menor peso ($A_1$ y $A_0$) hagan el trabajo fino de elegir el cable específico dentro de ese bloque.
+
+
+Es la misma lógica, pero aplicada en cascada haciendo subdivisiones sucesivas, como si estuvieras navegando por carpetas dentro de tu computadora o armando la llave de un torneo.
+
+Pensalo de la siguiente manera, partiendo las opciones por la mitad en cada paso:
+
+- **Primer nivel ($A_2$):** Hace exactamente lo que dijiste antes. Si $A_2 = 0$, decide que el resultado está en el grupo de los 4 cables de abajo ($C_0$ a $C_3$) y enciende ese camino, dejando apagados los 4 de arriba.
+    
+
+- **Segundo nivel ($A_1$):** Toma esos 4 cables que quedaron habilitados y los vuelve a partir al medio en dos grupos de 2. Siguiendo el ejemplo anterior, si $A_1 = 0$, te dirige a los dos cables de más abajo ($C_0$ y $C_1$), y si $A_1 = 1$, te dirige a los otros dos ($C_2$ y $C_3$).
+    
+ 
+- **Tercer nivel ($A_0$):** Ahora solo te quedan 2 cables posibles encendidos. El bit $A_0$ toma la decisión final para elegir al único ganador. Por ejemplo, entre $C_0$ y $C_1$, un $0$ elige $C_0$ y un $1$ elige $C_1$.
+
+En la implementación anterior dividías el problema en una sola etapa (un bloque grande de 4 opciones). Acá hacés exactamente el mismo trabajo, pero delegando la decisión de a mitades en cada uno de los bits de entrada ($A_2$, $A_1$ y $A_0$).
+
 ![[Pasted image 20260922080442.png]]
 
 ![[Pasted image 20260922080644.png]]
