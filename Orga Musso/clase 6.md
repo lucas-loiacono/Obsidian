@@ -73,6 +73,17 @@ Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
 
 ![[Pasted image 20260922075257.png]]
 
+Se le pasa el resultado del bloque anterior porque un solo par de bits no tiene la información de todo el número completo. El comparador necesita esas señales previas para poder resolver los casos de empate.
+
+Si el bloque actual está evaluando los bits $x_1$ e $y_1$, sigue esta lógica de decisión:
+
+- **Si $x_1 > y_1$ (es decir, 1 y 0):** El bloque determina automáticamente que el número "X" es mayor hasta esa posición. Saca esa señal ganadora hacia la izquierda, ignorando por completo lo que haya pasado en los bits anteriores. El bit de mayor peso "mata" a los de menor peso.
+    
+- **Si $x_1 < y_1$ (es decir, 0 y 1):** Determina que el número "X" es menor, nuevamente ignorando la información que viene del bloque anterior.
+    
+- **Si $x_1 = y_1$ (ambos 0 o ambos 1):** Este bloque por sí solo no puede definir qué palabra binaria es más grande. Es en este exacto momento donde necesita usar la señal que le entró del bloque anterior ($a_0, b_0$). Al haber empate en su posición, el bloque simplemente toma el veredicto que resolvió el bloque anterior y lo pasa hacia el siguiente nivel.
+    
+Por eso las conexiones en cascada (que entran por la derecha de cada caja) funcionan como un "historial de desempate" que viaja arrastrándose a través de todo el circuito hasta llegar a la decisión final en el lado izquierdo.
 
 ![[Pasted image 20260922075719.png]]
 
