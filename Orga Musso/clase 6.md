@@ -67,6 +67,12 @@ El flujo del "Comparador de palabras de dos bits" se estructura de la siguiente 
 
 ![[Pasted image 20260922074022.png]]
 
+- En este diagrama, el bloque de la izquierda recibe los bits "de adelante" (etiquetados como MSB, de $A_4$ a $A_7$).
+    
+- Las señales de salida de ese bloque izquierdo se conectan y entran al bloque de la derecha, que es el encargado de evaluar los bits "de atrás" (etiquetados como LSB, de $A_0$ a $A_3$).
+    
+- Finalmente, es este bloque LSB de la derecha el que emite el resultado definitivo del circuito.
+
 ![[Pasted image 20260922074146.png]]
 
 Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
@@ -84,6 +90,24 @@ Si el bloque actual está evaluando los bits $x_1$ e $y_1$, sigue esta lógica d
 - **Si $x_1 = y_1$ (ambos 0 o ambos 1):** Este bloque por sí solo no puede definir qué palabra binaria es más grande. Es en este exacto momento donde necesita usar la señal que le entró del bloque anterior ($a_0, b_0$). Al haber empate en su posición, el bloque simplemente toma el veredicto que resolvió el bloque anterior y lo pasa hacia el siguiente nivel.
     
 Por eso las conexiones en cascada (que entran por la derecha de cada caja) funcionan como un "historial de desempate" que viaja arrastrándose a través de todo el circuito hasta llegar a la decisión final en el lado izquierdo.
+
+
+Es exactamente como decís. La conexión en paralelo utiliza un enfoque de "divide y vencerás" estructurado en forma de árbol, procesando la información al agrupar mitades en distintos niveles jerárquicos.
+
+
+En lugar de esperar que una señal viaje secuencialmente desde el primer bit hasta el último, el circuito evalúa todo en simultáneo de la siguiente manera:
+
+- **Primer nivel:** Los 8 pares de bits ($x_0, y_0$ hasta $x_7, y_7$) se dividen en cuatro bloques independientes. Cada uno de estos bloques superiores evalúa simultáneamente un fragmento de la palabra (por ejemplo, el bloque de la derecha compara $x_0,y_0$ junto con $x_1,y_1$).
+    
+      
+    
+- **Segundo nivel:** Se toman los resultados parciales (las señales de mayor $G$ y menor $L$) emitidos por el primer nivel y se agrupan en dos grandes bloques. Un bloque consolida la información de los bits 0 al 3 (la mitad inferior de la palabra), mientras que el otro consolida los bits 4 al 7 (la mitad superior).
+    
+      
+    
+- **Nivel final:** El único comparador en la base del árbol recibe el veredicto de esas dos grandes mitades para emitir el resultado definitivo $G_7, L_7$.
+
+La lógica de decisión respeta el peso de los bits: la "mitad" más significativa siempre tiene absoluta prioridad. Si el bloque de la mitad superior (bits 4 a 7) determina que un número ya es mayor, ese resultado pasa directamente a la salida y define la comparación. El comparador final en la base solo va a evaluar y pasar el resultado de la mitad inferior si la mitad superior le informa que hubo un empate exacto en esos primeros cuatro bits.
 
 ![[Pasted image 20260922075719.png]]
 
