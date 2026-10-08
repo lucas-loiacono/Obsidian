@@ -50,6 +50,19 @@ Circuitos combinacionales
 
 ![[Pasted image 20260922073927.png]]
 
+El circuito funciona comparando bit a bit dos números binarios ($A$ y $B$) para determinar si son exactamente iguales. Tenés que negar la salida de la compuerta XOR porque, como se ve en la izquierda de la imagen `image_7f93bb.jpg`, la compuerta XOR estándar da como resultado `0` cuando los bits de entrada son iguales y `1` cuando son distintos.
+
+
+Como el objetivo del comparador es que el resultado final sea `1` (nivel ALTO) para indicar la igualdad total de la palabra, necesitas que cada comparación individual de bits devuelva un `1` cuando coinciden. Al agregar el negador (el triángulo con el círculo, que es una compuerta NOT), transformás la compuerta XOR en una compuerta XNOR. Esta compuerta invierte el comportamiento lógico: da `1` si los bits son iguales y `0` si son distintos.
+
+El flujo del "Comparador de palabras de dos bits" se estructura de la siguiente manera:
+
+- **Comparación del LSB (Bit menos significativo):** Los bits $A_0$ y $B_0$ entran a la primera compuerta XOR. Si ambos son idénticos, la XOR devuelve `0`. El negador inmediatamente lo convierte en `1`.
+    
+- **Comparación del MSB (Bit más significativo):** Los bits $A_1$ y $B_1$ entran a la segunda compuerta XOR. Nuevamente, si son iguales, la salida negada se convierte en `1`.
+    
+- **Compuerta AND final:** Las dos señales de igualdad ya negadas entran a la compuerta AND. La propiedad de la compuerta AND es que solo devuelve `1` si **todas** sus entradas son `1`. Por lo tanto, el nivel ALTO final ($A = B$) solo se enciende si el primer par de bits era igual y el segundo par de bits también lo era.
+
 ![[Pasted image 20260922073948.png]]
 
 ![[Pasted image 20260922074022.png]]
@@ -62,8 +75,6 @@ Acá las palabras son a0 y a1,  y b0 y b1. Palabra a y palabra b
 
 
 ![[Pasted image 20260922075719.png]]
-
-
 
 
 ![[Pasted image 20260922075958.png]]
