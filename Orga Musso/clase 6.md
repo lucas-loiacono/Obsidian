@@ -656,6 +656,28 @@ En resumen: sí, el `clk` es tu cable que trae los 1 y 0. Pero es el diseño del
 
 ![[Pasted image 20260924162956.png]]
 
+Es la primera opción, pero llevado a un extremo casi instantáneo. Es exclusivamente **el instante microscópico del salto**.
+
+
+Esta es justamente la diferencia fundamental entre los dos sistemas que vimos. Para que te quede grabado, pensalo con la diferencia entre grabar un video y sacar una foto con flash:
+
+- **Sincronización por Nivel (El video):** El circuito está activo y escuchando cambios durante todo el tiempo que dura la señal en `1` (desde que sube en el flanco ascendente, hasta que vuelve a bajar en el flanco descendente). Si la señal dura 5 segundos en alto, el circuito pasa 5 segundos enteros leyendo y cambiando sus salidas en tiempo real.
+    
+      
+    
+- **Sincronización por Flanco (La foto con flash):** El circuito actúa **únicamente en la fracción de nanosegundo** en la que el voltaje cruza de 0 a 1. Literalmente es un evento de disparo, como un gatillo. No dura milisegundos, es un corte abrupto.
+    
+      
+    
+
+**¿Qué pasa el resto del tiempo en la sincronización por flanco?**
+
+Una vez que el reloj ya subió a `1` y se queda ahí arriba estable, para el circuito "por flanco" el momento ya pasó. Se vuelve a quedar completamente sordo y congelado reteniendo esa "foto" que sacó. No va a volver a escuchar tus órdenes hasta que el reloj baje a 0, se resetee, y vuelva a dar otro salto hacia arriba en el siguiente ciclo.
+
+  
+
+Volviendo a la configuración Maestro-Esclavo de tu imagen anterior: el sistema completo logra este efecto fotográfico porque el flanco ascendente es el punto de quiebre donde **se cruzan las compuertas**. En el nanosegundo exacto en que la señal de reloj va subiendo (cruzando el umbral lógico), la compuerta de entrada (Maestro) se bloquea, y la de salida (Esclavo) se abre para mostrar lo que quedó atrapado adentro.
+
 ![[Pasted image 20260924163121.png]]
 
 
