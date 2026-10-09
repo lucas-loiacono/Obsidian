@@ -301,8 +301,105 @@ Básicamente, los bits del selector ($S_2, S_1, S_0$) van armando un "camino" a 
 
 ![[Pasted image 20260922082448.png]]
 
+ah osea yo con a y b lo que hago es seleccionar compuertas, y dependiendo del resultado de mi c es el dato que paso, si mi c=0 da 1 le paso el c negado y asi, como el 11 acepta las dos le devuelvo la fuente y como el 00 no me acepta ninguno le paso a tierra
+
+¡Exactamente! Entendiste la lógica a la perfección. A y B abren la puerta, y el cable que enchufás en esa puerta es el dato final que viaja a la salida.
+
+  
+
+Solo te acomodo los números exactos de la tabla de la imagen para que te coincida perfecto con el dibujo:
+
+  
+
+- **AB = 00 (Puerta $D_0$):** El resultado es un espejo, así que le pasás **C directo**.
+    
+
+- **AB = 01 (Puerta $D_1$):** Como bien dijiste, si C=0 da 1, le pasás **C negado**.
+    
+
+- **AB = 10 (Puerta $D_2$):** Acepta las dos opciones (da siempre 1), así que le pasás la **fuente (VCC)**.
+    
+- **AB = 11 (Puerta $D_3$):** No acepta ninguna opción (da siempre 0), así que le pasás a **tierra (GND)**.
+    
+
+
+
 ![[Pasted image 20260922082640.png]]
 
+
+
+Ese orden raro que ves en la columna de `ABC` (`000, 001, 011, 010...`) no es un conteo binario normal, es el famoso **Código Gray**.
+
+El Código Gray tiene la particularidad de que **solo cambia un bit a la vez** entre una fila y la siguiente. Los profesores lo usan mucho porque es la misma estructura que se usa en los Mapas de Karnaugh, pero para armar la tabla de un Multiplexor en realidad te la complica un poco a la vista.
+
+Fijate bien en la columna que está pegada a la derecha de la tabla. Como el profesor mezcló el orden de las combinaciones `ABC`, tuvo que **desordenar los nombres de los pines** ($D_0, D_1, D_3, D_2, D_6...$) para que cada fila siga yendo al pin que le corresponde matemáticamente:
+
+- `011` en binario es el número 3, entonces esa fila controla el pin **$D_3$**.
+    
+
+- `110` en binario es el número 6, entonces controla el pin **$D_6$**.
+    
+### ¿Cómo se acomodan tus minitérminos acá?
+
+Tu función dice que los minitérminos válidos son: $\sum(1, 2, 4, 5, 9, 10, 11)$. Para saber qué poner en cada cajita de la tabla, tenés que armar el número binario completo juntando `ABC` (los jefes) con `D` (la variable que quedó afuera):
+
+  
+
+**Vamos a ver el caso de la fila `ABC = 000` (que va al pin $D_0$):**
+
+  
+
+1. Si `D` vale **0**, el número completo `ABCD` es `0000` (Minitérmino 0). ¿El 0 está en tu lista de minitérminos válidos? No. Entonces en esa cajita ponés un **`0`**.
+    
+      
+    
+2. Si `D` vale **1**, el número completo `ABCD` es `0001` (Minitérmino 1). ¿El 1 está en tu lista? Sí. Entonces en esa cajita ponés un **`1`**.
+    
+      
+    
+
+- **Conclusión para $D_0$:** Te quedó `0` y `1`. Como es igual a `D`, conectás la variable **$D$ directo**.
+    
+      
+    
+
+**Veamos una fila de las mezcladas, por ejemplo `ABC = 101` (que va al pin $D_5$):**
+
+  
+
+1. Si `D` vale **0**, el número completo es `1010` (Minitérmino 10). ¿El 10 está en tu lista? Sí. Ponés un **`1`**.
+    
+      
+    
+2. Si `D` vale **1**, el número completo es `1011` (Minitérmino 11). ¿El 11 está en tu lista? Sí. Ponés un **`1`**.
+    
+      
+    
+
+- **Conclusión para $D_5$:** Te quedó `1` y `1`. Como da 1 siempre, lo conectás directo a la fuente **VCC**.
+    
+      
+    
+
+**Veamos el caso de `ABC = 001` (que va al pin $D_1$):**
+
+  
+
+1. Si `D` vale **0**, armás `0010` (Minitérmino 2). Está en la lista $\rightarrow$ **`1`**.
+    
+      
+    
+2. Si `D` vale **1**, armás `0011` (Minitérmino 3). No está en la lista $\rightarrow$ **`0`**.
+    
+      
+    
+
+- **Conclusión para $D_1$:** Te quedó `1` y `0`. Como es lo opuesto a `D`, conectás **$D$ negado**.
+    
+      
+    
+
+En resumen: es exactamente el mismo proceso mecánico que hiciste en el ejercicio anterior. La única diferencia es que la tabla está escrita en Código Gray, por lo que tenés que prestar atención a qué número binario estás formando antes de buscarlo en tu lista de minitérminos.
 ![[Pasted image 20260922082745.png]]
 
 
