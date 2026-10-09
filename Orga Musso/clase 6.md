@@ -528,6 +528,39 @@ Es un sistema que se auto-mantiene. Gracias a que las salidas vuelven a entrar, 
 
 
 
+
+
+
+¡Tu regla mnemotécnica es espectacular y de hecho es la que usamos casi todos en la facultad!
+
+  
+
+Pensar en la **K como "Kill"** (matar/apagar, fuerza la salida a 0) y en la **J como "Jump"** o **"Join"** (saltar/encender, fuerza la salida a 1) es la forma perfecta de tenerlo en la cabeza para un examen.
+
+  
+
+El biestable J-K (que la diapositiva nombra en honor a su inventor, Jack Kilby) es básicamente la versión "evolucionada" y sin errores del clásico flip-flop S-R. En el S-R tradicional (Set-Reset), mandarle un 1 a ambas entradas al mismo tiempo causaba un estado prohibido que rompía la lógica del circuito. El J-K soluciona este problema realimentando las salidas (cruzando cables desde $Q$ y $\text{Not } Q$ hacia las compuertas AND de la entrada).
+
+  
+
+Si mirás la **Tabla Reducida** de la imagen, vas a ver que tu regla mental resume perfectamente su funcionamiento:
+
+  
+
+- **J=0, K=0 (Memoria):** No le das ninguna orden de "Join" ni de "Kill". El resultado es que mantiene intacto su estado anterior ($Q_{n+1} = Q_n$).
+    
+      
+    
+- **J=0, K=1 (Kill / Reset):** Le das la orden de "matar". El resultado siempre es 0 ($Q_{n+1} = 0$).
+    
+      
+    
+- **J=1, K=0 (Join / Set):** Le das la orden de encender. El resultado siempre es 1 ($Q_{n+1} = 1$).
+    
+      
+    
+- **J=1, K=1 (Toggle / Basculación):** Esta es la gran ventaja del J-K. Como le estás pidiendo que haga "Join" y "Kill" al mismo tiempo, el circuito lo interpreta como una orden para **invertir** el valor que tenía guardado ($Q_{n+1} = \text{Not } Q_n$). Si tenía un 0 pasa a 1, y si tenía un 1 pasa a 0.
+
 ![[Pasted image 20260924020913.png]]
 
 Estos dos circuitos son simplificaciones muy prácticas que se construyen utilizando como base el biestable J-K que acabamos de ver. Al agrupar las entradas J y K de distintas maneras, logran comportamientos específicos:
