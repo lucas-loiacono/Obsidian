@@ -996,3 +996,15 @@ Como las salidas $Y_2, Y_1, Y_0$ se calculan mirando **únicamente el estado act
 ![[Pasted image 20261010202534.png]]
 
 ![[Pasted image 20261010202713.png]]
+
+![[Pasted image 20261010202826.png]]
+
+![[Pasted image 20261010203222.png]]
+
+![[Pasted image 20261010203157.png]]
+
+![[Pasted image 20261010203309.png]]
+
+![[Pasted image 20261010203357.png]]
+
+![[Pasted image 20261010203420.png]]
