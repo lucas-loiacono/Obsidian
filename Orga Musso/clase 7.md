@@ -319,7 +319,202 @@ abcd pongo los 1 que quiero  y clear pongo el 0, seria primero clear y despues l
 
 ![[Pasted image 20261001201544.png]]
 
+
+# Registro de Desplazamiento con Carga Paralela Asincrónica (`Load`)
+#organizacion-del-computador #fiuba #electronica-digital #secuenciales #registros
+
+---
+
+## 1. ¿Qué problema resuelve este circuito?
+
+En un registro de desplazamiento básico con llaves manuales conectadas únicamente a `Preset`, las llaves solo tienen la capacidad de escribir unos (`1`)[cite: 10]. Eso obliga a realizar **dos pasos manuales** cada vez que se quiere cargar un número nuevo:
+1. Activar una línea general de `CLEAR` para vaciar todo el registro a `0000`[cite: 10].
+2. Cerrar las llaves correspondientes para forzar los `1` mediante `Preset`[cite: 10].
+
+Este circuito automatiza el proceso mediante una línea de control llamada **`Load` (Cargar)** y un juego de compuertas lógicas en cada etapa. Permite **sobreescribir cualquier número de 4 bits (`Ent. A, B, C, D`) en un único paso instantáneo**, forzando simultáneamente un `Preset` en los casilleros que deben valer `1` y un `Clear` en los casilleros que deben valer `0`, sin caer jamás en el estado prohibido[cite: 8, 11, 12].
+
+---
+
+## 2. Anatomía del Circuito (Bloque por Bloque)
+
+El registro está formado por 4 Flip-Flops tipo D (`FF1`, `FF2`, `FF3`, `FF4`) conectados en cascada para el desplazamiento serie, más una red de carga paralela individual para cada biestable:
+
+### A) Pines Asincrónicos Activos en Bajo ($\overline{PR}$ y $\overline{CLR}$)
+En el símbolo de cada Flip-Flop, tanto **`PR` (Preset)** arriba como **`CLR` (Clear)** abajo tienen una **barra de negación encima** ($\overline{PR}$ y $\overline{CLR}$) y un circulito en la entrada del bloque:
+* **Si reciben un `1`:** Están **INACTIVOS** (apagados). No interfieren con el Flip-Flop.
+* **Si reciben un `0`:** Se **ACTIVAN** inmediatamente sin esperar al reloj (`Clock`):
+  * $\overline{PR} = 0 \rightarrow$ Fuerza la salida `Q` a **`1`** (Set asincrónico).
+  * $\overline{CLR} = 0 \rightarrow$ Fuerza la salida `Q` a **`0`** (Reset asincrónico).
+  * $\overline{PR} = 0$ y $\overline{CLR} = 0$ a la vez $\rightarrow$ **Estado Prohibido** (nunca debe ocurrir).
+
+### B) Compuertas NAND de Control y el Inversor (NOT)
+Como $\overline{PR}$ y $\overline{CLR}$ se activan con un **`0`**, se utilizan **compuertas NAND** para controlarlos. 
+> Recordatorio de tabla de verdad NAND: **Solo devuelve un `0` cuando TODAS sus entradas valen `1`**. Si alguna entrada es `0`, la NAND devuelve un `1` (dejando el pin inactivo).
+
+Cada entrada paralela (`Ent. A`, `Ent. B`, `Ent. C`, `Ent. D`) se bifurca en dos caminos dentro de su propio Flip-Flop:
+1. **Camino Superior (hacia $\overline{PR}$):** Entra a una compuerta NAND junto con el cable `Load`.
+2. **Camino Inferior (hacia $\overline{CLR}$):** Pasa primero por un **inversor (compuerta NOT)** y luego entra a la compuerta NAND inferior junto con el cable `Load`.
+
+```text
+                  Load ──┬──────────────────┐
+                         │                  ├──[ NAND ]──> a /PR (Arriba)
+    Ent. A (Bit) ────────┼──┬───────────────┘
+                         │  │
+                         │  └──[ >o NOT ]───┐
+                         │                  ├──[ NAND ]──> a /CLR (Abajo)
+                         └──────────────────┘
+````
+
+_¿Para qué sirve ese inversor (NOT) abajo?_ Garantiza que el camino de arriba y el de abajo **siempre reciban valores opuestos** de la entrada. Así es físicamente imposible que un mismo Flip-Flop active su `Preset` y su `Clear` al mismo tiempo.
+
+## 3. Funcionamiento Paso a Paso: Los Dos Modos de Operación
+
+El circuito entero obedece a la orden del cable **`Load`**:
+
+### MODO 1: Carga en Paralelo (`Load = 1`)
+
+Cuando querés estampar de golpe un número de 4 bits desde las entradas inferiores (`Ent. A, B, C, D`), ponés **`Load = 1`**. Esto "habilita" todas las compuertas NAND del circuito.
+
+Supongamos que queremos cargar el número **`1 0 1 0`** (`Ent. A = 1`, `Ent. B = 0`, `Ent. C = 1`, `Ent. D = 0`):
+
+#### ¿Qué pasa en los casilleros donde pusiste un `1` (`FF1` y `FF3`)?
+
+1. **`Ent. A = 1`** y **`Load = 1`**.
+    
+2. **NAND Superior ($\overline{PR}$):** Recibe `1` (de `Load`) y `1` (de `Ent. A`). Como tiene `(1, 1)`, su salida cae a **`0`**.
+    
+    - Ese `0` entra a $\overline{PR}$ y **activa el Preset**.
+        
+3. **NAND Inferior ($\overline{CLR}$):** El `1` de `Ent. A` atraviesa el inversor (NOT) y se convierte en **`0`**. La NAND inferior recibe `1` (de `Load`) y `0` (del inversor). Al tener `(1, 0)`, su salida se mantiene en **`1`**.
+    
+    - Ese `1` entra a $\overline{CLR}$ y **mantiene el Clear apagado**.
+        
+4. **Resultado instantáneo:** `FF1` (y `FF3`) clavan su salida `Q` en **`1`** sin esperar al reloj.
+    
+
+#### ¿Qué pasa en los casilleros donde pusiste un `0` (`FF2` y `FF4`)?
+
+1. **`Ent. B = 0`** y **`Load = 1`**.
+    
+2. **NAND Superior ($\overline{PR}$):** Recibe `1` (de `Load`) y `0` (de `Ent. B`). Al tener `(1, 0)`, su salida se mantiene en **`1`**.
+    
+    - Ese `1` entra a $\overline{PR}$ y **mantiene el Preset apagado**.
+        
+3. **NAND Inferior ($\overline{CLR}$):** El `0` de `Ent. B` atraviesa el inversor (NOT) y se convierte en **`1`**. La NAND inferior recibe `1` (de `Load`) y `1` (del inversor). Como tiene `(1, 1)`, su salida cae a **`0`**.
+    
+    - Ese `0` entra a $\overline{CLR}$ y **activa el Clear**.
+        
+4. **Resultado instantáneo:** `FF2` (y `FF4`) clavan su salida `Q` en **`0`** sin esperar al reloj.
+    
+
+> [!SUCCESS] Resultado de poner `Load = 1`
+> 
+> En el mismo instante, `FF1` y `FF3` hicieron **Preset** (`1`), mientras que `FF2` y `FF4` hicieron **Clear** (`0`). El número `1010` quedó guardado adentro del registro en un solo paso, pisando cualquier dato viejo que hubiera antes.
+
+### MODO 2: Desplazamiento Sincrónico (`Load = 0`)
+
+Una vez que el dato ya entró, para poder moverlo con el reloj primero debés apagar la carga poniendo **`Load = 0`**.
+
+1. **Bloqueo de las NAND:** Al poner `Load = 0`, todas las compuertas NAND (tanto las de arriba como las de abajo de los 4 Flip-Flops) reciben un **`0`** en una de sus patas[cite: 11, 12].
+    
+2. **Desactivación Asincrónica:** Cualquier NAND que recibe un `0` devuelve obligatoriamente un **`1`** en su salida (sin importar qué haya en `Ent. A, B, C, D`)[cite: 11, 12].
+    
+3. Como todos los pines $\overline{PR}$ y $\overline{CLR}$ reciben un **`1`**, **todos quedan completamente desactivados**.
+    
+4. **Habilitación del Reloj (`Clock`) y Serie (`Serial IN`):**
+    
+    - Ahora los Flip-Flops quedan libres para escuchar la línea **`Clock`** (sincronizada por flanco ascendente)[cite: 11, 12].
+        
+    - Con cada pulso de `Clock`, se produce el "pasamano" clásico de izquierda a derecha: `FF1` lee lo que venga por **`Serial IN`**, `FF2` copia a `FF1`, `FF3` copia a `FF2`, `FF4` copia a `FF3`, y los bits van saliendo en fila india por **`Salida serial`**[cite: 11, 12].
+        
+
+## 4. Tabla de Verdad del Bloque de Carga (Resumen Rápido)
+
+|**Señal Load**|**Entrada Paralela (Ent. X)**|**Salida NAND Arriba (PR)**|**Salida NAND Abajo (CLR)**|**Acción en el Flip-Flop**|
+|---|---|---|---|---|
+|**`0`**|`X` _(No importa)_|**`1`** _(Inactivo)_|**`1`** _(Inactivo)_|**Modo Normal:** Obedece al `Clock` y desplaza en serie[cite: 11, 12].|
+|**`1`**|**`1`**|**`0` (ACTIVO)**|**`1`** _(Inactivo)_|**Preset Asincrónico:** Clava el Flip-Flop en **`1`**[cite: 11, 12].|
+|**`1`**|**`0`**|**`1`** _(Inactivo)_|**`0` (ACTIVO)**|**Clear Asincrónico:** Clava el Flip-Flop en **`0`**[cite: 11, 12].|
+
+
+### MODO 2: Carga Normal en Serie por `Serial IN` (`Load = 0`)
+
+Se usa cuando no querés usar las entradas de abajo, sino que querés **cargar datos en fila india desde el cable `Serial IN`** (izquierda) y desplazarlos pulso a pulso con el **`Clock`**.
+
+#### Paso A: Cómo se "apagan" las compuertas de arriba y abajo
+
+1. Ponés el cable **`Load = 0`**.
+    
+2. Todas las compuertas NAND (las 4 de arriba y las 4 de abajo) reciben un **`0`** fijo en una de sus entradas.
+    
+3. Por ley de compuertas NAND, cualquier cosa multiplicada por `0` y negada da **`1`**. Por lo tanto, **las 8 compuertas NAND clavan sus salidas en `1`**, sin importar qué valores haya en `Ent. A, B, C, D`.
+    
+4. Como todos los pines $\overline{PR}$ y $\overline{CLR}$ reciben un `1`, **quedan todos 100% inactivos**. A partir de este momento, es como si toda la red de compuertas NAND e inversores desapareciera del dibujo.
+    
+
+#### Paso B: Carga paso a paso por `Serial IN` (Pasamano Sincrónico)
+
+Con `Load = 0`, los Flip-Flops solo escuchan su entrada **`D`** y el flanco ascendente del **`Clock`**. Supongamos que el registro está en `0000` y queremos cargar la secuencia **`1`, `0`, `1`, `1`** metiéndola por **`Serial IN`**:
+
+- **1º Pulso de `Clock` (Ponés un `1` en `Serial IN`):**
+    
+    - `FF1` lee su entrada `D` (`Serial IN`) y guarda ese **`1`** en su salida `Q1`.
+        
+    - Los demás copian los ceros viejos de sus vecinos.
+        
+    - **Estado interno (`FF1` a `FF4`):** **`1`** - `0` - `0` - `0`.
+        
+- **2º Pulso de `Clock` (Ponés un `0` en `Serial IN`):**
+    
+    - El `1` que estaba en `FF1` salta a `FF2`.
+        
+    - Al mismo tiempo, `FF1` lee el nuevo **`0`** de `Serial IN` y lo guarda.
+        
+    - **Estado interno (`FF1` a `FF4`):** **`0`** - **`1`** - `0` - `0`.
+        
+- **3º Pulso de `Clock` (Ponés un `1` en `Serial IN`):**
+    
+    - El dato de `FF2` (`1`) pasa a `FF3`; el de `FF1` (`0`) pasa a `FF2`.
+        
+    - `FF1` guarda el nuevo **`1`** que entró por `Serial IN`.
+        
+    - **Estado interno (`FF1` a `FF4`):** **`1`** - **`0`** - **`1`** - `0`.
+        
+- **4º Pulso de `Clock` (Ponés un `1` en `Serial IN`):**
+    
+    - Todo da un paso más a la derecha y entra el último **`1`** a `FF1`.
+        
+    - **Estado interno (`FF1` a `FF4`):** **`1`** - **`1`** - **`0`** - **`1`** _(¡Los 4 bits ya quedaron cargados en serie y el primer bit ya asoma por **`Salida serial`**!)_.
+        
+- **Pulsos siguientes (5º, 6º, 7º...):**
+    
+    - A medida que sigas metiendo bits nuevos por `Serial IN`, los bits viejos seguirán empujándose hacia la derecha y saliendo uno por uno por **`Salida serial`** en cada golpe de reloj.
+
 ![[Pasted image 20261001201602.png]]
+
+Aunque el título de la diapositiva sigue diciendo "Registro de Desplazamiento" por estar dentro del mismo tema, fijate en un detalle clave: **¡los Flip-Flops NO están conectados entre sí!** La salida `Q` de uno no va al `D` del vecino, sino que sube directo hacia afuera.
+
+Es literalmente un **Registro de Memoria común y corriente** (como los registros internos del procesador: `AX`, `BX`, etc.).
+
+### ¿Cómo pensarlo mentalmente?
+
+Es una **cámara fotográfica de 4 bits**:
+
+1. **Preparás los datos abajo (`Entrada de datos`):** Ponés los 4 bits que querés guardar en las patitas de abajo (`PD`, `PC`, `PB`, `PA`). Cada cable viaja directo a la entrada **`D`** de su propio Flip-Flop.
+    
+2. **Antes del `Clock`:** Aunque cambies los números de abajo mil veces, arriba en la `Salida de datos` (`QD`, `QC`, `QB`, `QA`) no cambia absolutamente nada.
+    
+3. **Disparo del `Clock` (1 solo pulso):** Como los 4 biestables comparten el mismo cable de `Clock`, cuando llega el pulso de reloj, **los 4 Flip-Flops copian su entrada al mismo tiempo**:
+    
+    - `FFA` copia `PD` y lo muestra en `QD`.
+        
+    - `FFB` copia `PC` y lo muestra en `QC`.
+        
+    - `FFC` copia `PB` y lo muestra en `QB`.
+        
+    - `FFD` copia `PA` y lo muestra en `QA`.
+        
+4. **Retención (Memoria):** Una vez que pasó el pulso de `Clock`, los 4 bits quedan "congelados" y disponibles arriba en `QD, QC, QB, QA` para que el resto de la computadora los lea tranquila, sin importar qué pase después en los cables de entrada de abajo.
 
 ![[Pasted image 20261001201630.png]]
 
