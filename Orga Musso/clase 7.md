@@ -884,3 +884,5 @@ Imaginate una pantalla de precios de un cine o estacionamiento:
 ![[Pasted image 20261010184330.png]]
 
 ![[Pasted image 20261010184636.png]]
+
+![[Pasted image 20261010185631.png]]
