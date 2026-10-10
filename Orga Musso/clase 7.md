@@ -310,6 +310,8 @@ Así que la mecánica de este circuito es tal cual la dijiste:
 
 En resumen: en el anterior los datos entraban caminando en fila india con el reloj; en este caen todos juntos "en paracaídas" desde arriba gracias al Preset, y el reloj solo se encarga de moverlos una vez que ya están adentro.
 
+abcd pongo los 1 que quiero  y clear pon
+
   
 
 
