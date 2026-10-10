@@ -522,4 +522,18 @@ Es una **cámara fotográfica de 4 bits**:
 
 ![[Pasted image 20261001202833.png]]
 
-![[Pasted image 20261001202930.png]]
+### 1. La fórmula del recuadro: $M \le 2^N$ ("Estados" vs "Biestables")
+
+Esta fórmula te responde la primera pregunta que te tenés que hacer al leer un ejercicio de parcial: **"¿Cuántos Flip-Flops ($N$) necesito dibujar para que entren todos los estados ($M$) que me piden?"**.
+
+- **$N$ (Cantidad de Biestables / Flip-Flops):** Es la cantidad de bits que va a tener tu circuito. Cada Flip-Flop guarda 1 bit (`0` o `1`).
+    
+- **$2^N$ (Capacidad máxima):** Es la cantidad total de combinaciones binarias distintas que podés armar con $N$ Flip-Flops. (Por ejemplo, con $N=3$ Flip-Flops podés armar $2^3 = 8$ combinaciones: desde `000` hasta `111`).
+    
+- **$M$ (Módulo o Cantidad de Estados útiles):** Es la cantidad de pasos o números por los que realmente querés que cuente tu circuito antes de reiniciar.
+
+
+![[Pasted image 20261010173119.png]]
+
+
+![[Pasted image 20261010173328.png]]
