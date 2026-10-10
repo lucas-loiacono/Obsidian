@@ -881,6 +881,108 @@ Imaginate una pantalla de precios de un cine o estacionamiento:
 
 ![[Pasted image 20261010183750.png]]
 
+Esta diapositiva es oro puro porque el profesor agarró las **3 cajas teóricas (`G`, `M`, `H`)** de las que veníamos hablando y las **pintó con colores arriba de un circuito real** (este es el estilo de ejercicio que te piden analizar en el punto **3.26** de la guía).
+
+En un circuito real los cables están todos mezclados, pero gracias a los tres colores se ve clarísimo qué es cada cosa:
+
+---
+
+### 1. Color Turquesa / Celeste: El Bloque `"M"` (La Memoria)
+
+Son los **3 Flip-Flops tipo JK**.
+
+* Sus salidas actuales son **$Q_2$, $Q_1$ y $Q_0$** (esos 3 bits juntos forman tu bloque de estado actual **$E_t$**).
+
+
+* Fijate que los tres tienen conectado el mismo cable **`clk`** abajo, por lo que es un sistema **sincrónico** (los tres actualizan su estado al mismo tiempo cuando pega el reloj).
+
+
+
+---
+
+### 2. Color Verde: El Bloque `"G"` (Prepara la actualización de la memoria)
+
+Fijate dónde están parados los tres recuadros verdes: **justo a la izquierda (adelante) de las patitas `J` y `K` de cada Flip-Flop**.
+
+Su trabajo es mezclar la entrada externa **`X`** con los cables que vuelven de las salidas **`Q` / `Q'**` para decidir qué reciben `J` y `K` antes del próximo pulso de reloj. Si seguís los cables de cada caja verde, salen las ecuaciones del recuadro verde de abajo:
+
+* **Caja verde del Flip-Flop 0 (Derecha):** Las patitas $J_0$ y $K_0$ están unidas y conectadas a una flecha que apunta hacia arriba (eso en electrónica significa conectado directo a voltaje positivo, o sea un **`1` fijo**).
+
+
+* Ecuación: **$J_0 = 1$** y **$K_0 = 1$** (en cada pulso de reloj, este Flip-Flop invierte su valor).
+
+
+
+
+* **Caja verde del Flip-Flop 1 (Centro):** Tiene dos compuertas AND sumadas en una OR que alimentan tanto a $J_1$ como a $K_1$.
+
+
+* A la AND de arriba le entran el cable **`X`** y el cable **$Q_0$** $\rightarrow Q_0 \cdot X$.
+
+
+* A la AND de abajo le entran el cable **`X` negado** ($X'$) y el cable **$Q_0'$** $\rightarrow Q_0' \cdot X'$.
+
+
+* La OR las suma: **$J_1 = K_1 = Q_0 X + Q_0' X'$**.
+
+
+
+
+* **Caja verde del Flip-Flop 2 (Izquierda):** Hace lo mismo pero con compuertas AND de 3 patitas:
+
+
+* La AND de arriba junta **$Q_0$, $Q_1$ y $X$**.
+
+
+* La AND de abajo junta **$Q_0'$, $Q_1'$ y $X'$**.
+
+
+* La OR las suma: **$J_2 = K_2 = Q_0 Q_1 X + Q_0' Q_1' X'$**.
+
+
+
+
+
+---
+
+### 3. Color Amarillo: El Bloque `"H"` (Muestra el resultado final $Y$)
+
+Son las tres cajitas amarillas donde nacen las salidas finales del circuito (**$Y_2$, $Y_1$, $Y_0$**).
+
+Mirá el recuadro amarillo de abajo a la izquierda para ver cómo se calcula cada salida:
+
+* **$Y_2 = Q_2 \oplus Q_1$:** Es la compuerta **XOR** amarilla de arriba, que conecta las salidas $Q_2$ y $Q_1$.
+
+
+* **$Y_1 = Q_1'$:** Es un cable directo conectado a la patita negada $Q'$ del Flip-Flop del medio (sin ninguna compuerta extra).
+
+
+* **$Y_0 = Q_0$:** Es un cable directo conectado a la salida $Q_0$ del último Flip-Flop.
+
+
+
+---
+
+### La pregunta del millón: ¿Por qué sabemos al instante que esto es Modelo de MOORE?
+
+Mirá las 3 ecuaciones amarillas del bloque `"H"`:
+
+
+$$Y_2 = Q_2 \oplus Q_1$$
+
+$$Y_1 = Q_1'$$
+
+$$Y_0 = Q_0$$
+
+¿Aparece la letra **`X`** (la entrada externa) en alguna de las fórmulas amarillas? ¡No! Ninguna caja amarilla tiene enchufado el cable `X`.
+
+Como las salidas $Y_2, Y_1, Y_0$ se calculan mirando **únicamente el estado actual guardado en los Flip-Flops ($Q_2, Q_1, Q_0$)**, se cumple a rajatabla que **$Y_t = H(E_t)$**, o sea, es 100% **Modelo de Moore**.
+
+(Si esa compuerta XOR amarilla de arriba tuviera una patita conectada al cable `X`, ahí aparecería la `X` en la fórmula amarilla y pasaría a ser Modelo de Mealy).
+
+¿Viste qué claro queda cuando separás lo que entra a `J/K` (verde = `G`) de lo que sale hacia `Y` (amarillo = `H`)? ¿Tenés la diapositiva que sigue donde arman la tabla de este circuito?
+
+
 ![[Pasted image 20261010184330.png]]
 
 ![[Pasted image 20261010184636.png]]
