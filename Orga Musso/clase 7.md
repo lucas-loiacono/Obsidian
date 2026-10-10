@@ -879,3 +879,8 @@ Imaginate una pantalla de precios de un cine o estacionamiento:
 | **¿Cómo se dibuja el Diagrama de Estados (Globos)?**   | La salida se anota **adentro del círculo del estado** (`Estado / Salida`), porque es fija para ese estado. | La salida se anota **arriba de la flecha de transición** (`Entrada / Salida`), porque depende de qué entrada toques. |
 | **Ejercicios de la Guía 3**                            | **Ej. 3.33 y 3.34:** La compuerta XOR de paridad solo conecta los 3 Flip-Flops (`Q2 ⊕ Q1 ⊕ Q0`).           | **Ej. 3.35:** A la compuerta XOR de paridad le sumás el cable de entrada $X_t$ (`Q2 ⊕ Q1 ⊕ Q0 ⊕ X`).                 |
 
+![[Pasted image 20261010183750.png]]
+
+![[Pasted image 20261010184330.png]]
+
+![[Pasted image 20261010184636.png]]
