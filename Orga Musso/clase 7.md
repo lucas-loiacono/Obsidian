@@ -729,3 +729,153 @@ Ya que entendiste tan bien que la caja `H` trabaja todo el tiempo en vivo sin de
 - En **Mealy**, como la entrada $X_t$ tiene un cable "VIP" que esquiva la memoria `M` y se mete directo en la caja `H`, y `H` trabaja todo el tiempo sin esperar al `clk`, **si vos cambiás la entrada $X_t$, la salida $Y_t$ cambia en el acto (en vivo), aunque no hayas activado el `clk`**.
 
 ![[Pasted image 20261010182032.png]]
+
+![[Pasted image 20261010182846.png]]
+
+
+
+# Modelos de Sistemas Secuenciales Sincrónicos: Modelo de Mealy
+#organizacion-del-computador #fiuba #electronica-digital #secuenciales #mealy #moore
+
+---
+
+## 1. ¿Qué es el Modelo de Mealy y en qué se diferencia de Moore?
+
+Al igual que en el Modelo de Moore, un circuito secuencial de **Mealy** utiliza un bloque de **Memoria (`M`)** formado por Flip-Flops para recordar el estado actual ($E_t$)[cite: 6, 7] y calcular a qué estado debe actualizarse en el próximo golpe de reloj ($E_{t+1}$)[cite: 6, 7].
+
+La gran diferencia radica en **cómo se calcula la salida final ($Y_t$)**:
+* **En Moore:** La salida mira **solamente** lo que está guardado fijo en la memoria ($E_t$). Por lo tanto, la salida solo puede cambiar cuando suena el reloj (`clk`).
+* **En Mealy:** La salida mira lo que está guardado en la memoria ($E_t$) **Y TAMBIÉN espía en vivo la entrada externa ($X_t$)** sin pasar por la memoria.
+
+$$\text{Ecuación de Transición de Estados (Caja G): } E_{t+1} = G(X_t, E_t)$$
+
+$$\text{Ecuación de Salida (Caja H — ¡Clave de Mealy!): } Y_t = H(X_t, E_t)$$
+
+
+> [!WARNING] Fe de erratas de la Diapositiva 7 de la cátedra
+> Adentro del rectángulo del diagrama de la cátedra quedó escrito por error de tipeo $Y_t = H(E_t)$. La ecuación real que corresponde a ese bloque y que figura en el título superior es **$Y_t = H(X_t, E_t)$**.
+
+---
+
+## 2. Arquitectura Física: ¿Por qué `G` y `H` aparecen juntas?
+
+En la diapositiva de la cátedra, las funciones combinacionales **`G`** (preparar el próximo estado) y **`H`** (calcular la salida) aparecen metidas adentro de una misma caja grande (`S.L.C.`) a la izquierda de la memoria `M`:
+
+```text
+                CAJA "G" y "H" Unificadas
+                    (S.L.C. General)
+            ┌──────────────────────────────┐
+            │        G            H        │      Camino directo (Sin bloqueo de clk)
+            │                              ├──────────────────────────────────────────► Salida (Yt)
+Entrada ───►│ Xt                           │
+ (Xt)       │       Yt = H(Xt, Et)         │                CAJA "M" (Memoria)
+            │     Et+1 = G(Xt, Et)         │     Et+1      ┌──────────────────┐   Et
+        ┌──►│ Et                           ├──────────────►│        M         ├───────┐
+        │   └──────────────────────────────┘               │       / \        │       │
+        │                                                  └───────┴─┴────────┘       │
+        │                                                           ▲                 │
+        │                                                           │ clk             │
+        └───────────────────────────────────────────────────────────┼─────────────────┘
+                           Realimentación del Estado Actual (Et)
+````
+
+  
+
+### ¿Cómo se entiende esta arquitectura separando los roles?
+
+Aunque el profesor las dibuje en una sola caja porque **ambas funciones reciben exactamente los mismos dos cables de entrada ($X_t$ y $E_t$)**, internamente siguen siendo dos circuitos de compuertas con tareas distintas:
+
+  
+
+1. **El circuito de `G` (Preparar la actualización de la memoria):**
+    
+      
+    - Recibe el bloque de estado actual ($E_t$) y la entrada externa ($X_t$).
+        
+          
+        
+    - Calcula el próximo bloque de estado ($E_{t+1}$) y lo deja esperando en la puerta de la memoria **`M`**. Este dato **no puede pasar** hasta que suene el flanco del `clk`.
+        
+          
+        
+2. **El circuito de `H` (Mostrar el resultado combinando Memoria + Entrada en vivo):**
+    
+      
+    - También recibe el estado fijo de la memoria ($E_t$), pero además **tiene un cable directo desde la entrada $X_t$ que esquiva a la memoria `M`** (la flecha larga superior del dibujo)[cite: 7].
+        
+          
+        
+    - Como las compuertas de `H` no tienen `clk` y trabajan las 24 horas en vivo, **cualquier cambio que hagas en la entrada $X_t$ viaja por esa flecha superior y actualiza la salida $Y_t$ de forma instantánea**, sin esperar al pulso de reloj.
+        
+          
+        
+
+## 3. Analogía Práctica: El "Día Fijo en Memoria" vs. "Datos en Vivo por $X_t$"
+
+Para entender por qué es útil guardar una base fija en `M` ($E_t$) y al mismo tiempo mandar cambios en vivo por $X_t$, pensá en el ejemplo que armamos: **querer mantener fijo el día de hoy en memoria, pero seguir mostrando variantes en vivo en la pantalla**.
+
+  
+
+Imaginate una pantalla de precios de un cine o estacionamiento:
+
+  
+
+1. **Lo que guardás en la Memoria `M` ($E_t$ — La constante temporal):**
+    
+      
+    - Querés que el sistema sepa qué día de la semana es hoy (ej. `Martes`).
+        
+          
+        
+    - Ese dato se guarda en los Flip-Flops de **`M`**[cite: 7]. Queda congelado durante las 24 horas y **solo se actualiza cuando suena el `clk`** a la medianoche (ahí la función `G` mira que hoy era `Martes`, calcula $E_{t+1} = \text{Miércoles}$ y el `clk` actualiza la memoria).
+        
+          
+        
+2. **Lo que mandás por la Entrada Externa ($X_t$ — La señal en vivo):**
+    
+      
+    - Mientras el día sigue clavado en `Martes` adentro de la memoria `M`, vos querés seguir interactuando con el circuito en tiempo real sin cambiar de día (por ejemplo, tocando un botón $X_t$ para indicar si el cliente que tenés enfrente tiene `1 = Descuento` o `0 = Tarifa Normal`).
+        
+          
+        
+3. **Lo que muestra la Salida ($Y_t = H(X_t, E_t)$):**
+    
+      
+    - La función **`H`** toma la constante que está guardada hoy en la memoria (`Martes` en $E_t$) y la mezcla en vivo con lo que le estás mandando por **`Xt`**[cite: 7].
+        
+          
+        
+    - **Resultado:** Sin necesidad de activar el `clk` (el día guardado en `M` sigue siendo `Martes`), cada vez que vos cambias $X_t$ de `0` a `1`, la salida $Y_t$ reacciona en el acto mostrando _"Martes - Precio Normal"_ o _"Martes - Precio con Descuento"_.
+        
+          
+        
+
+## 4. El Tamaño de los Cables: ¿$X_t$ y $E_t$ son siempre bloques?
+
+- **El Estado ($E_t$ y $E_{t+1}$) SIEMPRE se maneja como un bloque:** Si tu memoria `M` tiene $N$ Flip-Flops, $E_t$ y $E_{t+1}$ son obligatoriamente un paquete (bus) de **$N$ bits** que se leen y se actualizan todos juntos en cada pulso de `clk` (ej. un bloque de 3 bits `Q2 Q1 Q0`).
+    
+      
+    
+- **La Entrada ($X_t$) y la Salida ($Y_t$) son independientes del tamaño de la memoria:**
+    
+      
+    - Pueden ser un **bloque de varios cables** ($X_0 \dots X_m$) si tenés varios botones externos.
+        
+          
+        
+    - O pueden ser **1 solo cable individual (1 bit)**, que es el caso más común en la Guía 3 (por ejemplo, en el **Ejercicio 3.35**, donde $E_t$ es un bloque de **3 bits**, pero la entrada $X_t$ es de **1 solo bit** que elige entre contar hacia arriba o hacia abajo, y la salida $Y_t$ es de **1 solo bit** que prende el LED de paridad).
+        
+          
+        
+
+## 5. Cuadro Comparativo Definitivo: Moore vs. Mealy (Para los ejercicios 3.33 a 3.35)
+
+| **Característica**                                     | **Modelo de MOORE PNG**                                                                                    | **Modelo de MEALY[cite: 7]**                                                                                         |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Ecuación de Próximo Estado (`G`)**                   | $E_{t+1} = G(X_t, E_t)$                                                                                    | $E_{t+1} = G(X_t, E_t)$<br><br>  <br><br>[cite: 7]                                                                   |
+| **Ecuación de Salida (`H`)**                           | **$Y_t = H(E_t)$** _(Solo mira la memoria)_<br><br>  <br><br>[cite: 6]                                     | **$Y_t = H(X_t, E_t)$** _(Mira memoria + entrada)_<br><br>  <br><br>[cite: 7]                                        |
+| **¿Qué cables entran a la compuerta de salida final?** | Únicamente las salidas `Q` de los Flip-Flops ($E_t$).                                                      | Las salidas `Q` de los Flip-Flops ($E_t$) **y también** el cable de entrada externa ($X_t$).                         |
+| **¿Cuándo cambia la salida $Y_t$?**                    | **Solo cuando suena el `clk`** (porque depende 100% de la memoria `M`).                                    | Cambia cuando suena el `clk`, **pero también cambia en vivo** si alguien modifica la entrada $X_t$.                  |
+| **¿Cómo se dibuja el Diagrama de Estados (Globos)?**   | La salida se anota **adentro del círculo del estado** (`Estado / Salida`), porque es fija para ese estado. | La salida se anota **arriba de la flecha de transición** (`Entrada / Salida`), porque depende de qué entrada toques. |
+| **Ejercicios de la Guía 3**                            | **Ej. 3.33 y 3.34:** La compuerta XOR de paridad solo conecta los 3 Flip-Flops (`Q2 ⊕ Q1 ⊕ Q0`).           | **Ej. 3.35:** A la compuerta XOR de paridad le sumás el cable de entrada $X_t$ (`Q2 ⊕ Q1 ⊕ Q0 ⊕ X`).                 |
+
