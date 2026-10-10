@@ -537,3 +537,172 @@ Esta fórmula te responde la primera pregunta que te tenés que hacer al leer un
 
 
 ![[Pasted image 20261010173328.png]]
+
+
+# Modelos de Sistemas Secuenciales Sincrónicos: Modelo de Moore
+#organizacion-del-computador #fiuba #electronica-digital #secuenciales #moore #mealy
+
+---
+
+## 1. Concepto General: ¿Por qué un sistema secuencial tiene "Memoria"?
+
+A diferencia de un circuito combinacional puro (donde la salida depende únicamente de lo que estás apretando en este instante), en un **Sistema Secuencial** la salida actual depende de las entradas actuales **y de toda la historia pasada** de entradas[cite: 9, 10]:
+
+$$Y_t = f(X_t, X_{t-1}, \dots, X_0)$$
+[cite: 9, 10]
+
+Como es físicamente imposible guardar infinitas señales del pasado, el circuito resume toda esa historia previa en un valor binario llamado **Estado Actual ($E_t$)**, el cual se almacena adentro de un bloque de **Memoria (`M`)** formado por Flip-Flops[cite: 9, 10].
+
+---
+
+## 2. Diccionario de Variables y Subíndices
+
+En las ecuaciones de estado, el subíndice indica el **momento del tiempo** respecto al pulso del reloj (`clk`):
+* **Subíndice $t$ (Presente):** Lo que está ocurriendo en el ciclo de reloj actual[cite: 9, 10].
+* **Subíndice $t+1$ (Futuro):** Lo que va a ocurrir inmediatamente después del próximo flanco de reloj (`clk`)[cite: 9, 10].
+
+| Símbolo | Nombre Técnico | ¿Qué es físicamente en el circuito? |
+| :---: | :--- | :--- |
+| **$X_t$** | **Entrada Actual** | Los cables o botones externos que manipulás desde afuera en este momento (ej. interruptor para contar hacia arriba o hacia abajo)[cite: 9, 10]. |
+| **$E_t$** | **Estado Actual** | El número binario guardado **hoy** adentro de los Flip-Flops (se lee en las patitas de salida **`Q`** de la memoria)[cite: 9, 10]. |
+| **$E_{t+1}$** | **Estado Siguiente** | El nuevo número que la lógica preparó y dejó esperando en las entradas (`D`, `J/K` o `T`) de los Flip-Flops para guardarse cuando suene el próximo `clk`. |
+| **$Y_t$** | **Salida Actual** | El resultado final que el circuito muestra hacia el exterior (ej. un LED indicador de paridad)[cite: 9, 10]. |
+
+---
+
+## 3. Arquitectura Física: Las 3 Cajas (`G`, `M` y `H`)
+
+Todo sistema secuencial sincrónico se divide en tres bloques conectados en serie, donde **`S.L.C.`** significa *Sistema Lógico Combinacional* (compuertas `AND`, `OR`, `NOT`, `XOR` sin reloj):
+
+```text
+           CAJA "G"                        CAJA "M"                   CAJA "H"
+    (S.L.C. de Entrada)                   (Memoria)              (S.L.C. de Salida)
+  ┌──────────────────────┐               ┌──────────┐           ┌──────────────────┐
+  │                      │     Et+1      │          │    Et     │                  │    Yt
+──► Xt                   ├──────────────►│          ├──────┬───►│                  ├────►
+  │   Et+1 = G(Xt, Et)   │               │    M     │      │    │    Yt = H(Et)    │
+┌─► Et                   │               │   / \    │      │    │                  │
+│ └──────────────────────┘               └───┴─┴────┘      │    └──────────────────┘
+│                                             ▲            │
+│                                             │ clk        │
+└─────────────────────────────────────────────┼────────────┘
+          Realimentación del Estado Actual (Et)
+````
+
+### 1) Caja `G` (Preparar qué guardar en la memoria)
+
+- **Qué es:** El grupo de compuertas lógicas conectadas **adelante** de los Flip-Flops (en sus entradas de excitación `D`, `J/K` o `T`). En los ejercicios, estas compuertas salen de resolver los Mapas de Karnaugh.
+    
+- **Qué hace:** Recibe la entrada externa ($X_t$) y un cable de realimentación con el estado actual ($E_t$). Con ambos datos calcula cuál debe ser el próximo estado ($E_{t+1}$).
+    
+
+### 2) Caja `M` (Guardar el estado)
+
+- **Qué es:** El conjunto de **Flip-Flops** sincronizados por flanco mediante la señal de reloj (`clk`).
+    
+- **Qué hace:** Mantiene congelado el estado actual ($E_t$) en su salida. Cuando llega el flanco del `clk`, captura el valor que estaba esperando en su puerta ($E_{t+1}$) y lo convierte en el nuevo estado actual ($E_t$).
+    
+
+### 3) Caja `H` (Calcular y mostrar el resultado final)
+
+- **Qué es:** El grupo de compuertas lógicas conectadas **atrás** de los Flip-Flops (tomando las salidas `Q`).
+    
+- **Qué hace:** Toma el estado actual guardado en la memoria ($E_t$), lo procesa (por ejemplo, pasándolo por una compuerta `XOR` para evaluar paridad) y genera la salida final del circuito ($Y_t$).
+    
+
+## 4. Las Dos Ecuaciones del Modelo de Moore
+
+En el **Modelo de Moore**, el comportamiento del circuito queda definido por dos funciones:
+
+### A) Ecuación de Transición de Estados (Caja `G`)
+
+$$E_{t+1} = G(X_t, E_t)$$
+
+- _Lectura:_ "El próximo estado a guardar ($E_{t+1}$) depende tanto de la entrada externa actual ($X_t$) como del estado en el que estoy parado hoy ($E_t$)".
+    
+
+### B) Ecuación de Salida (Caja `H`) — ¡La clave de Moore!
+
+$$Y_t = H(E_t)$$
+
+- _Lectura:_ "La salida final ($Y_t$) depende **ÚNICAMENTE del Estado Actual ($E_t$)** guardado en los Flip-Flops".
+    
+- _Detalle visual en el plano:_ A la caja `H` **solo le entran cables que vienen de la memoria `M` ($E_t$)**. No existe ningún cable directo que puentee la entrada $X_t$ hacia la caja `H`.
+
+# Preguntas
+
+## Yo
+osea yo siempre guardo por bloques, no uno a uno, por eso me fijo el estado actual completo
+
+## Gemini 
+
+¡Tal cual! Le diste en el clavo a la lógica del diseño sincrónico.
+
+En el diagrama de Moore (o de Mealy), esa flecha única llamada **$E_t$** en realidad representa un **paquete de cables que viajan juntos** (un bus de datos), donde cada cable es la salida `Q` de uno de tus Flip-Flops.
+
+Por eso se trabaja siempre **por bloques completos** y no mirando un Flip-Flop aislado:
+
+1. **El Estado Actual ($E_t$) es el bloque entero hoy:** Si tenés 3 Flip-Flops, vos no decís _"el Flip-Flop 1 vale 0"_; mirás la foto completa de los tres juntos, por ejemplo **`011`** (el estado 3).
+    
+2. **Para decidir el futuro ($E_{t+1}$), `G` necesita ver la foto completa:** Imaginate que un Flip-Flop quiere saber si en el próximo pulso de reloj tiene que cambiar a `1` o a `0`. No puede decidirlo mirándose solo a sí mismo; necesita saber qué tienen guardado sus compañeros para saber en qué número de la cuenta está parado el circuito entero. Por eso el bloque completo $E_t$ vuelve hacia atrás y entra a la caja `G`.
+    
+3. **Se guarda todo el bloque de un solo golpe:** Cuando la caja `G` termina de calcular el bloque siguiente ($E_{t+1}$, por ejemplo **`100`**) y suena el `clk`, los 3 Flip-Flops actualizan sus bits al mismo tiempo (como en el registro PIPO de la cuarta foto que me mostraste).
+    
+4. **La salida ($Y_t$) también mira el bloque completo:** La caja `H` del final agarra los 3 cables de $E_t$ al mismo tiempo (por ejemplo, para meterlos en la compuerta XOR y ver si el bloque entero tiene paridad par o impar).
+    
+
+Pensarlo así como **"entra un bloque viejo $\rightarrow$ las compuertas calculan el bloque nuevo $\rightarrow$ el reloj guarda el bloque nuevo de un saque"** te va a hacer muchísimo más fácil armar las tablas de verdad de los ejercicios de la guía.
+
+## Yo
+ah osea seria como una actualizacion, ya que si necesito mirar a mi Et para ver que cambios hago, no es que le paso datos nuevos sin verlo
+## Gemini
+
+¡Exactamente! Le diste la definición perfecta: **es una actualización sobre lo que ya tenés, no un reemplazo a ciegas.**
+
+Si lo pensás como cuando programás, la diferencia entre un registro común y un sistema secuencial con realimentación (como los contadores) es esta:
+
+- **Reemplazo a ciegas (El registro PIPO de la Foto 4):** Es como hacer `estado = dato_nuevo;`. A los Flip-Flops no les importa qué tenían guardado antes; simplemente pisan el valor viejo con lo que venga de afuera.
+    
+- **Actualización mirando a $E_t$ (El diagrama de Moore/Mealy):** Es como hacer `estado = estado + 1;` (o `estado_futuro = G(estado_actual, entrada);`). Para poder hacer ese `+ 1`, el circuito **está obligado a leer primero cuánto vale `estado` hoy ($E_t$)**, meterlo en la licuadora de compuertas `G` junto con la orden externa ($X_t$), y recién ahí guardar el resultado actualizado ($E_{t+1}$) cuando suena el reloj.
+    
+
+Por eso en el diagrama ves ese **cable largo por abajo que sale de la derecha de `M` y vuelve a meterse por la izquierda de `G`**: ese cable es literalmente el circuito "mirándose al espejo" para saber en qué estado está hoy ($E_t$) y decidir cómo actualizarse en el próximo pulso.
+
+## Yo
+
+y cuando estoy en Yt muestro el estado viejo o el nuevo?
+
+## Gemini
+Mostrás el **estado actual ($E_t$)**, es decir, el que ya está guardado adentro de la memoria `M` en este momento (lo que vos llamás el "viejo"). **Todavía NO muestra el estado nuevo ($E_{t+1}$)**.
+
+Mirá el dibujo del Modelo de Moore (la segunda imagen de las cajas):
+
+- El **estado nuevo ($E_{t+1}$)** recién salió de la caja `G` y está **frenado en la puerta de entrada** de la memoria `M`, esperando a que suene el próximo golpe de reloj (`clk`).
+    
+- La caja **`H`** (que calcula la salida $Y_t$) está conectada **del lado derecho de la memoria `M`**, recibiendo únicamente el cable **$E_t$**.
+    
+
+### Pensalo como dos momentos separados por el golpe del reloj (`clk`):
+
+1. **Mientras estás en el pulso actual (Tiempo $t$):**
+    
+    - Adentro de la memoria `M` está guardado el estado actual **$E_t$** (por ejemplo, el número `2`).
+        
+    - La salida **$Y_t$** mira ese `2` que está en la memoria y te muestra el resultado correspondiente al `2` ($Y_t = H(E_t)$).
+        
+    - Mientras tanto, atrás en la puerta de la memoria, la caja `G` ya dejó preparado el número nuevo **$E_{t+1}$** (el `3`), pero **todavía no pudo pasar** porque no sonó el reloj.
+        
+2. **Recién cuando suena el próximo flanco del `clk` (Pasás al Tiempo $t+1$):**
+    
+    - La memoria `M` abre la puerta un instante, deja entrar al `3` ($E_{t+1}$) y pisa al `2`.
+        
+    - Ahora el `3` pasa a ser el nuevo dueño de la memoria, sale hacia la derecha, y recién en ese momento la caja **`H`** lo ve y actualiza la salida **$Y$**.
+        
+
+La caja de salida `H` nunca puede "espiar" a $E_{t+1}$ antes de tiempo porque la memoria `M` hace de pared en el medio hasta que suene el `clk`
+
+## Yo
+
+osea solo cambia cuando activo el clk, y siempre se muestra y esta trabajando, ya que este no depende del clk
+
+## Gem
