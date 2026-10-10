@@ -705,4 +705,25 @@ La caja de salida `H` nunca puede "espiar" a $E_{t+1}$ antes de tiempo porque la
 
 osea solo cambia cuando activo el clk, y siempre se muestra y esta trabajando, ya que este no depende del clk
 
-## Gem
+## Gemini
+
+Es tal cual lo decís por dos razones:
+
+1. **Las cajas `G` y `H` trabajan las 24 horas en vivo (no tienen `clk`):** Como son simples compuertas lógicas (`AND`, `OR`, `XOR`), no tienen reloj ni botón de pausa. Están encendidas todo el tiempo calculando y mostrando en vivo lo que tienen conectado a sus entradas.
+    
+2. **La única que tiene un "portón con llave" (`clk`) es la Memoria `M`:**
+    
+    - Como `H` está conectada a la salida de `M` ($E_t$), `H` está mostrando permanentemente ese resultado hacia afuera ($Y_t$).
+        
+    - Pero como el número guardado en `M` ($E_t$) está congelado y **solo puede cambiar en el instante en que activás el `clk`**, el resultado que muestra `H` ($Y_t$) también queda fijo y **solo cambia cuando activás el `clk`** y entra el estado nuevo.
+        
+
+(Y lo mismo pasa del lado izquierdo con `G`: `G` ya calculó el próximo estado $E_{t+1}$ al toque y lo tiene ahí empujando contra la puerta de `M`, pero hasta que vos no actives el `clk`, ese dato nuevo no puede entrar a la memoria).
+
+### El único caso donde la salida cambia SIN esperar al `clk`: **Mealy**
+
+Ya que entendiste tan bien que la caja `H` trabaja todo el tiempo en vivo sin depender del `clk`, mirá qué fácil se entiende ahora qué pasa en el **Modelo de Mealy** (que es como el de Moore, pero tirando un cable directo desde la entrada $X_t$ hacia la caja `H`):
+
+- En **Moore** (el que analizamos recién), aunque muevas el interruptor de entrada $X_t$ mil veces, la salida $Y_t$ ni se entera hasta que no suene el `clk`, porque el cambio quedó frenado en la puerta de la memoria `M`.
+    
+- En **Mealy**, como la entrada $X_t$ tiene un cable "VIP" que esquiva la memoria `M` y se mete directo en la caja `H`, y `H` trabaja todo el tiempo sin esperar al `clk`, **si vos cambiás la entrada $X_t$, la salida $Y_t$ cambia en el acto (en vivo), aunque no hayas activado el `clk`**.
