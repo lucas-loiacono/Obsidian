@@ -176,6 +176,143 @@ en la segunda vuelta el A sale, pasa por el flip flop y se guarda en b, mientras
 
 ![[Pasted image 20261001201434.png]]
 
+
+Este circuito es una evolución del anterior: es un **Registro de Desplazamiento con Carga en Paralelo y Rotación Circular (Anillo)**. Aunque a primera vista parece un lío de cables, en realidad combina tres ideas que ya vimos por separado:
+
+
+### 1. ¿Por qué usa Flip-Flops J-K en vez de D?
+
+En el diagrama anterior usábamos Flip-Flops tipo D ("copiadores"). Acá el profesor armó esos mismos "copiadores" usando **Flip-Flops J-K**:
+
+  
+
+- Fijate que de cada biestable salen **dos cables** hacia la derecha: la salida normal **`Q`** va conectada a la entrada **`J`** del vecino, y la salida negada **`$\overline{Q}$`** va conectada a la entrada **`K`** del vecino.
+    
+      
+    
+- Como **`Q`** y **`$\overline{Q}$`** siempre tienen valores opuestos, al vecino siempre le llega `(J=1, K=0)` o `(J=0, K=1)`. Es decir, ¡se comportan exactamente igual que un Flip-Flop D copiando el dato de la izquierda!
+    
+      
+    
+
+### 2. La novedad de arriba: Carga en Paralelo (Las llaves `A, B, C, D`)
+
+En el registro anterior, para meter 4 bits tenías que empujarlos de a uno por la izquierda esperando 4 pulsos de reloj.
+
+  
+
+Acá agregaron 4 interruptores (llaves) arriba a la izquierda rotulados en azul como **`A`, `B`, `C`, `D`** que viajan directo a la patita **`PS` (Preset)** de cada biestable:
+
+  
+
+- Como vimos antes, **`CLEAR` (`CLR`)** y **`PRESET` (`PS`)** son entradas **asincrónicas** (los "jefes absolutos" que actúan al instante sin esperar al reloj).
+    
+      
+    
+- **Paso 1:** Primero tirás un pulso por **`CLEAR`** abajo para poner los 4 casilleros en `0`.
+    
+      
+    
+- **Paso 2:** Si querés cargar el número `0 0 1 1` de un solo golpe (como se ve en la imagen donde `C` y `D` están prendidos en celeste), simplemente cerrás las llaves **`C`** y **`D`** arriba a la izquierda. Esos cables activan el `PS` (Preset) del 3er y 4to biestable y los clavan en `1` instantáneamente, sin haber gastado ni un solo pulso de reloj (`CLK`).
+    
+      
+    
+- Una vez cargado el número inicial, abrís las llaves para que dejen de forzar a los biestables y el circuito pueda empezar a moverse con el reloj.
+    
+      
+    
+
+### 3. Los cables largos que dan la vuelta: Rotación en Anillo
+
+Fijate qué pasa con el último biestable de la derecha (el de la salida `D`):
+
+  
+
+- En vez de que sus datos se caigan al vacío cuando avanzan, su salida **`Q`** da toda la vuelta por arriba y se enchufa en la entrada **`J`** del primer biestable.
+    
+      
+    
+- Y su salida negada **$\overline{Q}$** da toda la vuelta por abajo y se enchufa en la entrada **`K`** del primer biestable.
+    
+      
+    
+
+**¿Qué logra esto?** Una **calesita (registro en anillo)**. Como no hay una puerta de entrada externa para meter bits nuevos en serie, los 4 bits que cargaste al principio con las llaves giran en círculo:
+
+  
+
+Supongamos que cargaste con las llaves el estado de la foto (**`A=0, B=0, C=1, D=1`**):
+
+  
+
+1. **1º Pulso de `CLK`:** Todo se corre un lugar a la derecha, y el `1` que estaba al final en **`D`** da la vuelta por el cable largo y se mete en **`A`**. Ahora tenés: **`A=1, B=0, C=0, D=1`**.
+    
+      
+    
+2. **2º Pulso de `CLK`:** El nuevo `1` de **`D`** da la vuelta y entra a **`A`**, empujando al resto. Ahora tenés: **`A=1, B=1, C=0, D=0`**.
+    
+      
+    
+3. **3º Pulso de `CLK`:** El `0` de **`D`** da la vuelta a **`A`**. Queda: **`A=0, B=1, C=1, D=0`**.
+    
+      
+    
+4. **4º Pulso de `CLK`:** Vuelve exactamente a la foto original: **`A=0, B=0, C=1, D=1`**.
+    
+      
+    
+
+### ¿Para qué sirve este circuito?
+
+Tiene dos usos principales:
+
+  
+
+1. **Conversor Paralelo a Serie (PISO):** Cargás los 4 bits todos juntos de golpe por arriba usando las llaves (`A, B, C, D`), y después, en cada pulso de `CLK`, los vas sacando en fila india de a uno mirando únicamente el cable final **`D`** (como indica el texto rojo de abajo). Es lo que hace tu computadora para mandar un dato interno hacia afuera por un cable USB.
+    
+      
+    
+2. **Secuenciador cíclico:** Al tener el cable realimentado dando la vuelta, los bits nunca se pierden; quedan girando infinitamente con cada golpe de reloj (ideal para hacer secuencias de luces, motores paso a paso o repartir turnos cíclicos).
+    
+      
+    
+
+¿Te quedó claro cómo las llaves de arriba meten el dato de prepo usando el Preset (`PS`) antes de empezar a girar?
+
+
+
+  
+
+En el primer circuito tenías una sola puertita a la izquierda y estabas obligado a meter los bits de a uno esperando al reloj (entrada en serie). En cambio, acá **no tenés entrada en serie** porque ese primer biestable tiene sus patas `J` y `K` ocupadas recibiendo los cables que dan la vuelta desde el final.
+
+  
+
+Así que la mecánica de este circuito es tal cual la dijiste:
+
+  
+
+1. **Limpieza:** Le das un toque al **`CLEAR`** de abajo para que los 4 casilleros arranquen en `0`.
+    
+      
+    
+2. **Carga directa ("de prepo"):** Tenés los 4 cables de arriba a la izquierda (`A, B, C, D`) conectados a los **`PS` (Preset)** de cada biestable. Cerrás las llaves de los bits que querés que valgan `1` (en el dibujo cerraron `C` y `D`) y ¡pum!, se clavan adentro de los casilleros instantáneamente sin esperar ningún pulso de reloj.
+    
+      
+    
+3. **Soltás las llaves y activás el `CLK`:** Una vez que ya "estampaste" tu número fijo adentro del circuito con el Preset, abrís esas llaves para que dejen de forzar a los biestables y empezás a darle pulsos al `CLK`.
+    
+      
+    
+4. **El desplazamiento:** Con cada golpe de reloj, esos 4 bits que ya estaban adentro empiezan a correrse hacia la derecha (y el último de la derecha da la vuelta por los cables largos para volver a entrar por el primero).
+    
+      
+    
+
+En resumen: en el anterior los datos entraban caminando en fila india con el reloj; en este caen todos juntos "en paracaídas" desde arriba gracias al Preset, y el reloj solo se encarga de moverlos una vez que ya están adentro.
+
+  
+
+
 ![[Pasted image 20261001201524.png]]
 
 ![[Pasted image 20261001201544.png]]
