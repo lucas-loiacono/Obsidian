@@ -727,3 +727,5 @@ Ya que entendiste tan bien que la caja `H` trabaja todo el tiempo en vivo sin de
 - En **Moore** (el que analizamos recién), aunque muevas el interruptor de entrada $X_t$ mil veces, la salida $Y_t$ ni se entera hasta que no suene el `clk`, porque el cambio quedó frenado en la puerta de la memoria `M`.
     
 - En **Mealy**, como la entrada $X_t$ tiene un cable "VIP" que esquiva la memoria `M` y se mete directo en la caja `H`, y `H` trabaja todo el tiempo sin esperar al `clk`, **si vos cambiás la entrada $X_t$, la salida $Y_t$ cambia en el acto (en vivo), aunque no hayas activado el `clk`**.
+
+![[Pasted image 20261010182032.png]]
