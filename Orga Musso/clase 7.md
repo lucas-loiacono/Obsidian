@@ -1154,6 +1154,101 @@ Cuando terminás de dibujar las dos tandas, te fijás en cada globo individual: 
 ![[Pasted image 20261010185923.png]]
 
 
+# Análisis Práctico de un Sistema Secuencial: Ejemplo Modelo de Mealy
+#organizacion-del-computador #fiuba #electronica-digital #secuenciales #mealy #analisis
+
+---
+
+## 1. Identificación de los 3 Bloques en el Circuito (`M`, `G` y `H`)
+
+Al analizar el circuito de la Diapositiva 11, separamos las tres etapas fundamentales de la arquitectura[cite: 8]:
+
+### A) Bloque `"M"` (Memoria — Color Celeste)
+* **Cantidad de bits:** Tiene **2 Flip-Flops** conectados al mismo reloj (`clk`)[cite: 8]. Sus salidas ($Q_1, Q_0$) forman un paquete de 2 bits para el **Estado Actual ($E_t$)**, lo que nos da $2^2 = \mathbf{4\text{ estados posibles}}$ (`00`, `01`, `10`, `11`)[cite: 9, 10].
+* **Particularidad (Mezcla de tipos de Flip-Flop):**
+  * El Flip-Flop 1 (izquierda, bit más significativo $Q_1$) es de **tipo JK**[cite: 8].
+  * El Flip-Flop 0 (derecha, bit menos significativo $Q_0$) es de **tipo D**[cite: 8].
+
+### B) Bloque `"G"` (Lógica de Transición / Entrada — Color Verde)
+* **Qué hace:** Son las compuertas ubicadas adelante de las entradas de los Flip-Flops ($J_1, K_1$ y $D_0$)[cite: 8]. Preparan la orden de actualización esperando al próximo pulso de `clk`[cite: 1, 8].
+* **Ecuaciones de excitación:**
+  * $J_1 = Q_0 X'$[cite: 8, 9, 10]
+  * $K_1 = Q_0 + X$[cite: 8, 9, 10]
+  * $D_0 = X' Q_0'$[cite: 8, 9, 10]
+
+### C) Bloque `"H"` (Lógica de Salida — Color Amarillo)
+* **Qué hace:** Son las 3 compuertas `AND` sumadas en una `OR` en la parte superior que generan la única salida **`Y`**[cite: 8].
+* **Ecuación de salida:**
+  $$Y = Q_1 X + Q_0 X + Q_1 Q_0$$
+[cite: 8, 9, 10]
+* **¿Por qué confirma que es Modelo de Mealy?:** Porque el cable de entrada externa **`X`** sube directamente (sin pasar por los Flip-Flops) y se mete adentro de la caja amarilla[cite: 8]. En la ecuación de `Y` están combinados el Estado Actual ($Q_1, Q_0$) y la Entrada Externa ($X$), cumpliendo $Y_t = H(X_t, E_t)$[cite: 1, 8].
+
+---
+
+## 2. Regla de Oro: ¿La Salida `Y` depende del Estado Actual o del Estado Futuro?
+
+> [!IMPORTANT] La salida SIEMPRE depende del Estado Actual ($E_t$)
+> Tanto en Moore como en Mealy, la salida **`Y` se calcula SIEMPRE usando el Estado Actual ($Q_1, Q_0$)** y **NUNCA el Estado Futuro ($Q_1^+, Q_0^+$)**[cite: 1, 9, 10].
+> 
+> * **Razón física:** La caja amarilla (`H`) está enchufada a las salidas actuales `Q` de la memoria[cite: 8]. El Estado Futuro todavía está frenado en la puerta de entrada de los Flip-Flops esperando a que suene el `clk`[cite: 1, 8].
+> * **Cómo no confundirse en la tabla:** Aunque la columna `Salida (Y)` esté dibujada al final de todo (a la derecha de `Estado futuro`)[cite: 9, 10], para calcular `Y` tenés que tapar las columnas del medio y reemplazar en la ecuación amarilla usando **únicamente las primeras tres columnas de la fila ($Q_1, Q_0$ y $X$)**[cite: 9, 10].
+
+---
+
+## 3. Cómo se arma la Tabla Unificada en Mealy (Diapositiva 12)
+
+Como tenemos 2 bits de Estado Actual ($Q_1, Q_0$) y 1 bit de Entrada ($X$), la tabla tiene $2^3 = \mathbf{8\text{ filas}}$ (los 4 estados evaluados tanto con $X = 0$ como con $X = 1$)[cite: 9, 10].
+
+### A) ¿Por qué la columna `Salida (Y)` está adentro de esta tabla y no en una tabla aparte?
+* En **Moore**, cada estado tenía una única salida fija, por lo que alcanzaba con una tablita aparte de 1 fila por estado[cite: 4, 7].
+* En **Mealy**, como `Y` depende también de `X`[cite: 1, 8], **un mismo estado puede mostrar una salida distinta según si `X = 0` o `X = 1`**[cite: 9, 10].
+  * *Ejemplo en el estado `01` (Filas 3 y 4):* Estando parado en `01`, si ponés `X = 0` la salida da **`Y = 0`**; pero si cambiás a `X = 1` (sin que suene el reloj), la salida cambia en vivo a **`Y = 1`**[cite: 9, 10].
+
+### B) Cálculo del Estado Futuro mezclando Flip-Flop JK y Flip-Flop D
+* **Para $Q_1^+$ (Flip-Flop JK):** Mirás cómo estaba $Q_1$ al principio de la fila y aplicás la orden de $J_1, K_1$[cite: 8, 9]:
+  * `0 0` $\rightarrow$ No cambia (copia a $Q_1$).
+  * `0 1` $\rightarrow$ Reset (pone un `0` fijo).
+  * `1 0` $\rightarrow$ Set (pone un `1` fijo).
+  * `1 1` $\rightarrow$ Invierte (da vuelta el valor de $Q_1$).
+* **Para $Q_0^+$ (Flip-Flop D):** ¡Es directo! El Flip-Flop D simplemente guarda lo que tiene en su entrada $D$ cuando suena el reloj. Por lo tanto, **la columna $Q_0^+$ es una copia exacta de la columna $D_0$** ($Q_0^+ = D_0$)[cite: 8, 9].
+
+### Tabla completa explicada fila por fila:
+
+| Estado Actual ($Q_1 Q_0$) | Entrada ($X$) | FF1 ($J_1 K_1$) | FF0 ($D_0$) | Estado Futuro ($Q_1^+ Q_0^+$) | Salida ($Y$) | Explicación del cálculo |
+| :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **`0 0`** | **`0`** | `0 0` | `1` | **`0 1`** | **`0`** | $Q_1$ no cambia (`00` $\rightarrow$ sigue `0`). $Q_0^+$ copia a $D_0=1$[cite: 9]. Salida con $Q_1=0, Q_0=0, X=0 \rightarrow Y=0$[cite: 9]. |
+| **`0 0`** | **`1`** | `0 1` | `0` | **`0 0`** | **`0`** | $Q_1$ se pone en `0` (`01`). $Q_0^+$ copia a $D_0=0$[cite: 9]. Salida con $Q_1=0, Q_0=0, X=1 \rightarrow Y=0$[cite: 9]. |
+| **`0 1`** | **`0`** | `1 1` | `0` | **`1 0`** | **`0`** | $Q_1$ estaba en `0` y recibe `11` (invierte a `1`). $Q_0^+$ copia a $D_0=0$[cite: 9]. Salida da $Y=0$[cite: 9]. |
+| **`0 1`** | **`1`** | `0 1` | `0` | **`0 0`** | **`1`** | $Q_1$ recibe `01` (va a `0`). $Q_0^+$ copia $D_0=0$[cite: 9]. **Salida:** como $Q_0=1$ y $X=1$, el término $Q_0 X$ vale `1` $\rightarrow \mathbf{Y=1}$[cite: 9]. |
+| **`1 0`** | **`0`** | `0 0` | `1` | **`1 1`** | **`0`** | $Q_1$ estaba en `1` y recibe `00` (no cambia, sigue `1`). $Q_0^+$ copia $D_0=1$[cite: 9]. Salida da $Y=0$[cite: 9]. |
+| **`1 0`** | **`1`** | `0 1` | `0` | **`0 0`** | **`1`** | $Q_1$ recibe `01` (pasa a `0`). $Q_0^+$ copia $D_0=0$[cite: 9]. **Salida:** como $Q_1=1$ y $X=1$, el término $Q_1 X$ vale `1` $\rightarrow \mathbf{Y=1}$[cite: 9]. |
+| **`1 1`** | **`0`** | `1 1` | `0` | **`0 0`** | **`1`** | $Q_1$ estaba en `1` y recibe `11` (invierte a `0`). $Q_0^+$ copia $D_0=0$[cite: 9]. **Salida:** como $Q_1=1, Q_0=1$, el término $Q_1 Q_0$ vale `1` $\rightarrow \mathbf{Y=1}$[cite: 9]. |
+| **`1 1`** | **`1`** | `0 1` | `0` | **`0 0`** | **`1`** | $Q_1$ recibe `01` (pasa a `0`). $Q_0^+$ copia $D_0=0$[cite: 9]. Todos los términos de la ecuación amarilla dan `1` $\rightarrow \mathbf{Y=1}$[cite: 9]. |
+
+---
+
+## 4. Diagrama de Estados (El Gráfico de Globos en Mealy — Diapositiva 13)
+
+Al pasar de Moore a Mealy, cambia la forma de anotar las salidas en el dibujo de globos[cite: 4, 7, 10]:
+
+### A) ¿Qué va adentro de cada Globo?
+* Se escribe **solamente el Estado Actual** (`00`, `01`, `10`, `11`), **sin línea de fracción ni salida adentro**[cite: 10].
+* No se puede poner la salida adentro del círculo porque en un mismo globo (como `01` o `10`) la salida cambia según cuánto valga `X`[cite: 9, 10].
+
+### B) ¿Qué significa el cartelito `X / Y` arriba de cada Flecha?
+En Mealy, la salida se muda **arriba de las flechas de transición** con el formato[cite: 10]:
+$$\text{Entrada } (X) \;/\; \text{Salida Actual } (Y)$$
+
+* **Cómo se lee una flecha (Ej. Flecha de `01` $\rightarrow$ `00` con cartel `1/1`)[cite: 10]:**
+  * **Dónde nace la flecha (`01`):** Estoy parado hoy en el Estado Actual `01`[cite: 9, 10].
+  * **Primer número del cartel (`1/`):** Pongo la entrada externa en **`X = 1`**[cite: 9, 10].
+  * **Segundo número del cartel (`/1`):** Mientras estoy en `01` con `X = 1`, el circuito me muestra en vivo la salida **`Y = 1`**[cite: 9, 10].
+  * **A dónde apunta la flecha (`00`):** Cuando suene el próximo pulso de `clk`, la memoria va a saltar al Estado Futuro **`00`**[cite: 9, 10].
+* **¿Qué es un rulo / bucle que vuelve al mismo globo? (Ej. en `00` con cartel `1/0`)[cite: 10]:**
+  * Representa la Fila 2: si estás en `00` y ponés `X = 1`, la salida muestra `0` y el Estado Futuro vuelve a ser **`00`** (se queda en el mismo globo cuando suena el `clk`)[cite: 9, 10].
+
+> [!WARNING] Fe de erratas del gráfico de la Diapositiva 13
+> En el dibujo de la cátedra, abajo a la izquierda, la flecha con el cartel **`0/1`** fue dibujada por error con la punta apuntando desde `00` hacia `11`[cite: 10]. Mirando la Fila 7 de la tabla (`Estado actual = 11`, `X = 0` $\rightarrow$ `Estado futuro = 00`, `Salida = 1`), esa flecha **`0/1` nace en `11` y apunta hacia `00`** (igual que su compañera `1/1`)[cite: 9, 10].
 
 
 
