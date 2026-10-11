@@ -1252,6 +1252,193 @@ $$\text{Entrada } (X) \;/\; \text{Salida Actual } (Y)$$
 
 
 
+
+
+
+# Dudas
+
+Las diferencias exactas al momento de armar las **tablas** y los **gráficos (diagramas de estados)** entre el Modelo de Moore y el Modelo de Mealy se resumen en cómo y dónde se anota la **Salida ($Y$)**:
+
+  
+
+### 1. Diferencias al armar las TABLAS
+
+La parte donde calculás las entradas de los Flip-Flops ($J, K, D$) y el **Estado Futuro ($Q^+$)** se hace **exactamente igual en los dos modelos**. Lo único que cambia es dónde ponés la columna de **Salida ($Y$)**:
+
+  
+
+- **En el Modelo de MOORE (Se hacen 2 tablas separadas):**
+    
+      
+    1. **Tabla de Estados (Grande):** Tiene los Estados Actuales, la Entrada $X$, las entradas de los Flip-Flops y el Estado Futuro. _(Por ejemplo, para 3 Flip-Flops y 1 entrada $X$, tiene **16 filas**)_. **Acá NO se pone la salida $Y$**.
+        
+          
+        
+    2. **Tabla de Salidas (Chiquita aparte):** Como la salida solo depende del Estado Actual ($Q$) y no le importa cuánto vale $X$, hacés una tablita aparte donde ponés cada estado una sola vez (sin repetir) y su salida al lado _(para 3 Flip-Flops, tiene solo **8 filas**, de `E0` a `E7`)_.
+        
+          
+        
+- **En el Modelo de MEALY (Se hace 1 sola tabla todo-en-uno):**
+    
+      
+    - **Tabla Unificada:** Como la salida $Y$ depende del Estado Actual **y también de la Entrada $X$**, para un mismo estado la salida puede cambiar si $X=0$ o si $X=1$. Por eso, **agregás la columna `Salida (Y)` al final de todo (a la derecha de `Estado futuro`)** dentro de la misma tabla grande, y la calculás fila por fila.
+        
+          
+        
+
+### 2. Diferencias al armar los GRÁFICOS (Diagramas de Estados)
+
+En ambos modelos hay algo que **NO cambia nunca**:
+
+  
+
+- **La cantidad de círculos (globos)** es siempre igual a la cantidad de estados posibles ($2^{\text{cantidad de Flip-Flops}}$).
+    
+      
+    
+- **Las flechas SIEMPRE nacen en el `Estado Actual` y apuntan al `Estado Futuro`** de esa fila.
+    
+      
+    
+
+Lo que cambia en el dibujo es **dónde escribís la Salida ($Y$)**:
+
+  
+
+|**Elemento del Gráfico**|**En Modelo de MOORE JPG**|**En Modelo de MEALY JPG**|
+|---|---|---|
+|**¿Qué se escribe ADENTRO del círculo?**|Se divide al medio como una fracción: **Arriba el Estado y abajo la Salida fija**.<br><br>  <br>  <br><br>$$\frac{\text{Estado}}{\text{Salida } (Y)}$$<br><br>  <br><br>_(Ej: $\frac{E0}{010}$)_|**Solo el nombre o número del Estado** (sin raya de fracción y sin salida adentro).<br><br>  <br>  <br>  <br><br>_(Ej: `00`, `01`, `10`, `11`)_|
+|**¿Qué se escribe ARRIBA de la flecha?**|**Solamente el valor de la Entrada ($X$)** que provoca ese salto.<br><br>  <br>  <br>  <br><br>_(Ej: ponés solo `0` o `1`)_|**La Entrada ($X$) y la Salida ($Y$) separadas por una barra**:<br><br>  <br>  <br><br>$$\text{Entrada } (X) \;/\; \text{Salida } (Y)$$<br><br>  <br><br>_(Ej: ponés `0/0`, `1/0`, `1/1`)_|
+
+### Miralo lado a lado con un ejemplo de una sola fila:
+
+Supongamos que tu tabla dice que en el **Estado Actual `01`**, cuando metés la **Entrada `X = 1`**, pasás al **Estado Futuro `00`** y la **Salida da `Y = 1`**:
+
+  
+
+- **Si estás dibujando MOORE:**
+    
+    Adentro del globo `01` ya tenés escrita la salida abajo (`01 / 1`). Y en la flecha que va hacia `00` escribís **solamente el `1`** (de $X=1$):
+    
+      
+    
+    Plaintext
+    
+    ```
+     ( 01 / 1 ) ────── 1 ──────► ( 00 / 0 )
+    ```
+    
+- **Si estás dibujando MEALY:** Adentro de los globos solo dice `01` y `00`. Y arriba de la flecha que va de `01` a `00` escribís **`1/1`** (el primer `1` es por $X=1$, y el segundo `1` es por $Y=1$):
+    
+      
+    
+    Plaintext
+    
+    ```
+       ( 01 ) ────── 1 / 1 ────► ( 00 )
+    ```
+    
+
+¿Te gustaría que hagamos juntos el **Ejercicio 3.26** de la guía (que te da un circuito dibujado y te pide armar la tabla y los globos) para poner esto a prueba?
+
+
+
+
+
+
+**Es exactamente lo segundo que dijiste:** `X` no es el dato que se guarda en la memoria, sino **la señal que modela cómo trabaja el circuito para decidir cuál va a ser el próximo bloque de datos a guardar**.
+
+  
+
+Mirá por qué tenés esa duda (que es súper lógica) y cómo funciona realmente adentro del circuito:
+
+  
+
+### 1. ¿Se guarda 1 solo bit (`X`) o se guarda un bloque entero?
+
+**En la memoria (`M`) SIEMPRE se guarda un bloque entero de bits al mismo tiempo** (tantos bits como Flip-Flops tengas en el circuito):
+
+  
+
+- En el ejemplo de Moore tenías **3 Flip-Flops** ($Q_2, Q_1, Q_0$), así que en cada golpe de reloj se guarda un **bloque de 3 bits** completo (`Estado Futuro`: $Q_2^+ Q_1^+ Q_0^+$).
+    
+      
+    
+- En el ejemplo de Mealy tenías **2 Flip-Flops** ($Q_1, Q_0$), así que en cada golpe de reloj se guarda un **bloque de 2 bits** completo (`Estado Futuro`: $Q_1^+ Q_0^+$).
+    
+      
+    
+
+El bit **`X` NO entra para guardarse directamente en los Flip-Flops**. Fijate en los dibujos de los circuitos (Diapositivas 8 y 11) que el cable `X` nunca se enchufa solito directo a un Flip-Flop, sino que se mete adentro de las **cajas verdes (`G`)** para mezclarse en las compuertas `AND` y `OR` con los cables $Q$ que ya estaban en la memoria.
+
+  
+
+### 2. Entonces, ¿qué es `X` y por qué hay que ponerla en la tabla y en las flechas?
+
+Pensá tu circuito como si fuera una **función en C o en Java** que actualiza el estado de un objeto cada vez que suena el reloj:
+
+  
+
+Java
+
+```
+// Et es el bloque guardado en memoria (ej: 3 bits, un número del 0 al 7)
+// X es el parámetro externo (ej: 1 bit, un booleano 0 o 1)
+
+int calcularEstadoFuturo_G(int Et, int X) {
+    if (X == 1) {
+        return Et + 1; // Si X vale 1, el bloque de 3 bits suma 1
+    } else {
+        return Et - 1; // Si X vale 0, el bloque de 3 bits resta 1
+    }
+}
+```
+
+Fijate qué pasa en ese código:
+
+  
+
+1. **¿Qué es lo que se guarda en la memoria?** Se guarda el nuevo valor de `Et` (el bloque entero de 3 bits: `001`, `010`, `111`, etc.).
+    
+      
+    
+2. **¿Por qué tenés que poner a `X` en la tabla y en las flechas?** Porque sin saber cuánto vale el parámetro **`X`**, no sabés si el circuito va a entrar por el `if (X == 1)` o por el `else (X == 0)`.
+    
+      
+    - En las **cajas verdes (`G`)** de tus diapositivas, las compuertas `AND` y `OR` son literalmente ese `if / else` hecho con cables.
+        
+          
+        
+    - Como las ecuaciones verdes ($J, K, D$) tienen la letra **`X`** metida en la fórmula (por ejemplo, $J_1 = Q_0 X + Q_0' X'$), el bloque de bits que calculan las compuertas verdes para guardar en la memoria cambia radicalmente según si por el cable `X` viene electricidad (`1`) o no viene (`0`).
+        
+          
+        
+
+### 3. ¿`X` va a ser siempre de 1 solo bit?
+
+**En el 95% de los ejercicios de la guía y de los parciales de FIUBA, sí: `X` es de 1 solo bit** (porque si te pusieran una entrada de 2 o 3 bits, la tabla de estados tendría 32 o 64 filas y no terminarías más de escribir en el examen).
+
+  
+
+Pero conceptualmente, `X` tiene la cantidad de bits según cuántas "órdenes distintas" acepte tu máquina desde afuera:
+
+  
+
+- **0 bits (Sin entrada `X` — Ej. 3.33 de la guía):** Es una máquina que hace siempre lo mismo en piloto automático (por ejemplo, un reloj digital que siempre suma 1 segundo tras otro). No tiene ningún botón externo, así que de cada globo sale **1 sola flecha fija** hacia el próximo estado.
+    
+      
+    
+- **1 bit (`X` vale `0` o `1` — Tus diapositivas y Ej. 3.34 / 3.35):** La máquina sabe hacer **2 cosas distintas** (ej: contar hacia adelante con `1` o hacia atrás con `0`). Por eso de cada globo salen **2 flechas** (`0` y `1`).
+    
+      
+    
+- **2 bits (`X1 X0` valen `00`, `01`, `10` o `11`):** Sería una máquina con 2 botones que sabe hacer **4 cosas distintas** (ej: `00` = quedarse quieta, `01` = sumar 1, `10` = restar 1, `11` = volver a cero). Ahí de cada globo saldrían **4 flechas**.
+    
+      
+    
+
+En resumen: **lo que se guarda en la memoria es siempre el paquete `Estado Futuro` ($Q_2^+ Q_1^+ Q_0^+$)**, y vos ponés a **`X`** en la tabla y en las flechas porque es **la condición que elige qué cuenta hace el circuito** para fabricar ese próximo estado. ¿Con esa comparación del `if / else` que modifica al bloque entero te cierra mejor el rol de `X`?
+
 ![[Pasted image 20261010202534.png]]
 
 ![[Pasted image 20261010202713.png]]
