@@ -987,6 +987,166 @@ Como las salidas $Y_2, Y_1, Y_0$ se calculan mirando **únicamente el estado act
 
 ![[Pasted image 20261010184636.png]]
 
+# Análisis Práctico de un Sistema Secuencial: Ejemplo Modelo de Moore
+#organizacion-del-computador #fiuba #electronica-digital #secuenciales #moore #analisis
+
+---
+
+## 1. Identificación de los 3 Bloques en el Circuito (`M`, `G` y `H`)
+
+Al analizar un circuito secuencial ya dibujado (como pide el **Ejercicio 3.26** de la guía), el primer paso es separar visualmente las tres partes de la arquitectura[cite: 6]:
+
+### A) Bloque `"M"` (Memoria — Color Celeste)
+* **Qué es:** Son los **3 Flip-Flops tipo JK** conectados al mismo cable de reloj (`clk`)[cite: 6].
+* **Qué guarda:** Sus salidas actuales ($Q_2, Q_1, Q_0$) forman el paquete o bloque de 3 bits llamado **Estado Actual ($E_t$)**[cite: 4, 6, 10]. Como hay $N = 3$ Flip-Flops, existen $2^3 = 8$ estados posibles (del `000` al `111`, bautizados desde `E0` hasta `E7`)[cite: 2, 10, 11].
+
+### B) Bloque `"G"` (Lógica de Entrada / Transición — Color Verde)
+* **Qué es:** Son las compuertas lógicas (`AND`, `OR`, `NOT`) conectadas **adelante** de las patitas `J` y `K` de cada Flip-Flop[cite: 6].
+* **Ecuaciones de excitación (extraídas siguiendo los cables del dibujo):**
+  * **Flip-Flop 0:** $J_0 = 1 \quad \vert{} \quad K_0 = 1$ *(Conectados fijo a positivo)*[cite: 6, 10]
+  * **Flip-Flop 1:** $J_1 = Q_0 X + Q_0' X' \quad \vert{} \quad K_1 = Q_0 X + Q_0' X'$[cite: 6, 10]
+  * **Flip-Flop 2:** $J_2 = Q_0 Q_1 X + Q_0' Q_1' X' \quad \vert{} \quad K_2 = Q_0 Q_1 X + Q_0' Q_1' X'$[cite: 6, 10]
+
+### C) Bloque `"H"` (Lógica de Salida — Color Amarillo)
+* **Qué es:** Son las conexiones y compuertas que están **al final** de los Flip-Flops para generar las 3 salidas del circuito ($Y_2, Y_1, Y_0$)[cite: 6, 11].
+* **Ecuaciones de salida:**
+  * $Y_2 = Q_2 \oplus Q_1$[cite: 6, 11]
+  * $Y_1 = Q_1'$[cite: 6, 11]
+  * $Y_0 = Q_0$[cite: 6, 11]
+* **¿Por qué confirma que es Modelo de Moore?:** Porque en ninguna de las tres fórmulas amarillas aparece la entrada externa **`X`**[cite: 6, 11]. La salida depende exclusivamente del estado actual guardado en los Flip-Flops ($Y_t = H(E_t)$)[cite: 4, 6].
+
+---
+
+## 2. El Rol de la Entrada `X`: ¿Por qué evaluamos `X = 0` y `X = 1`?
+
+Una duda muy común al ver la **Tabla de Estados** es: *¿Por qué hay 16 filas si solo existen 8 estados (`000` al `111`)?*[cite: 10, 11]
+
+### La Entrada `X` como "Palanca de Cambios"
+* **`X` NO es el dato que se guarda directamente en la memoria** (fijate que `X` es un solo cable de 1 bit, mientras que la memoria guarda un bloque de 3 bits)[cite: 6, 10].
+* **`X` es una orden o condición externa** (como un volante o un `if / else`) que le dice a la función `G` **hacia qué lado debe actualizar el estado actual** cuando suene el próximo pulso de reloj[cite: 4, 10].
+* Como las fórmulas verdes de $J_1, K_1, J_2, K_2$ tienen la letra **`X`** adentro de la cuenta[cite: 6, 10], el circuito va a tomar **dos caminos diferentes** desde un mismo estado según cuánto valga `X`[cite: 10, 11]:
+  * **Tu Estado Actual ($Q_2, Q_1, Q_0$):** Te dice **en qué escalón estás parado hoy**[cite: 10].
+  * **Tu Entrada (`X`):** Decide si en el próximo golpe de reloj vas a **subir un escalón (`X = 1`)** o **bajar un escalón (`X = 0`)**[cite: 10, 11].
+  * **Tu Estado Futuro ($Q_2^+, Q_1^+, Q_0^+$):** Es el **nuevo escalón que se va a guardar en la memoria** cuando suene el `clk` ($E_{t+1} = G(X_t, E_t)$)[cite: 4, 10].
+
+Por eso, en la Tabla de Estados cada uno de los 8 estados aparece **repetido dos veces**: una fila para calcular qué pasa si el usuario pone **`X = 0`**, y otra fila abajo para calcular qué pasa si pone **`X = 1`** ($8 \text{ estados} \times 2 \text{ opciones de } X = 16 \text{ filas}$)[cite: 10].
+
+---
+
+## 3. Cómo se arma la Tabla de Estados (El cálculo de $Q_2^+, Q_1^+, Q_0^+$)
+
+Para completar las últimas tres columnas (**Estado Futuro**)[cite: 10], no alcanza con mirar cuánto dieron $J$ y $K$. Tenés que aplicar la orden que dan $J$ y $K$ sobre el bit que ya tenías en el **Estado Actual ($Q$)**, usando la regla del Flip-Flop JK:
+
+> [!TIP] Machete de actualización del Flip-Flop JK
+> * Si **$J = 0, K = 0$ $\rightarrow$ NO CAMBIA (Memoria):** El bit futuro ($Q^+$) copia exactamente el mismo valor que tenía en el Estado Actual ($Q$).
+> * Si **$J = 1, K = 1$ $\rightarrow$ INVIERTE (Complementa):** El bit futuro ($Q^+$) pasa a valer lo contrario de lo que tenía en el Estado Actual ($Q$) (si era `0` pasa a `1`; si era `1` pasa a `0`).
+> * *(Si $J=1, K=0$ pone un `1` fijo; si $J=0, K=1$ pone un `0` fijo).*
+
+### Ejemplo paso a paso con las primeras filas de la tabla:
+
+| Estado Actual ($Q_2 Q_1 Q_0$) | Entrada ($X$) | Entradas FF2 ($J_2 K_2$) | Entradas FF1 ($J_1 K_1$) | Entradas FF0 ($J_0 K_0$) | Estado Futuro ($Q_2^+ Q_1^+ Q_0^+$) | Explicación de la actualización ($E_t \rightarrow E_{t+1}$) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **`0 0 0`** (`E0`) | **`0`** | `1 1` | `1 1` | `1 1` | **`1 1 1`** (`E7`) | Como los tres FF reciben `1 1` (invertir)[cite: 10], los tres ceros del estado actual `000` se dan vuelta y pasan a **`111`**[cite: 10, 11]. *(Con $X=0$ retrocede del 0 al 7)*. |
+| **`0 0 0`** (`E0`) | **`1`** | `0 0` | `0 0` | `1 1` | **`0 0 1`** (`E1`) | $Q_2$ y $Q_1$ reciben `0 0` (no cambian, siguen en `0`)[cite: 10]. Solo $Q_0$ recibe `1 1` (invierte su `0` a `1`)[cite: 10]. Resultado: **`001`**[cite: 10, 11]. *(Con $X=1$ avanza del 0 al 1)*. |
+| **`0 0 1`** (`E1`) | **`0`** | `0 0` | `0 0` | `1 1` | **`0 0 0`** (`E0`) | $Q_2$ y $Q_1$ reciben `0 0` (siguen en `0`)[cite: 10]. $Q_0$ estaba en `1` y recibe `1 1` (invierte su `1` a `0`)[cite: 10]. Resultado: **`000`**[cite: 10, 11]. *(Con $X=0$ retrocede del 1 al 0)*. |
+| **`0 0 1`** (`E1`) | **`1`** | `0 0` | `1 1` | `1 1` | **`0 1 0`** (`E2`) | $Q_2$ recibe `0 0` (sigue en `0`)[cite: 10]. $Q_1$ estaba en `0` y recibe `1 1` (pasa a `1`)[cite: 10]. $Q_0$ estaba en `1` y recibe `1 1` (pasa a `0`)[cite: 10]. Resultado: **`010`**[cite: 10, 11]. *(Con $X=1$ avanza del 1 al 2)*. |
+
+---
+
+## 4. Tabla de Salidas y Diagrama de Estados (El Gráfico de Globos)
+
+En la Diapositiva 10 se resume todo el comportamiento del circuito en una tabla chiquita y en el gráfico de globos (**Diagrama de Estados**)[cite: 11]:
+
+### A) ¿Cómo se lee cada Globo (Círculo)?
+Cada círculo es uno de los 8 estados posibles de la memoria (`E0` = `000`, `E1` = `001`, ..., `E7` = `111`)[cite: 11]. Adentro del globo se escribe una "fracción" propia del **Modelo de Moore**:
+
+$$\frac{\text{Nombre del Estado Actual } (E_t)}{\text{Salida fija en ese estado } (Y_2 Y_1 Y_0)}$$
+
+* **Ejemplo en el globo `E0` (`000`):** Arriba dice **`E0`** y abajo dice **`010`**[cite: 11].
+* ¿De dónde sale ese `010` de abajo? De reemplazar $Q_2=0, Q_1=0, Q_0=0$ en las ecuaciones amarillas del bloque `H`[cite: 11]:
+  * $Y_2 = 0 \oplus 0 = \mathbf{0}$[cite: 11]
+  * $Y_1 = 0' = \mathbf{1}$[cite: 11]
+  * $Y_0 = \mathbf{0}$[cite: 11]
+* Como es **Moore**, mientras el circuito esté parado en `E0`, la salida muestra siempre `010` sin importar si afuera tocás `X`[cite: 4, 11].
+
+### B) ¿Cómo se leen las Flechas Azules (`1`) y Rojas (`0`)?
+Las flechas representan las filas de la **Tabla de Estados** y te muestran cómo salta el circuito de un globo a otro cuando suena el `clk`, dependiendo de cuánto valga la entrada **`X`**[cite: 10, 11]:
+
+* **Flechas Azules (tienen un `1` al lado):** Indican el camino que sigue el circuito cuando mantenés la entrada **`X = 1`**[cite: 11].
+  * Si seguís las flechas azules en el dibujo, giran en sentido horario sumando de a uno: `E0` $\rightarrow$ `E1` $\rightarrow$ `E2` $\rightarrow$ `E3` $\rightarrow$ `E4` $\rightarrow$ `E5` $\rightarrow$ `E6` $\rightarrow$ `E7` $\rightarrow$ `E0` *(Contador Ascendente)*[cite: 11].
+* **Flechas Rojas (tienen un `0` al lado):** Indican el camino que sigue el circuito cuando mantenés la entrada **`X = 0`**[cite: 11].
+  * Si seguís las flechas rojas, giran en sentido antihorario restando de a uno: `E0` $\rightarrow$ `E7` $\rightarrow$ `E6` $\rightarrow$ `E5` $\rightarrow$ `E4` $\rightarrow$ `E3` $\rightarrow$ `E2` $\rightarrow$ `E1` $\rightarrow$ `E0` *(Contador Descendente)*[cite: 11].
+
+
+
+**¡Exactamente eso!** La clave para no marearse es dividir el dibujo en **dos tandas de flechas**, separando las filas donde la entrada **`X = 0`** de las filas donde la entrada **`X = 1`**.
+
+  
+
+Si lo hacés con este método mecánico en un examen, sale rápido y sin errores:
+
+  
+
+### Paso 1: Dibujás los 8 globos vacíos de flechas
+
+Primero ponés en la hoja los 8 círculos (`E0` hasta `E7`) con su salida escrita adentro (que sacaste de la Tabla de Salidas).
+
+  
+
+### Paso 2: Tanda de flechas para `X = 0` (Las filas pares / Flechas rojas)
+
+Agarrás tu Tabla de Estados y **mirás solamente las filas donde la columna `X` vale `0`**. Por cada una de esas 8 filas, dibujás una flecha con un **`0`** encima que une el **Estado Actual** con su **Estado Futuro**:
+
+  
+
+- **En `E0` (`000`) con `X = 0`** $\rightarrow$ el Estado Futuro dio `111` (`E7`). _(Dibujás flecha con `0` de `E0` a `E7`)_.
+    
+      
+    
+- **En `E1` (`001`) con `X = 0`** $\rightarrow$ el Estado Futuro dio `000` (`E0`). _(Dibujás flecha con `0` de `E1` a `E0`)_.
+    
+      
+    
+- **En `E2` (`010`) con `X = 0`** $\rightarrow$ el Estado Futuro dio `001` (`E1`). _(Dibujás flecha con `0` de `E2` a `E1`)_.
+    
+      
+    
+- ...y así completás las 8 flechas del caso `X = 0`.
+    
+      
+    
+
+### Paso 3: Tanda de flechas para `X = 1` (Las filas impares / Flechas azules)
+
+Ahora hacés lo mismo, pero **mirando solamente las filas de la tabla donde la columna `X` vale `1`**. Por cada una, dibujás una flecha con un **`1`** encima:
+
+  
+
+- **En `E0` (`000`) con `X = 1`** $\rightarrow$ el Estado Futuro dio `001` (`E1`). _(Dibujás flecha con `1` de `E0` a `E1`)_.
+    
+      
+    
+- **En `E1` (`001`) con `X = 1`** $\rightarrow$ el Estado Futuro dio `010` (`E2`). _(Dibujás flecha con `1` de `E1` a `E2`)_.
+    
+      
+    
+- **En `E2` (`010`) con `X = 1`** $\rightarrow$ el Estado Futuro dio `011` (`E3`). _(Dibujás flecha con `1` de `E2` a `E3`)_.
+    
+      
+    
+- ...y así completás las 8 flechas del caso `X = 1`.
+    
+      
+    
+
+### El control de calidad antes de entregar:
+
+Cuando terminás de dibujar las dos tandas, te fijás en cada globo individual: **¿de cada globo salen exactamente una flecha con un `0` y una flecha con un `1`?** Si la respuesta es sí, pasaste toda la tabla al gráfico sin olvidarte de ninguna fila.
+
+  
+
+¿Querés que veamos las diapositivas que siguen donde seguro hacen el ejemplo de **Mealy**, o ya nos tiramos a hacer un ejercicio de la guía?
+
 ![[Pasted image 20261010185631.png]]
 
 ![[Pasted image 20261010185751.png]]
