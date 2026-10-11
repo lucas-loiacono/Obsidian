@@ -1153,6 +1153,10 @@ Cuando terminás de dibujar las dos tandas, te fijás en cada globo individual: 
 
 ![[Pasted image 20261010185923.png]]
 
+
+
+
+
 ![[Pasted image 20261010202534.png]]
 
 ![[Pasted image 20261010202713.png]]
