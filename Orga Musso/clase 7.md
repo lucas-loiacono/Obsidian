@@ -1446,6 +1446,140 @@ En resumen: **lo que se guarda en la memoria es siempre el paquete `Estado Futur
 
 ![[Pasted image 20261010203222.png]]
 
+Para no trabarte nunca más pensando qué combinación de `0`, `1` y `X` va en cada fila, tenés **dos reglas mnemotécnicas infalibles**: una pensada desde la lógica de los "botones" (siguiendo tu frase _"si tengo esto y quiero esto..."_) y otra que es una **trampa visual** para llenar toda la tabla en 10 segundos sin pensar.
+
+  
+
+### 1. La Regla de los Dos Botones (_"Si tengo esto y quiero esto..."_)
+
+Imaginá que el Flip-Flop es una lámpara y vos tenés dos botones en la mano:
+
+  
+
+- **`J` es el botón de PRENDER** (Set).
+    
+      
+    
+- **`K` es el botón de APAGAR** (Reset).
+    
+      
+    
+
+#### Caso A: "Hoy tengo un `0`..." (La lámpara ya está APAGADA)
+
+Si la lámpara hoy ya está apagada (`0`), **el botón de APAGAR (`K`) no sirve para nada** (aunque lo aprietes o no lo aprietes, algo apagado no se puede "apagar más"). Por eso, **siempre que arrancás en `0`, `K` lleva una `X` automática (`_ X`)**. Solo tenés que decidir qué hacés con `J` (Prender):
+
+  
+
+- **Si tengo `0` y quiero `0`** (que siga apagada): ¿Aprieto Prender (`J`)? **No (`0`)** $\rightarrow$ Ponés **`0 X`**.
+    
+      
+    
+- **Si tengo `0` y quiero `1`** (prenderla): ¿Aprieto Prender (`J`)? **Sí (`1`)** $\rightarrow$ Ponés **`1 X`**.
+    
+      
+    
+
+#### Caso B: "Hoy tengo un `1`..." (La lámpara ya está PRENDIDA)
+
+Si la lámpara hoy ya está prendida (`1`), **el botón de PRENDER (`J`) no sirve para nada** (algo que ya está prendido no se puede "prender más"). Por eso, **siempre que arrancás en `1`, `J` lleva una `X` automática (`X _`)**. Solo tenés que decidir qué hacés con `K` (Apagar):
+
+  
+
+- **Si tengo `1` y quiero `1`** (que siga prendida): ¿Aprieto Apagar (`K`)? **No (`0`)** $\rightarrow$ Ponés **`X 0`**.
+    
+      
+    
+- **Si tengo `1` y quiero `0`** (apagarla): ¿Aprieto Apagar (`K`)? **Sí (`1`)** $\rightarrow$ Ponés **`X 1`**.
+    
+      
+    
+
+### 2. El Atajo de Oro: "¿Cambió o No Cambió?" (Sin pensar en Set ni Reset)
+
+Si en medio del parcial estás apurado y no querés pensar en prender o apagar, usá esta regla de **dos pasos mecánicos** mirando la pareja `Qn` $\rightarrow$ `Qn+1`:
+
+  
+
+1. **¿Dónde va la `X`?**
+    
+      
+    - Si empieza con **`0`** (`0` $\rightarrow$ algo), la `X` va al **final** (**`_ X`**).
+        
+          
+        
+    - Si empieza con **`1`** (`1` $\rightarrow$ algo), la `X` va al **principio** (**`X _`**).
+        
+          
+        
+2. **¿Qué número va en el hueco libre (`0` o `1`)?** Te hacés una sola pregunta: **¿El bit CAMBIÓ de valor?**
+    
+      
+    - Si **NO cambió** (`0` $\rightarrow$ `0` o `1` $\rightarrow$ `1`), ponés un **`0`** (porque no hubo cambio).
+        
+          
+        
+    - Si **SÍ cambió** (`0` $\rightarrow$ `1` o `1` $\rightarrow$ `0`), ponés un **`1`** (porque sí hubo cambio).
+        
+          
+        
+
+Mirá qué fácil queda el machete con esa lógica:
+
+  
+
+- `0` $\rightarrow$ `0`: Empieza en 0 (`_ X`) y **no cambió** (`0`) $\rightarrow$ **`0 X`**
+    
+      
+    
+      
+    
+- `0` $\rightarrow$ `1`: Empieza en 0 (`_ X`) y **sí cambió** (`1`) $\rightarrow$ **`1 X`**
+    
+      
+    
+      
+    
+- `1` $\rightarrow$ `0`: Empieza en 1 (`X _`) y **sí cambió** (`1`) $\rightarrow$ **`X 1`**
+    
+      
+    
+      
+    
+- `1` $\rightarrow$ `1`: Empieza en 1 (`X _`) y **no cambió** (`0`) $\rightarrow$ **`X 0`**
+    
+      
+    
+      
+    
+
+  
+
+  
+
+### Probémoslo en la Fila 4 de tu imagen (`0 1 1` $\rightarrow$ `1 0 0`)
+
+:
+
+  
+
+  
+
+- **Para `C` (`0` $\rightarrow$ `1`):** Empieza en 0 (`_ X`) y **cambió** (`1`) $\rightarrow$ **`1 X`**.
+    
+      
+    
+- **Para `B` (`1` $\rightarrow$ `0`):** Empieza en 1 (`X _`) y **cambió** (`1`) $\rightarrow$ **`X 1`**.
+    
+      
+    
+- **Para `A` (`1` $\rightarrow$ `0`):** Empieza en 1 (`X _`) y **cambió** (`1`) $\rightarrow$ **`X 1`**.
+    
+      
+    
+
+¿Cuál de las dos te cierra más para destrabarte rápido: la de los botones (**Prender / Apagar**) o la de fijarte simplemente **si el bit cambió (`1`) o se quedó igual (`0`)**?
+
 ![[Pasted image 20261010203157.png]]
 
 ![[Pasted image 20261010203309.png]]
