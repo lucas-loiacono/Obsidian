@@ -1379,9 +1379,8 @@ Pensá tu circuito como si fuera una **función en C o en Java** que actualiza e
 
   
 
-Java
+```Java
 
-```
 // Et es el bloque guardado en memoria (ej: 3 bits, un número del 0 al 7)
 // X es el parámetro externo (ej: 1 bit, un booleano 0 o 1)
 
