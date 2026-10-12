@@ -1454,3 +1454,78 @@ En resumen: **lo que se guarda en la memoria es siempre el paquete `Estado Futur
 ![[Pasted image 20261010203357.png]]
 
 ![[Pasted image 20261010203420.png]]
+
+**¡Exactamente por eso!** Lo hacés **únicamente para ahorrarte la tabla de los JK (la que lleva todas las `X`) y hacer la mitad de mapas de Karnaugh**.
+
+  
+
+Mirá la comparación directa entre los dos caminos para que veas que **no tenés que hacer los dos**, sino elegir **uno solo**:
+
+  
+
+  
+
+  
+
+### Camino 1: "Método de las Transiciones" (Diapositivas 5 y 7)
+
+  
+
+  
+
+Es el método clásico, más largo pero más mecánico:
+
+  
+
+1. Hacés la tabla de `Estado Actual` y `Estado Futuro`.
+    
+      
+    
+2. **Le agregás a la derecha las 6 columnas `JC, KC, JB, KB, JA, KA`** y las vas llenando una por una mirando la tablita de las `X` (`0->0` es `0X`, `0->1` es `1X`, `1->0` es `X1`, `1->1` es `X0`).
+    
+      
+    
+3. Dibujás **6 mapas de Karnaugh separados** (uno por cada columna) y encerrás los `1` ayudándote con las `X`.
+    
+      
+    
+
+  
+
+  
+
+### Camino 2: "Método de la Ecuación Característica" (Diapositivas 10 y 11)
+
+  
+
+  
+
+Es el **atajo** para no hacer la tabla de los JK:
+
+  
+
+1. Hacés solamente la tablita básica de `Estado Actual` y `Estado Futuro` (que es igual a `DC, DB, DA`). **¡Te salteás por completo armar las 6 columnas de `J` y `K` con las `X`!**
+    
+      
+    
+2. Dibujás **solamente 3 mapas de Karnaugh** (volcando directo las 3 columnas de `Estado Futuro`).
+    
+      
+    
+3. Como adentro de cada mapa metiste el `Estado Futuro` crudo (sin haber separado antes `J` y `K` en la tabla), **los separás ahí mismo adentro del dibujo** partiendo el cuadro con la línea verde (la mitad donde la letra vale `0` es `J`, y la mitad donde vale `1` es `Not K`).
+    
+      
+    
+
+### En conclusión:
+
+- Si en el examen hacés la tabla grande con las `X` (Diapositiva 5), **usás los 6 mapas comunes (Diapositiva 7) y te olvidás de partir cuadros en verde y gris**.
+    
+      
+    
+- Si en el examen no tenés ganas de escribir las 6 columnas llenas de `X`, **pasás directo el `Estado Futuro` a 3 mapas y los partís al medio (Diapositivas 10 y 11)**.
+    
+      
+    
+
+Los dos caminos te dan exactamente el mismo circuito y valen los mismos puntos. Viendo los dos así frente a frente, ¿cuál sentís más seguro para usar vos en un parcial: el de la **tabla con las `X`** o este **atajo de partir el cuadro**?
