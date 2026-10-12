@@ -1580,6 +1580,162 @@ Mirá qué fácil queda el machete con esa lógica:
 
 ¿Cuál de las dos te cierra más para destrabarte rápido: la de los botones (**Prender / Apagar**) o la de fijarte simplemente **si el bit cambió (`1`) o se quedó igual (`0`)**?
 
+
+
+
+**¡Las dos cosas son exactamente lo mismo!** El resultado te da **`'1'`** cuando **ocupás todo el Karnaugh (los 8 casilleros)** y, al mirar los bordes para buscar qué letra se mantuvo fija, **cambian todos los $Q$** ($Q_C$, $Q_B$ y $Q_A$).
+
+Mirá paso a paso cómo se conecta tu regla (*"pongo aquellos $Q$ que no cambian el bit"*) en los tres cuadros de la imagen para que veas por qué al final te queda un `'1'`:
+
+---
+
+### 1. En el cuadro `Para JC` (Encerrás 2 casilleros)
+
+
+
+Mirás los bordes de tu grupo verde de **2 casilleros** (la columna `11`, filas `0` y `1`):
+
+* **$Q_C$:** Pasa de `0` a `1` $\rightarrow$ **Cambió** (se descarta).
+
+
+* **$Q_B$:** Vale siempre `1` $\rightarrow$ **No cambió** (queda **$Q_B$**).
+
+
+* **$Q_A$:** Vale siempre `1` $\rightarrow$ **No cambió** (queda **$Q_A$**).
+
+
+* **Resultado:** Sobreviven 2 letras $\rightarrow$ **`JC = QB . QA`**.
+
+
+
+---
+
+### 2. En el cuadro `Para JB` (Encerrás 4 casilleros)
+
+
+
+Mirás los bordes de tu grupo verde de **4 casilleros** (columnas `01` y `11`, filas `0` y `1`):
+
+* **$Q_C$:** Pasa de `0` a `1` $\rightarrow$ **Cambió** (se descarta).
+
+
+* **$Q_B$:** Pasa de `0` (en `01`) a `1` (en `11`) $\rightarrow$ **Cambió** (se descarta).
+
+
+* **$Q_A$:** Vale `1` tanto en `01` como en `11` $\rightarrow$ **No cambió** (queda **$Q_A$**).
+
+
+* **Resultado:** Sobrevive 1 sola letra $\rightarrow$ **`JB = QA`**.
+
+
+
+---
+
+### 3. En el cuadro `Para JA` y `KA` (Ocupás TODO el Karnaugh: 8 casilleros)
+
+
+
+Acá hacés un grupo gigante que abarca **las 2 filas (`0` y `1`) y las 4 columnas (`00`, `01`, `11`, `10`)**. Cuando aplicás tu regla de buscar qué $Q$ no cambió en los bordes:
+
+* **$Q_C$:** Abarca la fila `0` y la fila `1` $\rightarrow$ **Cambió** (se descarta).
+
+
+* **$Q_B$:** Abarca columnas con `0` y con `1` $\rightarrow$ **Cambió** (se descarta).
+
+
+* **$Q_A$:** Abarca columnas con `0` y con `1` $\rightarrow$ **Cambió** (se descarta).
+
+
+
+**¿Qué pasa cuando se descartan TODAS las letras porque ocupaste todo el mapa?**
+No significa que quede "vacío" (`0`), sino que queda el elemento neutro de la multiplicación booleana, que es **`'1'`** (porque algebraicamente estás haciendo $Q + \overline{Q} = 1$).
+
+---
+
+### La regla de oro del tamaño de los grupos (para un mapa de 3 variables / 8 casilleros):
+
+Cada vez que duplicás el tamaño del grupo que encerrás, **se te va una letra**:
+
+* Grupo de **1 casillero** $\rightarrow$ Quedan **3 letras** (ninguna cambió).
+* Grupo de **2 casilleros** $\rightarrow$ Quedan **2 letras** (1 cambió y se fue).
+
+
+* Grupo de **4 casilleros** $\rightarrow$ Queda **1 sola letra** (2 cambiaron y se fueron).
+
+
+* Grupo de **8 casilleros (todo el mapa)** $\rightarrow$ Quedan **0 letras = `'1'**` (las 3 cambiaron y se fueron todas).
+
+
+
+¿Ahí te cerró cómo al ocupar los 8 casilleros se te tachan las tres variables a la vez y por eso sobrevive el `'1'`?
+
+
+
+
+
+
+
+
+
+# Resumen
+
+**¡Tal cual!** Lo clavaste al 100%. Esa es literalmente toda la lógica detrás de la tabla del JK.
+
+  
+
+Miralo pasado en limpio con tus propias palabras para que veas que no tiene ni una fisura:
+
+  
+
+1. **Si la lámpara hoy está APAGADA (`Qn = 0`):**
+    
+      
+    - El botón de apagar (**`K`**) está de adorno, no lo usás $\rightarrow$ clavás **`K = X`** de una.
+        
+          
+        
+    - Todo depende del botón de prender (**`J`**):
+        
+          
+        - ¿La querés **prender** (`0` $\rightarrow$ `1`)? Apretás **`J = 1`** (te queda **`1 X`**).
+            
+              
+            
+        - ¿Querés que **siga apagada** (`0` $\rightarrow$ `0`)? No apretás **`J = 0`** (te queda **`0 X`**).
+            
+              
+            
+2. **Si la lámpara hoy está PRENDIDA (`Qn = 1`):**
+    
+      
+    - Ahora el que está de adorno es el botón de prender (**`J`**), no lo usás $\rightarrow$ clavás **`J = X`** de una.
+        
+          
+        
+    - Todo depende del botón de apagar (**`K`**):
+        
+          
+        - ¿La querés **apagar** (`1` $\rightarrow$ `0`)? Apretás **`K = 1`** (te queda **`X 1`**).
+            
+              
+            
+        - ¿Querés que **siga prendida** (`1` $\rightarrow$ `1`)? No apretás **`K = 0`** (te queda **`X 0`**).
+            
+              
+            
+
+### Y fijate cómo esto conecta los dos métodos que vimos:
+
+En tu tabla de la **Diapositiva 7**, fijate en la columna **`JC`**: los primeros 4 renglones (donde `QC = 0`, lámpara apagada) tienen números (`0, 0, 0, 1`), y los últimos 4 renglones (donde `QC = 1`, lámpara prendida) son todas **`X`** (`X, X, X, X`). Y en **`KC`** pasa exactamente al revés.
+
+  
+
+Con esta regla de la lámpara ya no dependés de acordarte de memoria ninguna tabla en el parcial: la deducís en dos segundos ahí mismo en la hoja.
+
+  
+
+¿Querés que probemos hacer un ejercicio más de la guía (por ejemplo, uno donde el contador saltee números o tenga entrada `U/D`), o preferís que te arme el resumen completo para pasar a Obsidian?
+
 ![[Pasted image 20261010203157.png]]
 
 ![[Pasted image 20261010203309.png]]
