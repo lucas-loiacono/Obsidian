@@ -55,3 +55,5 @@ acá si quiero ir de A hasta C tengo una sola forma de llegar, a esto se le dice
 esto no es un árbol, ya que no es conexo, no esta conectado
 
 ![[Pasted image 20261015005709.png]]
+
+![[Pasted image 20261015011755.png]]
