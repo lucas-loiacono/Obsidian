@@ -28,3 +28,7 @@ si tengo un nodo este se tiene que referenciar a si mismo
 ![[Pasted image 20261014225649.png]]
 
 si yo quiero los últimos 500 datos sin agregar, lo que hago es reemplazar el dato del primero con el que quiero agregar, este seria el valor de mi nodo 501, y le paso el puntero de primero a mi segundo, ya que mi ultimo nodo o dato es el actual "primero"
+
+![[Pasted image 20261014232922.png]]
+
+o sino con ultimo también se puede hacer asi
