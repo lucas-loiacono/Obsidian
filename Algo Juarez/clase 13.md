@@ -57,3 +57,18 @@ esto no es un árbol, ya que no es conexo, no esta conectado
 ![[Pasted image 20261015005709.png]]
 
 ![[Pasted image 20261015011755.png]]
+
+no es una lista porque no es lineal
+
+![[Pasted image 20261015011943.png]]
+
+esto no es un árbol porque tengo un ciclo
+
+
+![[Pasted image 20261015012316.png]]
+
+es sin raíz ya que no tienen una estructura jerárquica
+
+![[Pasted image 20261015012351.png]]
+
+esta si tiene raíz, y la raíz es el nodo que esta arriba de todo
