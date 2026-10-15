@@ -80,4 +80,4 @@ esta si tiene raíz, y la raíz es el nodo que esta arriba de todo
 
 ![[Pasted image 20261015013602.png]]
 
-![[Pasted image 20261015013632.png]]
+![[Pasted image 20261015015140.png]]
