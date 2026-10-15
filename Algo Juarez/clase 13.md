@@ -140,3 +140,19 @@ hay que preguntar si tiene hijo izquierdo o derecho para colocarlo
 ![[Pasted image 20261015022721.png]]
 
 si yo tengo un árbol en el cual todos los nodos tienen un solo hijo, queda como una lista, y se dice que el árbol degenera en una lista
+
+![[Pasted image 20261015023048.png]]
+
+Para la consulta voy preguntando por menor o mayor y voy bajando dependiendo del lado del nodo hasta llegar al que quiero, también puede ser que no lo encuentre
+
+Para la baja me tengo que fijar en encontrarlo y luego dependiendo el caso lo elimino
+
+
+![[Pasted image 20261015023328.png]]
+
+Si quiero pasar a eliminar el 4, este como tiene un solo hijo lo que hago es que pase a referenciar al hijo de este
+
+
+![[Pasted image 20261015023911.png]]
+
+Cuandoi
