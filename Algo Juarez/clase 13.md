@@ -81,3 +81,14 @@ esta si tiene raíz, y la raíz es el nodo que esta arriba de todo
 ![[Pasted image 20261015013602.png]]
 
 ![[Pasted image 20261015015140.png]]
+
+![[Pasted image 20261015015955.png]]
+
+![[Pasted image 20261015020010.png]]
+
+Arboles binario: AB
+
+Es un árbol jerárquico en el cual cada nodo puede tener como mucho 2 hijos, osea puede tener 0, 1 o 2
+
+![[Pasted image 20261015020305.png]]
+
