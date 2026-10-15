@@ -48,3 +48,26 @@ arranco desde la raiz y me voy por su rama izquierda
 ![[Pasted image 20261015172010.png]]
 
 una vez que termino la rama izquierda me paso a la rama derecha
+
+
+in order
+
+![[Pasted image 20261015172158.png]]
+
+primero voy al hijo izquierdo, mas izquierdo de todos, una vez que lo imprimo paso a la "raiz" de ese izquierdo, ósea su nodo padre, y de ahí me voy al derecho, y del derecho me voy a sus hijos izquierdos
+
+![[Pasted image 20261015172321.png]]
+
+una vez que agoto toda la rama izquierda recién ahí imprimo mi raiz
+
+
+Queda siempre en orden creciente
+
+
+
+
+Pos order
+
+![[Pasted image 20261015173157.png]]
+
+voy 
