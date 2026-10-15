@@ -9,3 +9,8 @@ tengo una referencia al que le sigue y al anterior
 ![[Pasted image 20261014220955.png]]
 
 ahora tengo que enganchar el nuevo y después desenganchar los demás
+
+![[Pasted image 20261014223344.png]]
+
+
+![[Pasted image 20261014223442.png]]
