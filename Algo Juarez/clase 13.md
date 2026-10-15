@@ -119,4 +119,24 @@ ABB: árbol de búsqueda binaria
 
 ![[Pasted image 20261015021807.png]]
 
-si es menor que el nodo raiz va a ir a la izquierda, si es mayor a la derecha
+si es menor que el nodo raíz va a ir a la izquierda, si es mayor a la derecha
+
+![[Pasted image 20261015021928.png]]
+
+![[Pasted image 20261015022036.png]]
+
+Acá pongo el 10, después el 8 al ser menor lo pongo a la izquierda
+el 4 es menor que el 10, lo bajo por la izquierda y sigo preguntado
+el 4 es menor que el 8, lo pongo como su izquierdo
+
+es como que se va deslizando hasta que encuentra su lugar
+hay que preguntar si tiene hijo izquierdo o derecho para colocarlo
+
+![[Pasted image 20261015022311.png]]
+
+
+![[Pasted image 20261015022341.png]]
+
+![[Pasted image 20261015022721.png]]
+
+si yo tengo un árbol en el cual todos los nodos tienen un solo hijo, queda como una lista, y se dice que el árbol degenera en una lista
