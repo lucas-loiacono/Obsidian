@@ -14,3 +14,5 @@ ahora tengo que enganchar el nuevo y después desenganchar los demás
 
 
 ![[Pasted image 20261014223442.png]]
+
+![[Pasted image 20261014224013.png]]
