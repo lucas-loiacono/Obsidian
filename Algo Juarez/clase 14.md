@@ -23,3 +23,16 @@ Antes de sacarlos, me tengo que fijar si tiene hijos y los agrego a la cola, y d
 Acá estoy apunto de sacar el 9, me fijo si tiene hijos, tiene el 8 y el 10, los agrego y después saco al 9
 
 ![[Pasted image 20261015164440.png]]
+
+
+![[Pasted image 20261015165330.png]]
+
+![[Pasted image 20261015165344.png]]
+
+en profundidad lo que hago es ir hasta lo mas profundo de una rama, una vez que llego al final vuelvo un pasa para atrás y recorro en la otra direccion, volver un paso para atrás se le dice back tracking, pueden ser varios pasos para atrás, hasta encontrar ramas que no recorrí
+
+![[Pasted image 20261015165716.png]]
+
+![[Pasted image 20261015165725.png]]
+
+![[Pasted image 20261015165736.png]]
