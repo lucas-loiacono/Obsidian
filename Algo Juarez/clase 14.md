@@ -70,4 +70,14 @@ Pos order
 
 ![[Pasted image 20261015173157.png]]
 
-voy 
+voy al hijo izquierdo,, agoto toda la rama del izquierdo y luego voy al derecho, después que termino mis ramas imprimo mi "raiz" o el padre de mis nodos.
+
+Siempre imprimo la raiz al final
+
+
+
+![[Pasted image 20261015173952.png]]
+
+![[Pasted image 20261015174017.png]]
+
+![[Pasted image 20261015174033.png]]
