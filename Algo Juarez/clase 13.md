@@ -182,3 +182,22 @@ si yo lo quiero hacer con el sucesor, lo que hago es de los mas grandes quiero a
 ![[Pasted image 20261015024654.png]]
 
 Lo que se recomienda para que el árbol no este desbalanceado es hacer una y una, ósea una baja con el predecesor y otra con el sucesor
+
+![[Pasted image 20261015025017.png]]
+
+Si o si voy a tener una referencia al nodo raíz
+
+![[Pasted image 20261015025222.png]]
+
+Solo voy a tener las referencias de mis hijos
+
+
+# Alta
+
+![[Pasted image 20261015025431.png]]a
+
+si yo empiezo así, siempre mi primer dato va a ser la raíz
+
+![[Pasted image 20261015025545.png]]
+
+creo un nuevo nodo, comparo con la raiz, como es menor lo pongo al lado izquierdo, como no tiene hijo izquierdo la raíz lo pongo ahí
