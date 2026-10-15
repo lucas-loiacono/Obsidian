@@ -37,3 +37,5 @@ o sino con ultimo también se puede hacer así
 ![[Pasted image 20261014235137.png]]
 
 ![[Pasted image 20261014235201.png]]
+
+![[Pasted image 20261015004437.png]]
