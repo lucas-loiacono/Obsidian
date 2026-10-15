@@ -201,3 +201,18 @@ si yo empiezo así, siempre mi primer dato va a ser la raíz
 ![[Pasted image 20261015025545.png]]
 
 creo un nuevo nodo, comparo con la raiz, como es menor lo pongo al lado izquierdo, como no tiene hijo izquierdo la raíz lo pongo ahí
+
+
+![[Pasted image 20261015030001.png]]
+
+![[Pasted image 20261015030521.png]]
+
+El alta lo puedo hacer recursivo o iterativo, lo que si siempre se va a terminar cuando encuentre el espacio null y se ponga ahí
+
+
+
+![[Pasted image 20261015030259.png]]
+
+También para la implementación puedo agregar la referencia del padre, esto sirve mucho para la baja
+
+
