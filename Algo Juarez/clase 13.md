@@ -155,4 +155,30 @@ Si quiero pasar a eliminar el 4, este como tiene un solo hijo lo que hago es que
 
 ![[Pasted image 20261015023911.png]]
 
-Cuandoi
+Cuando quiero eliminar a uno que tenga 2 hijos, lo que tengo que hacer es eliminar al inmediato predecesor o el sucesor
+
+El predecesor es: del lado izquierdo, ya que es el mas chico, pero el mas grande de los del lado izquierdo, ósea en ese caso seria mi 9
+Una a la izquierda y después todo a la derecha
+
+![[Pasted image 20261015024202.png]]
+
+piso el 10 con mi nueve, ósea mi nuevo valor
+
+Ahora el 9 lo que va a pasar es que o va a ser un nodo hoja o no va a tener un solo hijo
+
+Va a poder tener un solo hijo ya que al buscar al que va a reemplazar al 10 tuve que recorrer todo lo de las derecha hasta llegar al ultimo, por lo cual solo va a poder llegar a tener un hijo izquierdo
+
+![[Pasted image 20261015024436.png]]
+
+Hago la eliminación como hacíamos antes
+
+
+![[Pasted image 20261015024544.png]]
+
+si yo lo quiero hacer con el sucesor, lo que hago es de los mas grandes quiero al mas chico,
+ósea hago uno a la derecha y después voy bajando hasta el ultimo de la izquierda
+
+
+![[Pasted image 20261015024654.png]]
+
+Lo que se recomienda para que el árbol no este desbalanceado es hacer una y una, ósea una baja con el predecesor y otra con el sucesor
