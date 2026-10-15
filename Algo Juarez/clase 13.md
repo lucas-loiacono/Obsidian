@@ -31,4 +31,9 @@ si yo quiero los últimos 500 datos sin agregar, lo que hago es reemplazar el da
 
 ![[Pasted image 20261014232922.png]]
 
-o sino con ultimo también se puede hacer asi
+o sino con ultimo también se puede hacer así
+
+
+![[Pasted image 20261014235137.png]]
+
+![[Pasted image 20261014235201.png]]
