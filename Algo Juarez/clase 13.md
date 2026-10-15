@@ -72,3 +72,12 @@ es sin raíz ya que no tienen una estructura jerárquica
 ![[Pasted image 20261015012351.png]]
 
 esta si tiene raíz, y la raíz es el nodo que esta arriba de todo
+
+![[Pasted image 20261015013146.png]]
+
+
+![[Pasted image 20261015013215.png]]
+
+![[Pasted image 20261015013602.png]]
+
+![[Pasted image 20261015013632.png]]
