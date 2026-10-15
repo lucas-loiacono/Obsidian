@@ -39,3 +39,19 @@ o sino con ultimo también se puede hacer así
 ![[Pasted image 20261014235201.png]]
 
 ![[Pasted image 20261015004437.png]]
+
+son como caminos, relaciones
+
+![[Pasted image 20261015004859.png]]
+
+![[Pasted image 20261015004953.png]]
+
+acá si quiero ir de A hasta C tengo una sola forma de llegar, a esto se le dice árbol
+
+Árbol: es un grafo conexo sin ciclos.
+
+![[Pasted image 20261015005312.png]]
+
+esto no es un árbol, ya que no es conexo, no esta conectado
+
+![[Pasted image 20261015005709.png]]
