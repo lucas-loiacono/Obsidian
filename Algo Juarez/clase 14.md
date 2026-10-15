@@ -36,3 +36,15 @@ en profundidad lo que hago es ir hasta lo mas profundo de una rama, una vez que 
 ![[Pasted image 20261015165725.png]]
 
 ![[Pasted image 20261015165736.png]]
+
+![[Pasted image 20261015171734.png]]
+
+
+pre order
+![[Pasted image 20261015171904.png]]
+
+arranco desde la raiz y me voy por su rama izquierda
+
+![[Pasted image 20261015172010.png]]
+
+una vez que termino la rama izquierda me paso a la rama derecha
