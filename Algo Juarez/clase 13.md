@@ -92,3 +92,31 @@ Es un árbol jerárquico en el cual cada nodo puede tener como mucho 2 hijos, os
 
 ![[Pasted image 20261015020305.png]]
 
+![[Pasted image 20261015021135.png]]
+
+voy a tener 2 referencias, una al hijo izquierdo y otra al hijo derecho
+
+![[Pasted image 20261015021315.png]]
+
+
+Esto lo tengo que completar por niveles, primero por hijo izquierdo y luego por hijo derecho.
+
+
+![[Pasted image 20261015021456.png]]
+
+De vacío pasa a estar así
+
+
+![[Pasted image 20261015021601.png]]
+
+Para la consulta tengo que recorrer todo el árbol
+
+Esto se mejora con ABB
+
+![[Pasted image 20261015021641.png]]
+
+ABB: árbol de búsqueda binaria
+
+![[Pasted image 20261015021807.png]]
+
+si es menor que el nodo raiz va a ir a la izquierda, si es mayor a la derecha
