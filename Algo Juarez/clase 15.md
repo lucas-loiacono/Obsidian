@@ -50,3 +50,12 @@ este no sirve, ya que no se completo antes el hijo izquierdo
 ![[Pasted image 20261016203819.png]]
 
 ![[Pasted image 20261016204100.png]]
+
+
+![[Pasted image 20261016205242.png]]
+
+este es un heap de máxima
+
+![[Pasted image 20261016205311.png]]
+
+Heap de mínima
