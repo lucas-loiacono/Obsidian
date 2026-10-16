@@ -33,5 +33,12 @@ Se puede hacer también un vector de colas, en la cual si yo agrupo cada espacio
 Aca el alta es inmediato, O(1)
 La consulta es de orden k, ya que en mi peor caso tengo que recorrer el vector y si es por ejemplo con mi ultima prioridad, tengo que recorrer todas hasta encontrarlo. Pero si conozco las prioridades es mucho mas rápido
 
-Lo que se hace a veces es como si siguen llegando de la primera prioridad, nunca van a ser consultados los de las siguiente, entonces a veces se suben de prioridad algunos datos para que puedan ser consultados mas rapidos
+Lo que se hace a veces es como si siguen llegando de la primera prioridad, nunca van a ser consultados los de las siguiente, entonces a veces se suben de prioridad algunos datos para que puedan ser consultados mas rápidos
 
+
+![[Pasted image 20261016202508.png]]
+
+
+![[Pasted image 20261016203347.png]]
+
+El único nivel que puede estar incompleto es el ultimo y se debe completar de izquierda a derecha
