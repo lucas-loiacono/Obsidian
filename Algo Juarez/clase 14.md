@@ -166,3 +166,15 @@ la imagen va de izquierda a derecha
 ![[Pasted image 20261016005405.png]]
 
 2do cuadro: le paso el hijo derecho de C a B
+
+![[Pasted image 20261016005610.png]]
+
+![[Pasted image 20261016005759.png]]
+
+![[Pasted image 20261016005746.png]]
+
+![[Pasted image 20261016010106.png]]
+
+![[Pasted image 20261016010423.png]]
+
+así lo balanceo
