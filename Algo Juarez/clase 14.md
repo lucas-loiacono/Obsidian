@@ -192,6 +192,37 @@ En borrar se hace lo mismo que con el alta
 Siempre el orden de los arboles AVL son log(N)
 
 
+
+
+
+
+![[Pasted image 20261016012801.png]]
+
+
 ![[Pasted image 20261016012503.png]]
 
 Son nodos pero que guardan vectores
+
+![[Pasted image 20261016012709.png]]
+
+Los voy agrupando de a 3 con sus direcciones de memorias al izquierdo y al derecho
+
+![[Pasted image 20261016013041.png]]
+
+Acá este es un árbol que puede tener 4 hijos y 3 datos
+
+![[Pasted image 20261016013108.png]]
+
+
+
+![[Pasted image 20261016013119.png]]
+
+Todos los nodos hojas están al mismo nivel, por lo cual va a ser un árbol balanceado
+
+![[Pasted image 20261016013503.png]]
+
+llegan estos números
+
+![[Pasted image 20261016013539.png]]
+
+Meto el 5 y el 28
