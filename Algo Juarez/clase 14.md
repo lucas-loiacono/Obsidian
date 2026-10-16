@@ -178,3 +178,20 @@ la imagen va de izquierda a derecha
 ![[Pasted image 20261016010423.png]]
 
 así lo balanceo
+
+![[Pasted image 20261016011554.png]]
+
+![[Pasted image 20261016011629.png]]
+
+![[Pasted image 20261016012013.png]]
+
+![[Pasted image 20261016012033.png]]
+
+En borrar se hace lo mismo que con el alta
+
+Siempre el orden de los arboles AVL son log(N)
+
+
+![[Pasted image 20261016012503.png]]
+
+Son nodos pero que guardan vectores
