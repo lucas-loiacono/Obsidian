@@ -18,3 +18,18 @@ pero lo que puedo hacer es dar un alta dependiendo de la prioridad
 ![[Pasted image 20261016184149.png]]
 
 acá tendría que recorrer todos los nodos y fijarme que este sea el de mayor prioridad, ahi lo paso al principio. Acá para el alta seria de O(N), pero gano en la consulta y en la baja
+
+![[Pasted image 20261016184353.png]]
+
+Aca agrego a juan 2do, ya que tiene prioridad 2, aca en mi peor caso el alta es de O(N), pero mi consulta y baja va a ser O(1)
+
+
+
+
+![[Pasted image 20261016185242.png]]
+
+Se puede hacer también un vector de colas, en la cual si yo agrupo cada espacio del vector de acuerdo a su prioridad
+
+Aca el alta es inmediato, O(1)
+La consulta es de orden k, ya que en mi peor caso tengo que recorrer el vector y si es por ejemplo con mi ultima prioridad, tengo que recorrer todas hasta encontrarlo. Pero si conozco las prioridades es mucho mas rápido
+
