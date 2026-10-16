@@ -116,3 +116,22 @@ Para cada nodo me fijo que tan larga es la rama de la izquierda con la de la der
 Este árbol esta balanceado si el valor de D es 2 o mas
 
 ![[Pasted image 20261015230235.png]]
+
+acá el factor de balanceo seria la diferencia, ósea puede tomar el valor -1, 0 o 1
+
+Los AVL tambien tienen que ser un ABB
+
+![[Pasted image 20261015230508.png]]]
+
+
+![[Pasted image 20261015230652.png]]
+
+siempre se hace la rama derecha - rama izquierda
+
+![[Pasted image 20261015230749.png]]
+
+si yo agrego el 16, tengo un FB = -2 y tengo que rebalancear
+
+![[Pasted image 20261015231153.png]]
+
+acá con el 12 tengo que agarrar mi rama mas larga
