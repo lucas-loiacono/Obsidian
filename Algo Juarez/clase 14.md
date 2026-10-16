@@ -102,3 +102,17 @@ el peso de un nodo es la cantidad de nodos que están debajo del mismo y su nodo
 
 
 ![[Pasted image 20261015224834.png]]
+
+![[Pasted image 20261015225558.png]]
+
+
+
+![[Pasted image 20261015225806.png]]
+
+![[Pasted image 20261015230054.png]]
+
+Para cada nodo me fijo que tan larga es la rama de la izquierda con la de la derecha y ahí hago la resta
+
+Este árbol esta balanceado si el valor de D es 2 o mas
+
+![[Pasted image 20261015230235.png]]
