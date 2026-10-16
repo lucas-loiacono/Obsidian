@@ -90,4 +90,12 @@ AVL: arboles binarios balanceados
 
 ![[Pasted image 20261015222754.png]]
 
-![[Pasted image 20261015222835.png]]
+
+![[Pasted image 20261015224023.png]]
+
+
+# Mediciones
+
+![[Pasted image 20261015224152.png]]
+
+el peso de un nodo es la cantidad de nodos que estan debajo del mismo y su nodo, por ejemplo aca los 1 tienen peso 1, el 3 son los dos de abajo y si mismo y asi
