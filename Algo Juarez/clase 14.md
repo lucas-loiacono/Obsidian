@@ -148,3 +148,13 @@ hay 2 tipos de desbalanceos, uno tipo lineal y el otro en zigzag
 acá mi B pasa a ser mi pivote, lo único que tengo que hacer es rotarla, o quebrarla
 
 ![[Pasted image 20261016002524.png]]
+
+![[Pasted image 20261016002656.png]]
+
+![[Pasted image 20261016002751.png]]
+
+acá roto pero los hijos de mi nueva raiz se los pongo al que roto. Los hijos de B se los paso a A
+
+![[Pasted image 20261016002906.png]]
+
+![[Pasted image 20261016002919.png]]
