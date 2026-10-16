@@ -146,3 +146,5 @@ hay 2 tipos de desbalanceos, uno tipo lineal y el otro en zigzag
 ![[Pasted image 20261015231812.png]]
 
 acá mi B pasa a ser mi pivote, lo único que tengo que hacer es rotarla, o quebrarla
+
+![[Pasted image 20261016002524.png]]
