@@ -81,3 +81,13 @@ Siempre imprimo la raiz al final
 ![[Pasted image 20261015174017.png]]
 
 ![[Pasted image 20261015174033.png]]
+
+
+
+![[Pasted image 20261015222708.png]]
+
+AVL: arboles binarios balanceados
+
+![[Pasted image 20261015222754.png]]
+
+![[Pasted image 20261015222835.png]]
