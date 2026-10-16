@@ -135,3 +135,14 @@ si yo agrego el 16, tengo un FB = -2 y tengo que rebalancear
 ![[Pasted image 20261015231153.png]]
 
 acá con el 12 tengo que agarrar mi rama mas larga
+
+![[Pasted image 20261015231547.png]]
+
+
+![[Pasted image 20261015231647.png]]
+
+hay 2 tipos de desbalanceos, uno tipo lineal y el otro en zigzag
+
+![[Pasted image 20261015231812.png]]
+
+acá mi B pasa a ser mi pivote, lo único que tengo que hacer es rotarla, o quebrarla
