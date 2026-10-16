@@ -252,7 +252,7 @@ lo que hago es subir a la raiz, ya que ahora en la raiz puedo tener varias refer
 
 ![[Pasted image 20261016014136.png]]
 
-si yo quiero agregar el 35, no tengo espacio y debo subir al 30 a la raiz, pero como el maximo por nodo son dos datos no lo puedo subir
+si yo quiero agregar el 35, no tengo espacio y debo subir al 30 a la raiz, pero como el máximo por nodo son dos datos no lo puedo subir
 
 ![[Pasted image 20261016014239.png]]
 
@@ -260,4 +260,41 @@ si yo quiero agregar el 35, no tengo espacio y debo subir al 30 a la raiz, pero 
 
 como se me formo un nodo de 3 tengo que subir al 16 y partir a la mitad el vector
 
-Siempre este arbol va a crecer hacia arriba, y siempre va a estar balanceado
+Siempre este árbol va a crecer hacia arriba, y siempre va a estar balanceado
+
+
+
+![[Pasted image 20261016014622.png]]
+
+![[Pasted image 20261016014742.png]]
+
+los nodos internos solo tienen las claves, que funcionan como índice, en donde busco en que pagina quiero estar
+
+![[Pasted image 20261016014855.png]]
+
+en el cual el nombre de pagina se le da a cada uno de los nodos
+
+
+![[Pasted image 20261016015041.png]]
+
+yo acá cuando quiero agregar el 16, lo que hago es cortar el vector y subirlo
+
+
+![[Pasted image 20261016015131.png]]
+
+el 16 de arriba lo dejo como índice, pero le pego al 28 todos los datos que contiene el 16
+
+
+![[Pasted image 20261016015226.png]]
+
+
+![[Pasted image 20261016015328.png]]
+
+Aca agrego el 19 y lo pongo al lado
+
+Como me manejo por índice acá tengo listas enlazadas, puedo acceder a las que están al mismo nivel
+
+
+![[Pasted image 20261016015534.png]]
+
+cuando quiero poner el 14 hago lo mismo, subo el nueve y se lo pego al hijo derecho
