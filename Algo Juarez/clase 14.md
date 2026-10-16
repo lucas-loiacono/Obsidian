@@ -298,3 +298,12 @@ Como me manejo por índice acá tengo listas enlazadas, puedo acceder a las que 
 ![[Pasted image 20261016015534.png]]
 
 cuando quiero poner el 14 hago lo mismo, subo el nueve y se lo pego al hijo derecho
+
+
+![[Pasted image 20261016015719.png]]
+
+cuando quiero agregar el 30, no hay mas espacio, subo el 28, como en el 9 y 16 no hay mas espacio ahí si lo subo al 16, como es la raiz no le tengo que dejar la referencia al 28
+
+
+
+hay que pensarlo que puedo acceder por índice o de forma secuencial ya que están todos pegados, además no copio el 16 ya que el único lugar donde tengo que copiar es en la capa 0 donde están todos los nodos en secuencia
