@@ -158,3 +158,11 @@ acá roto pero los hijos de mi nueva raiz se los pongo al que roto. Los hijos de
 ![[Pasted image 20261016002906.png]]
 
 ![[Pasted image 20261016002919.png]]
+
+![[Pasted image 20261016005339.png]]
+
+la imagen va de izquierda a derecha
+
+![[Pasted image 20261016005405.png]]
+
+2do cuadro: le paso el hijo derecho de C a B
