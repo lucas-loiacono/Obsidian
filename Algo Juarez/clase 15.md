@@ -42,3 +42,11 @@ Lo que se hace a veces es como si siguen llegando de la primera prioridad, nunca
 ![[Pasted image 20261016203347.png]]
 
 El único nivel que puede estar incompleto es el ultimo y se debe completar de izquierda a derecha
+
+![[Pasted image 20261016203508.png]]
+
+este no sirve, ya que no se completo antes el hijo izquierdo
+
+![[Pasted image 20261016203819.png]]
+
+![[Pasted image 20261016204100.png]]
