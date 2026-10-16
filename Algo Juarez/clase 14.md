@@ -226,3 +226,38 @@ llegan estos números
 ![[Pasted image 20261016013539.png]]
 
 Meto el 5 y el 28
+
+![[Pasted image 20261016013602.png]]
+
+el 16 debería ir en el medio, pero como máximo tengo 2 claves
+
+![[Pasted image 20261016013648.png]]
+Al que debería ir al medio lo subo y parto al otro vector, dividiendo en hijo izquierdo e hijo derecho
+
+![[Pasted image 20261016013750.png]]
+
+sigo colocando números normalmente como en un árbol
+
+
+![[Pasted image 20261016013833.png]]
+
+bajo el catorce, el cual debería estar a la derecha del nueve, como no tengo mas espacio, subo el nueve y vuelvo a dividir
+
+![[Pasted image 20261016013959.png]]
+
+lo que hago es subir a la raiz, ya que ahora en la raiz puedo tener varias referencias
+
+![[Pasted image 20261016014108.png]]
+
+
+![[Pasted image 20261016014136.png]]
+
+si yo quiero agregar el 35, no tengo espacio y debo subir al 30 a la raiz, pero como el maximo por nodo son dos datos no lo puedo subir
+
+![[Pasted image 20261016014239.png]]
+
+![[Pasted image 20261016014327.png]]
+
+como se me formo un nodo de 3 tengo que subir al 16 y partir a la mitad el vector
+
+Siempre este arbol va a crecer hacia arriba, y siempre va a estar balanceado
