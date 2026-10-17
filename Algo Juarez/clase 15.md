@@ -88,4 +88,8 @@ solo se puede dar de baja a la raiz
 
 ![[Pasted image 20261017155900.png]]
 
-y mi espacio en el vector va a quedar vacio
+y mi espacio en el vector va a quedar vacío
+
+yo siempre voy a querer mi vector completo desde el inicio, ya que siempre se referencia al primero, por lo cual lo que tengo que hacer es agarrar el ultimo y lo paso al primer lugar
+
+![[Pasted image 20261017160542.png]]
