@@ -78,4 +78,6 @@ En las divisiones me tengo que quedar con la entera
 
 Mi prioridad mas alta esta en la raiz, en este caso seria el 2
 
+Pero si quiero el numero mayor, tendría que hacerlo por el heap de máximo
+
 ![[Pasted image 20261016212901.png]]
