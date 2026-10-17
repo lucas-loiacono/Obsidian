@@ -111,3 +111,12 @@ ahora si yo quiero dar el alta:
 ![[Pasted image 20261017164018.png]]
 
 yo aca lo pongo al final, como va al final y se tienen que ir ordenando de izquierda a derecha seria el hijo derecho del 12
+
+![[Pasted image 20261017165513.png]]
+
+ahora al 9 lo comparo con su padre, si es mas chico que el padre lo subo
+![[Pasted image 20261017165553.png]]
+
+y lo hago de nuevo hasta que no haya menor
+
+![[Pasted image 20261017170049.png]]
