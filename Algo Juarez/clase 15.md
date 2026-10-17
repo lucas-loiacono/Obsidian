@@ -138,3 +138,15 @@ Ordenamientos por heapsort
 Si yo quiero de menor a mayo el vector lo que tengo que hacer es armar un heap de máxima
 
 Los datos como llegan al vector los tengo que dar de alta en el heap con toda la metodología que vimos antes
+
+![[Pasted image 20261017190848.png]]
+
+![[Pasted image 20261017190917.png]]
+
+![[Pasted image 20261017191207.png]]
+
+esto se hace para armar el heap, ahora hay que hacer el ordenamiento
+
+Ahora lo que tengo que hacer es como cuando doy de baja, pero en vez de eliminar la raiz la llevo al ultimo elemento
+
+![[Pasted image 20261017191416.png]]
