@@ -150,3 +150,21 @@ esto se hace para armar el heap, ahora hay que hacer el ordenamiento
 Ahora lo que tengo que hacer es como cuando doy de baja, pero en vez de eliminar la raiz la llevo al ultimo elemento
 
 ![[Pasted image 20261017191416.png]]
+
+una vez que subo al 3 tengo que ir comparándolo con los hijos y lo voy bajando, voy subiendo al hijo mas grande
+
+![[Pasted image 20261017191611.png]]
+
+![[Pasted image 20261017191627.png]]
+
+![[Pasted image 20261017191645.png]]
+
+ahora vuelvo a dar la "baja"
+
+![[Pasted image 20261017191757.png]]
+
+pero como el 25 ya esta ordenado no lo toco, toco una posicion antes
+
+![[Pasted image 20261017191905.png]]
+
+![[Pasted image 20261017192043.png]]
