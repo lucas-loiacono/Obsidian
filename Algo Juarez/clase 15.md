@@ -81,3 +81,11 @@ Mi prioridad mas alta esta en la raiz, en este caso seria el 2
 Pero si quiero el numero mayor, tendría que hacerlo por el heap de máximo
 
 ![[Pasted image 20261016212901.png]]
+
+![[Pasted image 20261017155638.png]]
+
+solo se puede dar de baja a la raiz
+
+![[Pasted image 20261017155900.png]]
+
+y mi espacio en el vector va a quedar vacio
