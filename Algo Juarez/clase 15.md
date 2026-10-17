@@ -130,3 +130,11 @@ y lo hago de nuevo hasta que no haya menor
 ![[Pasted image 20261017170921.png]]
 
 ![[Pasted image 20261017170932.png]]
+
+
+![[Pasted image 20261017185829.png]]
+
+Ordenamientos por heapsort
+Si yo quiero de menor a mayo el vector lo que tengo que hacer es armar un heap de máxima
+
+Los datos como llegan al vector los tengo que dar de alta en el heap con toda la metodología que vimos antes
