@@ -75,3 +75,7 @@ Aca para averiguar cual es el padre y cual es el hijo con esta formula se saca, 
 En las divisiones me tengo que quedar con la entera
 
 ![[Pasted image 20261016211341.png]]
+
+Mi prioridad mas alta esta en la raiz, en este caso seria el 2
+
+![[Pasted image 20261016212901.png]]
