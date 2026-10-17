@@ -59,3 +59,5 @@ este es un heap de máxima
 ![[Pasted image 20261016205311.png]]
 
 Heap de mínima
+
+![[Pasted image 20261016205519.png]]
