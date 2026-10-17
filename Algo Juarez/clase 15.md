@@ -61,3 +61,17 @@ este es un heap de máxima
 Heap de mínima
 
 ![[Pasted image 20261016205519.png]]
+
+![[Pasted image 20261016210628.png]]
+
+Lo puedo representar en un array por niveles
+
+![[Pasted image 20261016211018.png]]
+
+Aca para averiguar cual es el padre y cual es el hijo con esta formula se saca, esto es para saber en el array
+
+![[Pasted image 20261016211139.png]]
+
+En las divisiones me tengo que quedar con la entera
+
+![[Pasted image 20261016211341.png]]
