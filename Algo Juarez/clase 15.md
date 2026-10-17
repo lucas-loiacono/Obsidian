@@ -168,3 +168,12 @@ pero como el 25 ya esta ordenado no lo toco, toco una posicion antes
 ![[Pasted image 20261017191905.png]]
 
 ![[Pasted image 20261017192043.png]]
+
+![[Pasted image 20261017192635.png]]
+
+![[Pasted image 20261017192834.png]]
+
+
+![[Pasted image 20261017193159.png]]
+
+![[Pasted image 20261017193211.png]]
