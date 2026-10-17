@@ -120,3 +120,13 @@ ahora al 9 lo comparo con su padre, si es mas chico que el padre lo subo
 y lo hago de nuevo hasta que no haya menor
 
 ![[Pasted image 20261017170049.png]]
+
+![[Pasted image 20261017170743.png]]
+
+![[Pasted image 20261017170852.png]]
+
+![[Pasted image 20261017170911.png]]
+
+![[Pasted image 20261017170921.png]]
+
+![[Pasted image 20261017170932.png]]
