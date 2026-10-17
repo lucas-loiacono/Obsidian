@@ -103,3 +103,11 @@ una vez que paso el ultimo al primer lugar, me fijo entre los nuevos hijos del 2
 y mi ultimo lo sigo comparando con sus hijos y lo voy intercambiando
 
 ![[Pasted image 20261017163140.png]]
+
+
+
+ahora si yo quiero dar el alta: 
+
+![[Pasted image 20261017164018.png]]
+
+yo aca lo pongo al final, como va al final y se tienen que ir ordenando de izquierda a derecha seria el hijo derecho del 12
