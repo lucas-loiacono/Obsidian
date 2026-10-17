@@ -93,3 +93,5 @@ y mi espacio en el vector va a quedar vacío
 yo siempre voy a querer mi vector completo desde el inicio, ya que siempre se referencia al primero, por lo cual lo que tengo que hacer es agarrar el ultimo y lo paso al primer lugar
 
 ![[Pasted image 20261017160542.png]]
+
+una vez que paso el ultimo al primer lugar, me fijo entre los nuevos hijos del 29 en este caso y lo intercambio por el menor 
