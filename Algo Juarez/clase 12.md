@@ -40,8 +40,8 @@ public class Lista<T> {
 	public void alta(T elem, int pos) {
 		Nodo<T> nuevo = new Nodo<>(elem);
 		if (pos == 1) {
-			nuevo.asignarSiguiente(primero);
-			primero = nuevo;
+			nuevo.asignarSiguiente(primero); //conecto al siguiente de primero
+			primero = nuevo; //le paso primero al nuevo
 		}
 		else {
 			Nodo<T> anterior = obtenerNodo(pos - 1);
