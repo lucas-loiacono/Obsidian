@@ -265,12 +265,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Trabajo practico java/Sin título.md",
+                "file": "Trabajo practico java/Diccionario ordenado.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sin título"
+              "title": "Diccionario ordenado"
             }
           }
         ],
@@ -450,7 +450,7 @@
   "active": "aba53f856088c804",
   "lastOpenFiles": [
     "Trabajo practico java/Lista.md",
-    "Trabajo practico java/Sin título.md",
+    "Trabajo practico java/Diccionario ordenado.md",
     "Trabajo practico java/Vector dinamico.md",
     "Trabajo practico java/Pila Copiar.md",
     "Trabajo practico java/Pila.md",
