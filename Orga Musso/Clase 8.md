@@ -284,3 +284,13 @@ La imagen "image_728fb5.png" ilustra el flujo completo de traducción que atravi
 ![[Pasted image 20261022181002.png]]
 
 ![[Pasted image 20261022181838.png]]
+
+
+
+
+
+
+
+
+# Practica
+
