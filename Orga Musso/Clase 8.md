@@ -22,4 +22,6 @@ Los componentes de la arquitectura de Von Neumann ilustrados en la imagen cumple
 Lo característica de Von Neumann es que los programas se almacenan en la memoria juntos con los datos a procesar
 
 
+Bus de sistema es compartir el medio físico donde se van a compartir los datos de información y las direcciones de memoria
+
 ![[Pasted image 20261021162852.png]]
