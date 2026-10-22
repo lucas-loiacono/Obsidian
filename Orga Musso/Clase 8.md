@@ -18,6 +18,8 @@ Los componentes de la arquitectura de Von Neumann ilustrados en la imagen cumple
 - **Input Unit**: Recibe la información y los comandos ingresados desde el exterior hacia el sistema central (por ejemplo, a través de un teclado o un sensor).
     
 - **Output Unit**: Entrega o muestra los resultados del procesamiento de datos hacia el exterior (por ejemplo, a través de una pantalla o impresora).
-- 
+
+Lo caracteristica de Von Neumann es que
+
 
 ![[Pasted image 20261021162852.png]]
