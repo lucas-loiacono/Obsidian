@@ -83,3 +83,54 @@ Siguiendo la analogía de la ciudad logística, la línea de interrupción funci
 - **Pausa y retoma:** Cuando un dispositivo envía una señal por esta línea, la CPU pausa temporalmente el programa que está ejecutando, guarda su estado actual, atiende la petición urgente (por ejemplo, registrar qué tecla presionaste) y, una vez resuelto, retoma su trabajo original exactamente donde lo dejó.
 
 ![[Pasted image 20261022011723.png]]
+
+La imagen "image_f7141f.png" define la función fundamental de la CPU, la cual se resume en una tarea principal: ejecutar programas.
+
+Para llevar a cabo esta ejecución, el procesador realiza una secuencia continua de cuatro pasos:
+
+1. **Buscar (Fetch):** Accede a la memoria para buscar la próxima instrucción que debe ser ejecutada.
+    
+2. **Decodificar (Decode):** Analiza e interpreta el código de operación de esa instrucción específica para entender qué acción matemática o lógica se requiere.
+    
+3. **Ejecutar (Execute):** Lleva a cabo la instrucción.
+    
+4. **Repetir:** Vuelve al primer paso para continuar con la siguiente instrucción de forma indefinida.
+
+Este proceso estructurado se denomina formalmente **«ciclo de búsqueda-ejecución»** o **ciclo de «fetch»**.
+
+En la parte inferior, la diapositiva recupera el diagrama de la Arquitectura de Bus de Sistemas (CPU, Memoria y dispositivos de Entrada/Salida conectados a través de los buses de Datos, Direcciones y Control). Este esquema ilustra la infraestructura de hardware sobre la cual ocurre este ciclo constantemente, mostrando por dónde viajan las direcciones para buscar las instrucciones y por dónde regresan los datos para ser decodificados y ejecutados.
+
+
+![[Pasted image 20261022012450.png]]
+
+La imagen "image_f775d9.png" ilustra un ejemplo de un **mapa de memoria** a nivel de microarquitectura, detallando cómo se estructura lógicamente el almacenamiento y cómo interactúa con los buses del sistema.
+
+  
+
+El diagrama se organiza en tres secciones principales:
+
+
+- **Mapa de Memoria (Izquierda):** Representa la disposición interna de la memoria, donde cada posición almacena datos de 32 bits (divididos en bytes) y se ubica mediante una dirección (Address) que va desde 0 hasta $2^{32}-1$. Este gran bloque se subdivide en áreas con propósitos específicos:
+    
+      
+    - **Reservado para el sistema operativo:** Ocupa el bloque inicial desde la dirección 0 hasta la 2047.
+        
+          
+        
+    - **Espacio de usuario (User Space):** Comienza a partir de la dirección 2048, destinado a los programas y aplicaciones del usuario.
+        
+          
+        
+    - **Pila del sistema (System Stack):** Un área delimitada por el fondo de la pila (Bottom of stack) en la dirección $2^{31}-4$ y cuyo tope es indicado dinámicamente por un puntero de pila (Stack pointer).
+        
+          
+        
+    - **Espacio de Entrada/Salida (I/O space):** Ubicado en las direcciones finales (hasta $2^{32}-4$), donde las posiciones de memoria se mapean directamente a periféricos de hardware como el disco, la terminal y la impresora.
+        
+          
+        
+- **Interfaz de Memoria (Centro):** Muestra el bloque conceptual de la memoria recibiendo las señales que provienen de los buses: direcciones (Address), control y datos de entrada (Data In). A su vez, emite la información solicitada a través de la línea de salida de datos (Data Out).
+    
+      
+    
+- **Contexto del Sistema (Derecha):** Recupera el esquema de la Arquitectura de Bus de Sistemas, mostrando cómo este bloque de memoria central se interconecta con la CPU y las unidades de I/O mediante los buses de datos, direcciones y control.
