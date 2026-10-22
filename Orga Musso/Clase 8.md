@@ -19,7 +19,7 @@ Los componentes de la arquitectura de Von Neumann ilustrados en la imagen cumple
     
 - **Output Unit**: Entrega o muestra los resultados del procesamiento de datos hacia el exterior (por ejemplo, a través de una pantalla o impresora).
 
-Lo caracteristica de Von Neumann es que
+Lo característica de Von Neumann es que los programas se almacenan en la memoria juntos con los datos a procesar
 
 
 ![[Pasted image 20261021162852.png]]
