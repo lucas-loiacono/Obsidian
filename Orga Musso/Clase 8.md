@@ -134,3 +134,59 @@ El diagrama se organiza en tres secciones principales:
       
     
 - **Contexto del Sistema (Derecha):** Recupera el esquema de la Arquitectura de Bus de Sistemas, mostrando cómo este bloque de memoria central se interconecta con la CPU y las unidades de I/O mediante los buses de datos, direcciones y control.
+
+
+
+
+
+Tiene mucho sentido. El diagrama ilustra exactamente cómo un **procesador de 32 bits** (en este caso, de la arquitectura ARC) "ve" y organiza la memoria.
+
+El mapa de memoria siempre está definido por la arquitectura del procesador que lo utiliza. Como se trata de un procesador de 32 bits, el diagrama refleja directamente sus reglas de diseño y limitaciones en el hardware:
+
+  
+
+- **Capacidad de direccionamiento:** Un procesador de 32 bits utiliza un bus de direcciones de ese mismo tamaño, lo que le permite apuntar a un máximo de $2^{32}$ ubicaciones únicas. Por eso, el mapa a la izquierda comienza en la dirección 0 y su límite exacto en la parte inferior es $2^{32}-1$.
+    
+      
+    
+- **Ancho de palabra:** La arquitectura procesa y transfiere la información en bloques de 32 bits, lo cual se indica explícitamente en la parte superior de la columna de datos del mapa.
+    
+      
+    
+
+Por lo tanto, aunque el bloque central representa el hardware de almacenamiento (la memoria RAM), la estructura lógica del mapa y la división de los espacios (espacio de usuario, sistema operativo, pila, entrada/salida) son la plantilla impuesta por el procesador ARC de 32 bits para poder trabajar con ella.
+
+
+
+
+
+
+El procesador necesita su propia memoria interna porque la memoria RAM principal es demasiado lenta y está físicamente muy lejos para seguirle el ritmo de trabajo. Si un procesador moderno, como un Ryzen de la serie 5000, tuviera que viajar por la placa madre a través del bus del sistema hacia la RAM para cada simple instrucción, pasaría la mayor parte de su tiempo inactivo, simplemente esperando a que lleguen los datos.
+
+  
+
+Para resolver este cuello de botella y no frenar el procesamiento, la arquitectura de las computadoras utiliza una jerarquía de memoria basada en la velocidad y la cercanía:
+
+  
+
+- **Registros:** Son la memoria más rápida y pequeña que existe, construida directamente con flip-flops y circuitos secuenciales dentro de la propia CPU. Son las "manos" del procesador: guardan los datos exactos que la ALU está calculando o comparando en ese microsegundo preciso.
+    
+      
+    
+- **Memoria Caché (L1, L2, L3):** Es un almacenamiento intermedio súper rápido integrado en el chip del procesador. Como ir a la RAM "cuesta" mucho tiempo, la CPU adivina qué datos vas a necesitar a continuación y trae bloques enteros desde la RAM hacia la caché.
+    
+      
+    
+- **Memoria RAM (La Principal):** Es el bloque grande central que veíamos en los diagramas. Tiene muchísima capacidad para mantener abiertos el sistema operativo y todos tus programas, pero la latencia para buscar un dato hasta ahí es de decenas o cientos de ciclos de reloj.
+    
+      
+    
+
+Retomando la analogía de la ciudad logística: si la RAM es el inmenso depósito de archivos al otro lado de la autopista, los registros y la caché son los bolsillos y el escritorio personal del gerente. Tienen muy poco espacio de almacenamiento, pero el acceso a la información que está ahí mismo es instantáneo.
+
+
+![[Pasted image 20261022013609.png]]
+
+![[Pasted image 20261022013742.png]]
+
+![[Pasted image 20261022013817.png]]
