@@ -68,3 +68,18 @@ Esto ocurre por la forma en que se comunican los componentes:
     
 
 Por el contrario, el **bus de datos** tiene flechas hacia arriba y hacia abajo porque se utiliza para transferir información en ambas direcciones entre la unidad que solicita y la unidad con la que se completa la transferencia (dependiendo de si la CPU está pidiendo leer un archivo o enviando uno para guardarlo).
+
+# Bus de interrupción
+
+Las **líneas de interrupción** (a menudo agrupadas conceptualmente dentro del Bus de Control) son parte de las funciones y señales obligatorias que requiere el sistema de bus de hardware para funcionar correctamente.
+
+Siguiendo la analogía de la ciudad logística, la línea de interrupción funciona como un **teléfono rojo de emergencias** directo a la oficina de gerencia (CPU). Su funcionamiento es el siguiente:
+
+  
+- **Aviso inmediato:** Sirven para que los dispositivos periféricos (como el teclado, el mouse o una placa de red) le avisen a la CPU que necesitan atención inmediata, sin tener que esperar su turno.
+    
+- **Eficiencia:** Evitan que la CPU tenga que gastar tiempo preguntando constantemente a cada dispositivo "¿necesitas algo?" (un proceso ineficiente conocido como _polling_).
+    
+- **Pausa y retoma:** Cuando un dispositivo envía una señal por esta línea, la CPU pausa temporalmente el programa que está ejecutando, guarda su estado actual, atiende la petición urgente (por ejemplo, registrar qué tecla presionaste) y, una vez resuelto, retoma su trabajo original exactamente donde lo dejó.
+
+![[Pasted image 20261022011723.png]]
