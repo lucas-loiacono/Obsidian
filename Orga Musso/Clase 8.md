@@ -191,6 +191,47 @@ Retomando la analogía de la ciudad logística: si la RAM es el inmenso depósit
 
 ![[Pasted image 20261022013817.png]]
 
+La microarquitectura de la CPU mostrada en la imagen se compone de las siguientes partes fundamentales:
+
+  
+- **Unidad de Control (Control Unit):** Ubicada en la sección de control (Control Section), es el componente coordinador responsable de dirigir y controlar la ejecución de las instrucciones implementando el ciclo de fetch.
+    
+      
+    
+- **ALU (Unidad Aritmético Lógica):** Se encuentra dentro de la sección de datos y es el componente de cálculo encargado de realizar todas las operaciones aritméticas y lógicas.
+    
+      
+    
+- **Registros (Registers):** Son pequeñas memorias internas de alta velocidad conectadas directamente a la ALU, que abarcan tanto los registros visibles para el programador como los registros internos que requiere la unidad de control para funcionar.
+    
+      
+    
+- **Datapath (Sección de Datos):** Es el bloque estructural que agrupa a la ALU y los registros, conformando el área dedicada exclusivamente a la manipulación y procesamiento de los datos.
+    
+      
+    
+- **System Bus (Bus del Sistema):** Es la autopista de comunicación externa a la que se conecta la CPU para poder interactuar y transferir información con el resto de la computadora (como la Memoria RAM y los periféricos).
+
+
+
+Los componentes internos de la CPU se comunican a través de rutas de datos y líneas de señales de control, representadas en el diagrama por las flechas bidireccionales:
+
+  
+
+- **Registros y ALU (Dentro del Datapath):** Se comunican de forma directa e inmediata. Los registros envían los números o datos crudos hacia la ALU, y una vez que la ALU realiza la operación matemática o lógica, envía el resultado de vuelta por la misma ruta interna para guardarlo nuevamente en un registro.
+    
+      
+    
+- **Unidad de Control y Datapath:** Se comunican mediante un intercambio de órdenes y estados a través de la flecha horizontal que los une. La Unidad de Control envía las señales que dictan exactamente qué operación debe hacer la ALU y qué registros debe habilitar, mientras que el Datapath (como respuesta) le informa sobre el estado de ese cálculo.
+    
+      
+    
+- **CPU y el exterior (System Bus):** La interfaz inferior conecta estructuralmente tanto a la Unidad de Control como al Datapath con el Bus del Sistema. Esta conexión permite que la CPU interactúe con el exterior, enviando direcciones y recibiendo instrucciones o datos desde la Memoria RAM a través de los canales de la placa madre.
+
+
+
+La Unidad de Control funciona como el director de la CPU, interpretando cada instrucción y enviando las señales de mando que dictan qué operación realizar y qué registros específicos habilitar. Por su parte, el Datapath (que agrupa a los registros y la ALU) actúa estrictamente como el ejecutor físico. Estos componentes se limitan a recibir la información, obedecer las señales de control para ejecutar el cálculo matemático o lógico correspondiente, y devolver el resultado procesado.
+
 ![[Pasted image 20261022014527.png]]
 
 ![[Pasted image 20261022014823.png]]
