@@ -208,3 +208,5 @@ Retomando la analogía de la ciudad logística: si la RAM es el inmenso depósit
 ![[Pasted image 20261022015043.png]]
 
 ![[Pasted image 20261022015059.png]]
+
+![[Pasted image 20261022015313.png]]
