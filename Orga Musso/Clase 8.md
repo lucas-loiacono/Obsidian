@@ -279,4 +279,8 @@ La imagen "image_728fb5.png" ilustra el flujo completo de traducción que atravi
 
 ![[Pasted image 20261022180826.png]]
 
-![[Pasted image 20261022180857.png]]
+![[Pasted image 20261022180940.png]]
+
+![[Pasted image 20261022181002.png]]
+
+![[Pasted image 20261022181838.png]]
