@@ -236,6 +236,15 @@ La Unidad de Control funciona como el director de la CPU, interpretando cada ins
 
 ![[Pasted image 20261022014823.png]]
 
+La imagen "image_728fb5.png" ilustra el flujo completo de traducción que atraviesa un programa informático, desde su creación por un desarrollador hasta su ejecución física en el procesador. Este proceso de transformación desciende a través de tres niveles de abstracción:
+
+**Lenguaje de Alto Nivel** Es el punto de partida del flujo, diseñado con una sintaxis cercana a la lógica humana matemática y estructurada. El diagrama lo ejemplifica con un fragmento clásico de código en lenguaje C, donde se declaran variables (`char operando = 26;`), se realizan sumas y se imprime un resultado por pantalla. La ventaja principal de este nivel es que es **independiente del hardware**. Permite programar sin necesidad de conocer la arquitectura interna del procesador que ejecutará el programa.
+
+
+**Assembler (Lenguaje Ensamblador)** Mediante el proceso de **compilación**, el código de alto nivel se traduce a Assembler. Este lenguaje representa el conjunto de instrucciones nativas de la CPU, pero utilizando "símbolos significativos para humanos" (mnemotécnicos) en lugar de números puros, tales como `Add` (sumar), `mul` (multiplicar) y operaciones lógicas como `and`. Como advierte la nota inferior del diagrama, para programar directamente en esta etapa se **necesita conocer cómo está organizada la memoria** y la arquitectura de la CPU, ya que las instrucciones operan de manera directa sobre los registros físicos del hardware.
+
+**Código de Máquina** En el paso final, un proceso llamado **ensamblado** traduce las instrucciones de Assembler al Código de Máquina. Este es el único lenguaje que la CPU puede procesar y ejecutar, compuesto exclusivamente por una **secuencia de 0s y 1s**. La diapositiva proporciona un ejemplo directo de esta conversión lógica: la instrucción simbólica de Assembler `Add r0, r1, r2` se ensambla transformándose literalmente en la cadena binaria `0110101110101101`. Esta secuencia final es la que la Unidad de Control leerá, decodificará y enviará a la ALU para realizar el cálculo.
+
 ![[Pasted image 20261022014858.png]]
 
 ![[Pasted image 20261022014916.png]]
