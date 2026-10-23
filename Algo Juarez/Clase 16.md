@@ -70,3 +70,8 @@ Esto seria un bosque
 ![[Pasted image 20261023020506.png]]
 
 ![[Pasted image 20261023020653.png]]
+
+
+![[Pasted image 20261023020922.png]]
+
+Si no tiene direcciones queda una matriz simétrica
