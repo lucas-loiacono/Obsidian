@@ -98,4 +98,20 @@ Para el back tracking lo puedo hacer con una pila
 
 ![[Pasted image 20261023023844.png]]
 
-Una vez que ya recorri las dos ramas de A, me siguen faltando nodos para re
+Una vez que ya recorrí las dos ramas de A, me siguen faltando nodos para recorrer, entonces elijo alguno de esos para seguir, pero los elijo en orden alfabético, voy a F, después a G  y luego a H
+
+![[Pasted image 20261023024121.png]]
+
+![[Pasted image 20261023024342.png]]
+
+La matriz de adyacencia se lee primero arrancando con la A, como la A se conecta con el B, bajo a la fila de B  y veo con quien se conecta, B se conecta con E, bajo a la tabla del E y sigo viendo con quien se conecta, veo que se conecta con D, bajo a la tabla de D y veo que se conecta con E y B, dos que ya recorri
+
+![[Pasted image 20261023024640.png]]
+
+Voy marcando los vertices que ya recorri, y luego recorro los que no 
+
+![[Pasted image 20261023024725.png]]
+
+![[Pasted image 20261023024756.png]]
+
+Voy marcando, visitando y saltando de la misma manera
