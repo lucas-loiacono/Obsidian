@@ -85,3 +85,17 @@ Cuando hay una matriz con muchos ceros, por ejemplo que tenga muchos vertices pe
 Hago un cuadrado para cada vertice y los conecto a cuales esta conectado
 
 ![[Pasted image 20261023022308.png]]
+
+Aca puedo elegir arrancar en orden alfabético para que sea mas cómodo, cuando arranco de A voy para B, y como es en profundidad tengo que seguir por el mismo camino
+
+![[Pasted image 20261023023505.png]]
+
+No tengo que volver a B porque ya lo visite, vuelvo pasos hacia atrás (back tracking, lo mismo que en los arboles) y agarro la siguiente rama
+
+![[Pasted image 20261023023747.png]]
+
+Para el back tracking lo puedo hacer con una pila
+
+![[Pasted image 20261023023844.png]]
+
+Una vez que ya recorri las dos ramas de A, me siguen faltando nodos para re
