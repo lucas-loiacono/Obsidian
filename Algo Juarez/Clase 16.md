@@ -27,4 +27,14 @@ Esto seria como las materias y las correlativas, ya que varias flechas de materi
 
 ![[Pasted image 20261023013708.png]]
 
-tengo que conectar todos los pares de vertices
+tengo que conectar todos los pares de vértices
+
+![[Pasted image 20261023014055.png]]
+
+Formula para calcular los vertices
+
+![[Pasted image 20261023014125.png]]
+
+Para 5 vertices
+
+![[Pasted image 20261023014611.png]]
