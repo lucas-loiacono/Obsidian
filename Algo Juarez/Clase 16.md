@@ -162,3 +162,11 @@ Ahora saco a medias, que es el siguiente, y hago el mismo algoritmo
 ![[Pasted image 20261023030844.png]]
 
 y así con el resto
+
+![[Pasted image 20261023030925.png]]
+
+![[Pasted image 20261023031046.png]]c
+
+![[Pasted image 20261023031107.png]]
+
+y así es un posible orden de procesamiento
