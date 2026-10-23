@@ -75,3 +75,13 @@ Esto seria un bosque
 ![[Pasted image 20261023020922.png]]
 
 Si no tiene direcciones queda una matriz simétrica
+
+
+
+![[Pasted image 20261023022147.png]]
+
+Cuando hay una matriz con muchos ceros, por ejemplo que tenga muchos vertices pero que tenga pocas aristas, es mas mejor usar la lista de adyacencia, ya que me da mas información justa
+
+Hago un cuadrado para cada vertice y los conecto a cuales esta conectado
+
+![[Pasted image 20261023022308.png]]
