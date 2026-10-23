@@ -38,3 +38,9 @@ Formula para calcular los vertices
 Para 5 vertices
 
 ![[Pasted image 20261023014611.png]]
+
+![[Pasted image 20261023014910.png]]
+
+![[Pasted image 20261023015223.png]]
+
+![[Pasted image 20261023015436.png]]
