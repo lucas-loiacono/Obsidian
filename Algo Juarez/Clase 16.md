@@ -115,3 +115,28 @@ Voy marcando los vertices que ya recorri, y luego recorro los que no
 ![[Pasted image 20261023024756.png]]
 
 Voy marcando, visitando y saltando de la misma manera
+
+
+![[Pasted image 20261023024933.png]]
+
+Para recorrido en ancho se usa Cola 
+
+![[Pasted image 20261023025339.png]]
+
+De A voy a B y C
+
+De B voy a E y a nada mas
+
+De C no puedo ir a ningún lado, esto depende de que lado o que rama elija primero para recorrer
+
+![[Pasted image 20261023025522.png]]
+
+![[Pasted image 20261023025623.png]]
+
+Para mi tabla voy marcando, pero tengo que terminar la fila y después saltar, como marque primero B al final salto hacia su fila y sigo, una vez que termino con la de B no tengo que saltar a la de E, sino que volver a C, la otra rama de A. Voy por ramas
+
+![[Pasted image 20261023025836.png]]
+
+Lo mismo con esto, voy por ramas
+
+![[Pasted image 20261023025913.png]]
