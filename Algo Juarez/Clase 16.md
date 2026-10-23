@@ -44,3 +44,29 @@ Para 5 vertices
 ![[Pasted image 20261023015223.png]]
 
 ![[Pasted image 20261023015436.png]]
+
+![[Pasted image 20261023015954.png]]
+
+![[Pasted image 20261023020106.png]]
+
+![[Pasted image 20261023020350.png]]
+
+![[Pasted image 20261023020427.png]]
+
+Ahi lo converti en un arbol
+
+![[Pasted image 20261023020214.png]]
+
+![[Pasted image 20261023020226.png]]
+
+Sigue siendo conexo
+
+
+![[Pasted image 20261023020308.png]]
+
+Esto seria un bosque
+
+
+![[Pasted image 20261023020506.png]]
+
+![[Pasted image 20261023020653.png]]
