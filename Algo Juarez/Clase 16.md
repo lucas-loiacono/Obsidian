@@ -140,3 +140,25 @@ Para mi tabla voy marcando, pero tengo que terminar la fila y después saltar, c
 Lo mismo con esto, voy por ramas
 
 ![[Pasted image 20261023025913.png]]
+
+![[Pasted image 20261023030149.png]]
+
+![[Pasted image 20261023030422.png]]
+
+Cuento por cuanta cantidad de flechas esta señalado cada vertice
+
+Hacemos una lista con todos los vertices que tienen grado 0
+
+![[Pasted image 20261023030631.png]]
+
+tacho la primera que seria calzón, y le bajo un grado a los que Calzón señalaba 
+
+Ahora mi pantalón tiene grado 0, voy y lo agrego a la lista de todos los que tienen grado 0
+
+![[Pasted image 20261023030746.png]]
+
+Ahora saco a medias, que es el siguiente, y hago el mismo algoritmo
+
+![[Pasted image 20261023030844.png]]
+
+y así con el resto
