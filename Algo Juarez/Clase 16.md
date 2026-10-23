@@ -20,3 +20,11 @@
 ![[Pasted image 20261023012724.png]]
 
 ![[Pasted image 20261023012819.png]]
+
+Esto seria como las materias y las correlativas, ya que varias flechas de materias se necesitan para poder cursar la correlativa
+
+![[Pasted image 20261023013620.png]]
+
+![[Pasted image 20261023013708.png]]
+
+tengo que conectar todos los pares de vertices
