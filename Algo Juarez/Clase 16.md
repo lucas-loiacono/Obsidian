@@ -222,3 +222,11 @@ voy agregando las mas baratas primero
 ![[Pasted image 20261024195401.png]]
 
 Voy conectando, hasta que me falta uno, pero mi siguiente en la lista ya están conectados, entonces me los salteo hasta conectar el que me falta
+
+![[Pasted image 20261024195752.png]]
+
+además se arma un ciclo
+
+![[Pasted image 20261024195856.png]]
+
+Las rojas las salteo
