@@ -170,3 +170,5 @@ y así con el resto
 ![[Pasted image 20261023031107.png]]
 
 y así es un posible orden de procesamiento
+
+![[Pasted image 20261024173027.png]]
