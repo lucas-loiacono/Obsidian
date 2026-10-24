@@ -172,3 +172,9 @@ y así con el resto
 y así es un posible orden de procesamiento
 
 ![[Pasted image 20261024173027.png]]
+
+![[Pasted image 20261024173856.png]]
+
+cuento cuantos caminos de longitud 1 hay entre los pares de la tabla
+
+esto también lo puedo hacer para longitud 2, en el cual como no tiene direcciones puedo reutilizar el camino, por ejemplo de A hasta A tengo 1 camino de longitud 2, voy de A hasta B y de B hasta A
