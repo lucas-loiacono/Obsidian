@@ -196,3 +196,15 @@ si le saco una arista del ciclo lo convierto en árbol, por lo cual tiene 3 árb
 ![[Pasted image 20261024191638.png]]
 
 ![[Pasted image 20261024191737.png]]
+
+![[Pasted image 20261024192518.png]]
+
+![[Pasted image 20261024193204.png]]
+
+Aca cuando lo transformo en arbol, puedo elegir mi arbol de expansión mínimo, que es el que tenga menor costo contando el total de las aristas
+
+![[Pasted image 20261024193332.png]]
+
+El de costo 9 seria mi mínimo
+
+![[Pasted image 20261024193456.png]]
