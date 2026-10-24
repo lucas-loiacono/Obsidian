@@ -230,3 +230,28 @@ además se arma un ciclo
 ![[Pasted image 20261024195856.png]]
 
 Las rojas las salteo
+
+
+![[Pasted image 20261024200811.png]]
+
+esto para saberlo en código lo que tengo que hacer es ponerle como un grupo a cada nodo, lo puedo poner por números, y cuando voy uniendo, esa unión forma un grupo
+
+![[Pasted image 20261024200924.png]]
+
+aca tengo 2 grupos
+
+![[Pasted image 20261024200942.png]]
+
+pongo a bs y bb del mismo grupo y posadas y corrientes lo mismo
+
+![[Pasted image 20261024201017.png]]
+
+![[Pasted image 20261024201029.png]]
+
+![[Pasted image 20261024201112.png]]
+
+cuando yo uno a corrientes con bs as, le cambio el equipo a todo el equipo que tiene corrientes, y lo uno
+
+![[Pasted image 20261024201054.png]]
+
+y cuando agrego el ultimo lo pongo de equipo 5 y me quedan todos del 5
