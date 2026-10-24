@@ -210,3 +210,15 @@ El de costo 9 seria mi mínimo
 ![[Pasted image 20261024193456.png]]
 
 ![[Pasted image 20261024193614.png]]
+
+![[Pasted image 20261024194915.png]]
+
+ponemos los vertices desparramados y una lista con los valores de las aristas de menor a mayor
+
+![[Pasted image 20261024195305.png]]
+
+voy agregando las mas baratas primero
+
+![[Pasted image 20261024195401.png]]
+
+Voy conectando, hasta que me falta uno, pero mi siguiente en la lista ya están conectados, entonces me los salteo hasta conectar el que me falta
