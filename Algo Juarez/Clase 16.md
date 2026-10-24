@@ -186,3 +186,5 @@ Los que se redireccionan a si mismo lo puedo usar tanta veces quiera, por ejempl
 ![[Pasted image 20261024174709.png]]
 
 Hacer esto a mano es lo mismo que multiplique la de caminos de longitud 1 por si misma, multiplicación de matrices
+
+![[Pasted image 20261024191423.png]]
