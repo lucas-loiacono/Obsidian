@@ -188,3 +188,11 @@ Los que se redireccionan a si mismo lo puedo usar tanta veces quiera, por ejempl
 Hacer esto a mano es lo mismo que multiplique la de caminos de longitud 1 por si misma, multiplicación de matrices
 
 ![[Pasted image 20261024191423.png]]
+
+![[Pasted image 20261024191523.png]]
+
+si le saco una arista del ciclo lo convierto en árbol, por lo cual tiene 3 árbol de expansión que se forma sacando cada arista para formar un arbol distinto 
+
+![[Pasted image 20261024191638.png]]
+
+![[Pasted image 20261024191737.png]]
