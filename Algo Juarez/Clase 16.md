@@ -287,6 +287,16 @@ me agrega estas 3
 
 ![[Pasted image 20261024202405.png]]
 
-las tengo en mi tabla, pero tengo que ir agregando de forma ordenada
+Las agrego a mi tabla pero de forma ordenada
 
 ![[Pasted image 20261024202505.png]]
+
+Agrego resistencia, me fijo si resistencia se conecta con alguna y agrego las conexiones a la lista 
+
+![[Pasted image 20261024202714.png]]
+
+![[Pasted image 20261024202821.png]]
+
+sigo por orden en mi lista, pero como bs as y resistencia y bs as y posadas están en el mismo grupo las descarto
+
+![[Pasted image 20261024202917.png]]
