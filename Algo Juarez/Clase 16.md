@@ -254,4 +254,39 @@ cuando yo uno a corrientes con bs as, le cambio el equipo a todo el equipo que t
 
 ![[Pasted image 20261024201054.png]]
 
+
+![[Pasted image 20261024201534.png]]
+
+Cuando voy a unir resistencia con buenos aires, veo que los dos son del mismo grupo, por lo cual si los uno me genera un ciclo, y no me estaría generando un arbol
+
+salteo hasta el Córdoba Neuquen, que los dos son equipos distintos
+
+![[Pasted image 20261024201657.png]]
+
 y cuando agrego el ultimo lo pongo de equipo 5 y me quedan todos del 5
+
+
+
+![[Pasted image 20261024201838.png]]
+
+arranca con un vertice, y una lista de todas las aristas que conectan con este vertice
+
+![[Pasted image 20261024201935.png]]
+
+y voy conectando por mas baratas
+
+![[Pasted image 20261024202030.png]]
+
+![[Pasted image 20261024202050.png]]
+
+conecto con cordoba, como cordoba me conecta con una arista nueva, osea tiene una conexión 
+
+![[Pasted image 20261024202321.png]]
+
+me agrega estas 3
+
+![[Pasted image 20261024202405.png]]
+
+las tengo en mi tabla, pero tengo que ir agregando de forma ordenada
+
+![[Pasted image 20261024202505.png]]
