@@ -208,3 +208,5 @@ Aca cuando lo transformo en arbol, puedo elegir mi arbol de expansión mínimo, 
 El de costo 9 seria mi mínimo
 
 ![[Pasted image 20261024193456.png]]
+
+![[Pasted image 20261024193614.png]]
