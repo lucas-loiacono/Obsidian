@@ -99,3 +99,5 @@ Exactamente, siempre partís del costo que ya acumulaste hasta el vértice donde
 
 
 ![[Pasted image 20261025222716.png]]
+
+![[Pasted image 20261025223612.png]]
