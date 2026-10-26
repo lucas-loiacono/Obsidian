@@ -23,3 +23,66 @@ Una vez que llego a ver el vertice calculo su acumulada desde mi inicio
 Lo que tengo que hacer es por cada vez que me muevo es si el valor que tengo en hacer 2 movimientos es mas chico que hacer un  movimiento, es decir que tenga menos peso, y con esto mi tabla la voy actualizando
 
 Voy descubriendo camino moviéndome adyacentemente y voy actualizando con los nuevos vertices descubiertos mi tabla con los menores valores
+
+
+![[Pasted image 20261025214344.png]]
+
+aca por ejemplo para llegar al 3 es lo que acumule hasta 4 + la arista hasta 3 que vale 6, en total seria 26, pero como es mayor al dato que tenia lo dejo como esta, siempre tengo que ver las acumuladas
+
+
+
+
+El algoritmo de Dijkstra calcula el camino más corto desde un nodo de origen hacia todos los demás nodos de un grafo mediante el análisis de costos acumulados. Para lograrlo, emplea un arreglo que registra la distancia mínima descubierta hasta el momento y un arreglo booleano para marcar los vértices que ya fueron procesados de manera definitiva.
+
+  
+
+**Dinámica general del algoritmo**
+
+  
+
+- Inicia asignando una distancia de 0 al nodo origen y un valor de infinito al resto, indicando que aún son inalcanzables.
+    
+      
+    
+- En cada iteración, selecciona el vértice no visitado que tenga la menor distancia acumulada en su registro.
+    
+      
+    
+- Desde el vértice seleccionado, suma su costo acumulado con el peso de la arista hacia cada vértice adyacente.
+    
+      
+    
+- Si esta nueva suma es estrictamente menor que el valor almacenado previamente para el nodo destino, la tabla de distancias se actualiza con el nuevo valor óptimo.
+    
+      
+    
+- Una vez evaluados todos los vecinos, el vértice de partida se marca como visitado (`t`) para no volver a procesarlo.
+    
+      
+    
+
+**Paso a paso del caso práctico**
+
+  
+
+- **Paso 1:** Se arranca en el nodo 0, actualizando los costos hacia sus vecinos directos: nodo 1 (costo 7), nodo 2 (costo 9) y nodo 5 (costo 14). El nodo 0 se marca como visto (`t`).
+    
+      
+    
+- **Paso 2:** El nodo no visitado más cercano es el 1 (distancia 7). Hacia el nodo 2 el costo sería 17 (7+10), que se descarta por existir un camino de 9. Hacia el nodo 3 el costo es 22 (7+15), valor que se registra reemplazando al infinito. Se marca el nodo 1 como visto (`t`).
+    
+      
+    
+- **Paso 3:** Se selecciona el nodo 2 (distancia 9). El costo acumulado hacia el nodo 5 pasa a ser 11 (9+2), actualizando el registro anterior de 14. El costo hacia el nodo 3 pasa a ser 20 (9+11), mejorando el registro anterior de 22. Se marca el nodo 2 como visto (`t`).
+    
+      
+    
+- **Paso 4:** El siguiente nodo más cercano es el 5 (distancia actualizada a 11). Desde aquí se alcanza el nodo 4 con un costo acumulado de 20 (11+9), reemplazando el valor infinito. Se marca el nodo 5 como visto (`t`).
+    
+      
+    
+- **Paso 5:** Existen dos nodos con la misma distancia mínima de 20 (nodos 3 y 4), seleccionándose el nodo 4. El camino desde el nodo 4 hacia el 3 resulta en un costo de 26 (20+6). Al ser mayor que el costo ya registrado (20), se ignora y se marca el nodo 4 como visto (`t`).
+    
+      
+    
+- **Paso 6:** Queda por procesar el nodo 3 (distancia 20). Al no tener rutas salientes hacia vértices no visitados, no se generan actualizaciones. El nodo 3 se marca como visto (`t`), finalizando la ejecución al tener todos los vértices en estado `t`.
