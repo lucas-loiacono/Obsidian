@@ -24,6 +24,31 @@ Casi siempre se busca mi M, poniendo a lambda con 0,8 y pasando de lado la m en 
 
 ![[Pasted image 20261026014918.png]]
 
+osea yo voy a tener varias claves y si por ejemplo lo quiero meter en un vector, lo que hago es que todas las claves compartan el mismo comportamiento o base, es como un cambio de base de sistemas numericos practicamente
+
+
+Transformar las claves aplicándoles una función matemática uniforme asegura que cualquier dato, sin importar su formato original, aterrice en una posición predecible dentro de tu vector.
+
+  
+
+Pensarlo como un cambio de base numérica es una analogía muy precisa. Al igual que cuando resolvés conversiones de base-N, al usar el método ASCII estás tomando una cadena de caracteres y evaluándola prácticamente como un polinomio en base 128 para obtener un único valor entero. Todos los elementos que quieras guardar deben someterse a esta misma regla algorítmica para mantener la coherencia del sistema.
+
+  
+
+Una vez que obtenés ese número entero representativo, la función de división (el operador módulo) actúa como un límite. Si implementaste un vector con capacidad para 31 posiciones, aplicar el módulo 31 a ese entero gigante fuerza al resultado a caer exactamente en un índice válido entre 0 y 30. El único desafío de meter toda esta información en un mismo vector es que distintas claves originales pueden terminar calculando el mismo índice final. Esto genera una colisión, lo que exige programar una estrategia secundaria dentro de la estructura de datos para acomodar ambos valores sin sobreescribir la memoria.
+
 ![[Pasted image 20261026015009.png]]
 
 ![[Pasted image 20261026015022.png]]
+
+![[Pasted image 20261026015343.png]]
+
+![[Pasted image 20261026015550.png]]
+
+![[Pasted image 20261026015700.png]]
+
+![[Pasted image 20261026015724.png]]
+
+![[Pasted image 20261026015815.png]]
+
+![[Pasted image 20261026015938.png]]
