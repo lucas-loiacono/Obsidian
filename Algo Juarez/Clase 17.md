@@ -187,3 +187,19 @@ Heurística, resolver un algoritmo grande por un algoritmo mas chico pero por ap
 ![[Pasted image 20261026004803.png]]
 
 ![[Pasted image 20261026004941.png]]
+
+![[Pasted image 20261026005203.png]]\
+
+![[Pasted image 20261026005233.png]]
+
+![[Pasted image 20261026005251.png]]
+
+![[Pasted image 20261026005348.png]]
+
+![[Pasted image 20261026005802.png]]
+
+![[Pasted image 20261026005929.png]]
+
+![[Pasted image 20261026005952.png]]
+
+![[Pasted image 20261026010019.png]]
