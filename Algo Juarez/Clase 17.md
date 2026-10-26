@@ -112,13 +112,15 @@ Con adyacencia completo la tabla de distancias para cada uno
 
 ![[Pasted image 20261025234105.png]]
 
-Empiezo por el 1, ya que seria mi primer elemento y la diagonal no cuenta, lo que tengo que hacer es una rectángulo de donde esta, lo estiro para la izquierda y para la derecha, si la suma de las esquinas opuestas es menor lo reemplazo, si es mayor o igual lo dejo como esta
+Empiezo por el 1, ya que seria mi primer elemento, la diagonal y lo amarillo no cuenta, lo que tengo que hacer es una rectángulo de donde esta, lo estiro para la izquierda y para la derecha, si la suma de las esquinas opuestas es menor lo reemplazo, si es mayor o igual lo dejo como esta
 
 Por ejemplo: aca en 1 agarro y hago el rectángulo, sumo los opuestos, osea 8+4, como es mayor dejo el 1
 
 sigo con el 2, trazo el rectángulo, hago 4+infinito < infinito?, no, es igual, lo dejo como esta, el infinito también, lo dejo como esta ya que da el mismo resultado que el 2
 
 sigo con la fila de abajo, agarro el infinito y hago su rectángulo,  8+4 < infinito? si, entonces reemplazo el 12 por mi infinito, lo mismo que se ve en el cuadro de primera iteración de la derecha
+
+Tengo que sumar los extremos en amarillo con un rectangulo
 
 ![[Pasted image 20261025234630.png]]
 
@@ -137,6 +139,16 @@ En la matriz de recorridos también lo tengo que reemplazar, ya que estoy usando
 
 ![[Pasted image 20261026001941.png]]
 
+![[Pasted image 20261026002349.png]]
+
 ![[Pasted image 20261026001954.png]]
 
-y al final queda así, arri
+y al final queda así, arriba tengo lo que me cuesta y abajo tengo que para llegar desde (mi fila) hasta (mi columna) primero tengo que pasar por (lo que contiene la matriz en ij)
+
+![[Pasted image 20261026002557.png]]
+
+si yo quiero llegar de A a E, primero tengo que pasar por C, y para llegar a C tengo que pasar por B, y para llegar a B a B, osea que no paso por nadie mas, seria entonces A -> B -> C -> E
+
+se lee por fila
+
+![[Pasted image 20261026002903.png]]
