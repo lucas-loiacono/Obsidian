@@ -83,3 +83,27 @@ Para cada clave uso funciones randoms de mi bolsa, como las que recién vimos, e
 ![[Pasted image 20261026021100.png]]
 
 ![[Pasted image 20261026021113.png]]
+
+![[Pasted image 20261026021209.png]]
+
+cuando las colisiones empiezan a repetirse con el método cuadrático, este método deja de funcionar, ya que usándolo van a parar las nuevas al mismo lugar que las demás
+
+![[Pasted image 20261026021318.png]]
+
+![[Pasted image 20261026021413.png]]
+
+![[Pasted image 20261026021454.png]]
+
+![[Pasted image 20261026021521.png]]
+
+![[Pasted image 20261026021719.png]]
+
+![[Pasted image 20261026021853.png]]
+
+![[Pasted image 20261026022016.png]]
+
+![[Pasted image 20261026021914.png]]
+
+![[Pasted image 20261026022107.png]]
+
+![[Pasted image 20261026022130.png]]
