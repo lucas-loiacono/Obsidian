@@ -52,3 +52,34 @@ Una vez que obtenés ese número entero representativo, la función de división
 ![[Pasted image 20261026015815.png]]
 
 ![[Pasted image 20261026015938.png]]
+
+![[Pasted image 20261026020130.png]]
+
+![[Pasted image 20261026020151.png]]
+
+Para cada clave uso funciones randoms de mi bolsa, como las que recién vimos, esto funciona mejor para que no haya colisiones
+
+![[Pasted image 20261026020404.png]]
+
+![[Pasted image 20261026020726.png]]
+
+![[Pasted image 20261026020742.png]]
+
+![[Pasted image 20261026020839.png]]
+
+![[Pasted image 20261026020904.png]]
+
+![[Pasted image 20261026020923.png]]
+
+![[Pasted image 20261026020934.png]]
+
+![[Pasted image 20261026020946.png]]
+
+
+![[Pasted image 20261026020958.png]]
+
+![[Pasted image 20261026021050.png]]
+
+![[Pasted image 20261026021100.png]]
+
+![[Pasted image 20261026021113.png]]
