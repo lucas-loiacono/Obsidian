@@ -176,3 +176,14 @@ aca si quiero cambiar el 12  que es si quiero ir de C a B, que pasa si hago de C
 
 
 ![[Pasted image 20261026003809.png]]
+
+Esto es mas por coordenadas, mas usados en los videojuegos para calcular distancias
+
+
+Heurística, resolver un algoritmo grande por un algoritmo mas chico pero por aproximación
+
+![[Pasted image 20261026004708.png]]
+
+![[Pasted image 20261026004803.png]]
+
+![[Pasted image 20261026004941.png]]
