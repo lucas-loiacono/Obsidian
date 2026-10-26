@@ -203,3 +203,63 @@ Heurística, resolver un algoritmo grande por un algoritmo mas chico pero por ap
 ![[Pasted image 20261026005952.png]]
 
 ![[Pasted image 20261026010019.png]]
+
+El algoritmo A* es un método de búsqueda heurística diseñado para encontrar un camino de bajo costo entre dos vértices. A diferencia de Dijkstra, que decide qué nodo visitar basándose únicamente en el costo acumulado, A* evalúa qué tan "prometedor" es un vértice utilizando una heurística. Una heurística es un cálculo que proporciona un atajo o resolución aproximada (en este caso, la distancia estimada al destino), aunque las diapositivas aclaran que esto no siempre garantiza encontrar el camino mínimo absoluto.
+
+Para funcionar, el algoritmo utiliza dos estructuras de conjuntos:
+
+* **Sa (Set abierto):** Almacena los vértices conocidos que aún no han sido visitados.
+
+
+* **Sc (Set cerrado):** Almacena los vértices conocidos que ya fueron visitados y procesados.
+
+
+
+**Lógica general de ejecución**
+
+* **Paso 1:** Se selecciona de `Sa` el vértice más prometedor (llamado `Vp`), calculado según la función heurística.
+
+
+* **Paso 2:** Si `Vp` es el destino final, el algoritmo termina. Si no lo es, se buscan sus vecinos y se incluyen en `Sa`, siempre y cuando no estén ya en `Sa` o en `Sc`. Al agregar un vecino a `Sa`, se registra que `Vp` es su "padre" y se anota el costo acumulado desde el origen. Si el vecino ya estaba en `Sa`, se compara el costo anterior con el nuevo y se actualiza el padre si el nuevo camino es menor.
+
+
+* **Paso 3:** Se saca a `Vp` de `Sa` y se lo agrega a `Sc`. Si `Sa` queda vacío, el algoritmo termina sin éxito; si no, se vuelve al Paso 1.
+
+
+
+**Paso a paso del ejemplo (Camino desde A hacia D)**
+En el ejemplo, la heurística utilizada es la distancia de Manhattan, calculada como $\vert{}x - x'\vert{} + \vert{}y - y'\vert{}$. Inicialmente, `Sa = {A}` y `Sc = {}`.
+
+* **Iteración 1:** El vértice prometedor es `Vp = A`. Como A no es el destino, se evalúan sus vecinos C y B, agregándolos a `Sa` con costo 1 y padre A. Se mueve A hacia `Sc`, resultando en `Sa = {C, B}` y `Sc = {A}`.
+
+
+* **Iteración 2:** Se calculan las heurísticas de los nodos en `Sa`: $h(C) = 1$ y $h(B) = 3$. Se elige `Vp = C` por tener el valor más bajo. Como C no es el destino y su único vecino conectado en el grafo (A) ya está en `Sc`, no se agregan nuevos nodos. Se mueve C hacia `Sc`, quedando `Sa = {B}` y `Sc = {A, C}`.
+
+
+* **Iteración 3 (Evaluando B):** Se selecciona `Vp = B`. Se evalúa su vecino E (ya que A está en `Sc`), se lo agrega a `Sa` con padre B y costo 2. Se mueve B hacia `Sc`, quedando `Sa = {E}` y `Sc = {A, C, B}`.
+
+
+* **Iteración 3 (Evaluando E):** Se selecciona `Vp = E`. Su vecino F se agrega a `Sa` con padre E y costo 3. Se mueve E hacia `Sc`, resultando en `Sa = {F}` y `Sc = {A, C, B, E}`.
+
+
+* **Iteración 3 (Evaluando F):** Se selecciona `Vp = F`. Se evalúan sus vecinos D y G, agregándolos a `Sa` con padre F y costo 4. F pasa a `Sc`, dejando `Sa = {D, G}` y `Sc = {A, C, B, E, F}`.
+
+
+* **Iteración 4:** En `Sa` quedan D y G. Se calcula la heurística: $h(D) = 0$ y $h(G) = 2$. Se elige `Vp = D` por ser más prometedor. Como `D` coincide exactamente con el destino buscado, el algoritmo finaliza exitosamente.
+
+![[Pasted image 20261026010721.png]]
+
+
+La imagen explica cómo extraer el resultado final una vez que el algoritmo A* alcanza el nodo de destino.
+
+  
+
+- **Costo total:** Para conocer el costo final del viaje desde A hasta D, simplemente se consulta el valor del costo acumulado que quedó registrado para el nodo D cuando fue agregado a las estructuras durante la ejecución del algoritmo.
+    
+      
+    
+- **Reconstrucción del recorrido:** Para saber exactamente qué camino tomar, se debe rastrear la ruta en reversa utilizando el registro de "padres" que cada nodo guardó al ser descubierto. Se comienza en el destino (D) consultando quién es su padre (F). Luego se repite el proceso de forma iterativa consultando el padre de F (E), el de E (B), y el de B (A), deteniéndose al llegar al nodo de origen.
+    
+      
+    
+- **Ruta final:** Al encadenar estas relaciones hacia atrás (D $\leftarrow$ F $\leftarrow$ E $\leftarrow$ B $\leftarrow$ A), se construye el camino desde el inicio hasta el final: A $\to$ B $\to$ E $\to$ F $\to$ D.
