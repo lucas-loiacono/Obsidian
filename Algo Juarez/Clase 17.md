@@ -151,4 +151,28 @@ si yo quiero llegar de A a E, primero tengo que pasar por C, y para llegar a C t
 
 se lee por fila
 
+
+Para determinar el trayecto óptimo desde el nodo A hasta el nodo E utilizando la matriz final de recorridos (Iteración 4), se debe rastrear la secuencia de nodos leyendo las intersecciones.
+
+  
+
+1. El costo mínimo registrado para ir de A hacia E es 7 (`distancias[A][E] = 7`).
+    
+
+2. Al consultar la intersección de la fila A y columna E en la matriz de recorridos, el valor es C (`recorridos[A][E] = C`). Esto indica que para alcanzar E desde A, el nodo intermediario o paso previo requerido es C, estructurando la ruta momentáneamente como A $\to$ ... $\to$ C $\to$ E.
+    
+3. Para resolver el tramo restante desde A hasta C, se consulta la celda de la fila A y columna C, cuyo valor es B (`recorridos[A][C] = B`). Esto establece que para alcanzar C desde A, se debe pasar por B, actualizando la ruta a A $\to$ ... $\to$ B $\to$ C $\to$ E.
+    
+4. Al verificar cómo ir desde A hasta B, la celda respectiva indica B (`recorridos[A][B] = B`), lo que confirma que es una conexión directa y el origen del trayecto no requiere más intermediarios.
+El camino final reconstruido es A $\to$ B $\to$ C $\to$ E. Tu razonamiento para leer la matriz y encadenar los nodos paso a paso hasta dar con la conexión directa es correcto.
+
+
+
+![[Pasted image 20261026003442.png]]
+
+aca si quiero cambiar el 12  que es si quiero ir de C a B, que pasa si hago de C a D y de D a B, sumo los dos caminos, que la suma me da 6, entonces al ser mas chico lo cambio 
+
 ![[Pasted image 20261026002903.png]]
+
+
+![[Pasted image 20261026003809.png]]
