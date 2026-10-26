@@ -101,3 +101,11 @@ Exactamente, siempre partís del costo que ya acumulaste hasta el vértice donde
 ![[Pasted image 20261025222716.png]]
 
 ![[Pasted image 20261025223612.png]]
+
+
+![[Pasted image 20261025224326.png]]
+
+Marco el vertice que estoy evaluando con amarillo
+
+Sigo con el concepto de adyacencia, por lo cual de A a D o E es infinito
+Con adyacencia completo la tabla de distancias para cada uno 
