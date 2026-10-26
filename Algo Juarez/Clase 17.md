@@ -86,3 +86,9 @@ El algoritmo de Dijkstra calcula el camino más corto desde un nodo de origen ha
       
     
 - **Paso 6:** Queda por procesar el nodo 3 (distancia 20). Al no tener rutas salientes hacia vértices no visitados, no se generan actualizaciones. El nodo 3 se marca como visto (`t`), finalizando la ejecución al tener todos los vértices en estado `t`.
+
+Exactamente, siempre partís del costo que ya acumulaste hasta el vértice donde estás parado. Al ubicarte en el nodo 2, tu tabla indica que la distancia acumulada desde el origen es 9. Desde allí, observás la arista que conecta con el nodo 3, la cual tiene un peso o costo de 11. Calculás la nueva ruta potencial sumando tu acumulado de 9 más el costo de la arista de 11, resultando en un total de 20. En el paso anterior, tu tabla había registrado un costo de 22 para el nodo 3 (al evaluarlo desde el nodo 1), por lo que comparás ambos valores. Como la nueva suma de 20 es estrictamente menor que el 22 que ya tenías, encontraste un camino más eficiente y actualizás la matriz de distancias reemplazando el 22 por el nuevo valor de 20.
+
+
+
+![[Pasted image 20261025215700.png]]
