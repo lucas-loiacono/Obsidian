@@ -127,3 +127,16 @@ sigo con la fila de abajo, agarro el infinito y hago su rectángulo,  8+4 < infi
 ![[Pasted image 20261025234726.png]]
 
 En la matriz de recorridos también lo tengo que reemplazar, ya que estoy usando de referencia a A
+
+
+![[Pasted image 20261026001235.png]]
+
+![[Pasted image 20261026001331.png]]
+
+![[Pasted image 20261026001344.png]]
+
+![[Pasted image 20261026001941.png]]
+
+![[Pasted image 20261026001954.png]]
+
+y al final queda así, arri
