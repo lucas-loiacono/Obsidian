@@ -266,3 +266,104 @@ Para resolver este ejercicio de direccionamiento abierto (asumiendo exploración
       
     
 - Acción: Se revisa la posición 4. Se encuentra la marca "BORRADO". Como no es una celda vacía original, el algoritmo sabe que debe seguir buscando. Avanza a la posición 5 y encuentra el 26 exitosamente.
+
+
+
+
+![[Pasted image 20261026023233.png]]
+
+Para este ejercicio de direccionamiento abierto con sondeo cuadrático, la función hash toma el último dígito de la clave, lo que equivale a $h(k) = k \pmod{10}$, trabajando sobre una tabla implícita de tamaño 10 con índices del 0 al 9. En caso de colisión, el sondeo cuadrático calcula nuevas posiciones usando la fórmula $(h(k) + i^2) \pmod{10}$, incrementando $i$ ($1, 2, 3\dots$) hasta encontrar una celda vacía.
+
+  
+
+**insertar(47)**
+
+  
+
+- Cálculo: El último dígito de 47 es 7.
+    
+      
+    
+- Acción: La posición 7 está libre. Se inserta el 47.
+    
+      
+    
+- Tabla: `[7]=47`
+    
+      
+    
+
+**insertar(37)**
+
+  
+
+- Cálculo: El último dígito de 37 es 7.
+    
+      
+    
+- Acción: La posición 7 está ocupada por el 47, produciendo la primera colisión. Se aplica el primer intento de sondeo sumando $1^2$: $(7 + 1) \pmod{10} = 8$. La posición 8 está libre, por lo que se inserta el 37.
+    
+      
+    
+- Tabla: `[7]=47, [8]=37`
+    
+      
+    
+
+**insertar(21)**
+
+  
+
+- Cálculo: El último dígito de 21 es 1.
+    
+      
+    
+- Acción: La posición 1 está libre. Se inserta el 21.
+    
+      
+    
+- Tabla: `[1]=21, [7]=47, [8]=37`
+    
+      
+    
+
+**insertar(24)**
+
+  
+
+- Cálculo: El último dígito de 24 es 4.
+    
+      
+    
+- Acción: La posición 4 está libre. Se inserta el 24.
+    
+      
+    
+- Tabla: `[1]=21, [4]=24, [7]=47, [8]=37`
+    
+      
+    
+
+**insertar(10)**
+
+  
+
+- Cálculo: El último dígito de 10 es 0.
+    
+      
+    
+- Acción: La posición 0 está libre. Se inserta el 10.
+    
+      
+    
+- Tabla: `[0]=10, [1]=21, [4]=24, [7]=47, [8]=37`
+
+
+
+![[Pasted image 20261026023615.png]]
+
+![[Pasted image 20261026023641.png]]
+
+![[Pasted image 20261026023729.png]]
+
+Lo separo para el bucket que tiene overflow, osea el 01, y lo separo con 1 bit mas, el 010 y 011
