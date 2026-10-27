@@ -356,3 +356,75 @@ l.tamanio();               // 1
 Regla para no confundirte: `x = y.siguiente` mueve tu flecha, mientras que `x.siguiente = y` cambia un enlace de un nodo. Al insertar o eliminar en el medio, siempre hay que ajustar **dos enlaces de cada vecino**, uno en cada sentido.
 
 Si querés, hacemos un seguimiento del caso "en el medio" de `agregar` y `eliminar` dibujando los cuatro enlaces paso a paso.
+
+
+
+
+
+
+# Cómo se declara y por qué `this`
+
+## La declaración
+
+```java
+public Iterador<T> iterador() {
+    return new IteradorLista<>(this);
+}
+```
+
+Se lee de izquierda a derecha:
+
+|Parte|Significado|
+|---|---|
+|`public`|cualquiera puede llamarlo|
+|`Iterador<T>`|**lo que devuelve**: un iterador de elementos de tipo `T`|
+|`iterador`|el nombre del método (lo elegís vos, podría llamarse `crearIterador`, pero las pruebas esperan `iterador`)|
+|`()`|no recibe parámetros|
+|`return new IteradorLista<>(this);`|crea el objeto y lo devuelve|
+
+La segunda versión es igual, pero recibe `int indice`. Es una **sobrecarga**: mismo nombre, distintos parámetros.
+
+## Qué es `this`
+
+`this` **no es un nombre que elegís**. Es una palabra reservada de Java que significa "el objeto sobre el que se llamó a este método". Por ejemplo:
+
+```java
+Lista<String> miLista = new Lista<>();
+Iterador<String> it = miLista.iterador();
+```
+
+Cuando se ejecuta `miLista.iterador()`, adentro del método `this` es `miLista`. Si tuvieras otra lista `otra` y llamaras `otra.iterador()`, ahí `this` sería `otra`.
+
+## Por qué se lo pasa al iterador
+
+El constructor de `IteradorLista` pide una lista:
+
+```java
+IteradorLista(Lista<T> lista) { ... }
+```
+
+El iterador necesita saber **qué lista recorrer** para llegar a `lista.primero`, `lista.ultimo` y `lista.cantidadDatos`. Con `this` le pasás justo la lista que lo creó.
+
+## ¿Se puede pasar otra cosa?
+
+El tipo tiene que ser `Lista<T>`, porque es lo que declara el constructor. Compilar compilaría con otra lista, pero sería un error de lógica:
+
+```java
+public Iterador<T> iterador() {
+    return new IteradorLista<>(otraLista);   // recorrería OTRA lista, no esta
+}
+```
+
+`miLista.iterador()` te devolvería un iterador de otra lista, y eso rompe lo que el método promete. Lo correcto es `this`.
+
+Tampoco hay un "nombre" que poner en su lugar: `this` no es una variable que declarás, es el propio objeto. Podrías pasarlo antes en una variable local, pero no aporta nada:
+
+```java
+Lista<T> estaLista = this;
+return new IteradorLista<>(estaLista);   // equivalente, pero innecesario
+```
+
+## Resumen para el anotador
+
+> `iterador()` crea un `IteradorLista` y le entrega `this`, o sea **la propia lista sobre la que se llamó**, para que el iterador sepa qué recorrer.  
+> `this` es una palabra reservada, no se renombra ni se reemplaza por otra cosa.
