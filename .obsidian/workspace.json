@@ -265,12 +265,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/clase 10.md",
+                "file": "Algo Juarez/clase 11.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "clase 10"
+              "title": "clase 11"
             }
           }
         ],
@@ -449,6 +449,9 @@
   },
   "active": "aba53f856088c804",
   "lastOpenFiles": [
+    "Algo Juarez/clase 10.md",
+    "Algo Juarez/clase 11.md",
+    "Algo Juarez/clase 12.md",
     "Algo Juarez/clase 9.md",
     "Algo Juarez/Clase 18.md",
     "!imagenes/Pasted image 20261026023729.png",
@@ -467,8 +470,6 @@
     "Trabajo practico java/Diccionario ordenado.md",
     "Algo Juarez/clase 15.md",
     "Algo Juarez/clase 14.md",
-    "Algo Juarez/clase 12.md",
-    "Algo Juarez/clase 11.md",
     "Algo Juarez/clase 13.md",
     "Trabajo practico java/Lista.md",
     "Trabajo practico java/Vector dinamico.md",
@@ -479,7 +480,6 @@
     "Trabajo practico java/ENUM.md",
     "Trabajo practico java/Cola.md",
     "Trabajo practico java/Casteo Object.md",
-    "Algo Juarez/clase 10.md",
     "Algo Juarez/clase 8.md",
     "Orga Musso/clase 6.md",
     "Orga Musso/clase 7.md",
