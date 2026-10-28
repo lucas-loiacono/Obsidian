@@ -265,12 +265,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Trabajo practico java/Cola.md",
+                "file": "Trabajo practico java/Pila Copiar.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Cola"
+              "title": "Pila Copiar"
             }
           }
         ],
@@ -449,6 +449,7 @@
   },
   "active": "aba53f856088c804",
   "lastOpenFiles": [
+    "Trabajo practico java/Cola.md",
     "Trabajo practico java/Lista.md",
     "Algo Juarez/clase 12.md",
     "Algo Juarez/clase 11.md",
@@ -478,7 +479,6 @@
     "Trabajo practico java/Iterador Cursor.md",
     "Trabajo practico java/Cola prioridad.md",
     "Trabajo practico java/ENUM.md",
-    "Trabajo practico java/Cola.md",
     "Trabajo practico java/Casteo Object.md",
     "Algo Juarez/clase 8.md",
     "Orga Musso/clase 6.md",
