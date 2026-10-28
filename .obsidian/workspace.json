@@ -265,12 +265,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Trabajo practico java/Pila Copiar.md",
+                "file": "Trabajo practico java/Diccionario ordenado.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pila Copiar"
+              "title": "Diccionario ordenado"
             }
           }
         ],
@@ -449,6 +449,9 @@
   },
   "active": "aba53f856088c804",
   "lastOpenFiles": [
+    "Trabajo practico java/Cola prioridad.md",
+    "Trabajo practico java/Diccionario ordenado.md",
+    "Trabajo practico java/Pila Copiar.md",
     "Trabajo practico java/Cola.md",
     "Trabajo practico java/Lista.md",
     "Algo Juarez/clase 12.md",
@@ -469,15 +472,12 @@
     "Algo Juarez/Clase 17.md",
     "Algo Juarez/Clase 16.md",
     "Orga Musso/Clase 8.md",
-    "Trabajo practico java/Diccionario ordenado.md",
     "Algo Juarez/clase 15.md",
     "Algo Juarez/clase 14.md",
     "Algo Juarez/clase 13.md",
     "Trabajo practico java/Vector dinamico.md",
-    "Trabajo practico java/Pila Copiar.md",
     "Trabajo practico java/Pila.md",
     "Trabajo practico java/Iterador Cursor.md",
-    "Trabajo practico java/Cola prioridad.md",
     "Trabajo practico java/ENUM.md",
     "Trabajo practico java/Casteo Object.md",
     "Algo Juarez/clase 8.md",
