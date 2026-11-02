@@ -1,4 +1,4 @@
-![[Pasted image 20261014220430.png]]
+ ![[Pasted image 20261014220430.png]]
 
 esto lo hago ya que de la otra manera tengo que empezar el recorrido de 0
 
