@@ -1,0 +1,190 @@
+![[Pasted image 20261102195811.png]]
+
+
+## En pila solo voy a tener referencia al ultimo ya que ahi doy el alta, la baja y la consulta
+
+
+![[Pasted image 20260927192224.png]]
+
+uno no sabe quien es el primero, pero sabe quien es el ultimo y se tiene de referencia
+cada uno tiene lo que tiene que representar y la referencia al de delante suyo, el primero tiene referencia nula al no tener nadie delante suya
+
+para la pila se hace la referencia al anterior y para la cola al posterior
+
+![[Pasted image 20260929180531.png]]
+
+El primero tiene referencia nula
+
+![[Pasted image 20260927193255.png]]
+
+![[Pasted image 20260927195027.png]]
+
+![[Pasted image 20260927195203.png]]
+
+si corto mi cadena, una parte se pierde de la otra, se separan
+
+![[Pasted image 20260929181807.png]]
+
+![[Pasted image 20260929181846.png]]
+ya no necesito memoria contigua, puede estar separado dentro de la memoria, pero si corto la cadena pierdo la referencia a los siguientes
+
+![[Pasted image 20260927200442.png]]
+
+para referenciar a otro nodo se le pasa la misma clase a siguiente, ya que es del mismo tipo de dato
+
+![[Pasted image 20260927200502.png]]
+
+
+```java 
+package estructuras;
+
+public class Nodo<T> {
+	// atributos
+	private T dato;//el tipo de dato que quiero guardar
+	private Nodo<T> siguiente; //referencia al siguiente nodo
+
+	// metodos
+	// Constructor
+	public Nodo(T elem) {
+		dato = elem;
+		siguiente = null; //lo puedo dejar en null y despues pasarle asignar aparte
+	}
+
+	
+	public Nodo(T elem, Nodo<T> sig) {
+		dato = elem;
+		siguiente = sig;
+	}
+	
+	
+	// get y set
+	public T obtenerDato() {
+		return dato;
+	}
+	
+	public void asignarDato(T dato) {
+		this.dato = dato;
+	}
+	
+	public Nodo<T> obtenerSiguiente() {
+		return siguiente;
+	}
+	
+	public void asignarSiguiente(Nodo<T> siguiente) {
+		this.siguiente = siguiente;
+	}
+```
+
+# Pila dinámica
+
+![[Pasted image 20260927200718.png]]
+
+Lo único que necesito es tener la referencia al ultimo dato, que se encarga de quien le viene delante 
+antes metíamos la pila dentro de un vector, ahora como tenemos nodos, podemos no tener un vector y tener referencias enlazadas 
+
+```java
+package estructuras;
+
+public class PilaD<T> {
+	// Atributos
+	private Nodo<T> ultimo; //lo unico que tengo que saber es cual es el ultimo, despues de ahi tengo que ver cuales son los siguientes
+	
+	
+	
+	// Metodos
+	// Constructor
+	// PRE: - 
+	// POS: crea una pila vacia
+	public PilaD() {
+		System.out.println("------------ Pila dinamica ------------------------");
+		ultimo = null; //como creo una pila vacia, no tengo elemento, por lo cual                                                es null
+	}
+	
+	// Alta
+	// PRE: -
+	// POS: agrega el elemento al final de la Pila 
+	public void alta(T elem) {
+		Nodo<T> nuevo = new Nodo<>(elem, ultimo); // paso 1 y 2
+		//nuevo.asignarSiguiente(ultimo);   // paso 2
+		ultimo = nuevo;					  // paso 3
+	}
+	
+	// Consulta
+	// PRE: la Pila no tiene que estar vacia: --> vacia() -> false
+	// POS: devuelve el ultimo elemento
+	public T consulta() {
+		return ultimo.obtenerDato();
+	}
+
+	// PRE: -
+	// POS: devuelve true si la pila esta vacia, false de lo contrario
+	public boolean vacia() {
+		return (ultimo == null);
+	}
+
+	// Baja
+	// PRE: la Pila no tiene que estar vacia: --> vacia() -> false
+	// POS: da de baja al ultimo elemento
+	public void baja() {
+		ultimo = ultimo.obtenerSiguiente();
+	}
+}
+```
+
+
+en  una pila siempre se da de baja y consulta el ultimo
+
+![[Pasted image 20260927232404.png]]
+
+Mi ultimo es el A, cuando doy de baja a A mi ultimo pasa a ser mi C
+
+![[Pasted image 20260927232513.png]]
+
+![[Pasted image 20260927235305.png]]
+
+cuando doy de baja al ultimo, mi referencia queda en null
+
+
+
+
+![[Pasted image 20260928000330.png]]
+
+![[Pasted image 20260929194740.png]]
+
+Cuando doy de baja al ultimo, tengo que pasar mi referencia de ultimo a siguiente
+Como le saco la referencia de ultimo a mi elemento, pasa el recolector de basura y lo elimina, y le asigno mi ultimo al siguiente elemento
+
+yo mi ultimo lo tengo como salvador de mi ultimo elemento, ya que al ser el ultimo no lo referencia nadie, pero al pasarle a la variable ultimo mi ultimo nodo ahi queda referenciada y evita el recolector de basura
+
+
+
+![[Pasted image 20260928000539.png]]
+
+Para dar de alta un dato lo que tengo que hacer es meter el dato en un nodo
+1. me creo un nodo
+2. Primero lo tengo que enganchar al ultimo,
+3. Después le paso la referencia de mi ultimo al nuevo
+
+Siempre gira entorno al ultimo, y voy referenciando, se pasa la bola con el ultimo, es como un asignador
+
+si yo saco mi referencia de ultimo, ya no tengo acceso, ya que antes no hice la conexión, siempre me tengo que ir pasando el ultimo si tengo conexión
+
+![[Pasted image 20260928001058.png]]
+
+
+
+
+
+![[Pasted image 20260928003849.png]]
+
+yo cuando creo una pila, mi ultimo no va a estar referenciando a nada
+
+![[Pasted image 20260929221816.png]]
+
+ahora con un nodo nuevo, mi ultimo pasa a referenciar al 8, pero como es el primero mi 8 este referencia a null
+
+![[Pasted image 20260928004048.png]]
+
+ahora mi ultimo pasa a referenciar a 5, mi 5 como va atras del 8 referencia al 8, y el 8 al ser el primero no referencia a nada
+
+Siempre primero tengo que enlazar y despues reasignar el ultimo
