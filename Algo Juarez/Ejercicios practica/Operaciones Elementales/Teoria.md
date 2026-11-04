@@ -7,9 +7,31 @@
 
 ![[Pasted image 20260908191821.png]]
 
+El desglose del código contabiliza las operaciones elementales (OE) línea por línea para calcular el costo total de ejecución:
+
+  
+
+- **`int a, b = 5;` (1 OE):** Cuenta como una sola operación por la asignación del valor 5 a la variable `b`.
+    
+- **`a = b + 1;` (2 OE):** Requiere dos operaciones sucesivas porque primero se resuelve la operación aritmética (`b + 1`) y luego se realiza la asignación del resultado a la variable `a`.
+    
+- **`a++;` (2 OE):** Al ser lógicamente equivalente a `a = a + 1`, el procesador debe ejecutar una suma aritmética y luego una asignación para actualizar el valor en memoria.
+
+La notación **$T(n)$** se lee como "Tiempo en función de $n$" e indica el tiempo total de ejecución. Representa la función matemática que describe cuántas operaciones realizará un algoritmo dependiendo del tamaño de su entrada de datos ($n$). En este ejemplo, como no existen bucles iterativos ni parámetros que modifiquen la cantidad de instrucciones ejecutadas, el bloque tiene un costo estrictamente constante, sumando un total final de $T(n) = 5$ O.E.. Dominar la construcción de esta función es la base para analizar la complejidad asintótica al diseñar algoritmos y estructuras de datos.
+
 ![[Pasted image 20260908191849.png]]
 
 ![[Pasted image 20260908191902.png]]
+
+- **`int a, b = 2;` (1 OE):** Contabiliza una operación por la asignación del valor 2 a la variable `b`.
+    
+- **`a = ingreso("...");` (1 OE):** Se cuenta como una sola operación por la asignación del valor retornado a la variable `a`.
+    
+- **`if (a > 5)` (1 OE):** Representa una única operación por la comparación lógica requerida para evaluar la condición.
+    
+- **Bloque `if` (4 OE totales):** Si la condición es verdadera, se ejecutan `a = a + 3;` (2 OE por una suma y una asignación) y `b = a + 1;` (2 OE por otra suma y asignación).
+    
+- **Bloque `else` (1 OE total):** Si la condición es falsa, únicamente se ejecuta `b = 1;` (1 OE por la asignación)
 
 
 ![[Pasted image 20260908191926.png]]
