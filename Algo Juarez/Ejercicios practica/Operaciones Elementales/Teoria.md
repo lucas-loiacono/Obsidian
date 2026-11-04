@@ -134,6 +134,51 @@ Los azules se ejecutan 1 sola vez, mientras que los amarillos depende de mi n
 
 ![[Pasted image 20260908194542.png]]
 
+El código de la imagen muestra el algoritmo de ordenamiento por selección (Selection Sort). Al no tener las anotaciones manuales, el desglose teórico de Operaciones Elementales (OE) para el **peor caso** se realiza analizando cada estructura:
+
+  
+
+- **`public void ordenar (int v[], int n)`:** 2 OE (1 por recibir la referencia del arreglo y 1 por el entero).
+    
+
+- Bucle externo `for (int i = 0; i < n - 1; i++)`:
+    
+      
+    - `int i = 0`: 1 OE (inicialización, se ejecuta una sola vez al inicio).
+        
+    - `i < n - 1`: 2 OE por evaluación (una resta y una comparación menor que).
+        
+    - `i++`: 2 OE por iteración (una suma y una asignación).
+        
+- Dentro del bucle externo:
+    
+      
+    - `int posMin = i;`: 1 OE (asignación).
+        
+- Bucle interno `for (int j = i + 1; j < n; j++)`:
+    
+      
+    - `int j = i + 1`: 2 OE por inicialización (una suma y una asignación).
+        
+    - `j < n`: 1 OE por evaluación (comparación).
+        
+    - `j++`: 2 OE por iteración (suma y asignación).
+        
+- Cuerpo del bucle interno (Peor caso):
+    
+      
+    - `if (v[j] < v[posMin])`: 3 OE (dos accesos a los índices del arreglo y una comparación).
+        
+    - `posMin = j;`: 1 OE (asignación). En el peor escenario (si el vector estuviera ordenado en sentido inverso), esta condición siempre es verdadera y la asignación se ejecuta en todas las iteraciones.
+        
+- Llamada final del ciclo externo:
+    
+      
+    - `inter(vec[], I, posMin);`: Invocar una función suma OE. Generalmente se cuenta 1 OE por la invocación y 1 OE por cada parámetro pasado (total de 4 OE en esta línea), más el costo interno que tenga dicha función de intercambio.
+  
+
+Al tener un bucle `for` anidado dentro de otro que depende de $n$, la cantidad de operaciones ejecutadas crece de manera cuadrática, lo que resulta en una función de tiempo $T(n)$ con complejidad $O(n^2)$.
+
 ![[Pasted image 20260908194811.png]]
 
 ![[Pasted image 20260908195010.png]]
