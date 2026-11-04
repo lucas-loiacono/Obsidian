@@ -89,6 +89,42 @@ El 1 en el while se da ya que analiza la primera condición nomas, como ve que y
  
 En el peor de los casos tienen que iterar por todo el vector hasta la ultima posición
 
+El análisis línea por línea de las Operaciones Elementales (OE) para este **peor caso** (donde el dato no se encuentra en el arreglo) se estructura de la siguiente manera:
+
+  
+
+- **Parámetros `(int[] vec, int dato)`:** 2 OE (1 por recibir la referencia del arreglo y 1 por el entero).
+    
+
+- **`int pos = -1, i = 0;`:** 2 OE (dos asignaciones iniciales).
+    
+
+- **`int n = vec.length;`:** 1 OE (una asignación).
+    
+  
+- **`while ((i < n) && (pos == -1))`:** 3 OE por cada iteración que entra al ciclo (una comparación menor que, un operador lógico AND y una comparación de igualdad).
+    
+ 
+- **`if (vec[i] == dato)`:** 2 OE por iteración (un acceso al índice del arreglo y una comparación).
+    
+
+- **`pos = i;`:** 0 OE. Al ser el peor caso, el dato nunca se encuentra, por lo que esta rama siempre se ignora.
+    
+
+- **`else i++;`:** 2 OE por iteración (una suma y una asignación).
+    
+
+- **Bloque del ciclo iterativo (`7 * n`):** La llave roja agrupa las operaciones internas repetitivas (3 del `while` + 2 del `if` + 2 del `i++`). Como el ciclo recorre los $n$ elementos del arreglo, el costo se multiplica resultando en $7 * n$.
+    
+
+- **Salida del ciclo (Cuadro azul con "1"):** 1 OE extraída con una flecha roja. En la última evaluación, `i` alcanza el valor de `n`, haciendo que `i < n` sea falso. Por evaluación de cortocircuito, el procesador omite la segunda mitad de la condición lógica, por lo que cortar el bucle cuesta solo 1 OE.
+    
+
+- **`return pos;`:** 1 OE (círculo azul inferior por la instrucción de retorno).
+
+
+Al sumar las operaciones que se ejecutan una única vez (2+2+1 al inicio, 1 de corte del bucle y 1 de retorno) con el bloque iterativo, se obtiene la función final de tiempo de ejecución para el peor caso: $T(n) = 7n + 7$ O.E.
+
 ![[Pasted image 20260911183051.png]]
 
 
