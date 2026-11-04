@@ -306,7 +306,45 @@ La imagen "image_728fb5.png" ilustra el flujo completo de traducción que atravi
 
 ![[Pasted image 20261022014858.png]]
 
+La imagen "image_c55103.png" define conceptualmente qué es el **Mapa de Memoria de un Sistema** y establece la diferencia clave entre los límites físicos que impone el hardware y las decisiones de diseño del sistema.
+
+  
+
+Según la diapositiva, el mapa de memoria representa la asignación específica que se le da al espacio de direcciones. Para entender cómo se diseña este mapa, el texto y el recuadro de la derecha destacan dos reglas fundamentales:
+
+  
+
+- **El procesador define el tamaño (El rango máximo):** El tamaño total del espacio direccionable es específico del procesador. Es la CPU la que impone el límite de cuántas direcciones pueden existir (por ejemplo, de 0 a $2^{32}-1$ en un procesador de 32 bits).
+    
+      
+    
+- **El sistema define la organización (La función asignada):** El tipo específico de computadora (el sistema) es quien decide cómo se divide y para qué se utiliza cada segmento de ese espacio disponible. Por esta razón, el mapa de memoria es específico de un sistema. Como conclusión importante, la diapositiva señala que dos sistemas distintos basados exactamente en el mismo procesador no tienen necesariamente el mismo mapa de memoria.
+    
+      
+    
+
+Finalmente, la diapositiva aborda los **Dispositivos de entrada/salida (I/O)**. Aclara que a estos periféricos también se accede mediante direcciones, pero su ubicación depende del diseño elegido por el sistema: pueden estar ubicados dentro del mismo espacio de direcciones que la memoria (como se ilustra en la zona inferior del gráfico, conocida como E/S mapeada en memoria) o pueden no estarlo.
+
+
 ![[Pasted image 20261022014916.png]]
+
+La imagen "image_c54d87.png" es idéntica a la diapositiva que analizamos anteriormente sobre la **Arquitectura ARC (A RISC Computer)**, la cual resume las reglas fundamentales de cómo este procesador de 32 bits interactúa con la memoria.
+
+Aquí tienes el desglose de sus características principales:
+
+- **RISC:** Significa "Reduced Instruction Set Computer" (Computadora con Conjunto de Instrucciones Reducido).
+    
+- **Capacidad y Almacenamiento:** Es una máquina de 32 bits que puede manejar datos de ese tamaño, pero su memoria está organizada y es direccionable por bytes (bloques de 8 bits).
+    
+- **Sistema Operativo:** Las primeras 2048 posiciones de memoria están reservadas estrictamente para el sistema operativo.
+    
+- **Espacio de Usuario (User Space):** Es la zona donde se cargan los programas ensambladores que crea el usuario.
+    
+- **Pila del Sistema (System Stack):** Su base está en la dirección $2^{31}-4$ y crece hacia direcciones inferiores de memoria a medida que se apilan los datos.
+    
+- **Entrada/Salida (I/O Space):** La arquitectura utiliza "entrada mapeada en memoria", lo que significa que reserva una zona al final de las direcciones de memoria para almacenar los datos de los dispositivos externos (como el disco, la terminal y la impresora).
+    
+- **Big Endian:** Para guardar una palabra de 32 bits, la arquitectura almacena el byte más significativo en la dirección de memoria más baja.
 
 ![[Pasted image 20261022014953.png]]
 
