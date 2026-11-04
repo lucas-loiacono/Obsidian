@@ -189,6 +189,32 @@ Retomando la analogía de la ciudad logística: si la RAM es el inmenso depósit
 
 ![[Pasted image 20261022013742.png]]
 
+Si empiezas en la dirección 0, la siguiente celda completa (la fila de abajo) es la **4**.
+
+  
+
+Esto ocurre porque la memoria se direcciona **por bytes** (cada número de dirección guarda 8 bits), pero cada fila del mapa tiene un ancho de **32 bits** (4 bytes). Por lo tanto, la primera fila contiene internamente los bytes 0, 1, 2 y 3; la fila de abajo contiene el 4, 5, 6 y 7, y así sucesivamente (los saltos para leer una palabra completa de 32 bits van de 4 en 4).
+
+  
+
+Las distintas secciones que dividen este mapa de memoria son:
+
+  
+
+- **Reserved for operating system (0 a 2047):** Espacio bloqueado y dedicado exclusivamente para las rutinas e instrucciones del sistema operativo.
+    
+      
+    
+- **User Space (2048 en adelante):** Área libre donde se cargan en la memoria los programas ensambladores y aplicaciones que tú escribes y ejecutas.
+    
+      
+    
+- **System Stack (Pila del Sistema):** Su base o fondo (Bottom of stack) se ubica en la dirección $2^{31}-4$. A medida que el programa apila datos (por ejemplo, al llamar funciones), la pila crece hacia direcciones con números menores, siendo rastreada dinámicamente por el puntero de pila (Stack pointer).
+    
+      
+    
+- **I/O Space (Entrada/Salida mapeada):** Ocupa el extremo final de las direcciones (hasta $2^{32}-4$). Escribir o leer en estas posiciones de memoria no guarda un dato tradicional, sino que envía o recibe información directamente del hardware físico de los periféricos, como el disco (Disk), la consola (Terminal) o la impresora (Printer).
+
 ![[Pasted image 20261022013817.png]]
 
 La microarquitectura de la CPU mostrada en la imagen se compone de las siguientes partes fundamentales:
