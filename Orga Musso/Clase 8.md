@@ -260,6 +260,39 @@ La Unidad de Control funciona como el director de la CPU, interpretando cada ins
 
 ![[Pasted image 20261022014527.png]]
 
+
+La imagen "image_c6a9ca.png" hace un acercamiento al interior de la CPU para mostrar en detalle cómo está diseñado físicamente el **Trayecto de Datos** (Datapath). Es decir, ilustra el circuito interno por donde viaja la información entre los registros y la ALU durante la ejecución de una instrucción.
+
+  
+
+El diagrama muestra el siguiente circuito de funcionamiento:
+
+  
+
+- **Entrada de Datos:** La información proveniente de la memoria o el exterior ingresa por la izquierda ("From Data Bus") y se almacena en el **Register File** (el banco donde están agrupados todos los registros de la CPU).
+    
+      
+    
+- **Envío a la ALU (Fuentes):** Cuando se necesita hacer una operación, el archivo de registros envía los operandos hacia la ALU a través de dos canales principales: **Register Source 1 (rs1)** y **Register Source 2 (rs2)**.
+    
+      
+    
+- **El Rol del Control:** Las líneas finas negras ilustran cómo la Unidad de Control gobierna este sector. Es la encargada de enviar las señales para seleccionar qué registros específicos se van a usar ("Control Unit selects registers") y decirle a la ALU qué cálculo exacto debe realizar ("and ALU function").
+    
+      
+    
+- **Guardado del Resultado (Destino):** Una vez que la ALU procesa la información, el resultado sale por la parte inferior y vuelve a subir por el camino grueso llamado **Register Destination (rd)** para guardarse de nuevo en el archivo de registros.
+    
+      
+    
+- **Señales de Estado:** Al terminar el cálculo, la ALU también emite una señal hacia la derecha ("Status to Control Unit") para informarle a la Unidad de Control detalles sobre el resultado, como si la operación dio cero o si hubo un desbordamiento (overflow).
+    
+      
+    
+- **Conexiones de Salida:** El diagrama detalla que este trayecto interno se conecta de vuelta con el bus del sistema hacia el exterior: la línea _rs1_ se bifurca para enviar direcciones hacia la memoria ("To Address Bus"), y la línea _rs2_ se bifurca para enviar datos a guardar en la memoria ("To Data Bus").
+
+
+
 ![[Pasted image 20261022014823.png]]
 
 La imagen "image_728fb5.png" ilustra el flujo completo de traducción que atraviesa un programa informático, desde su creación por un desarrollador hasta su ejecución física en el procesador. Este proceso de transformación desciende a través de tres niveles de abstracción:
