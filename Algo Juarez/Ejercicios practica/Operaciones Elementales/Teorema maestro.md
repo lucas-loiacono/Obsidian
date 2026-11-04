@@ -91,3 +91,45 @@ El proceso paso a paso para aplicar el Teorema Maestro en algoritmos de "divide 
       
     
 - Si $a > b^d$, la complejidad final es $\theta(n^{\log_b(a)})$.
+
+
+
+
+
+Aquí tenés el desglose con la fórmula de recurrencia inicial y el paso a paso para cada algoritmo según las imágenes:
+
+**1. Ejemplo Base (Búsqueda recursiva dividiendo a la mitad)**
+
+- **Fórmula inicial:** $T(n) = 1 \cdot T(n/2) + 1$. (Se realiza una sola llamada recursiva y el trabajo externo es constante, $O(1)$).
+    
+- **Paso 1 (Extracción):** $a = 1$, $b = 2$, $c = 1$, $d = 0$. El valor $d=0$ sale de igualar la parte constante a la fórmula $c \cdot n^d = 1$.
+    
+- **Paso 2 (Evaluación):** Se compara $a$ con $b^d$, lo que da $1 = 2^0$. Matemáticamente, esto verifica que $1 = 1$.
+    
+- **Paso 3 (Tabla del teorema):** Al cumplirse la igualdad ($a = b^d$), aplica el caso $\theta(n^d \log(n))$.
+    
+
+- **Paso 4 (Resultado final):** Reemplazando $d=0$, se obtiene $\theta(n^0 \log(n))$, lo que se reduce a una complejidad de **$O(\log n)$**.
+
+
+**2. Algoritmo Merge (Dividir en dos mitades y procesar todos los elementos)**
+
+  
+
+- **Fórmula inicial:** $T(n) = 2 \cdot T(n/2) + n$. (Se realizan dos llamadas recursivas y el trabajo para fusionar recorre los $n$ elementos).
+    
+      
+    
+- **Paso 1 (Extracción):** $a = 2$, $b = 2$, $c = 1$, $d = 1$. El valor $d=1$ surge porque el trabajo externo es proporcional a $n$, cumpliendo que $c \cdot n^d = n$.
+    
+      
+    
+- **Paso 2 (Evaluación):** Se compara $a$ con $b^d$, resultando en $2 = 2^1$. Esto verifica la igualdad $2 = 2$.
+    
+      
+    
+- **Paso 3 (Tabla del teorema):** Al estar nuevamente en un escenario de igualdad ($a = b^d$), se utiliza la misma fórmula $\theta(n^d \log(n))$.
+    
+      
+    
+- **Paso 4 (Resultado final):** Sustituyendo $d=1$, la ecuación queda como $\theta(n^1 \log(n))$, resultando en una complejidad final de **$O(n \log n)$**.
