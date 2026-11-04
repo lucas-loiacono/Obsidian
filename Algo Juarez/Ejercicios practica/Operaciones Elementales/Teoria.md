@@ -61,6 +61,28 @@ Acceder al vector cuesta 1 y luego igualar cuesta otro
 
 El while es una vez que entra, luego de cumplir 1 ciclo lo vuelve a examinar la condición (en el mejor caso)
 
+El desglose línea por línea de las Operaciones Elementales (OE) para este **mejor caso**, tal como se anota en la imagen, es el siguiente:
+
+- **Parámetros `(int[] vec, int dato)`:** 2 OE (1 por recibir la referencia de `vec` y 1 por recibir `dato`).
+    
+- **`int pos = -1, i = 0;`:** 2 OE (dos operaciones de asignación).
+    
+- **`int n = vec.length;`:** 1 OE (una asignación).
+    
+- **`while ((i < n) && (pos == -1))`:** 6 OE en total. Se anota como "3 + 3" porque la condición entera cuesta 3 OE (una comparación menor que, el AND lógico y la igualdad) y se evalúa dos veces: la primera da verdadero permitiendo entrar al ciclo, y la segunda evaluación da falso (porque `pos` ya cambió) forzando la salida del ciclo.
+    
+- **`if (vec[i] == dato)`:** 2 OE (un acceso al índice del arreglo y una comparación de igualdad).
+    
+- **`pos = i;`:** 1 OE (una asignación). Como estamos en el mejor caso y el dato se encuentra inmediatamente, esta línea sí se ejecuta.
+    
+- **`else i++;`:** 0 OE. Al haberse cumplido la condición del `if`, el programa ignora esta rama por completo.
+    
+- **`return pos;`:** 1 OE (por la instrucción de retorno de la función).
+    
+
+Sumando todos los valores de este único recorrido, el tiempo de ejecución exacto para el mejor caso es constante: $T(n) = 15$ O.E.
+
+
 ![[Pasted image 20260911182804.png]]
 
 El 1 en el while se da ya que analiza la primera condición nomas, como ve que ya mi i = n deja de seguir con la siguiente condición y lo corta ahí
