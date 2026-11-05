@@ -348,6 +348,52 @@ Aquí tienes el desglose de sus características principales:
 
 ![[Pasted image 20261022014953.png]]
 
+La imagen "image_c545c5.png" resume las especificaciones técnicas de la Arquitectura ARC, dividiéndolas en dos categorías principales: el manejo de la memoria y su set de instrucciones.
+
+  
+
+**Memoria**
+
+  
+
+- **Espacio de direcciones:** Posee un límite de $2^{32}$ posiciones direccionables.
+    
+      
+    
+- **Mapa de memoria:** Su estructura interna (con las zonas reservadas para el sistema operativo, espacio de usuario, pila y E/S) está dictada por el diagrama ubicado a la derecha de la diapositiva.
+    
+      
+    
+- **Ordenamiento:** Utiliza el formato **Big-endian** para almacenar información que ocupa más de un byte.
+    
+      
+    
+
+**Set de Instrucciones**
+
+  
+
+- **Base:** Este set es un subconjunto derivado de la arquitectura SPARC.
+    
+      
+    
+- **Tamaño fijo:** Absolutamente todas las instrucciones del procesador ocupan exactamente 32 bits.
+    
+      
+    
+- **Registros:** La CPU cuenta en su interior con un total de 32 registros, cada uno de ellos con una capacidad de 32 bits.
+    
+      
+    
+- **Program Status Register (PSR):** Es un registro especial dedicado exclusivamente a guardar los flags (banderas de estado) generados por la ALU tras realizar una operación.
+    
+      
+    
+- **Acceso a memoria (Modelo Load/Store):** Característico de las arquitecturas RISC, el procesamiento de datos se hace solo en los registros; por lo tanto, **solo dos instrucciones** pueden interactuar directamente con la memoria principal: una para leer de la memoria a un registro, y otra para escribir desde un registro hacia la memoria.
+
+
+
+
 ![[Pasted image 20261022015009.png]]
 
 ![[Pasted image 20261022015027.png]]
