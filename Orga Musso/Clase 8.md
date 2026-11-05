@@ -448,6 +448,37 @@ Además, la diapositiva establece las reglas clave del ensamblador:
 
 ![[Pasted image 20261022015059.png]]
 
+La imagen "image_b80f9a.png" introduce un concepto fundamental para programar en lenguaje ensamblador: la distinción entre las instrucciones reales y las **pseudo-instrucciones (o directivas)**.
+
+  
+
+La diapositiva establece estas reglas clave:
+
+  
+
+- **Instrucciones:** Son los comandos reales (como `add` o `ld`) que la CPU ejecutará físicamente. Por ende, son específicas del hardware del procesador.
+    
+- **Pseudo-instrucciones / Directivas:** Son comandos dirigidos exclusivamente al **programa ensamblador** (el software que traduce tu código a binario). Le indican cómo debe procesar, organizar o estructurar el archivo de texto antes de la ejecución. Son específicas del software ensamblador, no de la CPU.
+    
+- **Impacto en memoria:** Algunas de estas directivas reservan espacio real en la memoria, mientras que otras solo guían la traducción sin ocupar espacio.
+
+La tabla de la mitad inferior proporciona un diccionario de las pseudo-instrucciones más utilizadas:
+
+  
+
+- **`.begin` y `.end`:** Le marcan al ensamblador el punto exacto donde debe empezar y terminar de procesar o ensamblar el código.
+    
+- **`.org` (Origin):** Cambia el contador de locación. El ejemplo `.org 2048` le ordena al ensamblador que todo el código que viene a continuación debe ubicarse a partir de la dirección de memoria 2048 (justo donde arranca el Espacio de Usuario en la arquitectura ARC).
+    
+- **`.dwb` (Define Word Block):** Reserva un bloque continuo de memoria sin asignarle valores iniciales. `.dwb 25` reserva un espacio equivalente a 25 palabras.
+    
+- **`.equ` (Equate):** Trata a un símbolo como un valor específico (similar a declarar una constante). En el ejemplo, el símbolo `X` se tratará como el valor hexadecimal 10.
+    
+- **`.global` y `.extern`:** Se utilizan cuando tu programa está dividido en varias partes; indican si una variable se va a usar en otro módulo (`.global`) o si la variable que estás llamando está definida en otro archivo externo (`.extern`).
+    
+- **`.macro` y `.endmacro`:** Sirven para definir el inicio y el fin de una macro (un bloque de código reutilizable) que puede recibir parámetros formales (`a, b, ...`).
+
+
 ![[Pasted image 20261022015313.png]]
 
 ![[Pasted image 20261022180325.png]]
