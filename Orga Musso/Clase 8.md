@@ -483,6 +483,59 @@ La tabla de la mitad inferior proporciona un diccionario de las pseudo-instrucci
 
 ![[Pasted image 20261022180325.png]]
 
+Para determinar la posición exacta de `z`, debemos calcular el espacio que ocupa cada línea de código basándonos en las reglas de la arquitectura ARC que vimos en las diapositivas anteriores y en el código de la imagen:
+
+  
+
+- **Punto de inicio:** La directiva `.org 2048` le indica al ensamblador que el bloque de código comienza a cargarse en la dirección de memoria 2048.
+    
+      
+    
+- **Tamaño por línea:** En la arquitectura ARC, absolutamente todas las instrucciones y las palabras de datos ocupan 32 bits, lo que equivale a **4 bytes**. Como la memoria se direcciona por bytes, cada línea del programa avanza el contador de ubicación en 4 posiciones.
+    
+      
+    
+
+Trazando el mapa de direcciones línea por línea a partir del inicio:
+
+  
+
+- Dirección **2048**: `ld [x], %r1`
+    
+      
+    
+- Dirección **2052**: `ld [y], %r2`
+    
+      
+    
+- Dirección **2056**: `addcc %r1, %r2, %r3`
+    
+      
+    
+- Dirección **2060**: `st %r3, [z]`
+    
+      
+    
+- Dirección **2064**: `jmpl %r15 + 4, %r0`
+    
+      
+    
+- Dirección **2068**: `x: 15`
+    
+      
+    
+- Dirección **2072**: `y: 9`
+    
+      
+    
+- Dirección **2076**: `z: 0`
+    
+      
+    
+
+Por lo tanto, la variable `z` se encuentra almacenada físicamente en la posición de memoria **2076**.
+
+
 ![[Pasted image 20261022180346.png]]
 
 ![[Pasted image 20261022180359.png]]
