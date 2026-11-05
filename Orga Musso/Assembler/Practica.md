@@ -376,3 +376,54 @@ Si el ciclo no se cortó, el programa ejecuta el cuerpo del `for` iteración por
       
     
 - **Reiniciar el ciclo (`ba for`):** "Branch Always" ejecuta un salto incondicional de regreso a la etiqueta `for` (dirección 2056). Al volver arriba, se vuelve a ejecutar el `andcc` para evaluar si `%r1` finalmente llegó a 0 tras las restas sucesivas, repitiendo toda la estructura de decisión.
+
+
+
+
+
+![[Pasted image 20261105194131.png]]
+
+
+En este caso, la instrucción `ld %r1, [array+8], %r7` calcula la dirección de memoria sumando tres componentes para saber de dónde leer el dato, y guarda el resultado en el registro destino `%r7`.
+
+  
+
+Paso a paso funciona así:
+
+  
+
+1. **Cálculo de la dirección:** El procesador suma el valor que tiene actualmente el registro `%r1` + la dirección de memoria donde empieza la etiqueta `array` + un desplazamiento fijo (offset) de `8` bytes que está escrito directamente en la instrucción.
+    
+      
+    
+2. **El valor de `%r1`:** En la línea inmediatamente anterior tenés un `addcc %r1, 4, %r1`. Asumiendo que el programa arranca con los registros en 0, `%r1` pasa a valer **4**.
+    
+      
+    
+3. **La suma final:** Al reemplazar los valores, la dirección que va a ir a buscar a la memoria es `4 + array + 8`, lo que da como resultado exacto la posición **`array + 12`**.
+    
+      
+    
+
+Como el enunciado indica que es una computadora de 32 bits, sabemos que cada número del arreglo ocupa 4 bytes en memoria. Si contamos los bytes desde el inicio de `array`:
+
+  
+
+- `array + 0 bytes` apunta al **25**
+    
+      
+    
+- `array + 4 bytes` apunta al **32**
+    
+      
+    
+- `array + 8 bytes` apunta al **3**
+    
+      
+    
+- **`array + 12 bytes` apunta al 5**
+    
+      
+    
+
+En conclusión, este `ld` termina leyendo el número **5** de la memoria y lo guarda adentro del registro **`%r7`**.
