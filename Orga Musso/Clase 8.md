@@ -433,28 +433,16 @@ El diagrama desglosa una línea de instrucción típica (`lab_1: addcc %r1, %r2,
     
 - **Destination operand (Operando destino):** `%r3` Es el registro donde se guardará el resultado de la operación. Es importante notar el orden: en esta arquitectura, las fuentes van primero y el destino va al final.
     
-      
-    
 - **Comment (Comentario):** `! Sample assembly code` Todo lo que está a la derecha del signo de exclamación `!` es ignorado por el procesador y sirve únicamente para que el programador deje notas legibles.
-    
-      
-    
 
 Además, la diapositiva establece las reglas clave del ensamblador:
 
-  
 
 - **Sensibilidad:** Distingue entre mayúsculas y minúsculas.
     
-      
-    
 - **Números por defecto:** Si escribes un número sin símbolos extra, el ensamblador asume que está en Base 10 (decimal).
     
-      
-    
 - **Hexadecimales:** Para que el ensamblador lea un número como hexadecimal, debes anteponer un "0x" (ej. `0x1A`) o colocar una "h" al final (ej. `1Ah`).
-    
-      
     
 - **Binarios:** Si quieres escribir en binario directamente, el número debe finalizar con la letra "b" (ej. `1011b`).
 
