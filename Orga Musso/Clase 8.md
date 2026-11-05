@@ -394,6 +394,11 @@ La imagen "image_c545c5.png" resume las especificaciones técnicas de la Arquite
 
 
 
+
+
+
+# Assemebler
+
 ![[Pasted image 20261022015009.png]]
 
 ![[Pasted image 20261022015027.png]]
