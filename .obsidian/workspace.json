@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Latex Cod/Tuto Latex.md",
+                "file": "Orga Musso/Clase 9.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tuto Latex"
+              "title": "Clase 9"
             }
           }
         ],
@@ -461,9 +461,14 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "1f11224da7f566a3",
+  "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
+    "!imagenes/Pasted image 20261105020449.png",
+    "!imagenes/Pasted image 20261105020253.png",
+    "!imagenes/Pasted image 20261105020209.png",
+    "!imagenes/Pasted image 20261105020100.png",
     "Orga Musso/Clase 8.md",
+    "Orga Musso/Clase 9.md",
     "Latex Cod/Tuto Latex.md",
     "Latex Cod",
     "Orga Musso/clase 7.md",
@@ -489,8 +494,6 @@
     "Algo Juarez/Ejercicios practica/Operaciones Elementales",
     "Algo Juarez/Ejercicios practica/Colas/Teoria.md",
     "Algo Juarez/Ejercicios practica/listas/1. Teoria Simple enlace.md",
-    "Algo Juarez/Ejercicios practica/listas/2. Teoria doble enlace.md",
-    "Algo Juarez/Clase 17.md",
     "!imagenes/Pasted image 20261102195811.png",
     "!imagenes/Pasted image 20261102195755.png",
     "Algo Juarez/Ejercicios practica/Colas",
@@ -502,9 +505,6 @@
     "!imagenes/Pasted image 20261026023641.png",
     "!imagenes/Pasted image 20261026023615.png",
     "!imagenes/Pasted image 20261026023233.png",
-    "!imagenes/Pasted image 20261026023029.png",
-    "!imagenes/Pasted image 20261026023010.png",
-    "!imagenes/Pasted image 20261026022214.png",
     "Trabajo practico java",
     "Java/Biblioteca java/7. Estructuras",
     "Java/Biblioteca java",
