@@ -36,6 +36,40 @@
 
 
 
+# Por que r1 r1 r0
+
+Es una excelente pregunta, porque la lógica de este ciclo `for` en ensamblador funciona "al revés" de lo que haríamos habitualmente en C.
+
+  
+
+**1. ¿Por qué se carga el valor 20 en `%r1`?** El valor 20 representa el tamaño total del arreglo en bytes. Como el arreglo tiene 5 números y cada uno ocupa 4 bytes en memoria, el total es 20 ($5 \times 4$).
+
+  
+
+En lugar de contar desde el elemento 0 hacia adelante (como hace `i = 0; i < 5` en C), este programa usa `%r1` como un contador de desplazamiento (offset) que arranca en el tamaño total y va retrocediendo hacia atrás. En cada vuelta del ciclo, a ese 20 se le restan 4 bytes (`addcc %r1, -4, %r1`) para ir leyendo el elemento anterior, hasta llegar al inicio del arreglo.
+
+  
+
+**2. ¿Por qué se hace `andcc %r1, %r1, %r0`?** Esta línea es el "chequeo de elementos restantes" del ciclo. Básicamente sirve para evaluar si el contador `%r1` finalmente llegó a 0 y es hora de salir del bucle:
+
+  
+
+- **`and`**: Hace una operación lógica AND de `%r1` consigo mismo. El resultado de hacer "A AND A" es simplemente el mismo valor original, no se altera nada.
+    
+      
+    
+- **`cc` (Condition Codes)**: Este sufijo le ordena al procesador que actualice sus "banderas de estado" internas, específicamente la bandera de Cero (Z), dependiendo del resultado de la operación.
+    
+      
+    
+- **`%r0`**: Es el registro destino. En esta arquitectura (SPARC), `%r0` es un registro que siempre vale 0 y descarta cualquier cosa que intentes guardar en él.
+    
+      
+    
+
+En resumen, `andcc %r1, %r1, %r0` es un truco clásico en ensamblador para "mirar" cuánto vale un registro sin gastar memoria para guardar el resultado. Si `%r1` llegó a 0, la operación da 0, se enciende la bandera de estado de Cero, y la instrucción que le sigue inmediatamente (`be done`, "salta si es igual a cero") detecta esa bandera y termina el programa saltando a la línea 2060.
+
+
 
 
 
