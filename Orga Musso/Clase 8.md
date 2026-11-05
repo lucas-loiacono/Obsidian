@@ -403,6 +403,22 @@ La imagen "image_c545c5.png" resume las especificaciones técnicas de la Arquite
 
 ![[Pasted image 20261022015027.png]]
 
+La imagen "image_c3f3ad.png" detalla el banco de **Registros Accesibles al Programador** dentro de la CPU para la arquitectura ARC.
+
+El diagrama muestra un conjunto principal de 32 registros, numerados del 00 al 31 y nombrados en el código con el prefijo `%` (desde `%r0` hasta `%r31`). Aunque la mayoría son de propósito general, la arquitectura tiene registros de uso predefinido:
+
+- **`%r0`:** Es un registro que vale siempre cero (`[= 0]`).
+    
+- **`%r14`:** Funciona como el puntero de pila o _stack pointer_ (`[%sp]`).
+    
+- **`%r15`:** Actúa como el registro de enlace (`[link]`), encargado de almacenar la dirección de retorno de un procedimiento o función.
+
+Adicionalmente, en la parte inferior se listan dos registros especiales separados, ambos con una longitud de 32 bits:
+
+- **PC (`%pc`):** El contador de programa.
+    
+- **PSR (`%psr`):** El registro de estado del programa. El esquema en la base detalla los 32 bits de este registro (numerados del 31 al 00) y resalta una sección específica que contiene las letras **n, z, v, c**, las cuales representan las banderas (flags) generadas por la ALU.
+
 ![[Pasted image 20261022015043.png]]
 
 ![[Pasted image 20261022015059.png]]
