@@ -309,3 +309,70 @@ En ensamblador no existe el `if (a == b)` o `while (x > 0)` que tenemos en lengu
     
 
 Así que sí, prácticamente **todo "corte" de ciclo, "if" o decisión en el código se hace operando datos para forzar a las banderas a cambiar**, y luego saltando según cómo quedaron. ¡Esa es la esencia de la programación a bajo nivel!
+
+
+
+
+
+
+# Resumen
+
+El código en ensamblador analizado es un programa que suma los elementos de un arreglo (array) iterando de atrás hacia adelante. A diferencia de lenguajes de alto nivel como C, aquí el control de flujo se maneja directamente interactuando con la memoria, los registros y las banderas de estado del procesador.
+
+  
+
+### 1. Arquitectura y Memoria
+
+Cada instrucción en este código (arquitectura tipo RISC/SPARC) ocupa exactamente 32 bits, lo que equivale a 4 bytes. Por esta razón, el contador de programa avanza de a 4 posiciones por cada línea de código ejecutada. El programa inicia en la dirección de memoria **2048**, la siguiente instrucción está en **2052**, el inicio del ciclo `for` en **2056**, y así sucesivamente.
+
+  
+
+### 2. Inicialización de Variables
+
+Antes de entrar al ciclo, el programa prepara los registros fundamentales:
+
+  
+
+- **Acumulador (`andcc %r3, %r0, %r3`):** Pone a 0 el registro `%r3`, que actuará como la variable donde se irá guardando la suma total (`SumaParcial` en C).
+    
+      
+    
+- **Índice/Desplazamiento (`ld [length], %r1`):** Carga el valor **20** en `%r1`. Este número representa el tamaño total del arreglo en bytes (5 elementos $\times$ 4 bytes cada uno). En lugar de contar desde 0 hacia adelante, el programa usará este 20 para posicionarse al final del arreglo e ir retrocediendo.
+    
+      
+    
+
+### 3. La Lógica del Ciclo (Loop)
+
+Los procesadores no entienden sentencias como `while` o `for`. El ciclo se controla mediante dos pasos obligatorios: forzar una operación matemática para modificar las banderas de estado internas, y luego usar una instrucción de salto que lea esas banderas.
+
+  
+
+- **El chequeo de corte (`andcc %r1, %r1, %r0`):** Al inicio del ciclo (dirección 2056), se aplica una operación lógica AND bit a bit del registro `%r1` consigo mismo. El resultado matemático se descarta enviándolo al registro nulo `%r0`. El objetivo real es el sufijo **`cc` (Condition Codes)**, que le ordena al procesador evaluar el valor de `%r1`. Si `%r1` se vació y llegó a 0, el procesador enciende físicamente su **Bandera de Cero (Zero Flag, Z)**.
+    
+      
+    
+- **La decisión de salir (`be done`):** "Branch if Equal" es un salto condicional. Esta instrucción solo revisa si la Bandera de Cero (Z) quedó encendida en el paso anterior. Si la bandera está arriba (porque `%r1` es 0), el programa corta el ciclo saltando a la etiqueta `done` en la dirección **2080**. Si no es 0, simplemente pasa a la siguiente línea.
+    
+      
+    
+
+### 4. Procesamiento de los Datos
+
+Si el ciclo no se cortó, el programa ejecuta el cuerpo del `for` iteración por iteración:
+
+  
+
+- **Retroceder el índice (`addcc %r1, -4, %r1`):** Le resta 4 bytes al contador `%r1` (ej. de 20 pasa a 16). Esto ajusta el desplazamiento para que apunte al elemento correcto del arreglo que se va a leer en esa vuelta.
+    
+      
+    
+- **Leer la memoria (`ld %r1,[arrayA],%r5`):** Calcula la dirección exacta de memoria sumando la base del arreglo (`[arrayA]`) más el desplazamiento actual (`%r1`). Toma el número guardado en esa posición de memoria y lo carga temporalmente en el registro `%r5`.
+    
+      
+    
+- **Acumular el valor (`addcc %r3, %r5, %r3`):** Suma el número recién leído (`%r5`) al total acumulado que lleva guardado `%r3`.
+    
+      
+    
+- **Reiniciar el ciclo (`ba for`):** "Branch Always" ejecuta un salto incondicional de regreso a la etiqueta `for` (dirección 2056). Al volver arriba, se vuelve a ejecutar el `andcc` para evaluar si `%r1` finalmente llegó a 0 tras las restas sucesivas, repitiendo toda la estructura de decisión.
