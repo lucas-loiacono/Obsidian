@@ -421,6 +421,43 @@ Adicionalmente, en la parte inferior se listan dos registros especiales separado
 
 ![[Pasted image 20261022015043.png]]
 
+La imagen "image_b87fc2.png" explica la estructura y las reglas de sintaxis básicas que debes seguir para escribir código en lenguaje ensamblador (Assembler) antes de que sea traducido a código de máquina.
+
+El diagrama desglosa una línea de instrucción típica (`lab_1: addcc %r1, %r2, %r3 ! Sample assembly code`) en cinco partes fundamentales:
+
+- **Label (Etiqueta):** `lab_1:` Funciona como un marcador de posición para esa dirección de memoria, lo cual es muy útil cuando necesitas que el código salte hacia esta línea desde otra parte del programa.
+    
+- **Mnemonic (Mnemotécnico):** `addcc` Es el nombre de la instrucción que le dice a la CPU qué hacer (en este caso, una suma que además actualiza el registro de estado PSR).
+    
+- **Source operands (Operandos fuente):** `%r1, %r2` Son los registros que la instrucción va a tomar como datos de entrada para realizar el cálculo en la ALU.
+    
+- **Destination operand (Operando destino):** `%r3` Es el registro donde se guardará el resultado de la operación. Es importante notar el orden: en esta arquitectura, las fuentes van primero y el destino va al final.
+    
+      
+    
+- **Comment (Comentario):** `! Sample assembly code` Todo lo que está a la derecha del signo de exclamación `!` es ignorado por el procesador y sirve únicamente para que el programador deje notas legibles.
+    
+      
+    
+
+Además, la diapositiva establece las reglas clave del ensamblador:
+
+  
+
+- **Sensibilidad:** Distingue entre mayúsculas y minúsculas.
+    
+      
+    
+- **Números por defecto:** Si escribes un número sin símbolos extra, el ensamblador asume que está en Base 10 (decimal).
+    
+      
+    
+- **Hexadecimales:** Para que el ensamblador lea un número como hexadecimal, debes anteponer un "0x" (ej. `0x1A`) o colocar una "h" al final (ej. `1Ah`).
+    
+      
+    
+- **Binarios:** Si quieres escribir en binario directamente, el número debe finalizar con la letra "b" (ej. `1011b`).
+
 ![[Pasted image 20261022015059.png]]
 
 ![[Pasted image 20261022015313.png]]
