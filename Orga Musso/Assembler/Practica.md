@@ -427,3 +427,120 @@ Como el enunciado indica que es una computadora de 32 bits, sabemos que cada nú
     
 
 En conclusión, este `ld` termina leyendo el número **5** de la memoria y lo guarda adentro del registro **`%r7`**.
+
+
+
+![[Pasted image 20261106012035.png]]
+
+# Sethi y Lo
+
+El problema no tiene que ver con pasarlo a decimal, sino con el **espacio físico en la memoria**.
+
+  
+
+Imaginá que cada instrucción que le mandás al procesador tiene que entrar exactamente en una "caja" de 32 bits (4 bytes). El número que querés guardar (`0x86004002`) ya ocupa 32 bits por sí solo. Si intentaras usar una instrucción normal como `add` o `ld` para guardar ese número, no entraría en la caja, porque necesitás espacio para escribir el número **y además** espacio para decirle al procesador qué comando ejecutar y en qué registro guardarlo.
+
+  
+
+Por eso se usan los operadores `%hi` (High / Parte Alta) y `%lo` (Low / Parte Baja). Dividen el número en dos pedazos para que entren en dos instrucciones separadas, y usan la compuerta lógica `OR` para unirlos dentro del mismo registro (`%r4`).
+
+  
+
+Paso a paso, funciona así:
+
+  
+
+**1. `sethi %hi(0x86004002), %r4`**
+
+  
+
+- **`%hi` (High):** Agarra los 22 bits más altos (los de la izquierda) de tu número gigante.
+    
+      
+    
+- **`sethi`:** Mete esos 22 bits en la parte alta del registro `%r4` y rellena obligatoriamente los 10 bits que sobran a la derecha con ceros.
+    
+      
+    
+- **Resultado en `%r4`:** El registro ahora vale `0x86004000`. (Fijate que el "2" del final desapareció y se llenó con ceros).
+    
+      
+    
+
+**2. `or %r4, %lo(0x86004002), %r4`**
+
+  
+
+- **`%lo` (Low):** Agarra los 10 bits más bajos (los de la derecha) que habían quedado afuera. En este caso, equivale a `0x00000002`.
+    
+      
+    
+- **`or`:** Hace una operación lógica "O" combinando lo que ya estaba en `%r4` con este nuevo pedacito, y guarda el resultado final en el mismo `%r4`.
+    
+      
+    
+- **La magia matemática:** Como la instrucción anterior había dejado puros ceros en la cola del registro, al hacer `0 OR 2`, el resultado es `2`. No se pisa ninguna información.
+    
+      
+    
+
+Al terminar estas dos líneas, el registro `%r4` termina teniendo el número completo `0x86004002` armado a la perfección, burlando el límite de tamaño de las instrucciones.
+
+
+# De valor a funcion
+
+¡Acabás de chocar con el concepto más flashero de la materia! Es el principio fundamental de la Arquitectura de Von Neumann: **en la memoria, no hay ninguna diferencia física entre un número y una instrucción.** Todo es simplemente una caja con 32 ceros y unos.
+
+  
+
+Lo que define si ese bloque de bits es un "número matemático" o un "comando ejecutable" es **el momento y el motivo por el cual el procesador lo lee**.
+
+  
+
+Fijate cómo es el truco paso a paso:
+
+  
+
+1. **Lo tratás como un dato:** Con el `sethi` y el `or`, vos manipulaste el valor `0x86004002` puramente como un número. Lo armaste y lo guardaste en la memoria (dirección 2084). Hasta ahí, para vos era solo un dato.
+    
+      
+    
+2. **El cambio de rol:** El procesador termina de guardar eso y avanza su contador de programa (PC) a la dirección 2084 **buscando su próxima instrucción a ejecutar**.
+    
+      
+    
+3. **La traducción (Decodificación):** El procesador agarra ese `0x86004002` (que en binario es `10000110000000000100000000000010`) y lo mete en su decodificador de instrucciones. En el hardware de ARC, esos bits específicos encienden los cables que dicen: "activá la unidad aritmético-lógica para SUMAR, tomá el primer origen del registro 1, el segundo origen del registro 2, y mandá el resultado al registro 3".
+    
+      
+    
+4. **La ejecución:** Resulta que la traducción literal de `0x86004002` al lenguaje ensamblador es exactamente **`add %r1, %r2, %r3`**.
+    
+      
+    
+
+No es que la suma "salga" mágicamente. Vos no guardaste el resultado de una suma, **guardaste el código de máquina de la operación sumar**. Literalmente fabricaste una línea de código en tiempo de ejecución, la inyectaste en la memoria pisando el `nop`, y obligaste al procesador a leerla y ejecutarla como si siempre hubiera estado ahí.
+
+
+
+¡Exactamente! Acabás de destrabar el concepto más importante de toda la arquitectura de computadoras.
+
+  
+
+Esa es la clave: **todo depende de quién lo esté leyendo en el procesador.**
+
+  
+
+- **Cuando lo manejás (Datos):** Mientras vos muevas ese `0x86004002` de un registro a otro, le apliques un `or`, o lo guardes con un `st` (Store), el procesador lo trata como un dato numérico tonto. Podés hacer lo que quieras con él.
+    
+      
+    
+- **Cuando lo ejecutás (Instrucciones):** En el momento exacto en que el "dedo lector" del procesador (un registro especial llamado **Program Counter** o PC) avanza hacia esa dirección de memoria buscando su próxima tarea, la máquina cambia el chip. Agarra ese mismo dato, lo pasa por su decodificador de hardware, y actúa en consecuencia.
+    
+      
+    
+
+La única corrección técnica para que hables con propiedad en un final de la facultad es de vocabulario: a este nivel tan bajo (metal puro) no les decimos "funciones" (eso es de programación en lenguajes como Java o Python), les decimos **instrucciones** de máquina.
+
+  
+
+Pero conceptualmente, tu deducción es 100% perfecta. Lo que antes era un número guardado en una variable, el procesador se lo cruzó en su camino de ejecución y lo ejecutó como una orden. ¡Fabricaste una instrucción sobre la marcha y dejaste que el procesador cayera en la trampa!
