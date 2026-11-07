@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
+                "file": "Algo Juarez/clase 13.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ejercicios practica"
+              "title": "clase 13"
             }
           }
         ],
@@ -463,6 +463,11 @@
   },
   "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
+    "Algo Juarez/clase 14.md",
+    "Algo Juarez/clase 12.md",
+    "Algo Juarez/clase 11.md",
+    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap",
     "!imagenes/Pasted image 20261107172538.png",
     "!imagenes/Pasted image 20261107172201.png",
     "!imagenes/Pasted image 20261107171507.png",
@@ -472,22 +477,17 @@
     "!imagenes/Pasted image 20261107160459.png",
     "!imagenes/Pasted image 20261107160445.png",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teoria.md",
-    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
     "Orga Musso/Assembler/Practica.md",
     "!imagenes/Pasted image 20261106012035.png",
     "!imagenes/Pasted image 20261105194131.png",
     "Orga Musso/Assembler/TP.md",
-    "!imagenes/Pasted image 20261105180858.png",
     "Orga Musso/Clase 8.md",
     "Orga Musso/Clase 9.md",
     "Orga Musso/Assembler",
     "Latex Cod/Tuto Latex.md",
     "Latex Cod",
     "Orga Musso/clase 7.md",
-    "Algo Juarez/clase 14.md",
-    "Algo Juarez/clase 12.md",
-    "Algo Juarez/clase 11.md",
     "Algo Juarez/clase 9.md",
     "Algo Juarez/clase 10.md",
     "Algo Juarez/clase 8.md",
@@ -508,7 +508,6 @@
     "Algo Juarez/Ejercicios practica",
     "Trabajo practico java",
     "Java/Biblioteca java/7. Estructuras",
-    "Java/Biblioteca java",
     "Sin título.canvas",
     "Sin título 3.canvas",
     "Sin título 2.canvas",

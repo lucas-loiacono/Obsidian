@@ -630,3 +630,47 @@ La ecuación de recurrencia general $T(n) = a \cdot T(n/b) + f(n)$ se divide exa
 - **La parte NO recursiva ($+ f(n)$ o $+ c \cdot n^d$):** Es el costo de todo el trabajo extra que hace la función _afuera_ de esas llamadas recursivas (como dividir el problema antes, o juntar los resultados después). Como bien decís, puede ser un **número constante** (si hace operaciones elementales simples, le sumás algo como $+ O(1)$ o $+ c$) o una **función** (si tiene un ciclo `for` o llama a otra función lineal, le sumás $+ O(n)$ o $+ n^2$).
 
 Esa es la clave fundamental para leer el código de cualquier algoritmo recursivo y armar su ecuación al instante.
+
+
+
+
+
+
+# Que es B?
+Sí, $b$ siempre representa el factor por el cual se divide (o reduce) el tamaño del problema original en cada nueva llamada recursiva, sin importar si ese "tamaño" es la longitud de un vector, las dimensiones de una matriz o un número entero $n$.
+
+# Resumen: Parámetros del Teorema Maestro
+
+El Teorema Maestro sirve para hallar la complejidad asintótica (orden $\Theta$) de algoritmos recursivos cuya ecuación de tiempo se puede expresar con la siguiente forma general:
+
+$$T(n) = a \cdot T\left(\frac{n}{b}\right) + c \cdot n^d$$
+
+### Desglose de cada variable
+
+*   **$T(n)$:** Es el tiempo total de ejecución del algoritmo para un problema de tamaño $n$.
+*   **$a$ (Llamadas recursivas):** Representa la **cantidad de veces** que la función se llama a sí misma dentro del código.
+    *   *Ejemplo:* Si en el código ves que la función recursiva se invoca 3 veces por cada ejecución, entonces $a = 3$. Siempre es un número entero $a \ge 1$.
+*   **$b$ (Factor de división):** Representa la proporción en la que se **divide el tamaño del problema** original para pasárselo a la siguiente llamada recursiva.
+    *   *Ejemplo:* Si el problema original tiene tamaño $n$ (como un vector) y a la recursión le pasás la mitad de ese vector, el problema se achicó por 2, entonces $b = 2$. Siempre debe ser $b > 1$.
+*   **$c \cdot n^d$ o $O(n^d)$ (Trabajo extra / NO recursivo):** Es el tiempo que gasta la función haciendo tareas *fuera* de las llamadas recursivas (operaciones matemáticas, un ciclo `for` para combinar resultados, dividir el arreglo, etc.).
+    *   **$d$ (Exponente del trabajo extra):** Define el ritmo de crecimiento de ese trabajo no recursivo.
+        *   Si el trabajo extra es apenas un par de variables o un `if`, el tiempo es constante $O(1)$. Como $1 = n^0$, entonces **$d = 0$**.
+        *   Si el trabajo extra requiere recorrer el vector con un ciclo simple, el tiempo es lineal $O(n)$. Como $n = n^1$, entonces **$d = 1$**.
+        *   Si el trabajo extra requiere ciclos anidados, el tiempo es cuadrático $O(n^2)$, entonces **$d = 2$**.
+    *   **$c$ (Constante):** Es un número que acompaña al trabajo extra (ej. el $4$ en $4n^2$). A fines prácticos para el teorema, **se ignora**, ya que el exponente $d$ es el único que define la complejidad asintótica.
+
+---
+
+### Resumen de los 3 casos (Evaluando $a$ vs $b^d$)
+
+Para saber el resultado, siempre tenés que calcular $b^d$ y compararlo con $a$.
+
+1.  **Si $a < b^d$ (Domina el trabajo no recursivo):**
+    El peso del algoritmo está en lo que hace afuera de la recursión (particionar o combinar).
+    $\implies \mathbf{\Theta(n^d)}$
+2.  **Si $a = b^d$ (Trabajo equilibrado):**
+    El costo de las llamadas recursivas y el trabajo extra están perfectamente balanceados en todo el árbol de ejecución.
+    $\implies \mathbf{\Theta(n^d \log n)}$
+3.  **Si $a > b^d$ (Dominan las llamadas recursivas):**
+    El costo de dividirse en tantas sub-ramas es lo que más tiempo consume en el algoritmo.
+    $\implies \mathbf{\Theta(n^{\log_b a})}$
