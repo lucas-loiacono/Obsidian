@@ -100,3 +100,49 @@ Ejecución paso a paso para `n = 3`:
 Al concatenar las impresiones cronológicamente obtenemos el string:**`3-2-1-1-2-3-`**
 
 ![[Pasted image 20261107160445.png]]
+
+# Ejercicio 1.2: Complejidad Asintótica
+
+### Enunciado
+Sea la función de tiempo de un algoritmo[cite: 2]:
+
+$$T(n) = 3n \ln(n) + 4n - 5$$[cite: 2]
+
+Donde $n$ es el tamaño de la entrada[cite: 2]. Marcar **TODAS** las opciones válidas[cite: 2]:
+
+- (a) $\Theta(3n^2)$[cite: 2]
+- (b) $O(2n^2)$[cite: 2]
+- (c) $\Omega(300)$[cite: 2]
+- (d) $\Omega(300n \ln(n))$[cite: 2]
+- (e) $O(n + n\sqrt{n})$[cite: 2]
+- (f) $\Theta(300n + n \ln(n))$[cite: 2]
+- (g) $O(n!)$[cite: 2]
+- (h) $\Omega(30!)$[cite: 2]
+
+---
+
+### Solución y Explicación
+
+Las opciones correctas son: **(b), (c), (d), (e), (f), (g), (h)**.
+
+#### Análisis del término dominante
+Para encontrar la complejidad del algoritmo $T(n)$, debemos identificar el término que crece más rápido cuando $n \to \infty$. 
+- Los términos son: $3n \ln(n)$, $4n$ y $-5$.
+- El término de mayor orden de crecimiento es $3n \ln(n)$.
+- En notación asintótica, las constantes multiplicativas (el $3$) y los términos de menor orden se descartan. 
+- Por lo tanto, el orden de crecimiento exacto (la cota ajustada) del algoritmo es **$\Theta(n \ln n)$**.
+
+#### Evaluación de cada opción
+Recordemos qué significan las notaciones:
+- **$O(g(n))$**: Cota superior (crece igual o más rápido).
+- **$\Omega(g(n))$**: Cota inferior (crece igual o más lento).
+- **$\Theta(g(n))$**: Cota ajustada (crece exactamente al mismo ritmo).
+
+1. **(a) $\Theta(3n^2)$ $\rightarrow$ FALSO**. Equivale a $\Theta(n^2)$. Nuestra función crece a un ritmo de $n \ln n$, que es estrictamente menor que $n^2$. No es una cota ajustada.
+2. **(b) $O(2n^2)$ $\rightarrow$ VERDADERO**. Equivale a $O(n^2)$. Como $n \ln n$ crece más lento que $n^2$, $n^2$ funciona perfectamente como un límite superior (cota superior).
+3. **(c) $\Omega(300)$ $\rightarrow$ VERDADERO**. $300$ es una constante, por lo que equivale a $\Omega(1)$. Como $T(n)$ crece hacia el infinito al aumentar $n$, siempre será mayor que una constante para un $n$ grande. Es una cota inferior válida.
+4. **(d) $\Omega(300n \ln(n))$ $\rightarrow$ VERDADERO**. Descartando la constante, equivale a $\Omega(n \ln n)$. Como $T(n)$ es exactamente $\Theta(n \ln n)$, por definición también cumple con ser su propia cota inferior $\Omega(n \ln n)$.
+5. **(e) $O(n + n\sqrt{n})$ $\rightarrow$ VERDADERO**. El término dominante aquí es $n\sqrt{n}$, que es lo mismo que $n^{1.5}$. El logaritmo $\ln(n)$ crece asintóticamente más lento que cualquier potencia fraccionaria como $n^{0.5}$. Por ende, $n \ln n$ está acotado superiormente por $n^{1.5}$.
+6. **(f) $\Theta(300n + n \ln(n))$ $\rightarrow$ VERDADERO**. Dentro del paréntesis, el término que domina es $n \ln(n)$ (le gana a $300n$). Al descartar las constantes, esta expresión es equivalente a $\Theta(n \ln n)$, que es exactamente la cota ajustada de nuestra $T(n)$.
+7. **(g) $O(n!)$ $\rightarrow$ VERDADERO**. La función factorial $n!$ tiene un crecimiento colosalmente más rápido que $n \ln n$. Sirve como cota superior (aunque sea muy holgada).
+8. **(h) $\Omega(30!)$ $\rightarrow$ VERDADERO**. Aunque $30!$ es un número inmensamente grande, no deja de ser un número fijo (una constante). Por lo tanto, asintóticamente equivale a $\Omega(1)$, exactamente igual que la opción (c). Es una cota inferior válida.
