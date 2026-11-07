@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Grafos, ABB.md",
+                "file": "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Teoria Grafos, ABB"
+              "title": "Teoria recorridos, AVL, rebalanceo"
             }
           }
         ],
@@ -463,9 +463,9 @@
   },
   "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Grafos, ABB.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Grafos, ABB.md",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
     "Algo Juarez/Clase 16.md",
     "Algo Juarez/clase 15.md",
     "Algo Juarez/Clase 17.md",
