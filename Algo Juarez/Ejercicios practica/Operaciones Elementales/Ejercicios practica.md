@@ -515,3 +515,118 @@ $$T(n) = 6 + 7n + 1 + 1$$
 $$T(n) = 7n + 8$$
 
 **Respuesta final para completar el enunciado:**$T(n) = 7n + 8$
+
+
+![[Pasted image 20261107172201.png]]
+
+# Ejercicio 1.6: Teorema Maestro
+
+### Enunciado
+Sea la función de tiempo de un algoritmo recursivo[cite: 8]:
+$$T(n) = 5T(n/2) + 4n^2$$
+Donde $n$ es el tamaño de la entrada. Entonces, el orden del algoritmo, según el Teorema Maestro, es[cite: 8]:
+- (a) $\Theta(5n \ln(n))$
+- (b) $\Theta(n^2 \log(n))$
+- (c) $\Theta(n^2)$
+- (d) $\Theta(n^{\log_2(5)})$
+
+### Solución y Explicación
+Para aplicar el Teorema Maestro, primero identificamos los valores de las constantes en la ecuación de recurrencia de la forma $T(n) = a \cdot T(n/b) + c \cdot n^d$[cite: 8]:
+- **$a = 5$** (cantidad de llamadas recursivas)[cite: 8].
+- **$b = 2$** (factor de división del problema)[cite: 8].
+- **$d = 2$** (exponente del término independiente $4n^2$)[cite: 8].
+
+Ahora evaluamos la relación entre $a$ y $b^d$[cite: 8]:
+- $b^d = 2^2 = 4$
+- Comparamos: **$5 > 4 \implies a > b^d$**
+
+Según el recordatorio del teorema, cuando $a > b^d$, el costo de las hojas (llamadas recursivas) domina sobre el costo de combinar, y el orden es $\Theta(n^{\log_b a})$[cite: 8].
+Reemplazando nuestros valores, obtenemos: **$\Theta(n^{\log_2 5})$**
+
+**Opción correcta: (d)**[cite: 8]
+
+---
+
+# Ejercicio 1.7: Teorema Maestro
+
+### Enunciado
+Sea la función de tiempo de un algoritmo recursivo[cite: 8]:
+$$T(n) = 5T(n/4) + 4n^3$$
+Donde $n$ es el tamaño de la entrada. Entonces, el orden del algoritmo, según el Teorema Maestro, es[cite: 8]:
+- (a) $\Theta(5n \ln(n))$
+- (b) $\Theta(n^3 \log(n))$
+- (c) $\Theta(n^3)$
+- (d) $\Theta(n^{\log_4(5)})$
+
+### Solución y Explicación
+Volvemos a identificar los parámetros de la ecuación $T(n) = a \cdot T(n/b) + c \cdot n^d$[cite: 8]:
+- **$a = 5$**[cite: 8]
+- **$b = 4$**[cite: 8]
+- **$d = 3$** (exponente del término independiente $4n^3$)[cite: 8]
+
+Evaluamos la relación entre $a$ y $b^d$:
+- $b^d = 4^3 = 64$
+- Comparamos: **$5 < 64 \implies a < b^d$**
+
+Según el Teorema Maestro, cuando $a < b^d$, el costo de particionar y combinar domina sobre el costo de las llamadas recursivas. En este caso, el orden está dictado directamente por el término polinómico de mayor grado, es decir, $\Theta(n^d)$[cite: 8].
+Reemplazando nuestro valor de $d$, obtenemos: **$\Theta(n^3)$**
+
+**Opción correcta: (c)**[cite: 8]
+
+# ¿Para qué sirve $T(n) = c \cdot n^d$ cuando $1 \le n < b$?
+
+Esa primera línea en la llave del Teorema Maestro representa el **caso base** del algoritmo recursivo.
+
+### Explicación detallada
+
+1. **Freno de la recursión:** Un algoritmo recursivo no puede dividirse infinitamente. Cuando el tamaño del problema de entrada ($n$) se vuelve lo suficientemente pequeño (estrictamente menor que $b$, que es el número por el cual dividís el problema), el algoritmo deja de llamarse a sí mismo.
+2. **Resolución directa:** En ese punto (cuando $1 \le n < b$), el problema es tan chico que se resuelve de manera directa, sin recursividad. El costo de tiempo de resolver ese problema diminuto se define genéricamente como $c \cdot n^d$ (aunque en la práctica de programación, esto casi siempre representa un costo constante $\Theta(1)$).
+3. **Impacto en la Complejidad Asintótica:** Matemáticamente es obligatorio definir esta condición de parada para que la función esté completa. Sin embargo, **el caso base no afecta el orden de complejidad final**. 
+
+En resumen: sirve para que la definición matemática de la recurrencia sea correcta y tenga un punto final. Pero a la hora de calcular el orden $\Theta$ usando el Teorema Maestro, esta parte se ignora por completo, ya que lo que determina el crecimiento del tiempo para un $n$ gigante (tendiendo a infinito) es únicamente la parte recursiva de abajo (cuando $n \ge b$).
+
+
+![[Pasted image 20261107172538.png]]
+
+# Ejercicio 1.8: Teorema Maestro a partir de código
+
+### Enunciado
+Indicar el orden de la siguiente función aplicando el **Teorema Maestro**. Justificar[cite: 9].
+
+### Análisis del código y deducción de la ecuación de recurrencia
+Para aplicar el Teorema Maestro, primero debemos traducir el comportamiento del código a una ecuación matemática de la forma $T(n) = a \cdot T(n/b) + c \cdot n^d$[cite: 9].
+Sea $n$ el tamaño del problema, representado por la variable `largo` ($n = \text{fin} - \text{ini}$)[cite: 9].
+
+1. **Valor de $a$ (cantidad de llamadas recursivas):** Dentro de la función, hay exactamente 3 invocaciones a sí misma (`funcion(...)`)[cite: 9]. Por lo tanto, **$a = 3$**.
+2. **Valor de $b$ (factor de división):** El tamaño original `largo` se divide en 3 (`int parte = largo / 3;`), y cada llamada recursiva procesa una porción de ese tamaño[cite: 9]. Por lo tanto, **$b = 3$**.
+3. **Valor de $d$ (costo de combinar/dividir):** Al final del bloque, se ejecuta `realizarTrabajoLineal(vec);`, cuyo comentario indica que tiene una complejidad de $O(\text{largo})$[cite: 9]. Esto equivale a un trabajo extra proporcional a $n^1$. Por lo tanto, el exponente del término polinómico es **$d = 1$**.
+
+Con estos datos, la ecuación de recurrencia que modela la función es:
+$$T(n) = 3T(n/3) + O(n^1)$$
+
+### Aplicación del Teorema Maestro
+Evaluamos la relación entre $a$ y $b^d$[cite: 9]:
+- $a = 3$
+- $b^d = 3^1 = 3$
+- Comparamos: **$a = b^d \implies 3 = 3$**
+
+Según el recordatorio del Teorema Maestro, cuando $a = b^d$, el costo está balanceado de manera uniforme a través del árbol de recursión[cite: 9]. El orden del algoritmo corresponde al caso del medio, cuya complejidad es $\Theta(n^d \cdot \log n)$[cite: 9].
+
+Reemplazando nuestro valor de $d=1$, obtenemos: **$\Theta(n \log n)$**
+
+---
+**Respuesta final:**
+El orden de la función es **$\Theta(n \log n)$**. 
+*Justificación:* La ecuación de recurrencia asociada es $T(n) = 3T(n/3) + O(n)$, la cual satisface la condición $a = b^d$ ($3 = 3^1$) del Teorema Maestro, resultando en una complejidad de $\Theta(n^1 \log n)$.
+
+
+
+
+La ecuación de recurrencia general $T(n) = a \cdot T(n/b) + f(n)$ se divide exactamente en las dos partes que mencionás:
+
+- **La parte recursiva ($a \cdot T(n/b)$):** Es el costo exclusivo de las llamadas a la función en sí misma. Lo que acompaña a la $T$ indica **cuántas veces** llamás a la recursión ($a$), y lo de adentro indica **de qué tamaño** le pasás el problema ($n/b$).
+    
+
+- **La parte NO recursiva ($+ f(n)$ o $+ c \cdot n^d$):** Es el costo de todo el trabajo extra que hace la función _afuera_ de esas llamadas recursivas (como dividir el problema antes, o juntar los resultados después). Como bien decís, puede ser un **número constante** (si hace operaciones elementales simples, le sumás algo como $+ O(1)$ o $+ c$) o una **función** (si tiene un ciclo `for` o llama a otra función lineal, le sumás $+ O(n)$ o $+ n^2$).
+
+Esa es la clave fundamental para leer el código de cualquier algoritmo recursivo y armar su ecuación al instante.
