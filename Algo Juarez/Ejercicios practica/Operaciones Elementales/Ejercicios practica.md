@@ -146,3 +146,79 @@ Recordemos qué significan las notaciones:
 6. **(f) $\Theta(300n + n \ln(n))$ $\rightarrow$ VERDADERO**. Dentro del paréntesis, el término que domina es $n \ln(n)$ (le gana a $300n$). Al descartar las constantes, esta expresión es equivalente a $\Theta(n \ln n)$, que es exactamente la cota ajustada de nuestra $T(n)$.
 7. **(g) $O(n!)$ $\rightarrow$ VERDADERO**. La función factorial $n!$ tiene un crecimiento colosalmente más rápido que $n \ln n$. Sirve como cota superior (aunque sea muy holgada).
 8. **(h) $\Omega(30!)$ $\rightarrow$ VERDADERO**. Aunque $30!$ es un número inmensamente grande, no deja de ser un número fijo (una constante). Por lo tanto, asintóticamente equivale a $\Omega(1)$, exactamente igual que la opción (c). Es una cota inferior válida.
+
+
+# Comportamiento de $\ln(n)$ y potencias polinómicas
+
+### 1. ¿Cómo es la función $\ln(n)$?
+
+La función $\ln(n)$ es el **logaritmo natural** (logaritmo en base $e$, donde $e \approx 2.718$). En el contexto de análisis de algoritmos, lo más importante que tenés que saber sobre los logaritmos (sin importar su base) es que **crecen de manera extremadamente lenta**.
+
+Para darte una idea visual de lo lento que crece a medida que $n$ se hace grande:
+- Si $n = 10$, $\ln(10) \approx 2.3$
+- Si $n = 100$, $\ln(100) \approx 4.6$
+- Si $n = 1000$, $\ln(1000) \approx 6.9$
+- Si $n = 1.000.000$, $\ln(1.000.000) \approx 13.8$
+
+Mientras $n$ explota hacia números gigantes, el logaritmo sube a paso de tortuga. 
+
+---
+
+### 2. ¿Por qué $n \ln(n)$ está acotado por $O(n^{1.5})$?
+
+La opción (e) del ejercicio proponía $O(n + n\sqrt{n})$.
+Por propiedades de exponentes, sabemos que $\sqrt{n}$ es lo mismo que $n^{0.5}$. Entonces:
+$n \cdot \sqrt{n} = n^1 \cdot n^{0.5} = n^{1.5}$
+
+Para saber si $n \ln(n) \in O(n^{1.5})$, tenemos que ver quién crece más rápido. Si dividimos ambas funciones por $n$ para simplificar la comparación, nos queda:
+- Del lado izquierdo: **$\ln(n)$**
+- Del lado derecho: **$n^{0.5}$** (que es $\sqrt{n}$)
+
+Aquí entra una **regla de oro de la complejidad asintótica**:
+> **Cualquier función logarítmica siempre crece más lento que cualquier función polinómica/potencial con exponente mayor a cero.**
+
+No importa qué tan chico sea el exponente. Un $\ln(n)$ siempre va a perder a la larga contra $n^{0.5}$, contra $n^{0.1}$ e incluso contra $n^{0.0001}$. Al principio el logaritmo puede parecer más grande, pero cuando $n$ tiende a infinito, la potencia fraccionaria lo pasa por encima.
+
+**Conclusión:**
+Como $\sqrt{n}$ crece estrictamente más rápido que $\ln(n)$, si multiplicamos ambas por $n$, resulta que **$n^{1.5}$ crece estrictamente más rápido que $n \ln(n)$**. 
+
+Al crecer más rápido, $n^{1.5}$ funciona perfectamente como un "techo" (cota superior) para tu algoritmo, haciendo que la afirmación $T(n) \in O(n^{1.5})$ sea matemáticamente correcta.
+
+
+# Comportamiento de $\ln(n)$ y potencias polinómicas
+
+### 1. ¿Cómo es la función $\ln(n)$?
+
+La función $\ln(n)$ es el **logaritmo natural** (logaritmo en base $e$, donde $e \approx 2.718$). En el contexto de análisis de algoritmos, lo más importante que tenés que saber sobre los logaritmos (sin importar su base) es que **crecen de manera extremadamente lenta**.
+
+Para darte una idea visual de lo lento que crece a medida que $n$ se hace grande:
+- Si $n = 10$, $\ln(10) \approx 2.3$
+- Si $n = 100$, $\ln(100) \approx 4.6$
+- Si $n = 1000$, $\ln(1000) \approx 6.9$
+- Si $n = 1.000.000$, $\ln(1.000.000) \approx 13.8$
+
+Mientras $n$ explota hacia números gigantes, el logaritmo sube a paso de tortuga. 
+
+---
+
+### 2. ¿Por qué $n \ln(n)$ está acotado por $O(n^{1.5})$?
+
+La opción (e) del ejercicio proponía $O(n + n\sqrt{n})$.
+Por propiedades de exponentes, sabemos que $\sqrt{n}$ es lo mismo que $n^{0.5}$. Entonces:
+$n \cdot \sqrt{n} = n^1 \cdot n^{0.5} = n^{1.5}$
+
+Para saber si $n \ln(n) \in O(n^{1.5})$, tenemos que ver quién crece más rápido. Si dividimos ambas funciones por $n$ para simplificar la comparación, nos queda:
+- Del lado izquierdo: **$\ln(n)$**
+- Del lado derecho: **$n^{0.5}$** (que es $\sqrt{n}$)
+
+Aquí entra una **regla de oro de la complejidad asintótica**:
+> **Cualquier función logarítmica siempre crece más lento que cualquier función polinómica/potencial con exponente mayor a cero.**
+
+No importa qué tan chico sea el exponente. Un $\ln(n)$ siempre va a perder a la larga contra $n^{0.5}$, contra $n^{0.1}$ e incluso contra $n^{0.0001}$. Al principio el logaritmo puede parecer más grande, pero cuando $n$ tiende a infinito, la potencia fraccionaria lo pasa por encima.
+
+**Conclusión:**
+Como $\sqrt{n}$ crece estrictamente más rápido que $\ln(n)$, si multiplicamos ambas por $n$, resulta que **$n^{1.5}$ crece estrictamente más rápido que $n \ln(n)$**. 
+
+Al crecer más rápido, $n^{1.5}$ funciona perfectamente como un "techo" (cota superior) para tu algoritmo, haciendo que la afirmación $T(n) \in O(n^{1.5})$ sea matemáticamente correcta.
+
+![[Pasted image 20261107165445.png]]
