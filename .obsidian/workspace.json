@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
+                "file": "Algo Juarez/Ejercicios practica/Hashing/Ejercicios.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Teoria"
+              "title": "Ejercicios"
             }
           }
         ],
@@ -463,8 +463,10 @@
   },
   "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
-    "Algo Juarez/Clase 18.md",
+    "!imagenes/Pasted image 20261107205157.png",
     "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
+    "Algo Juarez/Ejercicios practica/Hashing/Ejercicios.md",
+    "Algo Juarez/Clase 18.md",
     "Algo Juarez/Clase 17.md",
     "Algo Juarez/Clase 16.md",
     "Algo Juarez/clase 15.md",
@@ -501,8 +503,6 @@
     "Latex Cod",
     "Orga Musso/clase 7.md",
     "Algo Juarez/clase 9.md",
-    "Algo Juarez/clase 10.md",
-    "Algo Juarez/clase 8.md",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales",
     "Algo Juarez/Ejercicios practica/Colas",
     "Algo Juarez/Ejercicios practica/Pilas",
