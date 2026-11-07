@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Cola prioridad.md",
+                "file": "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ejercicios Cola prioridad"
+              "title": "Teoria Heap y Cola prioridad"
             }
           }
         ],
@@ -461,14 +461,15 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "aa0ee4d5721fd56c",
+  "active": "1f11224da7f566a3",
   "lastOpenFiles": [
+    "Algo Juarez/Ejercicios practica/Hashing",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Cola prioridad.md",
     "!imagenes/Pasted image 20261107200204.png",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Orden.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Grafos, ABB.md",
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Cola prioridad.md",
     "!imagenes/Pasted image 20261107193100.png",
     "!imagenes/Pasted image 20261107191706.png",
     "!imagenes/Pasted image 20261107190850.png",
@@ -489,7 +490,6 @@
     "!imagenes/Pasted image 20261107170803.png",
     "!imagenes/Pasted image 20261107170332.png",
     "!imagenes/Pasted image 20261107165445.png",
-    "!imagenes/Pasted image 20261107160459.png",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
     "Orga Musso/Assembler/Practica.md",
     "Orga Musso/Assembler/TP.md",
