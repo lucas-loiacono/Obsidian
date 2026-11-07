@@ -271,3 +271,247 @@ Sabiendo que $T(n) \in \Theta(n^2)$, analizamos las afirmaciones:
 
 ![[Pasted image 20261107170803.png]]
 
+
+  
+
+
+### Código y conteo de OE por línea
+
+Al analizar el código de la función `buscar`, sumamos el costo de recibir los parámetros y el costo individual de cada línea.
+
+**Criterio utilizado:** 1 OE por asignación, operación lógica/aritmética, comparación, retorno, acceso a propiedades (`.length`) y acceso a posiciones de arreglos (`[i]`). Se asume cortocircuito lógico en el `&&`.
+
+```java
+boolean buscar(int[] vec, int dato) {          // 2 OE (asignación de parámetros al iniciar)
+    int i = 0;                                 // 1 OE (asignación)
+    boolean encontrado = false;                // 1 OE (asignación)
+    while (i < vec.length && !encontrado) {    // 4 OE (acceso a length, comparación <, negación !, AND &&)
+        if (vec[i] == dato) {                  // 2 OE (acceso a arreglo, comparación ==)
+            encontrado = true;                 // 1 OE (asignación)
+        } else {
+            i++;                               // 2 OE (suma y asignación, equivalente a i = i + 1)
+        }
+    }
+    return encontrado;                         // 1 OE (retorno)
+}
+````
+
+### a. Paso a paso en el MEJOR caso
+
+El mejor caso ocurre cuando el elemento `dato` se encuentra en la **primera posición** del arreglo (`vec[0]`).
+
+  
+
+1. **Paso de parámetros e Inicialización:**
+    
+      
+    - `vec` y `dato` $\rightarrow$ 2 OE
+        
+          
+        
+    - `i = 0` $\rightarrow$ 1 OE
+        
+          
+        
+    - `encontrado = false` $\rightarrow$ 1 OE
+        
+          
+        
+2. **Primera evaluación del `while` (Entra al ciclo):**
+    
+      
+    - `(0 < vec.length && !false)` $\rightarrow$ 4 OE
+        
+          
+        
+3. **Evaluación del `if` (Verdadero):**
+    
+      
+    - `vec[0] == dato` $\rightarrow$ 2 OE
+        
+4. **Cuerpo del `if`:**
+    
+      
+    - `encontrado = true` $\rightarrow$ 1 OE
+        
+          
+        
+5. **Segunda evaluación del `while` (Sale del ciclo):**
+    
+      
+    - `(0 < vec.length && !true)` $\rightarrow$ 4 OE (La primera parte es V, evalúa la segunda y el AND da Falso).
+        
+          
+        
+6. **Retorno:**
+    
+      
+    - `return encontrado` $\rightarrow$ 1 OE
+        
+          
+        
+
+**Total Mejor Caso:** $2 + 1 + 1 + 4 + 2 + 1 + 4 + 1 =$ **16 OE**
+
+  
+
+### b. Paso a paso en el PEOR caso
+
+Sea **$n$ el tamaño del arreglo** ($n = \text{vec.length}$). El peor caso ocurre cuando hay que recorrer todo el vector porque el `dato` **no se encuentra** (o porque está recién en la última posición, obligando a recorrerlo por completo).
+
+  
+
+1. **Paso de parámetros e Inicialización:**
+    
+      
+    - `vec` y `dato` $\rightarrow$ 2 OE
+        
+          
+        
+    - `i = 0` $\rightarrow$ 1 OE
+        
+          
+        
+    - `encontrado = false` $\rightarrow$ 1 OE
+        
+          
+        
+2. **Ejecución del ciclo `while` ($n$ iteraciones):** Como se recorre todo el vector, el ciclo se ejecuta $n$ veces completas. Por cada iteración:
+    
+      
+    - Condición del `while`: 4 OE
+        
+          
+        
+    - Condición del `if` (da falso): 2 OE
+        
+          
+        
+    - Cuerpo del `else` (`i++`): 2 OE
+        
+          
+        
+    - _Total por iteración:_ $8$ OE $\rightarrow$ _Costo de recorrer el vector:_ **$8n$ OE**
+        
+          
+        
+3. **Última evaluación del `while` (Sale del ciclo):**
+    
+      
+    - Cuando $i = n$, la condición `i < vec.length` da falso. Por el cortocircuito lógico de Java, la ejecución se frena ahí y no evalúa la segunda parte (`&& !encontrado`).
+        
+          
+        
+    - Costo de salida: 2 OE (acceso a `length` y comparación `<`).
+        
+          
+        
+4. **Retorno:**
+    
+      
+    - `return encontrado` $\rightarrow$ 1 OE
+        
+          
+        
+
+**Total Peor Caso:** $2 + 1 + 1 + 8n + 2 + 1 =$ **$8n + 7$ OE**
+
+
+![[Pasted image 20261107171507.png]]
+
+
+# Ejercicio 1.5: Cálculo de $T(n)$ en el Peor Caso
+
+### Enunciado
+Dado el siguiente método, completar la función que indica cuántas OE (operaciones elementales) tiene en el peor caso:
+
+```java
+public int f(int[] vec, int n, int valor) {
+    int i = 0;
+    int idx = -1;
+    boolean fin = false;
+    while (i < n && !fin) {
+        if (vec[i] == valor) {
+            idx = i;
+            fin = true;
+        } else {
+            i++;
+        }
+    }
+    return idx;
+}
+````
+
+### Análisis de Operaciones Elementales (OE) línea por línea
+
+Consideramos 1 OE para: asignaciones, operaciones aritméticas/lógicas, comparaciones, accesos a arreglos y retornos. Se contabiliza el paso de parámetros a la función como asignaciones iniciales.
+
+
+
+```Java
+public int f(int[] vec, int n, int valor) {    // 3 OE (paso de los 3 parámetros)
+    int i = 0;                                 // 1 OE (asignación)
+    int idx = -1;                              // 1 OE (asignación)
+    boolean fin = false;                       // 1 OE (asignación)
+    
+    // Ciclo while:
+    while (i < n && !fin) {                    // 3 OE (comparación <, negación !, y AND lógico &&)
+        if (vec[i] == valor) {                 // 2 OE (acceso al arreglo [i], comparación ==)
+            idx = i;                           // 1 OE (asignación)
+            fin = true;                        // 1 OE (asignación)
+        } else {
+            i++;                               // 2 OE (suma y asignación: i = i + 1)
+        }
+    }
+    return idx;                                // 1 OE (retorno)
+}
+```
+
+### Evaluación del Peor Caso
+
+El **peor caso** ocurre cuando el elemento `valor` **no se encuentra** en el arreglo de tamaño $n$. Esto obliga al algoritmo a recorrer todos los $n$ elementos, ejecutando siempre el bloque `else` y evaluando la condición de salida una vez al final.
+
+1. **Bloque inicial (se ejecuta 1 sola vez al arrancar):**
+    
+    - Parámetros: 3 OE
+        
+    - Asignaciones de variables (`i`, `idx`, `fin`): 3 OE
+        
+    - _Total inicial =_ **6 OE**
+        
+2. **Iteraciones del ciclo `while` (se repite $n$ veces):** Por cada elemento del arreglo que no coincide con `valor`, se ejecuta:
+    
+    - Evaluación de la condición del `while`: 3 OE
+        
+    - Evaluación de la condición del `if` (da falsa): 2 OE
+        
+    - Ejecución del cuerpo del `else` (`i++`): 2 OE
+        
+    - _Costo por iteración =_ $7$ OE
+        
+    - _Costo total de las $n$ iteraciones =_ **$7n$ OE**
+        
+3. **Condición de corte (salida del ciclo):**
+    
+    - Cuando `i == n`, la evaluación `i < n` da `false`.
+        
+    - Por la regla de evaluación de cortocircuito en Java (operador `&&`), la segunda parte de la condición (`!fin`) no se evalúa.
+        
+    - _Costo de salida =_ **1 OE** (solo la comparación de `i < n`).
+        
+4. **Retorno final:**
+    
+    - `return idx;` = **1 OE**
+        
+
+### Suma Total y Resultado Final
+
+Para armar el polinomio final, sumamos todas las partes:
+
+$$T(n) = \text{Inicialización} + \text{Iteraciones} + \text{Corte} + \text{Retorno}$$
+
+$$T(n) = 6 + 7n + 1 + 1$$
+
+$$T(n) = 7n + 8$$
+
+**Respuesta final para completar el enunciado:**$T(n) = 7n + 8$
