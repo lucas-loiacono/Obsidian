@@ -222,3 +222,52 @@ Como $\sqrt{n}$ crece estrictamente más rápido que $\ln(n)$, si multiplicamos 
 Al crecer más rápido, $n^{1.5}$ funciona perfectamente como un "techo" (cota superior) para tu algoritmo, haciendo que la afirmación $T(n) \in O(n^{1.5})$ sea matemáticamente correcta.
 
 ![[Pasted image 20261107165445.png]]
+
+![[Pasted image 20261107170332.png]]
+
+# Ejercicio 1.3: Complejidad Asintótica
+
+### Enunciado
+Sea la función de tiempo de un algoritmo[cite: 4]:
+
+$$T(n) = 3n \ln(n) + 2n^2$$[cite: 4]
+
+Donde $n$ es el tamaño de la entrada[cite: 4]. Entonces, el orden del algoritmo es (marcar **TODAS** las opciones válidas)[cite: 4]:
+
+- (a) $\Omega(30n^2)$[cite: 4]
+- (b) $O(n^2 + n)$[cite: 4]
+- (c) $\Theta(2n^2 + 3n)$[cite: 4]
+- (d) $\Omega(n \ln(n))$[cite: 4]
+- (e) $O(n^2 + n\sqrt{n})$[cite: 4]
+- (f) $\Theta(n^2 \ln(n))$[cite: 4]
+- (g) $O(n!)$[cite: 4]
+- (h) $\Omega(30!)$[cite: 4]
+
+---
+
+### Solución y Explicación
+
+Las opciones correctas son: **(a), (b), (c), (d), (e), (g), (h)**. La única incorrecta es la (f).
+
+#### 1. Análisis del término dominante
+Para determinar la complejidad de $T(n)$, debemos identificar el término que crece más rápido a medida que $n$ tiende a infinito:
+- Tenemos dos términos: $3n \ln(n)$ y $2n^2$.
+- Podemos pensar en $n^2$ como $n \cdot n$. Si lo comparamos con el primer término $n \cdot \ln(n)$, la competencia se reduce a comparar $n$ contra $\ln(n)$.
+- Como vimos en el ejercicio anterior, cualquier polinomio (en este caso $n^1$) crece asintóticamente más rápido que un logaritmo ($\ln(n)$).
+- Por lo tanto, el término $2n^2$ domina sobre $3n \ln(n)$.
+- Descartando constantes y términos de menor orden, la cota ajustada exacta de nuestro algoritmo es **$\Theta(n^2)$**.
+
+#### 2. Evaluación de cada opción
+Sabiendo que $T(n) \in \Theta(n^2)$, analizamos las afirmaciones:
+
+- **(a) $\Omega(30n^2)$ $\rightarrow$ VERDADERO**. Al descartar la constante $30$, la expresión equivale a $\Omega(n^2)$. Como $T(n)$ es exactamente $\Theta(n^2)$, por definición también cumple con ser su propia cota inferior $\Omega(n^2)$.
+- **(b) $O(n^2 + n)$ $\rightarrow$ VERDADERO**. Dentro del paréntesis, el término que domina es $n^2$. La expresión equivale a $O(n^2)$. Dado que $T(n) \in \Theta(n^2)$, $n^2$ funciona perfectamente como su cota superior.
+- **(c) $\Theta(2n^2 + 3n)$ $\rightarrow$ VERDADERO**. El término dominante del polinomio propuesto es $n^2$, por lo que equivale a $\Theta(n^2)$. Es exactamente la misma cota ajustada que la de nuestro $T(n)$.
+- **(d) $\Omega(n \ln(n))$ $\rightarrow$ VERDADERO**. Aquí se nos pregunta si $T(n)$ crece *igual o más rápido* que $n \ln(n)$. Como el ritmo de crecimiento de nuestro algoritmo es $n^2$ y este crece estrictamente más rápido que $n \ln(n)$, la afirmación es correcta. Funciona como una cota inferior válida.
+- **(e) $O(n^2 + n\sqrt{n})$ $\rightarrow$ VERDADERO**. El término dominante del paréntesis es $n^2$ (porque $n^2 > n^{1.5}$). Por lo tanto, equivale a $O(n^2)$, que sabemos que es una cota superior correcta para nuestro $T(n)$.
+- **(f) $\Theta(n^2 \ln(n))$ $\rightarrow$ FALSO**. Se afirma que el crecimiento de $T(n)$ es exactamente proporcional a $n^2 \ln(n)$. Esto es incorrecto, ya que $n^2 \ln(n)$ crece más rápido que nuestro verdadero límite, que es $n^2$.
+- **(g) $O(n!)$ $\rightarrow$ VERDADERO**. La función factorial $n!$ crece infinitamente más rápido que $n^2$. Por lo tanto, sirve como una cota superior (muy holgada, pero matemáticamente válida).
+- **(h) $\Omega(30!)$ $\rightarrow$ VERDADERO**. $30!$ es un número colosal, pero constante. En términos asintóticos, equivale a $\Omega(1)$. Como $T(n)$ crece hacia el infinito, siempre será mayor que cualquier constante para un $n$ suficientemente grande. Es una cota inferior válida.
+
+![[Pasted image 20261107170803.png]]
+
