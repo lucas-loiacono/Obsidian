@@ -452,3 +452,190 @@ public int sumaEnRango(Nodo<Integer> raiz, int desde, int hasta) {
 - **Peor caso: O(N)**. Siendo N la cantidad total de nodos en el árbol. Ocurre cuando la totalidad de los elementos del árbol caen dentro del rango `[desde, hasta]`. Al estar todos los valores en rango, las condiciones de poda nunca logran descartar ramas, obligando al método a visitar exhaustivamente el subárbol izquierdo y derecho de cada uno de los nodos, resultando en un recorrido lineal completo.
 
 ![[Pasted image 20261108175853.png]]
+
+Cierto, el enunciado dice que asumas implementados los métodos de `Nodo<T>`, así que la comparación tiene que salir de ahí. No sé cómo se llaman en tu cátedra, por eso asumo que `Nodo<T>` tiene estos métodos (cambiá los nombres por los reales):
+
+- `Nodo(T dato)`: constructor con hijos en `null`.
+- `boolean esMayor(T otro)`: true si `this.dato > otro`.
+- `boolean esMenor(T otro)`: true si `this.dato < otro`.
+
+Si tu `Nodo` tiene otra forma de comparar (un `comparar(T)` que devuelve int, por ejemplo), la lógica es la misma. Mi versión anterior no usaba `break`, pero sí `return` en medio del ciclo, así que acá lo resuelvo con una bandera.
+
+## Versión iterativa (sin `break` ni `return` intermedios)
+
+```java
+public void alta(T dato) {
+    if (raiz == null) {
+        raiz = new Nodo<>(dato);
+    } else {
+        Nodo<T> actual = raiz;
+        boolean insertado = false;
+        while (!insertado) {
+            if (actual.esMayor(dato)) {              // dato < actual.dato → izquierda
+                if (actual.izquierdo == null) {
+                    actual.izquierdo = new Nodo<>(dato);
+                    insertado = true;
+                } else {
+                    actual = actual.izquierdo;
+                }
+            } else if (actual.esMenor(dato)) {       // dato > actual.dato → derecha
+                if (actual.derecho == null) {
+                    actual.derecho = new Nodo<>(dato);
+                    insertado = true;
+                } else {
+                    actual = actual.derecho;
+                }
+            } else {                                 // ya existe, no se inserta
+                insertado = true;
+            }
+        }
+    }
+}
+```
+
+## Versión recursiva (no necesita `break`)
+
+```java
+public void alta(T dato) {
+    raiz = alta(raiz, dato);
+}
+
+private Nodo<T> alta(Nodo<T> nodo, T dato) {
+    if (nodo == null) {
+        nodo = new Nodo<>(dato);
+    } else if (nodo.esMayor(dato)) {
+        nodo.izquierdo = alta(nodo.izquierdo, dato);
+    } else if (nodo.esMenor(dato)) {
+        nodo.derecho = alta(nodo.derecho, dato);
+    }
+    return nodo;
+}
+```
+
+## Complejidad
+
+La complejidad es **O(h)**, con `h` la altura del árbol. Se baja por un solo camino y en cada nivel se hace trabajo constante (una o dos comparaciones y, como mucho, una asignación de referencia).
+
+- **Peor caso: O(n).** El árbol está degenerado (por ejemplo, datos insertados en orden), queda como una lista y `h = n`.
+- **Árbol balanceado: O(log n).** Ahí `h ≈ log₂ n`.
+
+La versión iterativa usa O(1) de espacio extra y la recursiva O(h) por la pila de llamadas.
+
+Si me pasás la firma de los métodos de `Nodo<T>` que dio tu cátedra, lo ajusto exacto.
+
+
+![[Pasted image 20261108181314.png]]
+
+
+# Ejercicio 3.18: seguimiento del ABB
+
+**Regla del ABB:** menores a la izquierda, mayores a la derecha.
+
+## Seguimiento paso a paso
+
+**1. `alta(15)`**: el árbol está vacío, así que 15 pasa a ser la raíz.
+
+```
+15
+```
+
+**2. `alta(7)`**: 7 < 15, va a la izquierda de 15.
+
+```
+  15
+ /
+7
+```
+
+**3. `alta(3)`**: 3 < 15 y 3 < 7, va a la izquierda de 7.
+
+```
+    15
+   /
+  7
+ /
+3
+```
+
+**4. `alta(25)`**: 25 > 15, va a la derecha de 15.
+
+```
+      15
+     /  \
+    7    25
+   /
+  3
+```
+
+**5. `alta(18)`**: 18 > 15 y 18 < 25, va a la izquierda de 25.
+
+```
+      15
+     /  \
+    7    25
+   /    /
+  3    18
+```
+
+**6. `alta(10)`**: 10 < 15 y 10 > 7, va a la derecha de 7.
+
+```
+        15
+       /  \
+      7    25
+     / \   /
+    3  10 18
+```
+
+**7. `baja(15)`**: se elimina la raíz, que tiene **dos hijos**.
+
+**Estrategia utilizada:** cuando el nodo a eliminar tiene dos hijos, se lo reemplaza por su **sucesor inorden**, es decir, el **mínimo del subárbol derecho** (el menor de los mayores). Después se elimina ese nodo de su posición original, lo cual es fácil porque el mínimo nunca tiene hijo izquierdo. Los otros casos son:
+
+- Hoja: se elimina directamente.
+- Un solo hijo: el hijo ocupa su lugar.
+
+Aplicado acá:
+
+1. Se busca el 15 (es la raíz).
+2. Se busca el mínimo del subárbol derecho: se baja a 25 y luego a su izquierdo, 18. Como 18 no tiene hijo izquierdo, el mínimo es **18**.
+3. Se copia el 18 en la raíz.
+4. Se elimina el nodo 18 original (es una hoja), con lo que 25 queda sin hijo izquierdo.
+
+**Árbol final:**
+
+```
+        18
+       /  \
+      7    25
+     / \
+    3  10
+```
+
+(Con la estrategia simétrica, el predecesor, el reemplazo sería el 10 y también quedaría un ABB válido. Lo importante es indicar cuál elegís y ser consistente.)
+
+## Complejidad
+
+Cada operación recorre un único camino desde la raíz, con trabajo constante por nivel, así que cuesta **O(h)**, con `h` la altura del árbol.
+
+|Operación|Nodos recorridos|Costo|
+|---|---|---|
+|`alta(15)`|0 (árbol vacío)|O(1)|
+|`alta(7)`|1|O(h)|
+|`alta(3)`|2|O(h)|
+|`alta(25)`|1|O(h)|
+|`alta(18)`|2|O(h)|
+|`alta(10)`|2|O(h)|
+|`baja(15)`|1 (buscar) + 2 (hasta el sucesor)|O(h)|
+
+En `baja`, buscar el nodo y bajar hasta el sucesor suman a lo sumo `h` niveles en total, porque el camino al sucesor continúa el camino hacia el nodo. Por eso sigue siendo O(h).
+
+**Complejidad total:** para `n` operaciones, el costo es O(n · h).
+
+- **Peor caso** (árbol degenerado, por ejemplo datos insertados en orden): h = n, total **O(n²)**.
+- **Árbol balanceado:** h ≈ log n, total **O(n log n)**.
+
+En este ejemplo, con 7 operaciones y una altura máxima de 2, el árbol queda bastante balanceado, así que cada operación hace muy pocas comparaciones.
+
+
+
+![[Pasted image 20261108181338.png]]
