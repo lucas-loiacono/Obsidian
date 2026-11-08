@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Poo y Java/Ejercicios.md",
+                "file": "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ejercicios"
+              "title": "Teoria Heap y Cola prioridad"
             }
           }
         ],
@@ -447,7 +447,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -463,9 +464,13 @@
   },
   "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Grafos, ABB.md",
+    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
+    "Algo Juarez/Ejercicios practica/Colas/Teoria.md",
+    "Algo Juarez/Poo y Java/Ejercicios.md",
     "!imagenes/Pasted image 20261107212427.png",
     "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
-    "Algo Juarez/Poo y Java/Ejercicios.md",
     "Algo Juarez/Poo y Java",
     "Algo Juarez/Ejercicios practica/Hashing/Ejercicios.md",
     "!imagenes/Pasted image 20261107205727.png",
@@ -476,13 +481,10 @@
     "Algo Juarez/Clase 16.md",
     "Algo Juarez/clase 15.md",
     "Algo Juarez/clase 14.md",
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
     "Algo Juarez/Ejercicios practica/Hashing",
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria recorridos, AVL, rebalanceo.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Cola prioridad.md",
     "!imagenes/Pasted image 20261107200204.png",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Orden.md",
-    "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Grafos, ABB.md",
     "!imagenes/Pasted image 20261107193100.png",
     "!imagenes/Pasted image 20261107191706.png",
     "!imagenes/Pasted image 20261107190850.png",
@@ -494,7 +496,6 @@
     "Algo Juarez/Ejercicios practica/Arboles y Heap",
     "!imagenes/Pasted image 20261107172538.png",
     "!imagenes/Pasted image 20261107172201.png",
-    "!imagenes/Pasted image 20261107171507.png",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
     "Orga Musso/Assembler/Practica.md",
     "Orga Musso/Assembler/TP.md",
