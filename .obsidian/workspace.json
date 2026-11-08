@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Clase 16.md",
+                "file": "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Clase 16"
+              "title": "Teoria"
             }
           }
         ],
@@ -464,6 +464,7 @@
   },
   "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
+    "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "Algo Juarez/Clase 17.md",
     "Algo Juarez/Clase 16.md",
     "Algo Juarez/clase 15.md",
@@ -503,7 +504,6 @@
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
     "Orga Musso/Assembler/Practica.md",
     "Orga Musso/Assembler/TP.md",
-    "Orga Musso/Clase 8.md",
     "Orga Musso/Assembler",
     "Latex Cod",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales",
