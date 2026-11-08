@@ -639,3 +639,167 @@ En este ejemplo, con 7 operaciones y una altura máxima de 2, el árbol queda ba
 
 
 ![[Pasted image 20261108181338.png]]
+
+
+# Ejercicio 3.19: `factorBalanceo`
+
+**Convenciones que asumo** (cambialas si tu cátedra usa otras):
+
+- La altura de un árbol vacío (`null`) es **-1** y la de una hoja es **0**. Así un árbol completo de altura 2 tiene 7 nodos, como pide el enunciado.
+- Accedo a los hijos con los campos `izquierdo` y `derecho`. Si tu `Nodo<T>` tiene getters, reemplazalos.
+- Sigo sin usar `break` ni `return` en medio del código, como pediste antes.
+
+## Implementación
+
+Hace falta un método auxiliar recursivo que calcule la altura, y la función pedida lo usa para los dos hijos.
+
+```java
+public int factorBalanceo(Nodo<T> raiz) {
+    int resultado = 0;
+    if (raiz != null) {
+        resultado = altura(raiz.derecho) - altura(raiz.izquierdo);
+    }
+    return resultado;
+}
+
+private int altura(Nodo<T> nodo) {
+    int resultado = -1;                         // caso base: árbol vacío
+    if (nodo != null) {
+        resultado = 1 + Math.max(altura(nodo.izquierdo), altura(nodo.derecho));
+    }
+    return resultado;
+}
+```
+
+## Cómo funciona
+
+- `altura(nodo)`: si el nodo es `null` devuelve -1 (caso base). Si no, la altura es 1 más la mayor de las alturas de sus dos hijos.
+- `factorBalanceo(raiz)`: si la raíz es `null` devuelve 0. Si no, devuelve `altura(derecho) - altura(izquierdo)`.
+
+Si el resultado es positivo, el árbol pesa más a la derecha. Si es negativo, pesa más a la izquierda. Si es 0, ambos lados tienen la misma altura.
+
+## Seguimiento sobre un árbol completo de altura 2
+
+```
+        1
+      /   \
+     2     3
+    / \   / \
+   4   5 6   7
+```
+
+**`factorBalanceo(1)`** calcula `altura(3) - altura(2)`.
+
+**Cálculo de `altura(3)`:**
+
+- `altura(6)` = 1 + max(altura(null), altura(null)) = 1 + max(-1, -1) = **0**
+- `altura(7)` = 1 + max(-1, -1) = **0**
+- `altura(3)` = 1 + max(0, 0) = **1**
+
+**Cálculo de `altura(2)`:**
+
+- `altura(4)` = **0**
+- `altura(5)` = **0**
+- `altura(2)` = 1 + max(0, 0) = **1**
+
+**Resultado:** `factorBalanceo(1)` = 1 - 1 = **0**.
+
+Tiene sentido: un árbol completo está perfectamente balanceado. Lo mismo pasa con cualquier otro nodo: el 2 y el 3 tienen factor 0 - 0 = 0, y las hojas tienen (-1) - (-1) = 0.
+
+Si usaras la convención `altura(null) = 0`, todas las alturas subirían en 1 y el factor daría igual, porque es una resta.
+
+## Complejidad
+
+**`altura(nodo)`** visita **cada nodo del subárbol una sola vez** y hace trabajo constante en cada uno (una comparación con `null`, una suma y un máximo). Su recurrencia es:
+
+T(n) = T(izq) + T(der) + O(1)
+
+Esto da **O(m)**, con m la cantidad de nodos del subárbol.
+
+**`factorBalanceo(raiz)`** llama a `altura` sobre el hijo izquierdo y el derecho, que juntos tienen n - 1 nodos, y hace trabajo constante extra. Por lo tanto:
+
+- **Tiempo: O(n)**, con n la cantidad de nodos del árbol. Es igual en mejor y peor caso, porque `altura` siempre recorre todo el subárbol.
+- **Espacio: O(h)** por la pila de llamadas recursivas, con h la altura del árbol. Es O(log n) en un árbol completo y O(n) en uno degenerado.
+
+Si en vez de uno quisieras el factor de **todos** los nodos, el costo subiría a O(n · h), porque habría que llamar a `altura` en cada nodo. Pero el enunciado pide solo el de la raíz que se le pasa.
+
+
+
+![[Pasted image 20261108182241.png]]
+
+
+# Ejercicio 3.20
+
+Leo el árbol así:
+
+```
+          34
+        /    \
+      23      25
+     /  \    /  \
+   14   18  20   24
+        /
+       3
+```
+
+## a. ¿Es un ABB?
+
+**No.** Un ABB exige que, para cada nodo, todo el subárbol izquierdo tenga valores menores y todo el derecho valores mayores. Acá se rompe en varios lugares:
+
+- **18 es hijo derecho de 23, pero 18 < 23.** Un hijo derecho debería ser mayor.
+- **25 es hijo derecho de 34, pero 25 < 34.** Todo el subárbol derecho de 34 (25, 20, 24) tiene valores menores que la raíz.
+- **20 y 24 son menores que 25**, pero 24 está a su derecha.
+
+Con que falle una sola de estas condiciones ya no es ABB.
+
+## b. Recorrido in-order (izquierdo, raíz, derecho)
+
+**14, 23, 3, 18, 34, 20, 25, 24**
+
+Para el subárbol de 23: primero 14, luego 23, luego el subárbol de 18, que da 3 y 18. Después viene la raíz 34. Por último el subárbol de 25: 20, 25, 24.
+
+## c. Post-order recursivo (izquierdo, derecho, raíz)
+
+```java
+public List<T> postOrder() {
+    List<T> resultado = new ArrayList<>();
+    postOrder(raiz, resultado);
+    return resultado;
+}
+
+private void postOrder(Nodo<T> nodo, List<T> resultado) {
+    if (nodo != null) {
+        postOrder(nodo.izquierdo, resultado);   // 1. subárbol izquierdo
+        postOrder(nodo.derecho, resultado);     // 2. subárbol derecho
+        resultado.add(nodo.dato);               // 3. la raíz al final
+    }
+}
+```
+
+Hacen falta `import java.util.List;` e `import java.util.ArrayList;`. Si tu cátedra usa su propia lista, cambiá `add` por el método que corresponda. Si solo piden imprimir, reemplazá `resultado.add(nodo.dato)` por `System.out.print(nodo.dato + " ")`.
+
+**Resultado sobre este árbol:** **14, 3, 18, 23, 20, 24, 25, 34**
+
+**Complejidad:** tiempo **O(n)**, porque cada nodo se visita una vez con trabajo constante. Espacio **O(h)** por la pila de llamadas, además de la lista de salida.
+
+## d. ¿El in-order de un ABB siempre devuelve los elementos ordenados?
+
+**Sí, en orden ascendente.** Se justifica por inducción sobre el árbol:
+
+- Un ABB vacío o con un solo nodo está trivialmente ordenado.
+- En un ABB con raíz `r`, todos los elementos del subárbol izquierdo son menores que `r` y todos los del derecho son mayores.
+- El in-order imprime primero el subárbol izquierdo (ordenado por hipótesis inductiva), luego `r`, luego el derecho (también ordenado).
+- Entonces la secuencia completa es: [menores que r, ordenados], r, [mayores que r, ordenados], que está ordenada.
+
+Si el ABB admitiera repetidos, la salida sería no decreciente. En la práctica esto es lo que permite ordenar con un ABB: se insertan los datos y se hace in-order, con costo O(n) para el recorrido.
+
+## e. ¿Es un heap de máxima?
+
+**No.** Un heap de máxima tiene que cumplir dos propiedades:
+
+1. **Orden:** cada padre es mayor o igual que sus hijos. **Acá se cumple:** 34 ≥ 23, 25; 23 ≥ 14, 18; 18 ≥ 3; 25 ≥ 20, 24.
+2. **Forma:** el árbol debe ser **completo**, con todos los niveles llenos salvo el último, que se llena de izquierda a derecha sin huecos. **Acá no se cumple:** el 3 está en el último nivel como hijo de 18, pero el nodo 14, que está más a la izquierda en el nivel anterior, no tiene hijos. Quedó un hueco.
+
+Se ve también en la representación por arreglo, que tendría posiciones vacías: `[34, 23, 25, 14, 18, 20, 24, _, _, 3]`.
+
+Como no es un heap, no corresponde hacer la inserción del 26.
