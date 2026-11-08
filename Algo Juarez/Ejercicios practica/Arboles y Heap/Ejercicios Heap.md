@@ -372,3 +372,108 @@ private boolean esHeapRecursivo(int[] vector, int i) {
 - **Condición de corte (Nodos Hoja):** Cuando el índice `i` pertenece a un nodo sin hijos, las comprobaciones de existencia (`izq < n` y `der < n`) fallan, por lo que el método no entra a los condicionales y retorna el `cumple = true` inicial, finalizando esa rama de la recursión correctamente.
 -
 ![[Pasted image 20261108170234.png]]
+
+
+
+
+**1. Seguimiento de las operaciones en el Heap de Mínima**
+
+**alta(5);**
+**Árbol:**
+```text
+  5
+````
+
+**Vector:** `[5]`**Explicación:** Se inserta el 5 como raíz. Al estar el heap vacío, no hay comparaciones.
+
+  
+
+**alta(3);****Árbol:**
+
+  
+
+
+```
+    3
+   /
+  5
+```
+
+**Vector:** `[3, 5]`**Explicación:** El 3 se inserta al final del vector (hijo izquierdo de 5). Como 3 < 5, flota intercambiándose con el 5 para mantener el mínimo arriba.
+
+  
+
+**alta(11);****Árbol:**
+
+
+```
+    3
+   / \
+  5  11
+```
+
+**Vector:** `[3, 5, 11]`**Explicación:** El 11 ingresa como hijo derecho de 3. Al ser mayor que su padre (11 > 3), cumple la propiedad y se queda en su lugar.
+
+  
+
+**alta(4);****Árbol:**
+
+
+
+```
+      3
+     / \
+    4   11
+   /
+  5
+```
+
+**Vector:** `[3, 4, 11, 5]`**Explicación:** El 4 entra como hijo izquierdo de 5. Como 4 < 5, flota. Luego se compara con su nuevo padre (3); al ser 4 > 3, el proceso de flote se detiene.
+
+  
+
+**alta(22);****Árbol:**
+
+```
+      3
+     / \
+    4   11
+   / \
+  5  22
+```
+
+**Vector:** `[3, 4, 11, 5, 22]`**Explicación:** El 22 se inserta como hijo derecho de 4. Como 22 > 4, cumple la propiedad y no se mueve.
+
+  
+
+**alta(2);****Árbol:**
+
+```
+      2
+     / \
+    4   3
+   / \ /
+  5 22 11
+```
+
+**Vector:** `[2, 4, 3, 5, 22, 11]`**Explicación:** El 2 ingresa como hijo izquierdo de 11. Flota intercambiándose primero con el 11 (2 < 11) y luego vuelve a flotar contra la raíz 3 (2 < 3) hasta quedar en la cima.
+
+  
+
+**baja();****Árbol:**
+
+
+```
+      3
+     / \
+    4   11
+   / \
+  5  22
+```
+
+**Vector:** `[3, 4, 11, 5, 22]`**Explicación:** Se extrae la raíz actual (2) y el último elemento (11) toma su lugar. Luego, el 11 se hunde (downheap) intercambiándose con el menor de sus hijos (el 3) para restaurar el heap.
+
+  
+
+**2. Complejidad Algorítmica****Operación alta(x): O(log N)**.
+Insertar al final es O(1), pero el proceso de flote (upheap) recorre como máximo la altura del árbol, que en un árbol binario completo es logarítmica respecto a la cantidad de elementos.**Operación baja(): O(log N)**. Extraer la raíz y mover el último elemento es O(1). El hundimiento (downheap) requiere descender por una rama, tomando como máximo la altura del árbol O(log N).**Complejidad Total: O(K * log N)**. Siendo K la cantidad total de operaciones ejecutadas secuencialmente.
