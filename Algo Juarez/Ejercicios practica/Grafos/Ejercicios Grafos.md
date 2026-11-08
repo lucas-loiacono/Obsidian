@@ -615,3 +615,117 @@ Antes de agregar una arista, fijate si sus dos extremos **ya están conectados**
 ## Detalle con empates
 
 H-F (4) y B-C (4) tienen el mismo peso. Si hubieras tomado primero H-F, también se habría descartado, así que el árbol final no cambia. Lo mismo pasa con G-F y B-D (3). Con empates, el orden puede cambiar qué arista se acepta solo cuando dos de ellas compiten por cerrar el mismo ciclo, y acá no ocurre.
+
+
+![[Pasted image 20261108201913.png]]
+
+
+# Ejercicio: BFS y A* sobre la grilla
+
+## Lectura del grafo
+
+Los vértices están en una grilla de 4×4, y solo hay arista donde hay línea dibujada:
+
+```
+A — B — C   D
+    |   |   |
+E — F   G — H
+|       |
+I — J — K — L
+|       |   |
+M — N   O   P
+```
+
+Lista de adyacencia, en orden alfabético:
+
+```
+A: B          I: E, M, J → (E, J, M)
+B: A, C, F    J: I, K
+C: B, G       K: G, J, L, O
+D: H          L: K, P
+E: F, I       M: I, N
+F: B, E       N: M
+G: C, H, K    O: K
+H: D, G       P: L
+```
+
+Verificación: hay 16 líneas en el dibujo y la suma de vecinos da 32, el doble.
+
+## a. BFS desde A
+
+|Se saca|Se encolan|Cola|
+|---|---|---|
+|A|B|[B]|
+|B|C, F|[C, F]|
+|C|G|[F, G]|
+|F|E|[G, E]|
+|G|H, K|[E, H, K]|
+|E|I|[H, K, I]|
+|H|D|[K, I, D]|
+|K|J, L, O|[I, D, J, L, O]|
+|I|M|[D, J, L, O, M]|
+|D|nada|[J, L, O, M]|
+|J|nada|[L, O, M]|
+|L|P|[O, M, P]|
+|O|nada|[M, P]|
+|M|N|[P, N]|
+|P|nada|[N]|
+|N|nada|[]|
+
+**Recorrido BFS: A, B, C, F, G, E, H, K, I, D, J, L, O, M, P, N**
+
+Verificación por niveles:
+
+- Nivel 0: A
+- Nivel 1: B
+- Nivel 2: C, F
+- Nivel 3: G, E
+- Nivel 4: H, K, I
+- Nivel 5: D, J, L, O, M
+- Nivel 6: P, N
+
+## b. A* de A a P con distancia Manhattan
+
+**Datos:**
+
+- Cada arista cuesta 1, así que `g` es la cantidad de pasos desde A.
+- Coordenadas `(columna, fila)`: A(0,0), B(1,0), C(2,0), D(3,0), E(0,1)... hasta P(3,3).
+- Heurística `h(n) = |x - 3| + |y - 3|`, la distancia Manhattan a P.
+- `f = g + h`. Siempre se expande el nodo abierto con menor `f`, y en empate el de menor orden alfabético.
+
+**Valores de h:**
+
+|A|B|C|D|E|F|G|H|
+|---|---|---|---|---|---|---|---|
+|6|5|4|3|5|4|3|2|
+
+|I|J|K|L|M|N|O|P|
+|---|---|---|---|---|---|---|---|
+|4|3|2|1|3|2|1|0|
+
+**Seguimiento:**
+
+|Paso|Se expande|Se agregan a abiertos (g, f)|Abiertos después (f)|
+|---|---|---|---|
+|1|A (g=0, f=6)|B (1, 6)|B6|
+|2|B (f=6)|C (2, 6), F (2, 6)|C6, F6|
+|3|C (empate con F, gana C)|G (3, 6)|F6, G6|
+|4|F (empate con G, gana F)|E (3, 8)|G6, E8|
+|5|G (f=6)|H (4, 6), K (4, 6)|E8, H6, K6|
+|6|H (empate con K, gana H)|D (5, 8)|E8, K6, D8|
+|7|K (f=6)|J (5, 8), L (5, 6), O (5, 6)|E8, D8, J8, L6, O6|
+|8|L (empate con O, gana L)|P (6, 6)|E8, D8, J8, O6, P6|
+|9|O (empate con P, gana O por orden alfabético)|nada nuevo (K ya cerrado)|E8, D8, J8, P6|
+|10|P (f=6)|**destino alcanzado**||
+
+**Orden de expansión: A, B, C, F, G, H, K, L, O, P**
+
+**Camino encontrado: A → B → C → G → K → L → P**, de costo **6**.
+
+Se reconstruye siguiendo los padres hacia atrás: P viene de L, L de K, K de G, G de C, C de B y B de A.
+
+## Observaciones
+
+- **El camino es óptimo.** La heurística Manhattan es admisible (nunca sobreestima), y 6 es la distancia mínima de A a P.
+- **El empate entre O y P** se resuelve con el orden alfabético que pide la nota: O se expande antes. No cambia el resultado, porque O es un callejón sin salida. Si expandieras P primero, el camino sería el mismo, pero te ahorrarías un paso en el seguimiento.
+- **Nodos que A* nunca expandió:** E, D, J (quedaron en abiertos con f=8) e I, M, N (nunca se generaron). La heurística evitó explorar la zona de la izquierda, a diferencia del BFS, que recorrió todo el grafo.
