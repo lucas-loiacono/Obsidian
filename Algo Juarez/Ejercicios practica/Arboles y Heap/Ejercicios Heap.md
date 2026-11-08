@@ -245,3 +245,130 @@ private boolean esHeapRecursivo(int[] vector, int i) {
 - **Comprobación del hijo derecho:** La condición `if (cumple && der < n)` asegura que solo evaluemos el lado derecho si el lado izquierdo resultó ser válido. Si el lado izquierdo falló, ignoramos el derecho y devolvemos `false` inmediatamente.
     
 - **Condición de corte natural:** Cuando el índice `i` corresponde a un nodo hoja (no tiene hijo izquierdo ni derecho), las condiciones de los `if` no se cumplen y el método retorna `true` directamente, cerrando esa rama de la recursión.
+
+![[Pasted image 20261108170035.png]]
+
+
+```Java
+public boolean esHeapDeMaxima(int[] vector) {
+    boolean esHeap = true;
+    if (vector != null && vector.length > 1) {
+        int n = vector.length;
+        for (int i = 0; i <= (n / 2) - 1 && esHeap; i++) {
+            int hijoIzq = 2 * i + 1;
+            int hijoDer = 2 * i + 2;
+            if (hijoIzq < n && vector[i] < vector[hijoIzq]) {
+                esHeap = false;
+            } else if (hijoDer < n && vector[i] < vector[hijoDer]) {
+                esHeap = false;
+            }
+        }
+    }
+    return esHeap;
+}
+```
+
+**Complejidad Algorítmica**
+
+- **Tiempo: O(N)**. Siendo N la cantidad de elementos del vector, el ciclo recorre a lo sumo la mitad del arreglo `(n / 2) - 1`, procesando solo los nodos internos. Cada iteración realiza operaciones aritméticas y comparaciones de tiempo constante O(1).
+    
+      
+    
+- **Espacio: O(1)**. La implementación iterativa asigna únicamente variables primitivas auxiliares (`esHeap`, `n`, `i`, `hijoIzq`, `hijoDer`), ocupando una cantidad de memoria fija que no depende del tamaño del vector.
+    
+      
+    
+
+**Cómo funciona:**
+
+  
+
+- **Variable de estado:** Inicializamos `esHeap` en `true`. Si el vector es nulo o de un solo elemento (ya es un heap), no entra al condicional y retorna `true`.
+    
+      
+    
+- **Límite del ciclo `(n / 2) - 1`:** Se optimiza el recorrido iterando solo sobre los nodos que tienen al menos un hijo, evitando procesar nodos hoja innecesariamente.
+    
+      
+    
+- **Condición de corte:** La condición `&& esHeap` en el `for` interrumpe el ciclo apenas se encuentra un hijo mayor que su padre, optimizando el tiempo de ejecución.
+    
+      
+    
+- **Cálculo de posiciones:** Para cada nodo `i`, sus hijos se calculan con `2*i + 1` (izquierdo) y `2*i + 2` (derecho).
+    
+      
+    
+- **Comprobación de Máxima:** Se verifica que el índice del hijo esté dentro del límite del vector (`< n`) y que su valor no supere al del padre (`vector[i]`). Si lo supera, se rompe la regla marcando `esHeap = false`.
+    
+      
+    
+- **Único retorno:** Se preserva un solo punto de salida al final del método, retornando la variable `esHeap`.
+- 
+  
+  # Recursiva
+
+```Java
+public boolean esHeapDeMaxima(int[] vector) {
+    boolean esHeap = true;
+    if (vector != null && vector.length > 1) {
+        esHeap = esHeapRecursivo(vector, 0);
+    }
+    return esHeap;
+}
+
+private boolean esHeapRecursivo(int[] vector, int i) {
+    boolean cumple = true;
+    int n = vector.length;
+    int izq = 2 * i + 1;
+    int der = 2 * i + 2;
+    if (izq < n) {
+        cumple = vector[i] >= vector[izq] && esHeapRecursivo(vector, izq);
+    }
+    if (cumple && der < n) {
+        cumple = vector[i] >= vector[der] && esHeapRecursivo(vector, der);
+    }
+    return cumple;
+}
+```
+
+**Complejidad Algorítmica**
+
+  
+
+- **Tiempo: O(N)**. En el peor de los casos (cuando el arreglo efectivamente es un heap válido), la recursión visita cada nodo del árbol una vez. Cada llamada recursiva realiza comparaciones lógicas simples que toman tiempo constante O(1).
+    
+      
+    
+- **Espacio: O(log N)**. A diferencia de la versión iterativa, este enfoque utiliza memoria adicional en la pila de ejecución del sistema (Call Stack). Al tratarse de un heap (que estructuralmente es un árbol binario completo), la altura máxima del árbol es logarítmica respecto a N, lo que determina el límite de llamadas apiladas simultáneamente.
+    
+      
+    
+
+**Cómo funciona:**
+
+  
+
+- **Método envoltorio:** El método público sirve como punto de entrada seguro. Filtra vectores nulos o unitarios y lanza la recursión delegando el trabajo al método privado con el índice raíz `0`.
+    
+      
+    
+- **Control de estado (Single Return):** Ambos métodos utilizan una única variable booleana (`esHeap` y `cumple`) declarada al inicio y retornada al final, respetando estrictamente un único punto de salida por función.
+    
+      
+    
+- **Cálculo de posiciones:** En cada instancia recursiva, el nodo actual `i` identifica a sus hijos mediante las fórmulas matemáticas `2*i + 1` (izquierdo) y `2*i + 2` (derecho).
+    
+      
+    
+- **Evaluación izquierda y cortocircuito:** Si el hijo izquierdo existe, se verifica la propiedad de máxima (`vector[i] >= vector[izq]`). Gracias al operador `&&`, la llamada recursiva `esHeapRecursivo(vector, izq)` solo se ejecuta si la primera condición fue verdadera, cortando la ejecución temprana si se detecta un error.
+    
+      
+    
+- **Evaluación derecha:** El bloque `if (cumple && der < n)` asegura que el hijo derecho únicamente sea procesado si todo el subárbol izquierdo resultó válido hasta el momento.
+    
+      
+    
+- **Condición de corte (Nodos Hoja):** Cuando el índice `i` pertenece a un nodo sin hijos, las comprobaciones de existencia (`izq < n` y `der < n`) fallan, por lo que el método no entra a los condicionales y retorna el `cumple = true` inicial, finalizando esa rama de la recursión correctamente.
+-
+![[Pasted image 20261108170234.png]]
