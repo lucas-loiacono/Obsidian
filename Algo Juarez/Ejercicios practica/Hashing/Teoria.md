@@ -368,3 +368,30 @@ Para este ejercicio de direccionamiento abierto con sondeo cuadrático, la funci
 ![[Pasted image 20261026023729.png]]
 
 Lo separo para el bucket que tiene overflow, osea el 01, y lo separo con 1 bit mas, el 010 y 011
+
+
+
+
+# Estrategias de Open Addressing (Direccionamiento Abierto)
+
+En Open Addressing, todos los elementos se guardan en el arreglo principal. Cuando ocurre una colisión en el índice original $h(k)$, se genera una **secuencia de exploración** (probing sequence) para buscar el próximo casillero libre. 
+
+Existen 3 estrategias principales para calcular cómo se da ese "salto" hacia la próxima posición:
+
+### 1. Exploración Lineal (Linear Probing)
+Es la más simple y la que venimos aplicando en los ejercicios. Si hay colisión, se busca en la celda inmediatamente contigua, avanzando de a $1$ paso. Si llega al final del arreglo, vuelve al índice $0$ de manera circular.
+*   **Fórmula:** $h(k, i) = (h(k) + i) \pmod{N}$ (donde $i = 0, 1, 2...$ representa el número de intento).
+*   **Ventaja:** Muy fácil de implementar y aprovecha muy bien la memoria caché del procesador al leer posiciones de memoria contiguas.
+*   **Desventaja (Agrupamiento Primario):** Tiende a formar "congestiones" o bloques contiguos de celdas ocupadas. Si un elemento nuevo cae cerca de este bloque, tardará mucho en encontrar un hueco (recorriendo todo el bloque inútilmente), haciendo que el bloque se vuelva aún más grande.
+
+### 2. Exploración Cuadrática (Quadratic Probing)
+En lugar de avanzar de a $1$ paso constante, el tamaño del salto crece de forma cuadrática respecto al intento (salta $1^2$, luego $2^2$, luego $3^2$ posiciones desde el índice de origen).
+*   **Fórmula:** $h(k, i) = (h(k) + c_1 \cdot i + c_2 \cdot i^2) \pmod{N}$ (en la práctica suele usarse simplemente $i^2$).
+*   **Ventaja:** Resuelve el problema del "agrupamiento primario" de la lineal, esparciendo más rápido los elementos que colisionan a lo largo de toda la tabla.
+*   **Desventaja (Agrupamiento Secundario):** Si dos claves distintas dan exactamente el mismo hash original, ambas van a generar exactamente la misma secuencia de saltos cuadráticos, colisionando repetidas veces entre sí.
+
+### 3. Doble Hashing (Double Hashing)
+Es la estrategia más robusta. Utiliza una **segunda función de hash** totalmente independiente para determinar de qué tamaño será el "paso" o salto a dar tras una colisión.
+*   **Fórmula:** $h(k, i) = (h_1(k) + i \cdot h_2(k)) \pmod{N}$
+*   **Ventaja:** Elimina tanto el agrupamiento primario como el secundario. Como el tamaño del salto $h_2(k)$ depende de la clave $k$, dos claves distintas que caigan en la misma celda original $h_1(k)$ tendrán un tamaño de salto diferente, separándose inmediatamente en el primer intento.
+*   **Desventaja:** Mayor costo computacional, ya que requiere calcular dos funciones matemáticas por cada inserción o búsqueda.
