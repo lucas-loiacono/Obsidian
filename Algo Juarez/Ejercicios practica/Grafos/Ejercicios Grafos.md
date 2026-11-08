@@ -486,3 +486,132 @@ Si el grafo fuera no dirigido, las dos respuestas serían iguales. Acá son dist
 
 
 ![[Pasted image 20261108200854.png]]
+
+
+# Ejercicio 6.9: respuesta (a)
+
+## Método
+
+Kruskal ordena las aristas por peso de menor a mayor. Va agregando cada una **solo si no forma un ciclo** (es decir, si une dos componentes distintas). Se detiene al tener V - 1 aristas.
+
+**Paso 1: aristas del grafo, ordenadas por peso**
+
+|Peso|Aristas|
+|---|---|
+|1|H-G|
+|2|B-E|
+|3|B-D, G-F|
+|4|B-C, H-F|
+|5|A-C|
+|6|D-G|
+|7|D-F, E-F|
+|8|C-H|
+|9|C-D|
+|10|A-B|
+
+**Paso 2: cuatro iteraciones**
+
+|Iteración|Arista|¿Forma ciclo?|Componentes después|
+|---|---|---|---|
+|1|H-G (1)|No|{H,G}|
+|2|B-E (2)|No|{B,E}|
+|3|B-D (3)|No|{B,E,D}|
+|4|G-F (3)|No|{H,G,F}|
+
+Hay dos aristas de peso 3, así que el orden entre ellas no importa: después de cuatro iteraciones las dos están incluidas.
+
+**Estado final:**
+
+- Componente 1: **H-G, G-F**
+- Componente 2: **B-D, B-E**
+- **A** y **C** siguen aislados.
+
+## Qué opción es
+
+La que muestra exactamente esas cuatro aristas, con A y C sueltos, es la **(a)**.
+
+Las otras no coinciden:
+
+- **(b) y (c)** incluyen A-C (peso 5), que todavía no se agregó en la iteración 4. En (b) además faltan aristas del lado H-G-F.
+- **(d)** tiene las mismas aristas que (a), pero no dibuja los vértices A y C. En la figura del árbol deben aparecer todos los vértices, aunque estén aislados, así que se descarta.
+
+## Para continuar
+
+Las siguientes aristas serían **B-C (4)**, que une las dos componentes mayores con C, y **H-F (4)**, que se descartaría por formar ciclo en {H,G,F}. Después entraría **A-C (5)**.
+
+## Atajo para el examen
+
+1. Anotá las aristas ordenadas por peso.
+2. Tomá las primeras 4 que no formen ciclo. Como se piden pocas iteraciones, casi siempre alcanza con las de peso 1, 2 y 3.
+3. Compará con las opciones fijándote en qué aristas están presentes y en cuáles faltan.
+
+
+
+# Kruskal paso a paso (ejercicio 6.9)
+
+**Regla:** tomo las aristas de menor a mayor peso. Cada una se conecta **solo si une dos grupos distintos**. Si sus dos extremos ya están en el mismo grupo, se descarta porque cerraría un ciclo. El grafo tiene 8 vértices, así que el árbol termina con **7 aristas**.
+
+**Aristas ordenadas:** H-G (1), B-E (2), B-D (3), G-F (3), B-C (4), H-F (4), A-C (5), D-G (6), D-F (7), E-F (7), C-H (8), C-D (9), A-B (10).
+
+## Construcción
+
+Al inicio cada vértice es su propio grupo: {A} {B} {C} {D} {E} {F} {G} {H}
+
+|Paso|Arista|Grupos de los extremos|Decisión|Grupos después|
+|---|---|---|---|---|
+|1|H-G (1)|{H} y {G}, distintos|**Se agrega**|{H,G}|
+|2|B-E (2)|{B} y {E}, distintos|**Se agrega**|{B,E}|
+|3|B-D (3)|{B,E} y {D}, distintos|**Se agrega**|{B,E,D}|
+|4|G-F (3)|{H,G} y {F}, distintos|**Se agrega**|{H,G,F}|
+|5|B-C (4)|{B,E,D} y {C}, distintos|**Se agrega**|{B,E,D,C}|
+|6|H-F (4)|H y F están en {H,G,F}|**Se descarta (ciclo H-G-F)**|sin cambios|
+|7|A-C (5)|{A} y {B,E,D,C}, distintos|**Se agrega**|{A,B,C,D,E}|
+|8|D-G (6)|{A,B,C,D,E} y {H,G,F}, distintos|**Se agrega**|todos en un grupo|
+
+Con la 8.ª arista ya hay 7 aristas aceptadas, así que **se termina**. Las demás (D-F, E-F, C-H, C-D, A-B) formarían ciclos.
+
+## Cómo se ve el grafo en cada momento
+
+**Después del paso 4** (el que pide el ejercicio):
+
+```
+H — G — F        B — D        A     C
+                 |
+                 E
+```
+
+**Después del paso 5:**
+
+```
+H — G — F        C — B — D        A
+                      |
+                      E
+```
+
+**Después del paso 7:**
+
+```
+H — G — F        A — C — B — D
+                          |
+                          E
+```
+
+**Árbol final (paso 8):**
+
+```
+A — C — B — E
+        |
+        D — G — H
+            |
+            F
+```
+
+**Peso total:** 1 + 2 + 3 + 3 + 4 + 5 + 6 = **24**
+
+## Cómo detectar un ciclo rápido
+
+Antes de agregar una arista, fijate si sus dos extremos **ya están conectados** por lo que dibujaste. En el paso 6, H y F ya estaban unidos a través de G (H-G y G-F), así que H-F sobraba.
+
+## Detalle con empates
+
+H-F (4) y B-C (4) tienen el mismo peso. Si hubieras tomado primero H-F, también se habría descartado, así que el árbol final no cambia. Lo mismo pasa con G-F y B-D (3). Con empates, el orden puede cambiar qué arista se acepta solo cuando dos de ellas compiten por cerrar el mismo ciclo, y acá no ocurre.
