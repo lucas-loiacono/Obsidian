@@ -940,3 +940,199 @@ Detalles de las actualizaciones:
 
 1. **Kruskal:** anotá las aristas ordenadas y, antes de agregar cada una, chequeá si sus extremos ya están conectados por lo dibujado.
 2. **Dijkstra:** en cada fila actualizá solo los vecinos del vértice recién visitado. Recordá que el vector se arma con la distancia acumulada, no con el peso de la última arista.
+
+![[Pasted image 20261108204204.png]]
+
+
+# Ejercicio 6.14
+
+Filas y columnas en orden A, B, C, D, E, F. La matriz es **simétrica** (`M[i][j] = M[j][i]`), así que el grafo es no dirigido. Un 0 significa que no hay arista.
+
+## a. Representación gráfica
+
+Leyendo la mitad superior de la matriz, las aristas son (10 en total):
+
+|Arista|Peso|Arista|Peso|
+|---|---|---|---|
+|A-B|7|C-D|4|
+|A-C|3|C-F|3|
+|A-D|5|D-F|2|
+|B-C|1|E-F|8|
+|B-E|9|B-F|6|
+
+Lista de adyacencia:
+
+```
+A: B7, C3, D5
+B: A7, C1, E9, F6
+C: A3, B1, D4, F3
+D: A5, C4, F2
+E: B9, F8
+F: B6, C3, D2, E8
+```
+
+Dibujo aproximado:
+
+```
+        7
+   A ───────── B ─────── 9 ─────── E
+   │ ╲         │ ╲                 │
+   │   5       1   6               8
+   3     ╲     │     ╲             │
+   │       D   │       F ──────────┘
+   C ──4───┘   │      ╱│
+   │ ╲_________│     ╱ 2 (hacia D)
+   └──────3────────╱
+```
+
+Si el dibujo te confunde, dibujá los 6 círculos y uní los pares de la tabla de aristas, que es lo que importa.
+
+## b. Kruskal (AEM)
+
+Con 6 vértices, el árbol tiene **5 aristas**.
+
+**Aristas ordenadas:** B-C 1, D-F 2, A-C 3, C-F 3, C-D 4, A-D 5, B-F 6, A-B 7, E-F 8, B-E 9.
+
+### Dos pasos en detalle
+
+**Paso 1: B-C (1).** Al inicio cada vértice es su propio grupo: {A} {B} {C} {D} {E} {F}. B y C están en grupos distintos, así que unirlos no forma ciclo. **Se agrega.** Grupos: {B,C} {A} {D} {E} {F}.
+
+**Paso 2: D-F (2).** D y F están en grupos distintos ({D} y {F}). **Se agrega.** Grupos: {B,C} {D,F} {A} {E}.
+
+### Simplificado hasta la solución
+
+|Arista|¿Mismo grupo?|Decisión|Grupos|
+|---|---|---|---|
+|B-C (1)|No|**Se agrega**|{B,C}|
+|D-F (2)|No|**Se agrega**|{D,F}|
+|A-C (3)|No|**Se agrega**|{A,B,C}|
+|C-F (3)|No|**Se agrega**|{A,B,C,D,F}|
+|C-D (4), A-D (5), B-F (6), A-B (7)|Sí|Se descartan (ciclo)||
+|E-F (8)|No ({E} y el grupo grande)|**Se agrega**|todos|
+
+Con 5 aristas aceptadas se termina (B-E ni se mira).
+
+**AEM: (B, C), (D, F), (A, C), (C, F), (E, F)**
+
+**Peso total:** 1 + 2 + 3 + 3 + 8 = **17**
+
+## c. Dijkstra de A a F
+
+Vector de distancias en el orden **[A, B, C, D, E, F]**.
+
+### Dos pasos en detalle
+
+**Paso 1: se visita A (distancia 0).** Es el origen. Se actualizan sus vecinos con la distancia acumulada: B = 0 + 7 = 7, C = 0 + 3 = 3, D = 0 + 5 = 5. Vector: [0, 7, 3, 5, ∞, ∞].
+
+**Paso 2: se visita C (distancia 3),** que es el menor no visitado. Sus vecinos:
+
+- B: 3 + 1 = 4, mejora el 7, **se actualiza**.
+- D: 3 + 4 = 7, no mejora el 5.
+- F: 3 + 3 = 6, mejora el ∞, **se actualiza**.
+
+Vector: [0, 4, 3, 5, ∞, 6].
+
+### Simplificado hasta la solución
+
+|Paso|Se visita (dist.)|Vector después|
+|---|---|---|
+|inicio||[0, ∞, ∞, ∞, ∞, ∞]|
+|1|**A (0)**|[0, 7, 3, 5, ∞, ∞]|
+|2|**C (3)**|[0, 4, 3, 5, ∞, 6]|
+|3|**B (4)**|[0, 4, 3, 5, 13, 6] (E = 4 + 9; F por B sería 10, no mejora)|
+|4|**D (5)**|sin cambios (F por D sería 7, no mejora)|
+|5|**F (6)**|destino alcanzado|
+
+**Distancia mínima de A a F: 6.**
+
+**Camino:** A → C → F, con costo 3 + 3 = 6. Se reconstruye siguiendo los predecesores hacia atrás: F viene de C, y C viene de A.
+
+Los otros caminos son peores: A→D→F cuesta 7, A→B→F cuesta 13 y A→C→D→F cuesta 9.
+
+**Orden de visita:** A, C, B, D, F.
+
+
+![[Pasted image 20261108204227.png]]
+
+
+# Ejercicio 6.15
+
+Filas y columnas en orden A, B, C, D, E, F.
+
+## a. Representación gráfica
+
+**G₁** es simétrica, así que es **no dirigido y con pesos**. Aristas (9):
+
+|Arista|Peso|Arista|Peso|
+|---|---|---|---|
+|A-B|2|C-D|4|
+|A-C|7|C-E|1|
+|A-D|3|C-F|9|
+|B-D|8|D-E|6|
+|E-F|5|||
+
+```
+A: B2, C7, D3
+B: A2, D8
+C: A7, D4, E1, F9
+D: A3, B8, C4, E6
+E: C1, D6, F5
+F: C9, E5
+```
+
+**G₂** **no es simétrica**, así que es **dirigido**. `M[i][j] = 1` es una flecha de `i` hacia `j`. Flechas (8):
+
+```
+A → E
+B → C
+D → A, B, C, E
+E → F
+F → C
+```
+
+La fila C está toda en 0, así que C no tiene flechas de salida.
+
+## b. Prim sobre G₁
+
+El enunciado no dice el vértice inicial, así que parto de **A**. El resultado es el mismo desde cualquier inicio si no hay empates entre pesos.
+
+En cada paso tomo la arista más barata que **sale del árbol** hacia un vértice nuevo.
+
+|Paso|Árbol antes|Candidatas|Se agrega|
+|---|---|---|---|
+|1|{A}|A-B 2, A-D 3, A-C 7|**(A, B)** 2|
+|2|{A, B}|A-D 3, A-C 7, B-D 8|**(A, D)** 3|
+|3|{A, B, D}|D-C 4, D-E 6, A-C 7|**(D, C)** 4|
+|4|{A, B, D, C}|C-E 1, D-E 6, C-F 9|**(C, E)** 1|
+|5|{A, B, C, D, E}|E-F 5, C-F 9|**(E, F)** 5|
+
+**AEM: (A, B), (A, D), (D, C), (C, E), (E, F)**
+
+Son 5 aristas, o sea V - 1. **Peso total:** 2 + 3 + 4 + 1 + 5 = **15**.
+
+Aunque C-E (1) es la arista más barata del grafo, no entra primero: recién es candidata cuando C ya está en el árbol.
+
+## c. ¿Orden topológico de G₂?
+
+**Sí se puede.** Un grafo dirigido admite orden topológico si y solo si es un **DAG** (no tiene ciclos dirigidos). Para verificarlo, uso el algoritmo de Kahn: se elige siempre un vértice con **grado de entrada 0**, se lo agrega al orden y se borran sus flechas.
+
+**Grados de entrada iniciales:** A: 1 (de D), B: 1 (de D), C: 3 (de B, D, F), D: 0, E: 2 (de A, D), F: 1 (de E).
+
+|Paso|Se elige|Grados de entrada después|Candidatos (grado 0)|
+|---|---|---|---|
+|1|**D** (el único con 0)|A 0, B 0, C 2, E 1, F 1|A, B|
+|2|**A**|E 0|B, E|
+|3|**B**|C 1|E|
+|4|**E**|F 0|F|
+|5|**F**|C 0|C|
+|6|**C**|||
+
+Se pudieron sacar los 6 vértices, así que no hay ciclos.
+
+**Un orden topológico posible: D, A, B, E, F, C**
+
+Se puede comprobar con las flechas: D→A, D→B, D→C, D→E, A→E, B→C, E→F y F→C van siempre de un vértice anterior a uno posterior.
+
+Hay otros órdenes válidos. Por ejemplo, D, B, A, E, F, C también sirve, porque en el paso 2 se podía elegir B antes que A. Si el ejercicio dijera "optar por el menor orden alfabético", el resultado sería el de arriba.
+
+**Si hubiera un ciclo,** el algoritmo se trabaría con vértices pendientes y ninguno con grado de entrada 0, y no existiría orden topológico.
