@@ -729,3 +729,214 @@ Se reconstruye siguiendo los padres hacia atrás: P viene de L, L de K, K de G, 
 - **El camino es óptimo.** La heurística Manhattan es admisible (nunca sobreestima), y 6 es la distancia mínima de A a P.
 - **El empate entre O y P** se resuelve con el orden alfabético que pide la nota: O se expande antes. No cambia el resultado, porque O es un callejón sin salida. Si expandieras P primero, el camino sería el mismo, pero te ahorrarías un paso en el seguimiento.
 - **Nodos que A* nunca expandió:** E, D, J (quedaron en abiertos con f=8) e I, M, N (nunca se generaron). La heurística evitó explorar la zona de la izquierda, a diferencia del BFS, que recorrió todo el grafo.
+
+
+![[Pasted image 20261108203208.png]]
+
+
+# Ejercicio 6.11
+
+El grafo es el mismo del 6.9. Las aristas son: A-C 5, A-B 10, B-C 4, B-D 3, B-E 2, C-D 9, C-H 8, D-G 6, D-F 7, E-F 7, H-G 1, H-F 4, G-F 3.
+
+## a. Prim desde E, cuatro iteraciones
+
+**Método:** Prim hace crecer **un solo árbol** a partir del vértice inicial. En cada paso se mira **todas las aristas que salen del árbol hacia un vértice que todavía no está**, y se agrega la de menor peso. A diferencia de Kruskal, el árbol siempre es una sola componente conexa.
+
+|Iteración|Árbol antes|Aristas candidatas|Se agrega|Árbol después|
+|---|---|---|---|---|
+|1|{E}|E-B 2, E-F 7|**E-B (2)**|{E, B}|
+|2|{E, B}|B-D 3, B-C 4, E-F 7, B-A 10|**B-D (3)**|{E, B, D}|
+|3|{E, B, D}|B-C 4, D-G 6, D-F 7, E-F 7, D-C 9, B-A 10|**B-C (4)**|{E, B, D, C}|
+|4|{E, B, D, C}|C-A 5, D-G 6, D-F 7, E-F 7, C-H 8|**C-A (5)**|{E, B, D, C, A}|
+
+Después de cuatro iteraciones el árbol tiene las aristas **E-B, B-D, B-C y A-C**:
+
+```
+A — C — B — D
+        |
+        E
+```
+
+Los vértices F, G y H todavía no están conectados.
+
+**Respuesta: la opción (ii)**, que es la que muestra A-C, C-B, B-D y B-E.
+
+**Diferencia con Kruskal (ejercicio 6.9):** Kruskal, con las mismas cuatro iteraciones, elegía H-G, B-E, B-D y G-F, que forman **dos grupos separados**. Prim desde E construye un solo grupo. Por eso la opción (i), que era la respuesta de Kruskal, acá se descarta. La (iii) tampoco sirve porque no conecta C con B, que Prim agrega en la tercera iteración.
+
+## b. Dijkstra desde A: orden de visita
+
+**Método:** se mantiene la distancia mínima conocida a cada vértice. En cada paso se **visita el vértice no visitado con menor distancia** y se actualiza la de sus vecinos si se mejora pasando por él.
+
+|Paso|Se visita (dist.)|Actualizaciones|
+|---|---|---|
+|1|**A (0)**|C = 5, B = 10|
+|2|**C (5)**|B = 9 (por C, mejora 10), H = 13, D = 14|
+|3|**B (9)**|E = 11, D = 12 (por B, mejora 14)|
+|4|**E (11)**|F = 18|
+|5|**D (12)**|G = 18, F sigue en 18 (por D sería 19)|
+|6|**H (13)**|G = 14 (mejora 18), F = 17 (mejora 18)|
+|7|**G (14)**|F = 17 (por G también es 17, no cambia)|
+|8|**F (17)**|fin|
+
+**Orden de visita: A, C, B, E, D, H, G, F**
+
+Distancias finales desde A: A 0, C 5, B 9, E 11, D 12, H 13, G 14, F 17.
+
+## Atajo para el examen
+
+1. **Prim:** en cada paso, listá las aristas que **salen** del conjunto ya armado y tomá la menor.
+2. **Dijkstra:** anotá la distancia acumulada de cada vértice y recordá que **se suma el recorrido desde el origen**, no solo el peso de la última arista. Por eso H (13) se visita antes que D... no, D (12) va antes que H (13): se ordena siempre por distancia acumulada.
+3. **Cuidado con los parecidos:** Prim compara pesos de aristas sueltas, y Dijkstra compara distancias acumuladas desde el origen.
+
+
+![[Pasted image 20261108203302.png]]
+
+
+# Ejercicio 6.12
+
+En el dibujo hay **dos nodos rotulados H**. El de la derecha, conectado a E (8) y a J (2), seguramente es **G** y es un error de tipeo del enunciado. Lo llamo **G**; el H del medio es el que conecta con D, E, F e I.
+
+## Lectura del grafo
+
+Aristas: A-B 6, A-C 5, A-D 3, B-E 7, C-D 4, D-E 1, D-F 2, D-H 10, E-H 5, E-G 8, F-H 3, F-I 6, H-I 1, G-J 2.
+
+Lista de adyacencia en orden alfabético:
+
+```
+A: B, C, D       F: D, H, I
+B: A, E          G: E, J
+C: A, D          H: D, E, F, I
+D: A, C, E, F, H I: F, H
+E: B, D, G, H    J: G
+```
+
+Verificación: 14 líneas en el dibujo y la suma de vecinos da 28, el doble.
+
+## a. DFS desde A
+
+En cada nodo voy al primer vecino no visitado. Si no hay, retrocedo.
+
+|Estoy en|Voy a|Nota|
+|---|---|---|
+|A|B||
+|B|E|A ya visitado|
+|E|D|B ya visitado, D es el menor pendiente|
+|D|C|A ya visitado|
+|C||sin pendientes, retrocedo a D|
+|D|F|E ya visitado, C ya visitado|
+|F|H|D ya visitado|
+|H|I|D, E, F ya visitados|
+|I||sin pendientes, retrocedo a H, F, D, E|
+|E|G|quedaba G pendiente|
+|G|J||
+|J||fin|
+
+**Recorrido DFS: A, B, E, D, C, F, H, I, G, J**
+
+Los 10 nodos aparecen sin repetir. Lo más fácil de olvidar es volver a E después de recorrer toda la zona de D, porque G quedaba pendiente.
+
+## b. Prim desde A
+
+En cada paso miro **todas las aristas que salen del árbol** hacia un vértice nuevo y tomo la de menor peso.
+
+|Paso|Árbol antes|Candidatas que salen|Se agrega|
+|---|---|---|---|
+|1|{A}|A-D 3, A-C 5, A-B 6|**(A, D)** 3|
+|2|{A, D}|D-E 1, D-F 2, D-C 4, A-C 5, A-B 6, D-H 10|**(D, E)** 1|
+|3|{A, D, E}|D-F 2, D-C 4, E-H 5, A-B 6, E-B 7, E-G 8|**(D, F)** 2|
+|4|{A, D, E, F}|F-H 3, D-C 4, A-B 6, F-I 6, E-B 7, E-G 8|**(F, H)** 3|
+|5|{A, D, E, F, H}|H-I 1, D-C 4, A-B 6, F-I 6, E-B 7, E-G 8|**(H, I)** 1|
+|6|{A, D, E, F, H, I}|D-C 4, A-B 6, E-B 7, E-G 8|**(D, C)** 4|
+|7|+ C|A-B 6, E-B 7, E-G 8|**(A, B)** 6|
+|8|+ B|E-G 8|**(E, G)** 8|
+|9|+ G|G-J 2|**(G, J)** 2|
+
+**Árbol de expansión mínima, en orden de visita:**
+
+**(A, D), (D, E), (D, F), (F, H), (H, I), (D, C), (A, B), (E, G), (G, J)**
+
+Son 9 aristas, o sea V - 1 con 10 vértices, como corresponde. **Peso total:** 3 + 1 + 2 + 3 + 1 + 4 + 6 + 8 + 2 = **30**.
+
+## Para no fallar
+
+1. **Escribí cada tupla como (vértice que ya estaba, vértice nuevo)**, porque el enunciado pide el orden en que fueron visitadas.
+2. **Las candidatas cambian en cada paso.** Cuando un vértice entra al árbol, sus aristas hacia nodos que ya están dejan de ser candidatas. Por eso E-H 5 desaparece en el paso 5.
+3. **Una arista chica puede quedar esperando.** En el paso 2 la mejor es D-E 1, pero A-C 5 y A-B 6 ya estaban disponibles y se usan recién más tarde.
+
+
+![[Pasted image 20261108203446.png]]
+
+
+# Ejercicio 6.13
+
+## Lectura del grafo
+
+Aristas (16): A-B 2, A-C 9, A-D 1, B-E 3, B-H 6, C-D 6, C-F 2, D-G 8, D-H 7, E-H 5, E-I 4, F-G 4, G-H 1, H-I 2, H-K 10, J-K 8.
+
+Hay 11 vértices, así que el árbol de expansión mínima tiene **10 aristas**.
+
+## a. Kruskal
+
+Aristas ordenadas por peso: A-D 1, G-H 1, A-B 2, C-F 2, H-I 2, B-E 3, E-I 4, F-G 4, E-H 5, B-H 6, C-D 6, D-H 7, D-G 8, J-K 8, A-C 9, H-K 10.
+
+|Arista|Grupos de los extremos|Decisión|Grupos después|
+|---|---|---|---|
+|A-D (1)|distintos|**Se agrega**|{A,D}|
+|G-H (1)|distintos|**Se agrega**|{G,H}|
+|A-B (2)|distintos|**Se agrega**|{A,B,D}|
+|C-F (2)|distintos|**Se agrega**|{C,F}|
+|H-I (2)|distintos|**Se agrega**|{G,H,I}|
+|B-E (3)|distintos|**Se agrega**|{A,B,D,E}|
+|E-I (4)|{A,B,D,E} y {G,H,I}|**Se agrega**|{A,B,D,E,G,H,I}|
+|F-G (4)|{C,F} y el grupo grande|**Se agrega**|{A,B,C,D,E,F,G,H,I}|
+|E-H (5)|ya están juntos|Se descarta (ciclo)||
+|B-H (6), C-D (6), D-H (7), D-G (8)|ya están juntos|Se descartan (ciclo)||
+|J-K (8)|{J} y {K}|**Se agrega**|{J,K}|
+|A-C (9)|ya están juntos|Se descarta (ciclo)||
+|H-K (10)|{J,K} y el grupo grande|**Se agrega**|todos juntos|
+
+**Árbol de expansión mínima, en orden de generación:**
+
+**(A, D), (G, H), (A, B), (C, F), (H, I), (B, E), (E, I), (F, G), (J, K), (H, K)**
+
+Son 10 aristas, o sea V - 1. **Peso total:** 1 + 1 + 2 + 2 + 2 + 3 + 4 + 4 + 8 + 10 = **37**.
+
+Los empates (A-D con G-H, y A-B, C-F y H-I entre sí) se pueden tomar en cualquier orden, porque ninguno compite con otro por cerrar el mismo ciclo. La nota del enunciado lo permite.
+
+## b. Dijkstra de A a J
+
+Interpreto "el grafo del ejercicio 1" como el grafo de este mismo ejercicio. Los vectores van en el orden **[A, B, C, D, E, F, G, H, I, J, K]**, con ∞ para lo no alcanzado.
+
+|Paso|Se visita (dist.)|Vector de distancias después|
+|---|---|---|
+|inicio||[0, ∞, ∞, ∞, ∞, ∞, ∞, ∞, ∞, ∞, ∞]|
+|1|**A (0)**|[0, 2, 9, 1, ∞, ∞, ∞, ∞, ∞, ∞, ∞]|
+|2|**D (1)**|[0, 2, 7, 1, ∞, ∞, 9, 8, ∞, ∞, ∞]|
+|3|**B (2)**|[0, 2, 7, 1, 5, ∞, 9, 8, ∞, ∞, ∞]|
+|4|**E (5)**|[0, 2, 7, 1, 5, ∞, 9, 8, 9, ∞, ∞]|
+|5|**C (7)**|[0, 2, 7, 1, 5, 9, 9, 8, 9, ∞, ∞]|
+|6|**H (8)**|[0, 2, 7, 1, 5, 9, 9, 8, 9, ∞, 18]|
+|7|**F (9)**|sin cambios|
+|8|**G (9)**|sin cambios|
+|9|**I (9)**|sin cambios|
+|10|**K (18)**|[0, 2, 7, 1, 5, 9, 9, 8, 9, **26**, 18]|
+|11|**J (26)**|destino alcanzado|
+
+Detalles de las actualizaciones:
+
+- **Paso 2:** C baja de 9 a 7 pasando por D (1 + 6), y D da G = 1 + 8 = 9 y H = 1 + 7 = 8.
+- **Paso 3:** B daría H = 2 + 6 = 8, igual que el valor actual, así que no cambia.
+- **Paso 4:** E daría H = 5 + 5 = 10 (no mejora) e I = 5 + 4 = 9.
+- **Paso 6:** H da K = 8 + 10 = 18. G e I por H también darían 9, sin mejora.
+- **Pasos 7 a 9:** F, G e I empatan en 9 y se visitan en orden alfabético. No mejoran a nadie.
+
+**Distancia mínima de A a J: 26.**
+
+**Camino:** A → D → H → K → J, con costo 1 + 7 + 10 + 8 = 26. También sirve A → B → H → K → J, que cuesta 2 + 6 + 10 + 8 = 26. Hay dos caminos óptimos porque H se alcanza con 8 por D y por B.
+
+**Orden de visita:** A, D, B, E, C, H, F, G, I, K, J.
+
+## Atajo para el examen
+
+1. **Kruskal:** anotá las aristas ordenadas y, antes de agregar cada una, chequeá si sus extremos ya están conectados por lo dibujado.
+2. **Dijkstra:** en cada fila actualizá solo los vecinos del vértice recién visitado. Recordá que el vector se arma con la distancia acumulada, no con el peso de la última arista.
