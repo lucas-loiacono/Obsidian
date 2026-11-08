@@ -279,12 +279,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
+                "file": "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Teoria"
+              "title": "Ejercicios Grafos"
             }
           }
         ],
@@ -464,11 +464,14 @@
   },
   "active": "aa0ee4d5721fd56c",
   "lastOpenFiles": [
+    "!imagenes/Pasted image 20261108195708.png",
+    "!imagenes/Pasted image 20261108195408.png",
+    "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
+    "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
     "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "Algo Juarez/Clase 17.md",
     "Algo Juarez/Clase 16.md",
     "Algo Juarez/clase 15.md",
-    "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Arboles.md",
     "Algo Juarez/Ejercicios practica/Grafos",
     "!imagenes/Pasted image 20261108182241.png",
@@ -480,7 +483,6 @@
     "!imagenes/Pasted image 20261108172523.png",
     "!imagenes/Pasted image 20261108172131.png",
     "!imagenes/Pasted image 20261108171519.png",
-    "!imagenes/Pasted image 20261108171208.png",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Heap.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Teoria Heap y Cola prioridad.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Cola prioridad.md",
@@ -502,8 +504,6 @@
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
-    "Orga Musso/Assembler/Practica.md",
-    "Orga Musso/Assembler/TP.md",
     "Orga Musso/Assembler",
     "Latex Cod",
     "Algo Juarez/Ejercicios practica/Operaciones Elementales",
