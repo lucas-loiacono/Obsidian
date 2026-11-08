@@ -205,8 +205,8 @@ La explicación del seguimiento, el árbol resultante y el análisis de compleji
 **1. Implementación del algoritmo recursivo**
 
 
-
 ```Java
+
 public int cantidadMultiplosN(Nodo raiz, int N) {
     int cantidad = 0;
     if (raiz != null) {
@@ -219,13 +219,15 @@ public int cantidadMultiplosN(Nodo raiz, int N) {
 }
 ```
 
-**2. Explicación y Seguimiento** El caso base ocurre cuando se evalúa un nodo nulo, retornando 0. Si el nodo existe, se verifica si su dato es múltiplo de N usando el operador módulo (`%`). Si el resto es 0, el nodo suma 1 a la cuenta; de lo contrario, suma 0. Luego, el método se llama recursivamente para los hijos izquierdo y derecho, acumulando la cantidad total desde las hojas hacia la raíz.
+**2. Explicación y Seguimiento**
 
   
+
+El caso base ocurre cuando se evalúa un nodo nulo, retornando 0. Si el nodo existe, se verifica si su dato es múltiplo de N usando el operador módulo (`%`). Si el resto es 0, el nodo suma 1 a la cuenta; de lo contrario, suma 0. Luego, el método se llama recursivamente para los hijos izquierdo y derecho, acumulando la cantidad total desde las hojas hacia la raíz.
 
 Seguimiento sobre un árbol binario completo de altura 2 con valores del 1 al 7 y N = 1 (como todo número es múltiplo de 1, todos los nodos sumarán 1 a la cuenta):
 
-  
+Plaintext
 
 ```
       1
@@ -235,47 +237,37 @@ Seguimiento sobre un árbol binario completo de altura 2 con valores del 1 al 7 
   4  5 6  7
 ```
 
-**Ejecución paso a paso:****cMN(1, 1)** evalúa: 1 (porque 1%10) + cMN(2, 1) + cMN(3, 1)
+**Ejecución paso a paso:**
 
   
 
-**cMN(2, 1)** evalúa: 1 (porque 2%10) + cMN(4, 1) + cMN(5, 1)
+**cMN(1, 1)** evalúa: 1 (porque 1%1 = 0) + cMN(2, 1) + cMN(3, 1)
 
-  
 
-**cMN(4, 1)** evalúa: 1 (porque 4%10) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
+**cMN(2, 1)** evalúa: 1 (porque 2%1 = 0) + cMN(4, 1) + cMN(5, 1)
 
-  
+**cMN(4, 1)** evalúa: 1 (porque 4%1 = 0) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
 
-**cMN(5, 1)** evalúa: 1 (porque 5%10) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
-
-  
+**cMN(5, 1)** evalúa: 1 (porque 5%1 = 0) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
 
 **Retorno a 2:** cMN(2, 1) = 1 + 1 (de 4) + 1 (de 5) = 3
 
-  
+**cMN(3, 1)** evalúa: 1 (porque 3%1 = 0) + cMN(6, 1) + cMN(7, 1)
 
-**cMN(3, 1)** evalúa: 1 (porque 3%10) + cMN(6, 1) + cMN(7, 1)
+**cMN(6, 1)** evalúa: 1 (porque 6%1 = 0) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
 
-  
-
-**cMN(6, 1)** evalúa: 1 (porque 6%10) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
-
-  
-
-**cMN(7, 1)** evalúa: 1 (porque 7%1==0) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
-
-  
+**cMN(7, 1)** evalúa: 1 (porque 7%1 = 0) + cMN(null, 1) + cMN(null, 1) = 1 + 0 + 0 = 1
 
 **Retorno a 3:** cMN(3, 1) = 1 + 1 (de 6) + 1 (de 7) = 3
 
-  
-
 **Retorno final a 1 (Raíz):** cMN(1, 1) = 1 + 3 (rama izq) + 3 (rama der) = 7.
 
+
+**3. Complejidad Algorítmica**
+
   
 
-**3. Complejidad Algorítmica** **Tiempo: O(V)**. Siendo V la cantidad total de nodos en el árbol (se utiliza V para no confundir con la variable N del parámetro). La función recursiva visita todos los elementos del árbol exactamente una vez. Como las operaciones por cada nodo (operación módulo, validaciones lógicas, sumas) toman un tiempo constante O(1), el tiempo total de ejecución escala de forma directamente proporcional a la cantidad de nodos.
+**Tiempo: O(V)**. Siendo V la cantidad total de nodos en el árbol (se utiliza V para no confundir con la variable N del parámetro). La función recursiva visita todos los elementos del árbol exactamente una vez. Como las operaciones por cada nodo (operación módulo, validaciones lógicas, sumas) toman un tiempo constante O(1), el tiempo total de ejecución escala de forma directamente proporcional a la cantidad de nodos.
 
   
 
@@ -283,3 +275,130 @@ Seguimiento sobre un árbol binario completo de altura 2 con valores del 1 al 7 
 
 
 ![[Pasted image 20261108172647.png]]
+
+**1. Implementación del algoritmo iterativo (Búsqueda en Anchura - BFS)**
+
+
+
+```Java
+public int nivelDeMayorSuma(Nodo<Integer> raiz) {
+    int nivelMaximo = -1;
+    if (raiz != null) {
+        Cola<Nodo<Integer>> cola = new Cola<>();
+        cola.encolar(raiz);
+        cola.encolar(null); 
+        
+        int nivelActual = 0;
+        int sumaActual = 0;
+        int sumaMaxima = Integer.MIN_VALUE;
+        nivelMaximo = 0;
+        
+        while (!cola.estaVacia()) {
+            Nodo<Integer> actual = cola.desencolar();
+            
+            if (actual != null) {
+                sumaActual += actual.getDato();
+                if (actual.getIzquierdo() != null) {
+                    cola.encolar(actual.getIzquierdo());
+                }
+                if (actual.getDerecho() != null) {
+                    cola.encolar(actual.getDerecho());
+                }
+            } else {
+                if (sumaActual > sumaMaxima) {
+                    sumaMaxima = sumaActual;
+                    nivelMaximo = nivelActual;
+                }
+                sumaActual = 0;
+                nivelActual++;
+                
+                if (!cola.estaVacia()) {
+                    cola.encolar(null);
+                }
+            }
+        }
+    }
+    return nivelMaximo;
+}
+```
+
+**2. Explicación y Seguimiento** Para sumar los elementos nivel por nivel, es necesario recorrer el árbol a lo ancho utilizando una Cola. Usamos el valor `null` como delimitador visual dentro de la estructura para saber exactamente cuándo termina un nivel y empieza el siguiente. Al terminar de desencolar un nivel entero, comparamos la suma con la máxima histórica. Si es estrictamente mayor, actualizamos. Al usar mayor estricto, garantizamos quedarnos con el de menor número en caso de empate.
+
+  
+
+Seguimiento sobre un árbol binario completo de altura 2 (Raíz en nivel 0):
+
+  
+
+Plaintext
+
+```
+      10
+     /  \
+    5    6
+   / \  / \
+  1  2 3   4
+```
+
+**Ejecución paso a paso:**
+
+  
+
+- **Inicialización:** cola = [10, null], nivelActual = 0, sumaMax = MIN_VALUE, nivelMax = 0.
+    
+      
+    
+- **Desencolo 10:** sumaActual = 10, encolo 5 y 6. cola = [null, 5, 6].
+    
+      
+    
+- **Desencolo null (Fin Nivel 0):** sumaActual (10) > sumaMax (MIN) -> sumaMax = 10, nivelMax = 0. nivelActual = 1, sumaActual = 0, encolo null. cola = [5, 6, null].
+    
+      
+    
+- **Desencolo 5:** sumaActual = 5, encolo 1 y 2. cola = [6, null, 1, 2].
+    
+      
+    
+- **Desencolo 6:** sumaActual = 5 + 6 = 11, encolo 3 y 4. cola = [null, 1, 2, 3, 4].
+    
+      
+    
+- **Desencolo null (Fin Nivel 1):** sumaActual (11) > sumaMax (10) -> sumaMax = 11, nivelMax = 1. nivelActual = 2, sumaActual = 0, encolo null. cola = [1, 2, 3, 4, null].
+    
+      
+    
+- **Desencolo 1:** sumaActual = 1. cola = [2, 3, 4, null].
+    
+      
+    
+- **Desencolo 2:** sumaActual = 1 + 2 = 3. cola = [3, 4, null].
+    
+      
+    
+- **Desencolo 3:** sumaActual = 3 + 3 = 6. cola = [4, null].
+    
+      
+    
+- **Desencolo 4:** sumaActual = 6 + 4 = 10. cola = [null].
+    
+      
+    
+- **Desencolo null (Fin Nivel 2):** sumaActual (10) NO es mayor que sumaMax (11). nivelMax queda en 1. nivelActual = 3, sumaActual = 0. No se encola null porque la cola quedó vacía.
+    
+      
+    
+- **Retorno final:** 1 (correspondiente a la suma de 11).
+    
+      
+    
+
+**3. Complejidad Algorítmica**
+
+  
+
+- **Tiempo: O(N)**. Siendo N la cantidad total de nodos. Cada nodo se encola y desencola exactamente una vez. Las operaciones con la cola y las sumas son de tiempo constante O(1), por lo que el tiempo total de ejecución es lineal proporcional a la cantidad de elementos.
+    
+      
+    
+- **Espacio: O(N)**. El consumo de memoria adicional está dictado por la Cola, que almacena como máximo todos los nodos del nivel más ancho del árbol. En un árbol completo, esto corresponde a la mitad de los nodos (N/2), resultando en un espacio lineal O(N).
