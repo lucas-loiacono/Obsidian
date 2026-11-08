@@ -402,3 +402,53 @@ Plaintext
       
     
 - **Espacio: O(N)**. El consumo de memoria adicional está dictado por la Cola, que almacena como máximo todos los nodos del nivel más ancho del árbol. En un árbol completo, esto corresponde a la mitad de los nodos (N/2), resultando en un espacio lineal O(N).
+
+![[Pasted image 20261108175812.png]]
+
+**1. Implementación del algoritmo recursivo**
+
+
+```Java
+public int sumaEnRango(Nodo<Integer> raiz, int desde, int hasta) {
+    int suma = 0;
+    if (raiz != null) {
+        int valor = raiz.getDato();
+        
+        if (valor >= desde && valor <= hasta) {
+            suma += valor;
+        }
+        if (valor > desde) {
+            suma += sumaEnRango(raiz.getIzquierdo(), desde, hasta);
+        }
+        if (valor < hasta) {
+            suma += sumaEnRango(raiz.getDerecho(), desde, hasta);
+        }
+    }
+    return suma;
+}
+```
+
+**2. Explicación del funcionamiento** El algoritmo aprovecha la propiedad fundamental del Árbol Binario de Búsqueda (ABB) para "podar" ramas y evitar recorrer nodos innecesariamente. Si el nodo actual existe, primero evalúa si su valor pertenece al rango para sumarlo. Luego, utiliza los límites para decidir hacia dónde continuar la recursividad:
+
+  
+
+- Solo busca en el subárbol izquierdo si el valor del nodo actual es mayor que el límite inferior (`desde`). Si fuera menor o igual, es matemáticamente imposible que sus hijos izquierdos (que son aún más pequeños) entren en el rango.
+    
+      
+    
+- Solo busca en el subárbol derecho si el valor del nodo actual es menor que el límite superior (`hasta`). Si fuera mayor o igual, todos sus hijos derechos quedarían fuera de rango.
+    
+      
+    
+
+**3. Complejidad Algorítmica**
+
+  
+
+- **Mejor caso: O(1) u O(H)**. El mejor caso absoluto ocurre si el árbol está vacío (raíz nula), tomando tiempo O(1). Si el árbol tiene elementos, el mejor caso se da cuando el rango buscado está completamente fuera de los valores del árbol y ubicado en un extremo (por ejemplo, buscando un rango de valores negativos en un árbol de puros positivos). El algoritmo descarta subárboles enteros en cada paso y solo desciende por una única rama hasta llegar a una hoja, tomando un tiempo proporcional a la altura del árbol O(H).
+    
+      
+    
+- **Peor caso: O(N)**. Siendo N la cantidad total de nodos en el árbol. Ocurre cuando la totalidad de los elementos del árbol caen dentro del rango `[desde, hasta]`. Al estar todos los valores en rango, las condiciones de poda nunca logran descartar ramas, obligando al método a visitar exhaustivamente el subárbol izquierdo y derecho de cada uno de los nodos, resultando en un recorrido lineal completo.
+
+![[Pasted image 20261108175853.png]]
