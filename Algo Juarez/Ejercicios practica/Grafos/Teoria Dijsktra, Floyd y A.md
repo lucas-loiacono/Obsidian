@@ -264,3 +264,15 @@ La imagen explica cómo extraer el resultado final una vez que el algoritmo A* a
       
     
 - **Ruta final:** Al encadenar estas relaciones hacia atrás (D $\leftarrow$ F $\leftarrow$ E $\leftarrow$ B $\leftarrow$ A), se construye el camino desde el inicio hasta el final: A $\to$ B $\to$ E $\to$ F $\to$ D.
+
+
+### Reconstruir el camino
+
+Se sigue el **padre** desde el destino hacia atrás:
+
+- Padre(D) = F
+- Padre(F) = E
+- Padre(E) = B
+- Padre(B) = A
+
+**Camino: A → B → E → F → D**, de costo 4.
