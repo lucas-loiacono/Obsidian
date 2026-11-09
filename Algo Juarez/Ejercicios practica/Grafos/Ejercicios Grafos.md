@@ -246,6 +246,44 @@ Si en cambio saltaras al último nodo marcado cada vez, estarías haciendo DFS y
 
 ![[Pasted image 20261108195708.png]]
 
+
+Sí, a ojo se puede, y es incluso más fácil que el BFS. La diferencia es que acá **no leés una lista en orden**: vas **siempre a fondo por un camino**, y cuando te trabás, retrocedés.
+
+**Cómo hacerlo:**
+
+1. Parás en un nodo y elegís su **vecino no visitado de menor alfabético**.
+2. **Bajás enseguida** a ese vecino, sin terminar de mirar los otros.
+3. Si un nodo no tiene vecinos nuevos, **retrocedés** al anterior y seguís con el próximo vecino pendiente de ese.
+4. Al retroceder no anotás nada. Solo anotás cuando descubrís un nodo por primera vez.
+
+**En el 6.2:**
+
+- **A:** vecinos D, E, F, G, I. Voy al menor, **D**.
+- **D:** vecinos A, B, G. A ya está, voy a **B**.
+- **B:** vecinos C, D, E. Voy a **C**.
+- **C:** su único vecino es B, que ya está. Retrocedo a B.
+- **B (sigo):** quedaba E. Voy a **E**.
+- **E:** vecinos A, B, I. Voy a **I**.
+- **I:** vecinos A y E, ya están. Retrocedo a E, a B y a D.
+- **D (sigo):** quedaba G. Voy a **G**.
+- **G:** vecinos A, D, H. Voy a **H**.
+- **H:** su único vecino es G. Retrocedo a G, a D y a A.
+- **A (sigo):** quedaba F. Voy a **F**.
+- **F:** su único vecino es A. Retrocedo a A, que no tiene pendientes: **fin**.
+
+**Recorrido DFS: A, D, B, C, E, I, G, H, F**
+
+**La diferencia clave con el BFS:**
+
+- En BFS terminás de leer un nodo y saltás al siguiente de tu lista.
+- En DFS bajás de inmediato al recién descubierto y solo volvés cuando te quedás sin salida.
+
+**Lo que más se olvida:** al retroceder, **seguir mirando los vecinos que quedaron pendientes**. Al volver a D quedaba G, y al volver a A quedaba F. Si te salteás eso, el recorrido te sale incompleto.
+
+**Truco a ojo:** podés ir dibujando el camino como una pila (A, D, B, C), tachando el último cuando te trabás. El nodo que queda al final de la pila es el que tenés que revisar de nuevo.
+
+Si querés, te lo paso en markdown para Obsidian, junto con la comparación BFS contra DFS.
+
 # Ejercicio 6.2: DFS desde A
 
 **DFS** (_Depth-First Search_, búsqueda en profundidad) recorre el grafo yendo **lo más lejos posible** por un camino. Cuando se llega a un nodo sin vecinos nuevos, se **retrocede** hasta el último nodo que todavía tenga vecinos sin visitar. Se implementa con una **pila** o con recursión.
