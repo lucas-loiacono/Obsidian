@@ -135,6 +135,65 @@ El BFS tiene que listar **todos los del nivel 1, después todos los del nivel 2*
 Es igual de mecánico, pero con una **pila** (o recursión) en lugar de cola: vas siempre por el primer vecino no visitado hasta que no puedas avanzar, y ahí retrocedés. Si te lo piden, lo hacemos con el mismo método.
 
 
+
+# BFS del 6.1 con el método de la tabla
+
+## Paso 1: armar la matriz
+
+El grafo es no dirigido, así que la matriz es **simétrica**: cada línea del dibujo aparece dos veces. Aristas: A-C, A-D, B-D, B-E, B-G, C-F, D-F, D-G, F-G, G-I, I-J, H-J.
+
+| origen \ destino | a   | b   | c   | d   | e   | f   | g   | h   | i   | j   |
+| ---------------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **a**            | 0   | 0   | 1   | 1   | 0   | 0   | 0   | 0   | 0   | 0   |
+| **b**            | 0   | 0   | 0   | 1   | 1   | 0   | 1   | 0   | 0   | 0   |
+| **c**            | 1   | 0   | 0   | 0   | 0   | 1   | 0   | 0   | 0   | 0   |
+| **d**            | 1   | 1   | 0   | 0   | 0   | 1   | 1   | 0   | 0   | 0   |
+| **e**            | 0   | 1   | 0   | 0   | 0   | 0   | 0   | 0   | 0   | 0   |
+| **f**            | 0   | 0   | 1   | 1   | 0   | 0   | 1   | 0   | 0   | 0   |
+| **g**            | 0   | 1   | 0   | 1   | 0   | 1   | 0   | 0   | 1   | 0   |
+| **h**            | 0   | 0   | 0   | 0   | 0   | 0   | 0   | 0   | 0   | 1   |
+| **i**            | 0   | 0   | 0   | 0   | 0   | 0   | 1   | 0   | 0   | 1   |
+| **j**            | 0   | 0   | 0   | 0   | 0   | 0   | 0   | 1   | 1   | 0   |
+
+Las columnas ya están en orden alfabético, así que al leer una fila de izquierda a derecha los vecinos salen en el orden correcto.
+
+## Paso 2: recorrer
+
+Cada vez que **descubrís** un nodo lo marcás con el siguiente número de orden. Terminás de leer la fila y saltás al **siguiente número que todavía no leíste**, que es el orden de la cola.
+
+|Fila que leo|1s en la fila|Marco (nuevos)|Próximos saltos|
+|---|---|---|---|
+|inicio||**a = 1**|a|
+|**a**|c, d|**c = 2, d = 3**|c, d|
+|**c**|a, f|a ya marcado, **f = 4**|d, f|
+|**d**|a, b, f, g|**b = 5, g = 6**|f, b, g|
+|**f**|c, d, g|todos marcados|b, g|
+|**b**|d, e, g|**e = 7**|g, e|
+|**g**|b, d, f, i|**i = 8**|e, i|
+|**e**|b|ya marcado|i|
+|**i**|g, j|**j = 9**|j|
+|**j**|h, i|**h = 10**|h|
+|**h**|j|ya marcado|(vacía)|
+
+La cola se vació y los 10 nodos están marcados, así que no hace falta reiniciar desde un nodo no visitado. Acá el grafo es conexo desde A.
+
+## Resultado
+
+|a|c|d|f|b|g|e|i|j|h|
+|---|---|---|---|---|---|---|---|---|---|
+|1|2|3|4|5|6|7|8|9|10|
+
+**Recorrido BFS: A, C, D, F, B, G, E, I, J, H**
+
+## Dónde se nota que es BFS y no "por ramas"
+
+- Después de leer **c** (que descubrió f), no saltás a f. Saltás a **d**, el otro vecino de a. F espera su turno.
+- Después de **d** tampoco saltás a b ni g: primero leés **f**, que se marcó antes.
+- La regla es siempre la misma: el próximo salto es el **menor número de orden que todavía no leíste**.
+
+Si en cambio saltaras al último nodo marcado cada vez, estarías haciendo DFS y obtendrías otro recorrido.
+
+
 ![[Pasted image 20261108195708.png]]
 
 # Ejercicio 6.2: DFS desde A

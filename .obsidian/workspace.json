@@ -293,12 +293,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
+                "file": "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Teoria Dijsktra, Floyd y A"
+              "title": "Teoria"
             }
           }
         ],
@@ -361,7 +361,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "0cf3ef9b28b5686c",
@@ -515,11 +516,11 @@
       }
     ]
   },
-  "active": "4ed260c15afe9905",
+  "active": "1a047dc68ab38e87",
   "lastOpenFiles": [
-    "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
     "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
+    "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "!imagenes/Pasted image 20261108204227.png",
     "!imagenes/Pasted image 20261108204204.png",
     "!imagenes/Pasted image 20261108203446.png",
