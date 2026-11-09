@@ -256,6 +256,73 @@ Se visitan los 9 nodos, así que el grafo es conexo.
 
 Por eso el mismo grafo da recorridos distintos: acá A va primero a D y baja hasta C, mientras que BFS listaría primero todos los vecinos de A (D, E, F, G, I).
 
+
+
+
+
+## DFS del 6.2 con el método de la tabla
+
+### Paso 1: la matriz
+
+Es no dirigido, así que es simétrica. Aristas: A-D, A-E, A-F, A-G, A-I, B-C, B-D, B-E, D-G, E-I, G-H.
+
+| origen \ destino | a | b | c | d | e | f | g | h | i |
+|---|---|---|---|---|---|---|---|---|---|
+| **a** | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 0 | 1 |
+| **b** | 0 | 0 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
+| **c** | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **d** | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
+| **e** | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| **f** | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **g** | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 |
+| **h** | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
+| **i** | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 |
+
+### Paso 2: la regla
+
+1. Marcás el nodo inicial con el **1**.
+2. Leés su fila de izquierda a derecha y tomás el **primer 1 cuyo nodo no esté marcado**.
+3. **Lo marcás con el siguiente número y bajás enseguida a su fila.** No terminás de leer la fila actual.
+4. Si en una fila **todos los 1 ya están marcados**, volvés a la fila anterior y seguís leyéndola desde donde la dejaste.
+
+### Seguimiento
+
+| Fila que leo | 1s en la fila | Primer no marcado | Acción |
+|---|---|---|---|
+| inicio | - | - | **a = 1** |
+| **a** | d, e, f, g, i | d | **d = 2**, bajo a d |
+| **d** | a, b, g | b | **b = 3**, bajo a b |
+| **b** | c, d, e | c | **c = 4**, bajo a c |
+| **c** | b | ninguno | vuelvo a b |
+| **b** (sigo) | d, e | e (d ya está) | **e = 5**, bajo a e |
+| **e** | a, b, i | i | **i = 6**, bajo a i |
+| **i** | a, e | ninguno | vuelvo a e |
+| **e** (sigo) | - | ninguno | vuelvo a b |
+| **b** (sigo) | - | ninguno | vuelvo a d |
+| **d** (sigo) | g | g | **g = 7**, bajo a g |
+| **g** | a, d, h | h | **h = 8**, bajo a h |
+| **h** | g | ninguno | vuelvo a g |
+| **g** (sigo) | - | ninguno | vuelvo a d |
+| **d** (sigo) | - | ninguno | vuelvo a a |
+| **a** (sigo) | e, f, g, i | f (e ya está) | **f = 9**, bajo a f |
+| **f** | a | ninguno | vuelvo a a, sin pendientes: **fin** |
+
+### Resultado
+
+| a | d | b | c | e | i | g | h | f |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+
+**Recorrido DFS: A, D, B, C, E, I, G, H, F**
+
+### Para no fallar
+
+- **Al volver a una fila, seguí desde donde la dejaste.** Al volver a `d` todavía quedaba `g`, y al volver a `a` quedaba `f`.
+- **Al volver no se marca nada.** Solo se numera cuando se descubre un nodo por primera vez.
+- **Control final:** los 9 nodos tienen número y ninguno se repite.
+
+
+
 ![[Pasted image 20261108200003.png]]
 
 # Ejercicio 6.3
