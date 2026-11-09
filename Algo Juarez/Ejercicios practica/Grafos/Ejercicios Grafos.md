@@ -2,6 +2,56 @@
 ![[Pasted image 20261108195408.png]]
 
 
+# BFS del 6.1 a ojo: paso a paso
+
+## Idea central
+Voy leyendo mi **lista de nodos en el orden en que los fui anotando**. De cada nodo anoto sus **hijos nuevos** (los que todavía no descubrí). Si un nodo tiene varios hijos, **los conservo a todos** y los ordeno **alfabéticamente**.
+
+## Paso a paso
+
+1. **Arranco en A.** Lista: `A`
+2. **Leo A.** Tiene dos hijos: C y D. Los dos entran, y C va antes que D por alfabético. Lista: `C, D`
+3. **Leo C** (vino primero). Su hijo nuevo es F. Lista: `D, F`
+4. **Leo D.** Tiene dos hijos nuevos: B y G. Los acomodo alfabéticamente: primero B, después G. Lista: `F, B, G`
+5. **Leo F.** Sus vecinos ya fueron descubiertos, no tiene hijos nuevos. Lo dejo ahí y sigo.
+6. **Leo B.** Su hijo nuevo es E. Lista: `G, E`
+7. **Leo G.** Su hijo nuevo es I. Lista: `E, I`
+8. **Leo E.** Sin hijos nuevos. Sigo.
+9. **Leo I.** Su hijo nuevo es J. Lista: `J`
+10. **Leo J.** Su hijo nuevo es H. Lista: `H`
+11. **Leo H.** Sin hijos nuevos. La lista queda vacía: **fin**.
+
+## Resultado
+
+**Recorrido BFS: A, C, D, F, B, G, E, I, J, H**
+
+## Dos ajustes a la explicación original
+
+- **No me "quedo" con el menor, los conservo a todos.** El alfabético solo decide **cuál se lee primero**. Si descartara a D, nunca aparecería en el recorrido.
+- **No sigo una rama hasta H, sigo mi lista en orden.** Llego a H porque es el último eslabón (G → I → J → H), no porque baje por una rama sola. Si hubiera otro nodo en el medio de la lista, lo tendría que leer antes.
+
+## Reglas para recordar
+
+- **Se lee en el orden en que se anotó.** Lo que vino antes se lee antes (por eso F, hijo de C, se lee antes que B y G, hijos de D).
+- **Alfabético = desempate entre hermanos**, no orden global del nivel.
+- **Un nodo sin hijos nuevos no es un error:** todos sus vecinos ya los descubrió otro.
+- **Control final:** 10 nodos, sin repetir, y cada nivel completo antes de pasar al siguiente.
+
+## Por niveles (para verificar)
+
+| Nivel | Nodos   | De quién cuelgan   |
+| ----- | ------- | ------------------ |
+| 0     | A       | origen             |
+| 1     | C, D    | A                  |
+| 2     | F, B, G | F de C; B y G de D |
+| 3     | E, I    | E de B; I de G     |
+| 4     | J       | I                  |
+| 5     | H       | J                  |
+
+
+
+
+
 # Ejercicio 6.1: recorrido BFS desde A
 
 ## ¿Qué es BFS?
