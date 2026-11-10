@@ -323,7 +323,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -497,7 +497,7 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "aba53f856088c804",
+  "active": "aa97ade7687a12ea",
   "lastOpenFiles": [
     "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
