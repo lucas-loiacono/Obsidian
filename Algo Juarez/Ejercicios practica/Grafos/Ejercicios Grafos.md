@@ -1128,6 +1128,82 @@ Distancias finales desde A: A 0, C 5, B 9, E 11, D 12, H 13, G 14, F 17.
 3. **Cuidado con los parecidos:** Prim compara pesos de aristas sueltas, y Dijkstra compara distancias acumuladas desde el origen.
 
 
+
+# 6.11 Prim y Dijkstra
+
+Aristas: A-C 5, A-B 10, B-C 4, B-D 3, B-E 2, C-D 9, C-H 8, D-G 6, D-F 7, E-F 7, H-G 1, H-F 4, G-F 3.
+
+**Convención:** `-` = todavía no llegué a ese vértice.
+
+## a. Prim desde E (valor por arista)
+
+**Regla:** el valor de un vecino es **solo el peso de la arista** que lo une al grupo, sin sumar lo acumulado. Elijo el no visitado de menor valor.
+
+| Paso | Visito (valor) | Qué calculo | A | B | C | D | E | F | G | H |
+|---|---|---|---|---|---|---|---|---|---|---|
+| inicio | | | - | - | - | - | 0 | - | - | - |
+| 1 | **E (0)** | B = 2, F = 7 | - | 2 | - | - | 0 | 7 | - | - |
+| 2 | **B (2)** | A = 10, C = 4, D = 3 | 10 | 2 | 4 | 3 | 0 | 7 | - | - |
+| 3 | **D (3)** | G = 6; C por D = 9 (no mejora), F por D = 7 (igual) | 10 | 2 | 4 | 3 | 0 | 7 | 6 | - |
+| 4 | **C (4)** | A = 5 (mejora 10), H = 8 | 5 | 2 | 4 | 3 | 0 | 7 | 6 | 8 |
+| 5 | **A (5)** | sin vecinos nuevos | 5 | 2 | 4 | 3 | 0 | 7 | 6 | 8 |
+| 6 | **G (6)** | H = 1 (mejora 8), F = 3 (mejora 7) | 5 | 2 | 4 | 3 | 0 | 3 | 6 | 1 |
+| 7 | **H (1)** | F por H = 4 (no mejora 3) | 5 | 2 | 4 | 3 | 0 | 3 | 6 | 1 |
+| 8 | **F (3)** | fin | 5 | 2 | 4 | 3 | 0 | 3 | 6 | 1 |
+
+### Padres (de dónde vino cada valor final)
+
+| Vértice | Valor | Padre |
+|---|---|---|
+| B | 2 | E |
+| D | 3 | B |
+| C | 4 | B |
+| A | 5 | C |
+| G | 6 | D |
+| H | 1 | G |
+| F | 3 | G |
+
+**Aristas del árbol:** E-B, B-D, B-C, C-A, D-G, G-H, G-F (peso total 24)
+
+### Respuesta (cuatro iteraciones)
+
+Los primeros cuatro vértices que se suman son B, D, C y A, o sea las aristas **E-B, B-D, B-C y C-A**. Es la opción **(ii)**.
+
+## b. Dijkstra desde A (valor acumulado)
+
+**Regla:** el valor de un vecino es **distancia del vértice visitado + peso de la arista**. Elijo el no visitado de menor distancia.
+
+| Paso | Visito (dist.) | Qué calculo | A | B | C | D | E | F | G | H |
+|---|---|---|---|---|---|---|---|---|---|---|
+| inicio | | | 0 | - | - | - | - | - | - | - |
+| 1 | **A (0)** | B = 10, C = 5 | 0 | 10 | 5 | - | - | - | - | - |
+| 2 | **C (5)** | B = 5+4 = 9 (mejora 10), D = 5+9 = 14, H = 5+8 = 13 | 0 | 9 | 5 | 14 | - | - | - | 13 |
+| 3 | **B (9)** | D = 9+3 = 12 (mejora 14), E = 9+2 = 11 | 0 | 9 | 5 | 12 | 11 | - | - | 13 |
+| 4 | **E (11)** | F = 11+7 = 18 | 0 | 9 | 5 | 12 | 11 | 18 | - | 13 |
+| 5 | **D (12)** | G = 12+6 = 18; F por D = 19 (no mejora) | 0 | 9 | 5 | 12 | 11 | 18 | 18 | 13 |
+| 6 | **H (13)** | G = 13+1 = 14 (mejora 18), F = 13+4 = 17 (mejora 18) | 0 | 9 | 5 | 12 | 11 | 17 | 14 | 13 |
+| 7 | **G (14)** | F por G = 14+3 = 17 (igual, no cambia) | 0 | 9 | 5 | 12 | 11 | 17 | 14 | 13 |
+| 8 | **F (17)** | fin | 0 | 9 | 5 | 12 | 11 | 17 | 14 | 13 |
+
+**Orden de visita: A, C, B, E, D, H, G, F**
+
+## Diferencia entre las dos tablas
+
+| | Prim | Dijkstra |
+|---|---|---|
+| Valor de un vecino | solo el peso de la arista | distancia acumulada + peso de la arista |
+| Ejemplo: H al visitar G | 1 (arista G-H) | 14 + 1... ya valía 13 por C, y G queda en 14 gracias a H |
+| Qué obtengo | árbol de expansión mínima | camino mínimo desde A |
+| Qué se anota | padres → aristas del árbol | orden de visita y distancias |
+
+## Controles
+
+- **Prim:** el peso total da 24 y hay 7 aristas (V - 1).
+- **Dijkstra:** el orden se decide por distancia acumulada, por eso D (12) se visita antes que H (13).
+- Si en Prim sumás el acumulado, te sale mal: H vale 1, no 14.
+
+
+
 ![[Pasted image 20261108203302.png]]
 
 
