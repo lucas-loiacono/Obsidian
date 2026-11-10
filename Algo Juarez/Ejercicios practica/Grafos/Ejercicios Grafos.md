@@ -962,271 +962,80 @@ Verificación por niveles:
 - Nivel 5: D, J, L, O, M
 - Nivel 6: P, N
 
-## b. A* de A a P con distancia Manhattan
+## b. 
 
-**Datos:**
-
-- Cada arista cuesta 1, así que `g` es la cantidad de pasos desde A.
-- Coordenadas `(columna, fila)`: A(0,0), B(1,0), C(2,0), D(3,0), E(0,1)... hasta P(3,3).
-- Heurística `h(n) = |x - 3| + |y - 3|`, la distancia Manhattan a P.
-- `f = g + h`. Siempre se expande el nodo abierto con menor `f`, y en empate el de menor orden alfabético.
-
-**Valores de h:**
-
-|A|B|C|D|E|F|G|H|
-|---|---|---|---|---|---|---|---|
-|6|5|4|3|5|4|3|2|
-
-|I|J|K|L|M|N|O|P|
-|---|---|---|---|---|---|---|---|
-|4|3|2|1|3|2|1|0|
-
-**Seguimiento:**
-
-|Paso|Se expande|Se agregan a abiertos (g, f)|Abiertos después (f)|
-|---|---|---|---|
-|1|A (g=0, f=6)|B (1, 6)|B6|
-|2|B (f=6)|C (2, 6), F (2, 6)|C6, F6|
-|3|C (empate con F, gana C)|G (3, 6)|F6, G6|
-|4|F (empate con G, gana F)|E (3, 8)|G6, E8|
-|5|G (f=6)|H (4, 6), K (4, 6)|E8, H6, K6|
-|6|H (empate con K, gana H)|D (5, 8)|E8, K6, D8|
-|7|K (f=6)|J (5, 8), L (5, 6), O (5, 6)|E8, D8, J8, L6, O6|
-|8|L (empate con O, gana L)|P (6, 6)|E8, D8, J8, O6, P6|
-|9|O (empate con P, gana O por orden alfabético)|nada nuevo (K ya cerrado)|E8, D8, J8, P6|
-|10|P (f=6)|**destino alcanzado**||
-
-**Orden de expansión: A, B, C, F, G, H, K, L, O, P**
-
-**Camino encontrado: A → B → C → G → K → L → P**, de costo **6**.
-
-Se reconstruye siguiendo los padres hacia atrás: P viene de L, L de K, K de G, G de C, C de B y B de A.
-
-## Observaciones
-
-- **El camino es óptimo.** La heurística Manhattan es admisible (nunca sobreestima), y 6 es la distancia mínima de A a P.
-- **El empate entre O y P** se resuelve con el orden alfabético que pide la nota: O se expande antes. No cambia el resultado, porque O es un callejón sin salida. Si expandieras P primero, el camino sería el mismo, pero te ahorrarías un paso en el seguimiento.
-- **Nodos que A* nunca expandió:** E, D, J (quedaron en abiertos con f=8) e I, M, N (nunca se generaron). La heurística evitó explorar la zona de la izquierda, a diferencia del BFS, que recorrió todo el grafo.
-
-
-# A* de A a P (grilla 4x4, heurística Manhattan)
-
-## Datos
-
-- Cada arista cuesta 1, así que `g` = cantidad de pasos desde A.
-- Coordenadas (columna, fila): A(0,0) ... P(3,3).
-- `h(n)` = distancia Manhattan a P = |col - 3| + |fila - 3|.
-- `f = g + h`. Sale de Sa el de **menor f**. Si hay empate, el de **menor orden alfabético**.
-
-Vecinos:
-
-```
-A: B        E: F, I      I: E, J, M    M: I, N
-B: A, C, F  F: B, E      J: I, K       N: M
-C: B, G     G: C, H, K   K: G, J, L, O O: K
-D: H        H: D, G      L: K, P       P: L
-```
-
-## Heurística h
-
-| A | B | C | D | E | F | G | H |
-|---|---|---|---|---|---|---|---|
-| 6 | 5 | 4 | 3 | 5 | 4 | 3 | 2 |
-
-| I | J | K | L | M | N | O | P |
-|---|---|---|---|---|---|---|---|
-| 4 | 3 | 2 | 1 | 3 | 2 | 1 | 0 |
-
-## Las tres acciones de cada iteración
-
-1. **Elijo Vp:** el de menor f en Sa.
-2. **Expando Vp:** si Vp es P, termino. Si no, para cada vecino que **no está en Sc**: `Padre = Vp`, `g = g(Vp) + 1`, `f = g + h`.
-3. **Muevo Vp de Sa a Sc.**
-
-## Paso a paso
-
-**Iteración 1**
-- Sa = {A}, Sc = {}
-- Vp = A (f = 6). A ≠ P.
-- Vecino B: Padre(B) = A, g = 1, f = 1 + 5 = 6
-- Sa = {B}, Sc = {A}
-
-**Iteración 2**
-- Vp = B (f = 6). B ≠ P.
-- A está en Sc, se ignora.
-- C: Padre = B, g = 2, f = 2 + 4 = 6
-- F: Padre = B, g = 2, f = 2 + 4 = 6
-- Sa = {C, F}, Sc = {A, B}
-
-**Iteración 3**
-- C y F empatan con f = 6, gana **C** (alfabético). Vp = C.
-- B está en Sc, se ignora.
-- G: Padre = C, g = 3, f = 3 + 3 = 6
-- Sa = {F, G}, Sc = {A, B, C}
-
-**Iteración 4**
-- F y G empatan con f = 6, gana **F**. Vp = F.
-- B está en Sc, se ignora.
-- E: Padre = F, g = 3, f = 3 + 5 = 8
-- Sa = {G, E}, Sc = {A, B, C, F}
-
-**Iteración 5**
-- Vp = G (f = 6). G ≠ P.
-- C está en Sc, se ignora.
-- H: Padre = G, g = 4, f = 4 + 2 = 6
-- K: Padre = G, g = 4, f = 4 + 2 = 6
-- Sa = {E, H, K}, Sc = {A, B, C, F, G}
-
-**Iteración 6**
-- H y K empatan con f = 6, gana **H**. Vp = H.
-- G está en Sc, se ignora.
-- D: Padre = H, g = 5, f = 5 + 3 = 8
-- Sa = {E, K, D}, Sc = {A, B, C, F, G, H}
-
-**Iteración 7**
-- Vp = K (f = 6). K ≠ P.
-- G está en Sc, se ignora.
-- J: Padre = K, g = 5, f = 5 + 3 = 8
-- L: Padre = K, g = 5, f = 5 + 1 = 6
-- O: Padre = K, g = 5, f = 5 + 1 = 6
-- Sa = {E, D, J, L, O}, Sc = {A, B, C, F, G, H, K}
-
-**Iteración 8**
-- L y O empatan con f = 6, gana **L**. Vp = L.
-- K está en Sc, se ignora.
-- P: Padre = L, g = 6, f = 6 + 0 = 6
-- Sa = {E, D, J, O, P}, Sc = {A, B, C, F, G, H, K, L}
-
-**Iteración 9**
-- O y P empatan con f = 6, gana **O** (alfabético). Vp = O.
-- Su único vecino K está en Sc: no se agrega nada.
-- Sa = {E, D, J, P}, Sc = {A, B, C, F, G, H, K, L, O}
-
-**Iteración 10**
-- Vp = P (f = 6). **P == destino: fin.**
-
-## Resumen en tabla
-
-| Iter. | Vp | f | Nuevos en Sa (padre, g, f) | Sa después |
-|---|---|---|---|---|
-| 1 | A | 6 | B (A, 1, 6) | B |
-| 2 | B | 6 | C (B, 2, 6), F (B, 2, 6) | C, F |
-| 3 | C | 6 | G (C, 3, 6) | F, G |
-| 4 | F | 6 | E (F, 3, 8) | G, E |
-| 5 | G | 6 | H (G, 4, 6), K (G, 4, 6) | E, H, K |
-| 6 | H | 6 | D (H, 5, 8) | E, K, D |
-| 7 | K | 6 | J (K, 5, 8), L (K, 5, 6), O (K, 5, 6) | E, D, J, L, O |
-| 8 | L | 6 | P (L, 6, 6) | E, D, J, O, P |
-| 9 | O | 6 | nada | E, D, J, P |
-| 10 | P | 6 | destino | |
-
-**Orden de expansión: A, B, C, F, G, H, K, L, O, P**
-
-## Reconstruir el camino (siguiendo los padres hacia atrás)
-
-- Padre(P) = L
-- Padre(L) = K
-- Padre(K) = G
-- Padre(G) = C
-- Padre(C) = B
-- Padre(B) = A
-
-**Camino: A → B → C → G → K → L → P**, de costo **6**.
-
-## Observaciones
-
-- El camino es óptimo: la heurística Manhattan nunca sobreestima y 6 es la distancia mínima de A a P.
-- F, C, H, O son **desvíos**: se expanden por el desempate alfabético, pero no llevan a nada. Los otros candidatos quedan guardados en Sa por si hacían falta.
-- **Nunca se expanden** E, D, J (quedaron en Sa con f = 8). I, M y N ni siquiera se generaron: A* evitó la zona izquierda, a diferencia de BFS.
-- Todos los nodos del camino tienen f = 6, que es el costo total. Cuando f se mantiene constante en el camino, la heurística está "afinada".
-
-## Controles
-
-- En cada iteración escribo **Sa, Sc y Vp**, como en la diapositiva.
-- Los vecinos que están en Sc se ignoran.
-- Si un vecino ya estuviera en Sa con un g mayor, habría que actualizarlo con el menor y cambiarle el padre (acá no pasa).
-- Termino cuando **Vp == destino**, no cuando P aparece como vecino. Por eso la iteración 9 (expandir O) se hace antes de llegar a P.
-
-
-
-
-# A* de A a P (formato de la diapositiva)
+# A* de A a P (criterio de la diapositiva: solo h)
 
 ## Reglas
 
-- g = pasos desde A. h = casilleros que faltan hasta P (derecha + abajo). f = g + h.
-- Vp = el de Sa con menor f. Si hay empate, el de menor orden alfabético.
-- Al expandir, los vecinos que están en Sc se ignoran. Los demás: Padre = Vp, g = g(Vp) + 1.
+- h(n) = casilleros que faltan hasta P (derecha + abajo).
+- Paso 1: Vp = el nodo de Sa con **menor h**. Si hay empate, el de menor orden alfabético.
+- Paso 2: si Vp ≠ P, los vecinos que no están en Sc se agregan a Sa con Padre = Vp y Costo = Costo(Vp) + 1.
+- Paso 3: Vp pasa de Sa a Sc.
 
 ## Iteración 1
 - Sa = {A}, Sc = {}
 - Paso 1: Vp = A
-- Paso 2: A ≠ P. Vecino B: Padre(B) = A, g(B) = 1
+- Paso 2: A ≠ P. Sa = {A, B}
+  - Padre(B) = A, Costo(B) = Costo(A) + 1 = 1
 - Paso 3: Sa = {B}, Sc = {A}
 
 ## Iteración 2
 - Sa = {B}, Sc = {A}
-- Paso 1: h(B) = 5, f(B) = 1 + 5 = 6. Vp = B
-- Paso 2: B ≠ P. A está en Sc.
-  - Padre(C) = B, g(C) = 2
-  - Padre(F) = B, g(F) = 2
+- Paso 1: h(B) = 5. Vp = B
+- Paso 2: B ≠ P. Sa = {B, C, F}
+  - A está en Sc
+  - Padre(C) = B, Costo(C) = 2
+  - Padre(F) = B, Costo(F) = 2
 - Paso 3: Sa = {C, F}, Sc = {A, B}
 
 ## Iteración 3
 - Sa = {C, F}, Sc = {A, B}
-- Paso 1: h(C) = 4, f(C) = 2 + 4 = 6. h(F) = 4, f(F) = 2 + 4 = 6. Empate: Vp = C
-- Paso 2: C ≠ P. B está en Sc.
-  - Padre(G) = C, g(G) = 3
+- Paso 1: h(C) = 4, h(F) = 4. Empate, gana C. Vp = C
+- Paso 2: C ≠ P. Sa = {C, F, G}
+  - B está en Sc
+  - Padre(G) = C, Costo(G) = 3
 - Paso 3: Sa = {F, G}, Sc = {A, B, C}
 
 ## Iteración 4
 - Sa = {F, G}, Sc = {A, B, C}
-- Paso 1: f(F) = 2 + 4 = 6. h(G) = 3, f(G) = 3 + 3 = 6. Empate: Vp = F
-- Paso 2: F ≠ P. B está en Sc.
-  - Padre(E) = F, g(E) = 3
-- Paso 3: Sa = {G, E}, Sc = {A, B, C, F}
+- Paso 1: h(F) = 4, h(G) = 3. Vp = G
+- Paso 2: G ≠ P. Sa = {F, G, H, K}
+  - C está en Sc
+  - Padre(H) = G, Costo(H) = 4
+  - Padre(K) = G, Costo(K) = 4
+- Paso 3: Sa = {F, H, K}, Sc = {A, B, C, G}
 
 ## Iteración 5
-- Sa = {G, E}, Sc = {A, B, C, F}
-- Paso 1: f(G) = 6. h(E) = 5, f(E) = 3 + 5 = 8. Vp = G
-- Paso 2: G ≠ P. C está en Sc.
-  - Padre(H) = G, g(H) = 4
-  - Padre(K) = G, g(K) = 4
-- Paso 3: Sa = {E, H, K}, Sc = {A, B, C, F, G}
+- Sa = {F, H, K}, Sc = {A, B, C, G}
+- Paso 1: h(F) = 4, h(H) = 2, h(K) = 2. Empate, gana H. Vp = H
+- Paso 2: H ≠ P. Sa = {F, H, K, D}
+  - G está en Sc
+  - Padre(D) = H, Costo(D) = 5
+- Paso 3: Sa = {F, K, D}, Sc = {A, B, C, G, H}
 
 ## Iteración 6
-- Sa = {E, H, K}, Sc = {A, B, C, F, G}
-- Paso 1: f(E) = 8. h(H) = 2, f(H) = 4 + 2 = 6. h(K) = 2, f(K) = 4 + 2 = 6. Empate: Vp = H
-- Paso 2: H ≠ P. G está en Sc.
-  - Padre(D) = H, g(D) = 5
-- Paso 3: Sa = {E, K, D}, Sc = {A, B, C, F, G, H}
+- Sa = {F, K, D}, Sc = {A, B, C, G, H}
+- Paso 1: h(F) = 4, h(K) = 2, h(D) = 3. Vp = K
+- Paso 2: K ≠ P. Sa = {F, K, D, J, L, O}
+  - G está en Sc
+  - Padre(J) = K, Costo(J) = 5
+  - Padre(L) = K, Costo(L) = 5
+  - Padre(O) = K, Costo(O) = 5
+- Paso 3: Sa = {F, D, J, L, O}, Sc = {A, B, C, G, H, K}
 
 ## Iteración 7
-- Sa = {E, K, D}, Sc = {A, B, C, F, G, H}
-- Paso 1: f(E) = 8. f(K) = 6. h(D) = 3, f(D) = 5 + 3 = 8. Vp = K
-- Paso 2: K ≠ P. G está en Sc.
-  - Padre(J) = K, g(J) = 5
-  - Padre(L) = K, g(L) = 5
-  - Padre(O) = K, g(O) = 5
-- Paso 3: Sa = {E, D, J, L, O}, Sc = {A, B, C, F, G, H, K}
+- Sa = {F, D, J, L, O}, Sc = {A, B, C, G, H, K}
+- Paso 1: h(F) = 4, h(D) = 3, h(J) = 3, h(L) = 1, h(O) = 1. Empate, gana L. Vp = L
+- Paso 2: L ≠ P. Sa = {F, D, J, L, O, P}
+  - K está en Sc
+  - Padre(P) = L, Costo(P) = 6
+- Paso 3: Sa = {F, D, J, O, P}, Sc = {A, B, C, G, H, K, L}
 
 ## Iteración 8
-- Sa = {E, D, J, L, O}, Sc = {A, B, C, F, G, H, K}
-- Paso 1: f(E) = 8, f(D) = 8. h(J) = 3, f(J) = 8. h(L) = 1, f(L) = 5 + 1 = 6. h(O) = 1, f(O) = 6. Empate: Vp = L
-- Paso 2: L ≠ P. K está en Sc.
-  - Padre(P) = L, g(P) = 6
-- Paso 3: Sa = {E, D, J, O, P}, Sc = {A, B, C, F, G, H, K, L}
-
-## Iteración 9
-- Sa = {E, D, J, O, P}
-- Paso 1: f(O) = 6. h(P) = 0, f(P) = 6 + 0 = 6. Empate: Vp = O
-- Paso 2: O ≠ P. K está en Sc, no se agrega nada.
-- Paso 3: Sa = {E, D, J, P}, Sc = {A, B, C, F, G, H, K, L, O}
-
-## Iteración 10
-- Sa = {E, D, J, P}
-- Paso 1: f(P) = 6 (los demás valen 8). Vp = P
-- Paso 2: P == destino. Llegué al destino, fin.
+- Sa = {F, D, J, O, P}, Sc = {A, B, C, G, H, K, L}
+- Paso 1: h(O) = 1, h(P) = 0. Vp = P
+- Paso 2: P == P. Llegué al destino, fin.
 
 ## Camino (siguiendo los padres hacia atrás)
 
@@ -1234,10 +1043,15 @@ Padre(P) = L, Padre(L) = K, Padre(K) = G, Padre(G) = C, Padre(C) = B, Padre(B) =
 
 **Camino: A → B → C → G → K → L → P**, de costo 6.
 
-## Cómo calcular h rápido
+**Orden de expansión: A, B, C, G, H, K, L, P**
 
-Contá casilleros hasta P: cuántos a la derecha más cuántos hacia abajo.
-Ejemplo: h(G) = 1 a la derecha + 2 abajo = 3.
+## Diferencias con la versión f = g + h
+
+- Acá en la iteración 4 se expande **G** (h = 3) y no F (h = 4). Con f = g + h empataban.
+- En la iteración 8, P (h = 0) le gana directo a O (h = 1), así que **O nunca se expande**.
+- F, D, J y O quedan en Sa sin expandirse.
+- Comparar solo por h es más rápido de hacer en papel, pero en general no garantiza el camino óptimo. Acá coincide con el óptimo.
+
 
 
 ![[Pasted image 20261108203208.png]]
