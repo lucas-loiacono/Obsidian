@@ -1012,6 +1012,67 @@ Se reconstruye siguiendo los padres hacia atrás: P viene de L, L de K, K de G, 
 ![[Pasted image 20261108203208.png]]
 
 
+# Prim en papel con tabla (estilo Dijkstra)
+
+## Reglas
+
+1. Cada vértice tiene un valor: el **peso de la arista más barata** que lo une al grupo. Al inicio es ∞, y el vértice de partida vale 0.
+2. Elijo el vértice **no visitado con menor valor** y lo sumo al grupo.
+3. Miro sus vecinos no visitados: si el **peso de la arista** (no la suma acumulada) es menor que el valor que tienen, lo reemplazo y anoto de quién vino (padre).
+4. Repito hasta visitar todos. Las aristas del árbol son (padre, vértice).
+
+## Diferencia con Dijkstra
+
+| | Dijkstra | Prim |
+|---|---|---|
+| Valor de un vecino | distancia del vértice + peso de la arista | **solo el peso de la arista** |
+| Qué busca | camino mínimo desde el origen | árbol de expansión mínima |
+
+## 6.11 desde E
+
+Vector en el orden [A, B, C, D, E, F, G, H]:
+
+| Paso | Visito (valor) | Qué calculo | Vector después |
+|---|---|---|---|
+| inicio | | | [∞, ∞, ∞, ∞, 0, ∞, ∞, ∞] |
+| 1 | **E (0)** | B = 2, F = 7 | [∞, 2, ∞, ∞, 0, 7, ∞, ∞] |
+| 2 | **B (2)** | A = 10, C = 4, D = 3 | [10, 2, 4, 3, 0, 7, ∞, ∞] |
+| 3 | **D (3)** | G = 6, C por D = 9 (no mejora), F por D = 7 (igual) | [10, 2, 4, 3, 0, 7, 6, ∞] |
+| 4 | **C (4)** | A = 5 (mejora 10), H = 8 | [5, 2, 4, 3, 0, 7, 6, 8] |
+| 5 | **A (5)** | sin vecinos nuevos | sin cambios |
+| 6 | **G (6)** | H = 1 (mejora 8), F = 3 (mejora 7) | [5, 2, 4, 3, 0, 3, 6, 1] |
+| 7 | **H (1)** | F por H = 4 (no mejora 3) | sin cambios |
+| 8 | **F (3)** | | fin |
+
+## Padres (de dónde vino cada valor final)
+
+| Vértice | Valor | Padre |
+|---|---|---|
+| B | 2 | E |
+| D | 3 | B |
+| C | 4 | B |
+| A | 5 | C |
+| G | 6 | D |
+| H | 1 | G |
+| F | 3 | G |
+
+**Aristas del árbol:** E-B, B-D, B-C, C-A, D-G, G-H, G-F
+
+**Peso total:** 2 + 3 + 4 + 5 + 6 + 1 + 3 = **24**
+
+## Respuesta del ejercicio (cuatro iteraciones)
+
+Las primeras cuatro aristas agregadas son **E-B, B-D, B-C y C-A**, que es la opción **(ii)**.
+
+## Controles
+
+- El peso total tiene que dar **24**, igual que el Kruskal del 6.9 (el árbol mínimo es el mismo).
+- Hay **7 aristas** (V - 1 con 8 vértices), una por cada vértice menos el inicial.
+- En el paso 6, F baja de 7 a 3 porque la arista G-F (3) es más barata que E-F (7): se reemplaza aunque F ya tuviera un valor.
+- Si por costumbre de Dijkstra sumás el acumulado, te sale mal. Acá H vale 1 (arista G-H), no 7.
+
+
+
 # Ejercicio 6.11
 
 El grafo es el mismo del 6.9. Las aristas son: A-C 5, A-B 10, B-C 4, B-D 3, B-E 2, C-D 9, C-H 8, D-G 6, D-F 7, E-F 7, H-G 1, H-F 4, G-F 3.
