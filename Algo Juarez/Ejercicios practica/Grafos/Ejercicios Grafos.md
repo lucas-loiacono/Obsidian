@@ -1148,6 +1148,98 @@ D: H        H: D, G      L: K, P       P: L
 - Termino cuando **Vp == destino**, no cuando P aparece como vecino. Por eso la iteración 9 (expandir O) se hace antes de llegar a P.
 
 
+
+
+# A* de A a P (formato de la diapositiva)
+
+## Reglas
+
+- g = pasos desde A. h = casilleros que faltan hasta P (derecha + abajo). f = g + h.
+- Vp = el de Sa con menor f. Si hay empate, el de menor orden alfabético.
+- Al expandir, los vecinos que están en Sc se ignoran. Los demás: Padre = Vp, g = g(Vp) + 1.
+
+## Iteración 1
+- Sa = {A}, Sc = {}
+- Paso 1: Vp = A
+- Paso 2: A ≠ P. Vecino B: Padre(B) = A, g(B) = 1
+- Paso 3: Sa = {B}, Sc = {A}
+
+## Iteración 2
+- Sa = {B}, Sc = {A}
+- Paso 1: h(B) = 5, f(B) = 1 + 5 = 6. Vp = B
+- Paso 2: B ≠ P. A está en Sc.
+  - Padre(C) = B, g(C) = 2
+  - Padre(F) = B, g(F) = 2
+- Paso 3: Sa = {C, F}, Sc = {A, B}
+
+## Iteración 3
+- Sa = {C, F}, Sc = {A, B}
+- Paso 1: h(C) = 4, f(C) = 2 + 4 = 6. h(F) = 4, f(F) = 2 + 4 = 6. Empate: Vp = C
+- Paso 2: C ≠ P. B está en Sc.
+  - Padre(G) = C, g(G) = 3
+- Paso 3: Sa = {F, G}, Sc = {A, B, C}
+
+## Iteración 4
+- Sa = {F, G}, Sc = {A, B, C}
+- Paso 1: f(F) = 2 + 4 = 6. h(G) = 3, f(G) = 3 + 3 = 6. Empate: Vp = F
+- Paso 2: F ≠ P. B está en Sc.
+  - Padre(E) = F, g(E) = 3
+- Paso 3: Sa = {G, E}, Sc = {A, B, C, F}
+
+## Iteración 5
+- Sa = {G, E}, Sc = {A, B, C, F}
+- Paso 1: f(G) = 6. h(E) = 5, f(E) = 3 + 5 = 8. Vp = G
+- Paso 2: G ≠ P. C está en Sc.
+  - Padre(H) = G, g(H) = 4
+  - Padre(K) = G, g(K) = 4
+- Paso 3: Sa = {E, H, K}, Sc = {A, B, C, F, G}
+
+## Iteración 6
+- Sa = {E, H, K}, Sc = {A, B, C, F, G}
+- Paso 1: f(E) = 8. h(H) = 2, f(H) = 4 + 2 = 6. h(K) = 2, f(K) = 4 + 2 = 6. Empate: Vp = H
+- Paso 2: H ≠ P. G está en Sc.
+  - Padre(D) = H, g(D) = 5
+- Paso 3: Sa = {E, K, D}, Sc = {A, B, C, F, G, H}
+
+## Iteración 7
+- Sa = {E, K, D}, Sc = {A, B, C, F, G, H}
+- Paso 1: f(E) = 8. f(K) = 6. h(D) = 3, f(D) = 5 + 3 = 8. Vp = K
+- Paso 2: K ≠ P. G está en Sc.
+  - Padre(J) = K, g(J) = 5
+  - Padre(L) = K, g(L) = 5
+  - Padre(O) = K, g(O) = 5
+- Paso 3: Sa = {E, D, J, L, O}, Sc = {A, B, C, F, G, H, K}
+
+## Iteración 8
+- Sa = {E, D, J, L, O}, Sc = {A, B, C, F, G, H, K}
+- Paso 1: f(E) = 8, f(D) = 8. h(J) = 3, f(J) = 8. h(L) = 1, f(L) = 5 + 1 = 6. h(O) = 1, f(O) = 6. Empate: Vp = L
+- Paso 2: L ≠ P. K está en Sc.
+  - Padre(P) = L, g(P) = 6
+- Paso 3: Sa = {E, D, J, O, P}, Sc = {A, B, C, F, G, H, K, L}
+
+## Iteración 9
+- Sa = {E, D, J, O, P}
+- Paso 1: f(O) = 6. h(P) = 0, f(P) = 6 + 0 = 6. Empate: Vp = O
+- Paso 2: O ≠ P. K está en Sc, no se agrega nada.
+- Paso 3: Sa = {E, D, J, P}, Sc = {A, B, C, F, G, H, K, L, O}
+
+## Iteración 10
+- Sa = {E, D, J, P}
+- Paso 1: f(P) = 6 (los demás valen 8). Vp = P
+- Paso 2: P == destino. Llegué al destino, fin.
+
+## Camino (siguiendo los padres hacia atrás)
+
+Padre(P) = L, Padre(L) = K, Padre(K) = G, Padre(G) = C, Padre(C) = B, Padre(B) = A
+
+**Camino: A → B → C → G → K → L → P**, de costo 6.
+
+## Cómo calcular h rápido
+
+Contá casilleros hasta P: cuántos a la derecha más cuántos hacia abajo.
+Ejemplo: h(G) = 1 a la derecha + 2 abajo = 3.
+
+
 ![[Pasted image 20261108203208.png]]
 
 
