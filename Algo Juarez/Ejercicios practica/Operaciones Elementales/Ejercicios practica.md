@@ -3,8 +3,7 @@
 
 ![[Pasted image 20261107160459.png]]
 
-````Ejercicio 1.1: Complejidad y Recursividad
-
+Ejercicio 1.1: Complejidad y Recursividad
 ### Enunciado
 Dada la siguiente función recursiva en Java:
 
