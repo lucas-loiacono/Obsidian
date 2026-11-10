@@ -702,6 +702,70 @@ Si el grafo fuera no dirigido, las dos respuestas serían iguales. Acá son dist
 ![[Pasted image 20261108200854.png]]
 
 
+
+# Kruskal del 6.9 con grupos entre paréntesis
+
+## Aristas ordenadas por peso
+
+| Peso | Aristas |
+|---|---|
+| 1 | H-G |
+| 2 | B-E |
+| 3 | B-D, G-F |
+| 4 | B-C, H-F |
+| 5 | A-C |
+| 6 | D-G |
+| 7 | D-F, E-F |
+| 8 | C-H |
+| 9 | C-D |
+| 10 | A-B |
+
+## Reglas
+
+1. Ninguna letra está en un grupo: **grupo nuevo**.
+2. Una letra está en un grupo y la otra no: **la agrego a ese grupo**.
+3. Las dos están en el mismo grupo: **salteo** (ciclo).
+4. Cada letra está en un grupo distinto: **uno los dos grupos**.
+
+## Paso a paso
+
+| Iteración | Arista | Qué pasa | Grupos después |
+|---|---|---|---|
+| 1 | H-G (1) | ninguna está en un grupo: grupo nuevo | (H, G) |
+| 2 | B-E (2) | ninguna está en un grupo: grupo nuevo | (H, G) (B, E) |
+| 3 | B-D (3) | B está en un grupo, D no: agrego D | (H, G) (B, E, D) |
+| 4 | G-F (3) | G está en un grupo, F no: agrego F | (H, G, F) (B, E, D) |
+
+**Con estas cuatro iteraciones se responde el ejercicio:** dos grupos, (H, G, F) y (B, E, D), con A y C sueltos. Es la opción **(a)**.
+
+## Cómo sigue (para completar el árbol)
+
+| Iteración | Arista | Qué pasa | Grupos después |
+|---|---|---|---|
+| 5 | B-C (4) | B está en un grupo, C no: agrego C | (H, G, F) (B, E, D, C) |
+| - | H-F (4) | H y F ya están en el mismo grupo: **salteo** | sin cambios |
+| 6 | A-C (5) | C está en un grupo, A no: agrego A | (H, G, F) (B, E, D, C, A) |
+| 7 | D-G (6) | D está en un grupo y G en otro: **uno los grupos** | (H, G, F, B, E, D, C, A) |
+
+Con 7 aristas aceptadas (V - 1 con 8 vértices) se termina. Las que quedan (D-F, E-F, C-H, C-D, A-B) formarían ciclos.
+
+**Árbol final:** H-G, B-E, B-D, G-F, B-C, A-C, D-G.
+
+**Peso total:** 1 + 2 + 3 + 3 + 4 + 5 + 6 = **24**
+
+## Controles
+
+- Antes de decidir, buscá cada letra en **todos** los grupos, no solo en el primero.
+- Los empates (B-D y G-F, B-C y H-F) se pueden tomar en cualquier orden.
+- H-F se saltea sin sumar iteración, pero hay que mirarla para saber que cierra un ciclo.
+
+
+
+
+
+
+
+
 # Ejercicio 6.9: respuesta (a)
 
 ## Método
