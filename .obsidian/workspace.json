@@ -265,12 +265,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
+                "file": "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Teoria"
+              "title": "Ejercicios practica"
             }
           }
         ],
@@ -511,10 +511,13 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "d31df5161d93b75d",
+  "active": "aba53f856088c804",
   "lastOpenFiles": [
-    "Algo Juarez/Ejercicios practica/Hashing/Ejercicios.md",
+    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
+    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teoria.md",
     "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
+    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
+    "Algo Juarez/Ejercicios practica/Hashing/Ejercicios.md",
     "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
     "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Heap.md",
@@ -527,9 +530,6 @@
     "Algo Juarez/Ejercicios practica/listas/1. Teoria Simple enlace.md",
     "Algo Juarez/Ejercicios practica/listas/2. Teoria doble enlace.md",
     "Algo Juarez/Ejercicios practica/listas/Ejercicios parciales explicacion.md",
-    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teoria.md",
-    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Teorema maestro.md",
-    "Algo Juarez/Ejercicios practica/Operaciones Elementales/Ejercicios practica.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Orden.md",
     "!imagenes/Pasted image 20261108204227.png",
     "!imagenes/Pasted image 20261108204204.png",
