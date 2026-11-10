@@ -286,7 +286,14 @@
               "icon": "lucide-file",
               "title": "Ejercicios Grafos"
             }
-          },
+          }
+        ],
+        "currentTab": 19
+      },
+      {
+        "id": "e3d1a4c9d70f324d",
+        "type": "tabs",
+        "children": [
           {
             "id": "1a047dc68ab38e87",
             "type": "leaf",
@@ -301,8 +308,7 @@
               "title": "Teoria"
             }
           }
-        ],
-        "currentTab": 20
+        ]
       }
     ],
     "direction": "vertical"
@@ -476,8 +482,10 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "1f11224da7f566a3",
+  "active": "1a047dc68ab38e87",
   "lastOpenFiles": [
+    "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
+    "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
     "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
     "Algo Juarez/Ejercicios practica/Colas/Teoria.md",
     "Algo Juarez/Ejercicios practica/Pilas/Teoria.md",
@@ -493,8 +501,6 @@
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Cola prioridad.md",
     "Algo Juarez/Ejercicios practica/Arboles y Heap/Ejercicios Arboles.md",
     "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
-    "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
-    "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "!imagenes/Pasted image 20261108204227.png",
     "!imagenes/Pasted image 20261108204204.png",
     "!imagenes/Pasted image 20261108203446.png",
