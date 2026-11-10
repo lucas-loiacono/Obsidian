@@ -293,7 +293,6 @@ No podés pedirle a 'null' que se agarre de la mano hacia atrás.
 
 El puente de ida (hacia adelante) se hace siempre. Pero el puente de vuelta (hacia atrás) **solo se hace si el nodo de adelante existe**.
 
-Plaintext
 
 ```
 SITUACIÓN INICIAL (Borrando a "C"):
