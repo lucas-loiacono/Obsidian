@@ -1009,6 +1009,145 @@ Se reconstruye siguiendo los padres hacia atrás: P viene de L, L de K, K de G, 
 - **Nodos que A* nunca expandió:** E, D, J (quedaron en abiertos con f=8) e I, M, N (nunca se generaron). La heurística evitó explorar la zona de la izquierda, a diferencia del BFS, que recorrió todo el grafo.
 
 
+# A* de A a P (grilla 4x4, heurística Manhattan)
+
+## Datos
+
+- Cada arista cuesta 1, así que `g` = cantidad de pasos desde A.
+- Coordenadas (columna, fila): A(0,0) ... P(3,3).
+- `h(n)` = distancia Manhattan a P = |col - 3| + |fila - 3|.
+- `f = g + h`. Sale de Sa el de **menor f**. Si hay empate, el de **menor orden alfabético**.
+
+Vecinos:
+
+```
+A: B        E: F, I      I: E, J, M    M: I, N
+B: A, C, F  F: B, E      J: I, K       N: M
+C: B, G     G: C, H, K   K: G, J, L, O O: K
+D: H        H: D, G      L: K, P       P: L
+```
+
+## Heurística h
+
+| A | B | C | D | E | F | G | H |
+|---|---|---|---|---|---|---|---|
+| 6 | 5 | 4 | 3 | 5 | 4 | 3 | 2 |
+
+| I | J | K | L | M | N | O | P |
+|---|---|---|---|---|---|---|---|
+| 4 | 3 | 2 | 1 | 3 | 2 | 1 | 0 |
+
+## Las tres acciones de cada iteración
+
+1. **Elijo Vp:** el de menor f en Sa.
+2. **Expando Vp:** si Vp es P, termino. Si no, para cada vecino que **no está en Sc**: `Padre = Vp`, `g = g(Vp) + 1`, `f = g + h`.
+3. **Muevo Vp de Sa a Sc.**
+
+## Paso a paso
+
+**Iteración 1**
+- Sa = {A}, Sc = {}
+- Vp = A (f = 6). A ≠ P.
+- Vecino B: Padre(B) = A, g = 1, f = 1 + 5 = 6
+- Sa = {B}, Sc = {A}
+
+**Iteración 2**
+- Vp = B (f = 6). B ≠ P.
+- A está en Sc, se ignora.
+- C: Padre = B, g = 2, f = 2 + 4 = 6
+- F: Padre = B, g = 2, f = 2 + 4 = 6
+- Sa = {C, F}, Sc = {A, B}
+
+**Iteración 3**
+- C y F empatan con f = 6, gana **C** (alfabético). Vp = C.
+- B está en Sc, se ignora.
+- G: Padre = C, g = 3, f = 3 + 3 = 6
+- Sa = {F, G}, Sc = {A, B, C}
+
+**Iteración 4**
+- F y G empatan con f = 6, gana **F**. Vp = F.
+- B está en Sc, se ignora.
+- E: Padre = F, g = 3, f = 3 + 5 = 8
+- Sa = {G, E}, Sc = {A, B, C, F}
+
+**Iteración 5**
+- Vp = G (f = 6). G ≠ P.
+- C está en Sc, se ignora.
+- H: Padre = G, g = 4, f = 4 + 2 = 6
+- K: Padre = G, g = 4, f = 4 + 2 = 6
+- Sa = {E, H, K}, Sc = {A, B, C, F, G}
+
+**Iteración 6**
+- H y K empatan con f = 6, gana **H**. Vp = H.
+- G está en Sc, se ignora.
+- D: Padre = H, g = 5, f = 5 + 3 = 8
+- Sa = {E, K, D}, Sc = {A, B, C, F, G, H}
+
+**Iteración 7**
+- Vp = K (f = 6). K ≠ P.
+- G está en Sc, se ignora.
+- J: Padre = K, g = 5, f = 5 + 3 = 8
+- L: Padre = K, g = 5, f = 5 + 1 = 6
+- O: Padre = K, g = 5, f = 5 + 1 = 6
+- Sa = {E, D, J, L, O}, Sc = {A, B, C, F, G, H, K}
+
+**Iteración 8**
+- L y O empatan con f = 6, gana **L**. Vp = L.
+- K está en Sc, se ignora.
+- P: Padre = L, g = 6, f = 6 + 0 = 6
+- Sa = {E, D, J, O, P}, Sc = {A, B, C, F, G, H, K, L}
+
+**Iteración 9**
+- O y P empatan con f = 6, gana **O** (alfabético). Vp = O.
+- Su único vecino K está en Sc: no se agrega nada.
+- Sa = {E, D, J, P}, Sc = {A, B, C, F, G, H, K, L, O}
+
+**Iteración 10**
+- Vp = P (f = 6). **P == destino: fin.**
+
+## Resumen en tabla
+
+| Iter. | Vp | f | Nuevos en Sa (padre, g, f) | Sa después |
+|---|---|---|---|---|
+| 1 | A | 6 | B (A, 1, 6) | B |
+| 2 | B | 6 | C (B, 2, 6), F (B, 2, 6) | C, F |
+| 3 | C | 6 | G (C, 3, 6) | F, G |
+| 4 | F | 6 | E (F, 3, 8) | G, E |
+| 5 | G | 6 | H (G, 4, 6), K (G, 4, 6) | E, H, K |
+| 6 | H | 6 | D (H, 5, 8) | E, K, D |
+| 7 | K | 6 | J (K, 5, 8), L (K, 5, 6), O (K, 5, 6) | E, D, J, L, O |
+| 8 | L | 6 | P (L, 6, 6) | E, D, J, O, P |
+| 9 | O | 6 | nada | E, D, J, P |
+| 10 | P | 6 | destino | |
+
+**Orden de expansión: A, B, C, F, G, H, K, L, O, P**
+
+## Reconstruir el camino (siguiendo los padres hacia atrás)
+
+- Padre(P) = L
+- Padre(L) = K
+- Padre(K) = G
+- Padre(G) = C
+- Padre(C) = B
+- Padre(B) = A
+
+**Camino: A → B → C → G → K → L → P**, de costo **6**.
+
+## Observaciones
+
+- El camino es óptimo: la heurística Manhattan nunca sobreestima y 6 es la distancia mínima de A a P.
+- F, C, H, O son **desvíos**: se expanden por el desempate alfabético, pero no llevan a nada. Los otros candidatos quedan guardados en Sa por si hacían falta.
+- **Nunca se expanden** E, D, J (quedaron en Sa con f = 8). I, M y N ni siquiera se generaron: A* evitó la zona izquierda, a diferencia de BFS.
+- Todos los nodos del camino tienen f = 6, que es el costo total. Cuando f se mantiene constante en el camino, la heurística está "afinada".
+
+## Controles
+
+- En cada iteración escribo **Sa, Sc y Vp**, como en la diapositiva.
+- Los vecinos que están en Sc se ignoran.
+- Si un vecino ya estuviera en Sa con un g mayor, habría que actualizarlo con el menor y cambiarle el padre (acá no pasa).
+- Termino cuando **Vp == destino**, no cuando P aparece como vecino. Por eso la iteración 9 (expandir O) se hace antes de llegar a P.
+
+
 ![[Pasted image 20261108203208.png]]
 
 
