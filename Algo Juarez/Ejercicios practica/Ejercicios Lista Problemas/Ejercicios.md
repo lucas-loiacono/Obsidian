@@ -2,53 +2,51 @@
 Asumo que la `Lista<T>` tiene la semántica habitual del cursor: `iniciarCursor()` lo deja en el primer elemento, `obtenerCursor()` devuelve `null` si no hay elemento válido, y `avanzarCursor()` devuelve `true` si después de avanzar el cursor apunta a un elemento. Si tu cátedra lo define distinto, ajustá solo las condiciones de los `while`.
 
 ```java
-// POS: devuelve una lista con los nombres de las comidas
-//      que no tienen ningún ingrediente prohibido.
 public Lista<String> comidasPermitidas(Lista<String> ingredientesProhibidos) {
     Lista<String> resultado = new Lista<>();
 
     comidas.iniciarCursor();
-    boolean hayComida = comidas.obtenerCursor() != null;
-
-    while (hayComida) {
+    while (comidas.obtenerCursor() != null) {
         Comida comida = comidas.obtenerCursor();
 
         if (!tieneProhibido(comida.getIngredientes(), ingredientesProhibidos)) {
             resultado.agregar(comida.getNombre());
         }
-        hayComida = comidas.avanzarCursor();
+        comidas.avanzarCursor();
     }
     return resultado;
 }
 
-// true si algún ingrediente de la lista está en prohibidos
 private boolean tieneProhibido(Lista<String> ingredientes, Lista<String> prohibidos) {
-    ingredientes.iniciarCursor();
-    boolean hayIngrediente = ingredientes.obtenerCursor() != null;
+    boolean encontrado = false;
 
-    while (hayIngrediente) {
+    ingredientes.iniciarCursor();
+    while (!encontrado && ingredientes.obtenerCursor() != null) {
         if (contiene(prohibidos, ingredientes.obtenerCursor())) {
-            return true;                 // corte temprano
+            encontrado = true;
+        } else {
+            ingredientes.avanzarCursor();
         }
-        hayIngrediente = ingredientes.avanzarCursor();
     }
-    return false;
+    return encontrado;
 }
 
-// true si el elemento está en la lista
 private boolean contiene(Lista<String> lista, String elemento) {
-    lista.iniciarCursor();                // reinicia el cursor en cada búsqueda
-    boolean hayMas = lista.obtenerCursor() != null;
+    boolean encontrado = false;
 
-    while (hayMas) {
+    lista.iniciarCursor();
+    while (!encontrado && lista.obtenerCursor() != null) {
         if (lista.obtenerCursor().equals(elemento)) {
-            return true;
+            encontrado = true;
+        } else {
+            lista.avanzarCursor();
         }
-        hayMas = lista.avanzarCursor();
     }
-    return false;
+    return encontrado;
 }
 ```
+
+
 
 Hay que llamar a `iniciarCursor()` al principio de cada recorrido, sobre todo en `contiene`. La lista de prohibidos se recorre una vez por cada ingrediente, y si no reiniciás el cursor, la segunda búsqueda arranca donde terminó la anterior.
 
