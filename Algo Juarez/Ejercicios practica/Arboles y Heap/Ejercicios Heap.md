@@ -477,3 +477,114 @@ private boolean esHeapRecursivo(int[] vector, int i) {
 
 **2. Complejidad Algorítmica****Operación alta(x): O(log N)**.
 Insertar al final es O(1), pero el proceso de flote (upheap) recorre como máximo la altura del árbol, que en un árbol binario completo es logarítmica respecto a la cantidad de elementos.**Operación baja(): O(log N)**. Extraer la raíz y mover el último elemento es O(1). El hundimiento (downheap) requiere descender por una rama, tomando como máximo la altura del árbol O(log N).**Complejidad Total: O(K * log N)**. Siendo K la cantidad total de operaciones ejecutadas secuencialmente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 3.13 `esHeapDeMaxima(int[] vector)`
+
+## Cómo pensarlo
+
+Un vector es un árbol binario completo guardado por posiciones (0-based):
+- hijo izquierdo de `i` → `2*i + 1`
+- hijo derecho de `i` → `2*i + 2`
+
+Heap de máxima: **cada nodo es >= que sus hijos**. Alcanza con chequear cada padre contra sus hijos directos, porque la propiedad se propaga hacia abajo.
+
+Es la misma plantilla de los árboles: en vez de `raiz`, paso el índice `i` (la "raíz" del subárbol).
+
+| | Árbol con nodos | Vector |
+|---|---|---|
+| Subárbol | `raiz` | índice `i` |
+| Hijo izq | `raiz.obtenerHijoIzquierdo()` | `2*i + 1` |
+| Hijo der | `raiz.obtenerHijoDerecho()` | `2*i + 2` |
+| Caso base | `raiz == null` | el hijo izquierdo no existe (`izq >= vector.length`) |
+
+## Implementación
+
+```java
+public boolean esHeapDeMaxima(int[] vector) {
+    return esHeapDesde(vector, 0);                        // arranco en la raíz (posición 0)
+}
+
+private boolean esHeapDesde(int[] vector, int i) {
+    int izq = 2 * i + 1;
+    int der = 2 * i + 2;
+
+    if (izq >= vector.length) {                           // caso base: i es hoja (o vector vacío)
+        return true;
+    } else if (vector[i] < vector[izq]) {                 // el padre es menor que el izquierdo
+        return false;
+    } else if (der < vector.length && vector[i] < vector[der]) {   // el padre es menor que el derecho
+        return false;
+    } else {                                              // este nodo está bien: reviso los subárboles
+        return esHeapDesde(vector, izq) && esHeapDesde(vector, der);
+    }
+}
+```
+
+## Cuándo bajar
+
+- **Al llegar al nodo:** comparo `vector[i]` con sus hijos. Solo depende de mi dato, no de lo que devuelvan los hijos.
+- **Si falla:** devuelvo `false` y **no bajo**. Un solo padre menor que su hijo alcanza para que no sea heap (poda).
+- **Si está bien:** bajo por los dos lados y combino con `&&` al volver: es heap solo si **los dos subárboles** lo son.
+- `&&` hace cortocircuito: si el izquierdo da `false`, ni se evalúa el derecho.
+- Ojo con `der < vector.length`: el hijo derecho puede no existir (nodo con un solo hijo). Si no lo chequeo, `vector[der]` tira `ArrayIndexOutOfBoundsException`.
+
+## Seguimiento con `[90, 50, 70, 20, 40, 60]`
+
+```
+          90 (0)
+        /        \
+     50 (1)     70 (2)
+     /   \       /
+  20(3) 40(4)  60(5)
+```
+
+- `i=0` (90): >= 50 y >= 70 → bajo
+  - `i=1` (50): >= 20 y >= 40 → bajo
+    - `i=3`: izq=7 >= 6 → hoja → `true`
+    - `i=4`: izq=9 >= 6 → hoja → `true`
+    - `i=1` devuelve `true && true` = `true`
+  - `i=2` (70): >= 60; `der=6` no existe → bajo
+    - `i=5`: hoja → `true`
+    - `i=6`: izq=13 >= 6 → `true` (posición inexistente, cae en el caso base)
+    - `i=2` devuelve `true`
+- `i=0` devuelve `true && true` = **`true`**
+
+Contraejemplo `[90, 50, 70, 20, 60]`: en `i=1`, `50 < 60` → `false` y se corta.
+
+## Complejidad
+
+**Variables:** `n` = cantidad de elementos, `h` = altura del árbol implícito = `⌊log₂ n⌋`
+
+Cada llamada hace trabajo O(1): calcular dos índices y hasta 2 comparaciones.
+
+**Mejor caso: O(1)**
+- Vector vacío o de un elemento, o
+- La raíz es menor que uno de sus hijos: devuelve `false` en la primera llamada.
+
+**Peor caso: O(n)**
+- Es un heap válido (o el error está en las últimas posiciones): se visita cada posición una vez.
+- Recurrencia: `T(n) = 2·T(n/2) + O(1)` → **O(n)**
+- Además hay a lo sumo ~n llamadas sobre posiciones inexistentes (caen en el caso base), que no cambian el orden.
+
+**Espacio (pila): O(log n)**, porque el árbol del vector es completo y su altura es `log₂ n`.
+
+**Supuesto:** el vector no es `null` (si pudiera serlo, validar antes de llamar al auxiliar).
