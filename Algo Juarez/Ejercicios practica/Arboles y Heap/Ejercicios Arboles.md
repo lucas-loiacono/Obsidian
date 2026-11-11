@@ -803,3 +803,267 @@ Si el ABB admitiera repetidos, la salida sería no decreciente. En la práctica 
 Se ve también en la representación por arreglo, que tendría posiciones vacías: `[34, 23, 25, 14, 18, 20, 24, _, _, 3]`.
 
 Como no es un heap, no corresponde hacer la inserción del 26.
+
+
+
+
+
+
+
+Armé el resumen con todo lo que vimos: los ejercicios, la forma de pensarlo y los errores típicos.
+
+
+# Recursión en árboles binarios
+
+## 1. Las dos piezas de toda función recursiva
+
+- **Caso base:** el problema más chico, que se responde directo sin llamarse. Es lo que corta la recursión.
+- **Caso recursivo:** resuelvo "un pedacito" y le delego a la misma función **el resto, que es más chico**.
+- Cada llamada tiene que **acercarse al caso base**. Si no, la recursión es infinita (`StackOverflowError`).
+
+### Ejemplo base: sumar un vector
+
+```java
+int sumar(int[] v, int n) {          // n = cantidad de elementos a considerar
+    int resultado;
+    if (n == 0) {                    // caso base: vector vacío
+        resultado = 0;
+    } else {                         // recursivo: último + suma del resto
+        resultado = v[n - 1] + sumar(v, n - 1);
+    }
+    return resultado;
+}
+```
+
+- Lo que se achica: el índice `n`
+- Las llamadas bajan hasta `n == 0` y después **vuelven resolviéndose**: `0 → 3+0 → 5+3 → 2+8 = 10`
+
+### Traducción al árbol
+
+| | Vector | Árbol |
+|---|---|---|
+| Lo que se achica | el índice `n` | el subárbol (cada hijo es raíz de uno más chico) |
+| Caso base | `n == 0` | `raiz == null` |
+| Delego | `sumar(v, n-1)` | `f(izq)` y `f(der)` |
+
+---
+
+## 2. Cómo se ejecuta: bajada y subida
+
+- **Bajada:** cada nodo llama a sus hijos y queda esperando. Todavía no se calculó nada.
+- **Caso base:** se alcanza en el `null` (un nivel **debajo** de las hojas), no en la hoja.
+- **Subida:** los `null` devuelven el valor base y cada nodo combina los resultados de sus hijos y se lo devuelve al padre.
+- El cálculo real ocurre en la **subida**.
+
+```
+        A
+      /   \
+     B     C
+    / \   / \
+   D   E F   G       (árbol completo de altura 2, 7 nodos)
+```
+
+Orden real de ejecución: baja por A, B, D, null, vuelve, baja por otro null, vuelve a B, baja por E... y recién después pasa a C. Es un recorrido tipo preorder.
+
+---
+
+## 3. Los tres momentos de la acción en cada nodo
+
+| Momento | Equivale a | Cuándo usarlo |
+|---|---|---|
+| **Antes de bajar** | preorder | modifico el nodo y no dependo de los hijos (`espejar`) |
+| **Entre las dos llamadas** | inorder | necesito el orden izq, nodo, der (imprimir un ABB ordenado) |
+| **Después de volver** | postorder | necesito los resultados de los hijos (`altura`, `cantidadNodos`) |
+
+**Regla para decidir:** ¿necesito lo que devuelven los hijos para calcular el mío?
+- Sí → acción al volver
+- No → acción al bajar (o da igual)
+
+---
+
+## 4. Ejercicios resueltos
+
+### 4.1 `cantidadNodos`
+
+```java
+public int cantidadNodos(Nodo<T> raiz) {
+    int cantidad = 0;                                  // base implícita: vacío → 0
+    if (raiz != null) {
+        cantidad = 1 + cantidadNodos(raiz.getIzquierdo())
+                     + cantidadNodos(raiz.getDerecho());
+    }
+    return cantidad;
+}
+```
+
+- Base: `raiz == null` → 0
+- Recursivo: 1 (la raíz) + nodos del izquierdo + nodos del derecho
+- **Seguimiento (completo, altura 2):**
+  - hoja = 1 + 0 + 0 = 1
+  - B = 1 + 1 + 1 = 3, C = 3
+  - A = 1 + 3 + 3 = 7
+- **Tiempo O(n):** `n` llamadas sobre nodos + `n+1` sobre `null` = `2n+1` llamadas, cada una O(1)
+- **Espacio (pila) O(h):** O(log n) si está balanceado, O(n) en el peor caso (árbol degenerado)
+
+### 4.2 `altura`
+
+```java
+public int altura(Nodo<T> raiz) {
+    int alt = -1;                                      // vacío → -1
+    if (raiz != null) {
+        int altIzq = altura(raiz.getIzquierdo());
+        int altDer = altura(raiz.getDerecho());
+        alt = 1 + Math.max(altIzq, altDer);
+    }
+    return alt;
+}
+```
+
+- Base: vacío = **-1**, de ahí sale que una hoja tenga altura 0
+- Si la cátedra cuenta niveles (hoja = 1), la base pasa a 0 y el resto queda igual. **Confirmar la convención.**
+- **Seguimiento:**
+  - hoja = 1 + max(-1, -1) = 0
+  - B = 1 + max(0, 0) = 1, C = 1
+  - A = 1 + max(1, 1) = 2
+- Misma plantilla que `cantidadNodos`, cambia solo cómo combino los hijos:
+  - cantidad: `1 + izq + der`
+  - altura: `1 + max(izq, der)`
+- Tiempo O(n), pila O(h)
+
+### 4.3 `espejar`
+
+```java
+public void espejar(Nodo<T> raiz) {
+    if (raiz != null) {
+        Nodo<T> aux = raiz.getIzquierdo();             // acción al bajar
+        raiz.setIzquierdo(raiz.getDerecho());
+        raiz.setDerecho(aux);
+
+        espejar(raiz.getIzquierdo());                  // bajo
+        espejar(raiz.getDerecho());
+    }
+}
+```
+
+- `void`: **modifica el árbol en el lugar**, no hay resultados que combinar
+- Acción al bajar (preorder), pero haciéndola al volver (postorder) da lo mismo
+- Lo obligatorio: intercambiar en **todos** los nodos
+- Tiempo O(n), pila O(h)
+
+### 4.4 `cantidadMultiplosN`
+
+```java
+public int cantidadMultiplosN(Nodo<Integer> raiz, int N) {
+    int cantidad = 0;                                  // base implícita
+    if (raiz != null) {
+        if (raiz.getDato() % N == 0) {                 // acción del nodo (al bajar)
+            cantidad = 1;
+        }
+        cantidad += cantidadMultiplosN(raiz.getIzquierdo(), N)
+                  + cantidadMultiplosN(raiz.getDerecho(), N);
+    }
+    return cantidad;
+}
+```
+
+- Patrón "contar con condición": igual a `cantidadNodos`, pero sumo 1 solo si el nodo cumple
+- Cuidados:
+  - `Nodo` crudo → `getDato()` es `Object` y `% N` no compila; usar `Nodo<Integer>`
+  - `N == 0` → `ArithmeticException`; validar antes de la recursión
+- Nodo primero o hijos primero: da igual, la suma es conmutativa
+- Tiempo O(n), pila O(h)
+
+#### Versión con `if/else` (caso base visible)
+
+```java
+public int cantidadMultiplosN(Nodo<Integer> raiz, int N) {
+    int cantidad;
+    if (raiz == null) {                                // base
+        cantidad = 0;
+    } else {                                           // recursivo
+        cantidad = cantidadMultiplosN(raiz.getIzquierdo(), N)
+                 + cantidadMultiplosN(raiz.getDerecho(), N);
+        if (raiz.getDato() % N == 0) {
+            cantidad++;
+        }
+    }
+    return cantidad;
+}
+```
+
+- Cada rama asigna `cantidad` una sola vez, sin doble inicialización
+- El nodo se evalúa después de los hijos
+- No existe un `if/else` con "nodo primero" y un solo `0` sin truco: hay que elegir
+
+---
+
+## 5. Caso base: cómo decidirlo
+
+- Más común: `raiz == null` (árbol vacío)
+- `raiz != null` es la condición para **seguir**, no para cortar
+- Son la misma pregunta vista desde los dos lados
+
+**Excepciones (otros casos base):**
+- **Hoja** (`izq == null && der == null`): cuando el árbol vacío no tiene respuesta válida (ej: máximo)
+- **Elemento encontrado:** en búsquedas, además del `null` (no está)
+- **ABB:** además del `null`, descarto un lado entero según la comparación
+
+**Pregunta clave:** ¿cuál es el árbol más chico para el que sé la respuesta sin llamar a nadie?
+
+**Valor del caso base según el problema:**
+
+| Problema | Base (árbol vacío) |
+|---|---|
+| contar / sumar | 0 |
+| buscar (¿está?) | `false` |
+| altura (hoja = 0) | -1 |
+| recolectar en lista | lista vacía |
+
+### Forma implícita vs explícita
+
+- **Implícita** (`int r = base; if (raiz != null) {...}`): más corta, sirve cuando la base es un valor neutro
+- **Explícita** (`if (raiz == null) ... else ...`): más clara para explicar en un examen, o cuando la base no es neutra
+
+---
+
+## 6. Metodología para un ejercicio nuevo
+
+1. **¿Cuál es el caso base?** (árbol vacío → ¿qué devuelve?)
+2. **¿Qué hago con la raíz?** (contar 1, comparar, intercambiar...)
+3. **¿Qué le pido a cada hijo?** (la misma función sobre `izq` y `der`)
+4. **¿Cómo combino?** (sumar, `max`, `&&`, `||`, concatenar, nada si es `void`)
+5. **¿Cuándo va la acción?** Si dependo de los hijos → al volver. Si no → al bajar.
+6. **Confiar en la recursión:** asumo que la llamada sobre el hijo ya devuelve la respuesta correcta para **su** subárbol, y solo resuelvo mi nivel.
+
+**Seguimiento en un examen:** dibujar el árbol completo de altura 2, anotar el valor que devuelve cada nodo de abajo hacia arriba, y mostrar el resultado en la raíz.
+
+**Complejidad (casi siempre igual):**
+- Tiempo: O(n), cada nodo se visita una vez con trabajo O(1)
+- Espacio de pila: O(h), con h = altura (O(log n) balanceado, O(n) degenerado)
+
+---
+
+## 7. Errores típicos
+
+- Acceder a `raiz.getIzquierdo()` sin descartar antes que `raiz` es `null` → `NullPointerException`
+- Olvidar el caso base → recursión infinita
+- Llamadas que no achican el problema
+- Usar `Nodo` crudo en vez de `Nodo<T>` (warnings, o no compila operaciones sobre el dato)
+- En `altura`, confundir la convención (-1 vs 0 para el vacío)
+- En `espejar`, olvidar bajar por ambos hijos (hay que intercambiar en todos los nodos)
+- Pensar que termina en la hoja: termina un nivel más abajo, en los `null`
+
+---
+
+## 8. Simetría con lo anterior (listas con cursor)
+
+| Listas con cursor | Árboles recursivos |
+|---|---|
+| `while` con cursor | llamada recursiva |
+| `iniciarCursor()` | pasar la raíz del subárbol |
+| `obtenerCursor() != null` | `raiz != null` |
+| `avanzarCursor()` | bajar a `izq` / `der` |
+| un método por nivel de anidamiento | una sola función que se llama a sí misma |
+
+- En listas: de lista vs lista a elemento vs elemento, un método auxiliar por nivel
+- En árboles: la misma función se aplica a cada subárbol, cada vez más chico
