@@ -1,79 +1,47 @@
 
-Asumo que la `Lista<T>` tiene la semántica habitual del cursor: `iniciarCursor()` lo deja en el primer elemento, `obtenerCursor()` devuelve `null` si no hay elemento válido, y `avanzarCursor()` devuelve `true` si después de avanzar el cursor apunta a un elemento. Si tu cátedra lo define distinto, ajustá solo las condiciones de los `while`.
 
-```java
-public Lista<String> comidasPermitidas(Lista<String> ingredientesProhibidos) {
-    Lista<String> resultado = new Lista<>();
+Sí, es ir cada vez más adentro, pero lo importante es **qué te hace bajar un nivel**. Y tu intuición de "siempre estoy comparando con algo" es justo la clave.
 
-    comidas.iniciarCursor();
-    while (comidas.obtenerCursor() != null) {
-        Comida comida = comidas.obtenerCursor();
+**La idea central**
 
-        if (!tieneProhibido(comida.getIngredientes(), ingredientesProhibidos)) {
-            resultado.agregar(comida.getNombre());
-        }
-        comidas.avanzarCursor();
-    }
-    return resultado;
-}
+Cada ejercicio es una cadena de preguntas. Empezás con la pregunta grande del enunciado y la vas partiendo en preguntas más chicas hasta llegar a una comparación simple (dos valores, un `equals` o un `>=`).
 
-private boolean tieneProhibido(Lista<String> ingredientes, Lista<String> prohibidos) {
-    boolean encontrado = false;
+Tomá `comidasPermitidas`:
 
-    ingredientes.iniciarCursor();
-    while (!encontrado && ingredientes.obtenerCursor() != null) {
-        if (contiene(prohibidos, ingredientes.obtenerCursor())) {
-            encontrado = true;
-        } else {
-            ingredientes.avanzarCursor();
-        }
-    }
-    return encontrado;
-}
+1. ¿Qué comidas no tienen ningún ingrediente prohibido? → recorro las comidas y por cada una pregunto:
+2. ¿Esta comida tiene algún ingrediente prohibido? → recorro sus ingredientes y por cada uno pregunto:
+3. ¿Este ingrediente está en la lista de prohibidos? → recorro los prohibidos y por cada uno comparo:
+4. ¿Este prohibido es igual a este ingrediente? → `equals`. Ahí termina.
 
-private boolean contiene(Lista<String> lista, String elemento) {
-    boolean encontrado = false;
+**Cuándo bajás un nivel**
 
-    lista.iniciarCursor();
-    while (!encontrado && lista.obtenerCursor() != null) {
-        if (lista.obtenerCursor().equals(elemento)) {
-            encontrado = true;
-        } else {
-            lista.avanzarCursor();
-        }
-    }
-    return encontrado;
-}
-```
+Bajás un nivel cada vez que, para responder una pregunta, necesitás **recorrer otra lista**. Y eso pasa en dos situaciones:
 
+- **El elemento contiene una lista** (la comida tiene ingredientes, la película tiene actores).
+- **Tenés que compararlo contra una lista** (¿está en prohibidos? ¿está en favoritos?).
 
+Por eso sentís que siempre comparás con algo: el filtro del enunciado casi siempre es "los elementos de A que cumplen algo respecto de la lista B". Ese "respecto de B" es el nivel nuevo.
 
-Hay que llamar a `iniciarCursor()` al principio de cada recorrido, sobre todo en `contiene`. La lista de prohibidos se recorre una vez por cada ingrediente, y si no reiniciás el cursor, la segunda búsqueda arranca donde terminó la anterior.
+**Cómo se traduce a código**
 
-Acá va la complejidad, en markdown para pegar en Obsidian:
+Cada pregunta es un método, y cada método tiene un solo `while`:
 
+|Nivel|Método|Recorre|Devuelve|
+|---|---|---|---|
+|1|el método del enunciado|la lista principal|la lista resultado|
+|2|`tieneIngredienteProhibido`|la lista interna del elemento|`boolean`|
+|3|`esProhibido`|la lista contra la que comparás|`boolean`|
 
-## Complejidad de `comidasPermitidas`
+**Cómo se ve la diferencia entre los dos tipos de recorrido**
 
-**Variables**
-- `C` = cantidad de comidas del menú
-- `I` = máx. de ingredientes de una comida
-- `P` = cantidad de ingredientes prohibidos
+- **Nivel 1 (filtrar):** recorre _todo_, sin corte temprano, y `avanzarCursor()` va siempre al final. Tiene que pasar por todos los elementos porque cada uno puede ir al resultado.
+- **Niveles 2 y 3 (preguntar "¿hay alguno?" o "¿está?"):** cortan apenas encuentran, con `encontrado`, y `avanzarCursor()` va en el `else`.
 
-**Justificación**
-- `contiene`: recorre la lista de prohibidos como mucho una vez → **O(P)**
-- `tieneProhibido`: llama a `contiene` por cada ingrediente de la comida → **O(I · P)**
-- `comidasPermitidas`: llama a `tieneProhibido` por cada comida → **O(C · I · P)**
-- Operaciones con cursor (`iniciarCursor`, `avanzarCursor`, `obtenerCursor`) son **O(1)**
+**Cómo atacarlo cuando te enfrentás a un ejercicio nuevo**
 
-**Costo de `agregar` al resultado**
-- Si `agregar(T)` inserta al final **sin puntero a último**, cuesta O(k) con k = tamaño actual
-- Se hace hasta C veces → suma O(C²) en el peor caso
-- Total: **O(C · I · P + C²)**
-- Si la lista tiene puntero a último (agregar O(1)): total **O(C · I · P)**
+1. Leé el enunciado y marcá qué listas aparecen y cuál es la que se devuelve.
+2. Escribí el método principal asumiendo que los auxiliares ya existen: `if (cumple && hayAlgo(...))`.
+3. Implementá cada auxiliar como un recorrido que responde una sola pregunta.
+4. Repetí hasta que la pregunta sea una comparación simple.
 
-**Mejora posible**
-- Volcar los prohibidos a un `HashSet` antes de empezar: costo O(P)
-- Cada consulta pasa a O(1) esperado → **O(P + C · I)** (más lo de `agregar`)
-
-El costo de `agregar` depende de cómo esté implementada tu `Lista`. En el enunciado 2.3 solo se ven `primero`, `cursor` y `tamanio`, o sea que probablemente no hay `ultimo`. Si tu implementación tampoco lo tiene, justificá con el término `C²`. Si lo tiene, queda en O(C · I · P).
+Si querés, te lo dejo en markdown para pegar en Obsidian.
