@@ -1067,3 +1067,176 @@ public int cantidadMultiplosN(Nodo<Integer> raiz, int N) {
 
 - En listas: de lista vs lista a elemento vs elemento, un método auxiliar por nivel
 - En árboles: la misma función se aplica a cada subárbol, cada vez más chico
+
+
+
+
+# Cuándo bajar y cuándo actuar, ejercicio por ejercicio
+
+**Pregunta para decidir:** ¿lo que hago en este nodo necesita lo que devuelven los hijos?
+- Sí → la acción va **al volver**
+- No → va **al bajar** (o da igual)
+
+Árbol de ejemplo para los seguimientos:
+
+```
+        A
+      /   \
+     B     C
+    / \   / \
+   D   E F   G
+```
+
+---
+
+## 0. Antecedente: `sumar(v, n)`
+
+```java
+resultado = v[n - 1] + sumar(v, n - 1);
+```
+
+- **Al bajar:** no calculo nada, solo pido `sumar(v, n-1)`.
+- **Caso base:** `n == 0` devuelve 0.
+- **Al volver:** recién ahí hago `v[n-1] + (lo que volvió)`.
+- Necesito el resultado del resto para armar el mío → **acción al volver**.
+
+---
+
+## 1. `cantidadNodos`
+
+```java
+cantidad = 1 + cantidadNodos(izq) + cantidadNodos(der);
+```
+
+**Al bajar:** no hago nada, solo llamo a los dos hijos.
+
+**En el `null`:** devuelve 0 (caso base).
+
+**Al volver:** cada nodo suma `1 + (lo que devolvió izq) + (lo que devolvió der)`.
+
+**Por qué al volver:** el total de mi subárbol es la suma de los totales de los subárboles de mis hijos. Sin sus resultados no puedo calcularlo.
+
+**Seguimiento:**
+```
+Bajada:  A → B → D → null(0), null(0)
+Subida:  D = 1+0+0 = 1
+         E = 1
+         B = 1+1+1 = 3
+         C = 3 (igual, por F y G)
+         A = 1+3+3 = 7
+```
+
+- El `1 +` está escrito antes de las llamadas, pero la suma solo se completa cuando vuelven los dos hijos.
+- Los valores se arman de abajo hacia arriba.
+
+---
+
+## 2. `altura`
+
+```java
+altIzq = altura(izq);
+altDer = altura(der);
+alt = 1 + Math.max(altIzq, altDer);
+```
+
+**Al bajar:** nada, solo llamo.
+
+**En el `null`:** devuelve -1.
+
+**Al volver:** necesito `altIzq` y `altDer` antes de poder hacer `max`.
+
+**Por qué al volver:** es el caso donde el orden es obligatorio. No existe forma de calcular mi altura sin conocer la de mis hijos, así que el cálculo no puede ir antes de las llamadas.
+
+**Seguimiento:**
+```
+null = -1
+D, E, F, G = 1 + max(-1, -1) = 0
+B = 1 + max(0, 0) = 1,  C = 1
+A = 1 + max(1, 1) = 2
+```
+
+---
+
+## 3. `espejar`
+
+```java
+Nodo<T> aux = raiz.getIzquierdo();     // 1) acción
+raiz.setIzquierdo(raiz.getDerecho());
+raiz.setDerecho(aux);
+espejar(raiz.getIzquierdo());          // 2) bajo
+espejar(raiz.getDerecho());
+```
+
+**Al bajar:** intercambio los dos hijos de este nodo y después bajo.
+
+**En el `null`:** no hago nada (la función es `void`).
+
+**Al volver:** no hay nada que combinar, porque no devuelve ningún valor.
+
+**Por qué al bajar:** mi intercambio no depende de lo que pase abajo. Hago mi parte y le pido a los hijos que hagan la suya.
+
+**Seguimiento:**
+```
+espejar(A): intercambia B y C → A.izq = C, A.der = B
+  espejar(C): intercambia F y G
+  espejar(B): intercambia D y E
+```
+
+**Qué orden sí funciona y cuál no:**
+- Intercambiar **antes** de bajar: funciona.
+- Intercambiar **después** de las dos llamadas: funciona también.
+- Intercambiar **en el medio** (después de espejar el izquierdo y antes del derecho): **da mal**. Después del intercambio, el hijo derecho es el que antes era izquierdo, que ya estaba espejado. Se espeja dos veces y queda deshecho.
+- Lo obligatorio es que cada nodo intercambie una sola vez y que se baje por los dos hijos.
+
+---
+
+## 4. `cantidadMultiplosN`
+
+```java
+if (raiz.getDato() % N == 0) cantidad = 1;                 // acción del nodo
+cantidad += cantidadMultiplosN(izq, N) + cantidadMultiplosN(der, N);
+```
+
+Tiene dos partes con comportamiento distinto.
+
+**Mi aporte** (¿soy múltiplo?):
+- Depende solo de mi dato, no de los hijos.
+- Lo puedo resolver **al bajar**.
+
+**El total** (mi aporte + el de los hijos):
+- Necesita lo que devuelven los hijos.
+- Se termina de armar **al volver**.
+
+**En el `null`:** devuelve 0.
+
+**Seguimiento** con N = 2 y datos A=4, B=3, C=6, D=2, E=7, F=8, G=5:
+```
+D (2) múltiplo → 1       E (7) no → 0
+B (3) no → 0 + 1 + 0 = 1
+F (8) múltiplo → 1       G (5) no → 0
+C (6) múltiplo → 1 + 1 + 0 = 2
+A (4) múltiplo → 1 + 1 + 2 = 4
+```
+
+**¿Aporte primero o hijos primero?** Da lo mismo, porque la suma es conmutativa:
+- Aporte primero: se ve como preorder.
+- Hijos primero: se ve como postorder.
+- El resultado final es el mismo.
+
+---
+
+## Resumen
+
+| Ejercicio | ¿Depende de los hijos? | Acción | Qué devuelve el `null` | ¿Importa el orden? |
+|---|---|---|---|---|
+| `sumar(v, n)` | Sí | al volver | 0 | sí |
+| `cantidadNodos` | Sí | al volver | 0 | sí (necesito la suma) |
+| `altura` | Sí | al volver | -1 | **sí, obligatorio** |
+| `espejar` | No | al bajar (o al volver) | nada (`void`) | no, pero el medio rompe |
+| `cantidadMultiplosN` | Solo para el total | aporte al bajar, total al volver | 0 | no (suma conmutativa) |
+
+**Idea central:**
+- Siempre se baja por los dos hijos hasta los `null`.
+- Si **devuelve algo** que combina hijos (`cantidadNodos`, `altura`) → se calcula **al volver**.
+- Si **modifica algo** sin combinar (`espejar`) → se hace **al bajar**.
+- Si **mezcla ambas cosas** (`cantidadMultiplosN`) → el aporte de cada nodo va al bajar y la suma se completa al volver.
