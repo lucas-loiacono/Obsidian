@@ -1240,3 +1240,161 @@ A (4) múltiplo → 1 + 1 + 2 = 4
 - Si **devuelve algo** que combina hijos (`cantidadNodos`, `altura`) → se calcula **al volver**.
 - Si **modifica algo** sin combinar (`espejar`) → se hace **al bajar**.
 - Si **mezcla ambas cosas** (`cantidadMultiplosN`) → el aporte de cada nodo va al bajar y la suma se completa al volver.
+
+
+
+
+# 3.15 `sumaEnRango` (ABB de enteros)
+
+## Enunciado
+
+Implemente **recursivamente** el siguiente método de un ABB de enteros:
+
+```java
+int sumaEnRango(Nodo<Integer> raiz, int desde, int hasta)
+```
+
+Devuelve la suma de todos los elementos del árbol que se encuentran en el rango `[desde, hasta]` (ambos inclusive).
+Asumir que los métodos de la clase `Nodo<T>` están implementados. Indicar y justificar la complejidad algorítmica del método en el **mejor** y en el **peor** caso.
+
+## Implementación
+
+```java
+public int sumaEnRango(Nodo<Integer> raiz, int desde, int hasta) {
+    int suma = 0;                                          // base implícita: árbol vacío → 0
+    if (raiz != null) {
+        int valor = raiz.getDato();
+
+        if (valor >= desde && valor <= hasta) {            // 1) mi aporte
+            suma += valor;
+        }
+        if (valor > desde) {                               // 2) ¿bajo por la izquierda?
+            suma += sumaEnRango(raiz.getIzquierdo(), desde, hasta);
+        }
+        if (valor < hasta) {                               // 3) ¿bajo por la derecha?
+            suma += sumaEnRango(raiz.getDerecho(), desde, hasta);
+        }
+    }
+    return suma;
+}
+```
+
+---
+
+## Cuándo bajar
+
+En los ejercicios anteriores siempre se bajaba por los dos hijos. Acá **no**: la propiedad del ABB permite decidir en cada nodo si vale la pena bajar por un lado.
+
+**Propiedad del ABB:**
+- Todo lo de la izquierda es **menor** que `valor`
+- Todo lo de la derecha es **mayor** que `valor`
+
+**Regla para la izquierda: `valor > desde`**
+- Si `valor > desde`, a la izquierda puede haber números `>= desde` → **bajo**
+- Si `valor <= desde`, todo lo de la izquierda es menor que `desde` → no hay nada en rango → **no bajo (poda)**
+
+**Regla para la derecha: `valor < hasta`**
+- Si `valor < hasta`, a la derecha puede haber números `<= hasta` → **bajo**
+- Si `valor >= hasta`, todo lo de la derecha es mayor que `hasta` → **no bajo (poda)**
+
+**Regla de aporte: `desde <= valor <= hasta`**
+- Mi dato solo se suma si está dentro del rango
+
+Estas tres preguntas son **independientes**, por eso son tres `if` y no `else if`:
+- Un nodo puede sumar **y** bajar por los dos lados (si está estrictamente dentro del rango)
+- Puede no sumar y bajar solo por un lado
+- Puede sumar y no bajar por ningún lado (ej: `valor == desde == hasta`)
+
+---
+
+## Cómo se hace: los tres momentos
+
+| Momento | Qué hago |
+|---|---|
+| **Al llegar al nodo** | Leo `valor` y decido las tres preguntas (aporte, izquierda, derecha). Solo depende de mi dato y del rango, no de los hijos. |
+| **Al bajar** | Llamo solo a los hijos que no podé |
+| **Al volver** | Acumulo en `suma` lo que devolvió cada hijo. El total se arma acá. |
+
+- Es el patrón de "contar con condición" (`cantidadMultiplosN`), más la poda
+- Un hijo podado aporta 0, igual que si hubiera devuelto el caso base
+- Como el resultado es una suma, el orden entre aporte e hijos no importa
+
+---
+
+## Seguimiento con `desde = 3`, `hasta = 6`
+
+```
+        5
+      /   \
+     3     8
+    / \   / \
+   1   4 6   9
+```
+
+**Nodo 5:** en rango → suma 5. `5 > 3` → bajo izq. `5 < 6` → bajo der.
+
+**Nodo 3:** en rango (`3 >= 3`) → suma 3. `3 > 3` es falso → **poda: no visito el 1**. `3 < 6` → bajo der.
+
+**Nodo 4:** en rango → suma 4. Baja a sus dos `null`, que devuelven 0. Devuelve 4.
+
+**Nodo 3 devuelve:** 3 + 4 = 7.
+
+**Nodo 8:** fuera de rango, no suma. `8 > 3` → bajo izq. `8 < 6` es falso → **poda: no visito el 9**.
+
+**Nodo 6:** en rango → suma 6. `6 > 3` → baja a un `null` (0). `6 < 6` es falso → no baja a la derecha. Devuelve 6.
+
+**Nodo 8 devuelve:** 0 + 6 = 6.
+
+**Nodo 5 devuelve:** 5 + 7 + 6 = **18** (comprobación: 3 + 4 + 5 + 6 = 18 ✔)
+
+- Nodos visitados: 5, 3, 4, 8, 6
+- Nodos podados: 1 y 9
+
+---
+
+## Complejidad
+
+**Variables:** `n` = cantidad de nodos, `h` = altura, `k` = nodos dentro del rango
+
+**Cada llamada** hace trabajo O(1): una lectura, hasta 3 comparaciones y una suma.
+
+**Mejor caso: O(1)**
+- Árbol vacío, o
+- La raíz cumple `valor == desde` y `valor == hasta`, o el rango queda fuera y la poda corta de inmediato por el único lado que se baja hasta un `null`
+
+**Peor caso: O(n)**
+- El rango abarca todo el árbol (`desde <= mínimo` y `hasta >= máximo`)
+- No se poda nada y se visitan los `n` nodos
+
+**Caso típico (balanceado): O(h + k) = O(log n + k)**
+- Se bajan 1 o 2 caminos para ubicar los límites, más los `k` nodos en rango
+
+**Espacio (pila):** O(h), que es O(n) en un árbol degenerado.
+
+**Supuesto:** el ABB no tiene valores duplicados. Si los tuviera, la poda con `>` y `<` estrictos podría dejar nodos sin sumar.
+
+---
+
+## Versión con caso base explícito (para explicar en un examen)
+
+```java
+public int sumaEnRango(Nodo<Integer> raiz, int desde, int hasta) {
+    int suma;
+    if (raiz == null) {                                    // caso base
+        suma = 0;
+    } else {                                               // caso recursivo
+        int valor = raiz.getDato();
+        suma = 0;
+        if (valor >= desde && valor <= hasta) suma += valor;
+        if (valor > desde) suma += sumaEnRango(raiz.getIzquierdo(), desde, hasta);
+        if (valor < hasta) suma += sumaEnRango(raiz.getDerecho(), desde, hasta);
+    }
+    return suma;
+}
+```
+
+## Idea central
+
+- En un árbol cualquiera hay que bajar por **ambos** hijos
+- En un **ABB** se puede **podar**: bajo solo por el lado donde puede haber valores en rango
+- El aporte de cada nodo se decide al llegar, y la suma se completa al volver
