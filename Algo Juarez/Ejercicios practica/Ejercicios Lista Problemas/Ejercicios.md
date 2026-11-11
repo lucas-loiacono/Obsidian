@@ -45,3 +45,72 @@ Cada pregunta es un método, y cada método tiene un solo `while`:
 4. Repetí hasta que la pregunta sea una comparación simple.
 
 Si querés, te lo dejo en markdown para pegar en Obsidian.
+
+
+
+
+
+
+
+Sí, es exactamente un triple `for` anidado, pero con el cursor en lugar del índice. Cada pieza del `for` tiene su equivalente:
+
+|`for` con índice|`while` con cursor|
+|---|---|
+|`int i = 0`|`lista.iniciarCursor()`|
+|`i < n`|`lista.obtenerCursor() != null`|
+|`lista[i]`|`lista.obtenerCursor()`|
+|`i++`|`lista.avanzarCursor()`|
+|`&& !encontrado` en la condición|igual (corte temprano sin `break`)|
+
+Así se ve el mismo ejercicio (`comidasPermitidas`) de las dos formas:
+
+```java
+// Con arrays e índices: todo anidado en un método
+for (int i = 0; i < comidas.length; i++) {
+    boolean prohibido = false;
+    for (int j = 0; !prohibido && j < comidas[i].ingredientes.length; j++) {
+        for (int k = 0; !prohibido && k < prohibidos.length; k++) {
+            if (prohibidos[k].equals(comidas[i].ingredientes[j])) {
+                prohibido = true;
+            }
+        }
+    }
+    if (!prohibido) filtradas.add(comidas[i].nombre);
+}
+```
+
+Con cursor es lo mismo, pero cada `for` pasa a ser un método:
+
+|`for`|Método con cursor|
+|---|---|
+|`for i` (comidas)|`comidasPermitidas`|
+|`for j` (ingredientes)|`tieneIngredienteProhibido`|
+|`for k` (prohibidos)|`esProhibido`|
+
+Hay dos diferencias importantes:
+
+- **El índice vive en tu variable, el cursor vive dentro de la lista.** Con `for` podés tener `j` y `k` sobre la misma lista sin problema. Con cursor, cada lista tiene un solo cursor, así que no podés recorrer la misma lista con dos niveles a la vez. Por eso hay que llamar a `iniciarCursor()` antes de cada recorrido: es el equivalente a escribir `int k = 0` de nuevo en cada vuelta del `for` de afuera.
+- **Separar en métodos evita pisar cursores y se lee mejor,** pero el costo es el mismo que el del triple `for`: O(C · I · P).
+
+Para Obsidian:
+
+
+## Simetría: doble/triple `for` ↔ `while` con cursor
+
+| `for` con índice | `while` con cursor |
+|---|---|
+| `int i = 0` | `iniciarCursor()` |
+| `i < n` | `obtenerCursor() != null` |
+| `arr[i]` | `obtenerCursor()` |
+| `i++` | `avanzarCursor()` |
+| `&& !encontrado` en la condición | igual (corte sin `break`) |
+
+**Anidamiento**
+- `for i` (principal) → método del enunciado
+- `for j` (lista interna) → auxiliar booleano nivel 2
+- `for k` (lista de comparación) → auxiliar booleano nivel 3
+
+**Diferencias**
+- El índice es una variable mía, el cursor está dentro de la lista (uno solo por lista)
+- Hay que hacer `iniciarCursor()` antes de cada recorrido (equivale a reiniciar `k = 0`)
+- La complejidad es la misma: producto de los tamaños, O(C · I · P)
