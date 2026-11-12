@@ -114,3 +114,71 @@ Para Obsidian:
 - El índice es una variable mía, el cursor está dentro de la lista (uno solo por lista)
 - Hay que hacer `iniciarCursor()` antes de cada recorrido (equivale a reiniciar `k = 0`)
 - La complejidad es la misma: producto de los tamaños, O(C · I · P)
+
+
+
+
+
+## Cómo calcular la complejidad de estos ejercicios
+
+**Pasos**
+1. Definir variables: una letra por cada lista que se recorre (ej: `C` comidas, `I` ingredientes, `P` prohibidos).
+2. Operaciones del cursor (`iniciarCursor`, `obtenerCursor`, `avanzarCursor`) y getters: **O(1)**.
+3. Costo de cada método = (vueltas de su `while`) × (costo de lo que hace por vuelta).
+4. **Recorridos anidados se multiplican**, recorridos seguidos se suman.
+5. **Corte temprano** (`encontrado`): el peor caso es que no corte nunca (recorre toda la lista).
+6. Costo de `agregar` al resultado: si no hay puntero a último, es O(k) por inserción, y hasta N inserciones dan O(N²). Si hay puntero a último, es O(1).
+7. Sacar constantes y quedarse con el término más grande.
+8. Si piden "en función de N": todas las listas son como mucho de tamaño N, entonces se reemplazan todas las letras por N.
+
+---
+
+## 2.6 `verPartidos`
+
+Variables: `N` = partidos, `F` = países favoritos
+
+- `contiene(favoritos, pais)`: recorre `favoritos` una vez → O(F)
+- `ganoUnFavorito`: una llamada a `contiene` → O(F)
+- `verPartidos`: N partidos × O(F) → **O(N · F)**
+- `agregar` sin puntero a último: se suma O(N²)
+- Total: O(N · F + N²)
+
+**En función de N:** F ≤ N, entonces **O(N²)**.
+(Si `agregar` fuera O(1) y F se considerara constante, quedaría O(N).)
+
+---
+
+## 2.7 `recomendarPeliculas`
+
+Variables: `P` = películas, `A` = actores por película, `F` = actores favoritos
+
+- `esActorFavorito`: recorre `actoresFavoritos` → O(F)
+- `hayActorFavorito`: A actores × O(F) → O(A · F)
+- `recomendarPeliculas`: P películas × O(A · F) → **O(P · A · F)**
+- `agregar` sin puntero a último: se suma O(P²)
+- Total: O(P · A · F + P²)
+
+**Con una sola N:** **O(N³)** (tres listas anidadas, cada una de tamaño hasta N).
+
+---
+
+## 2.8 `comidasPermitidas`
+
+Variables: `C` = comidas, `I` = ingredientes por comida, `P` = ingredientes prohibidos
+
+- `esProhibido`: recorre `ingredientesProhibidos` → O(P)
+- `tieneIngredienteProhibido`: I ingredientes × O(P) → O(I · P)
+- `comidasPermitidas`: C comidas × O(I · P) → **O(C · I · P)**
+- `agregar` sin puntero a último: se suma O(C²)
+- Total: O(C · I · P + C²)
+
+**Con una sola N:** **O(N³)**.
+
+---
+
+## Idea clave
+
+- Cantidad de listas anidadas = exponente de N (2 listas → N², 3 listas → N³)
+- Es la misma simetría que con los `for`: triple `for` anidado = O(N³)
+- Aclarar siempre el supuesto sobre `agregar` (con o sin puntero a último)
+- En la justificación, escribir el costo por método de abajo hacia arriba, como en las listas de arriba
