@@ -1054,6 +1054,62 @@ Padre(P) = L, Padre(L) = K, Padre(K) = G, Padre(G) = C, Padre(C) = B, Padre(B) =
 
 
 
+
+## 3.b) A* simple, de A a P (solo heurística)
+
+**h (Manhattan a P)**
+
+| A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 6 | 5 | 4 | 3 | 5 | 4 | 3 | 2 | 4 | 3 | 2 | 1 | 3 | 2 | 1 | 0 |
+
+**Iteración 1**
+- Sa = {A}, Sc = {}
+- Paso 1: Vp = A
+- Paso 2: A ≠ P → agrego sus adyacentes a Sa: B. Padre(B) = A
+- Paso 3: Sa = {B}, Sc = {A}
+
+**Iteración 2**
+- Paso 1: h(B) = 5 → Vp = B
+- Paso 2: B ≠ P → adyacentes: A (está en Sc), C, F. Padre(C) = B, Padre(F) = B
+- Paso 3: Sa = {C, F}, Sc = {A, B}
+
+**Iteración 3**
+- Paso 1: h(C) = 4, h(F) = 4 → empate, elijo C (alfabético). Vp = C
+- Paso 2: C ≠ P → adyacentes: B (en Sc), G. Padre(G) = C
+- Paso 3: Sa = {F, G}, Sc = {A, B, C}
+
+**Iteración 4**
+- Paso 1: h(F) = 4, h(G) = 3 → Vp = G
+- Paso 2: G ≠ P → adyacentes: C (en Sc), H, K. Padre(H) = G, Padre(K) = G
+- Paso 3: Sa = {F, H, K}, Sc = {A, B, C, G}
+
+**Iteración 5**
+- Paso 1: h(F) = 4, h(H) = 2, h(K) = 2 → empate, elijo H. Vp = H
+- Paso 2: H ≠ P → adyacentes: D, G (en Sc). Padre(D) = H
+- Paso 3: Sa = {F, K, D}, Sc = {A, B, C, G, H}
+
+**Iteración 6**
+- Paso 1: h(F) = 4, h(K) = 2, h(D) = 3 → Vp = K
+- Paso 2: K ≠ P → adyacentes: G (en Sc), J, L, O. Padre(J) = K, Padre(L) = K, Padre(O) = K
+- Paso 3: Sa = {F, D, J, L, O}, Sc = {A, B, C, G, H, K}
+
+**Iteración 7**
+- Paso 1: h(L) = 1, h(O) = 1 → empate, elijo L. Vp = L
+- Paso 2: L ≠ P → adyacentes: K (en Sc), P. Padre(P) = L
+- Paso 3: Sa = {F, D, J, O, P}, Sc = {A, B, C, G, H, K, L}
+
+**Iteración 8**
+- Paso 1: h(P) = 0 → Vp = P
+- Paso 2: **P = P → llegué al destino, fin**
+
+**Resultado**
+- Orden de visita: A, B, C, G, H, K, L, P
+- Camino (siguiendo los padres hacia atrás): P ← L ← K ← G ← C ← B ← A
+- Camino: **A → B → C → G → K → L → P**
+
+
+
 ![[Pasted image 20261108203208.png]]
 
 
