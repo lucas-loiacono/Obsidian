@@ -115,3 +115,35 @@ Como la variable `valor` contiene el número 25, el programa sigue el siguiente 
 - `fin: ba fin`**:** realiza un salto incondicional hacia su propia dirección de memoria, generando un bucle infinito.
     
 - `.end`**:** directiva que indica al ensamblador el final del programa.
+
+![[Pasted image 20261126004752.png]]
+
+## **Pasos de ejecución del programa**
+
+Como `sumando1 = 10` y `sumando2 = 15`, el programa sigue el siguiente camino:
+
+1. `call sumar`**:** guarda la dirección de la instrucción actual en `%r15` y salta a la subrutina `sumar`.
+    
+2. `ld [sumando1], %r1`**:** carga el número 10 en el registro `%r1`.
+    
+3. `ld [sumando2], %r2`**:** carga el número 15 en el registro `%r2`.
+    
+4. `addcc %r1,%r2,%r3`**:** suma el contenido de `%r1` y `%r2`, almacena el resultado 25 en `%r3` y actualiza los códigos de condición.
+    
+5. `jmpl %r15+4, %r0`**:** retorna de la subrutina `sumar`, saltando a la instrucción siguiente al `call sumar`.
+    
+6. `or %r3,%r0,%r1`**:** realiza un OR bit a bit entre 25 y 0, almacenando el resultado 25 en `%r1`.
+    
+7. `call esimpar`**:** guarda la dirección de la instrucción actual en `%r15` y salta a la subrutina `esimpar`.
+    
+8. `andcc %r1,1,%r4`**:** realiza un AND bit a bit entre 25 y 1. Almacena el resultado 1 en `%r4` y actualiza los códigos de condición, dejando el flag Z en 0.
+    
+9. `jmpl %r15+4, %r0`**:** retorna de la subrutina `esimpar`, saltando a la instrucción siguiente al `call esimpar`.
+    
+10. `st %r3,[resultado]`**:** almacena el contenido de `%r3` (25) en la posición de memoria `resultado`.
+    
+11. `st %r4,[paridad]`**:** almacena el contenido de `%r4` (1) en la posición de memoria `paridad`.
+    
+12. `ba fin`**:** realiza un salto incondicional a la etiqueta `fin`.
+    
+13. `fin: ba fin`**:** salta hacia su propia dirección de memoria, generando un bucle infinito.
