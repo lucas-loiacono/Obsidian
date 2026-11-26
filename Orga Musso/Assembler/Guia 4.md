@@ -147,3 +147,132 @@ Como `sumando1 = 10` y `sumando2 = 15`, el programa sigue el siguiente camino:
 12. `ba fin`**:** realiza un salto incondicional a la etiqueta `fin`.
     
 13. `fin: ba fin`**:** salta hacia su propia dirección de memoria, generando un bucle infinito.
+
+
+La instrucción `jmpl %r15+4, %r0` sirve, en este ejercicio, para **volver de una subrutina al lugar desde donde fue llamada**.
+
+Para entenderla, primero tenés que entender cómo funciona `call`.
+
+## **1. ¿Qué hace** `call sumar`**?**
+
+Supongamos que las instrucciones están en las siguientes direcciones de memoria (comenzando desde la dirección 0):
+
+|Dirección|Instrucción|
+|---|---|
+|16|`call sumar`|
+|20|`or %r3,%r0,%r1`|
+|24|`call esimpar`|
+|...|...|
+|40|`sumar: ld [sumando1],%r1`|
+
+Cuando se ejecuta `call sumar`, ocurren dos cosas:
+
+- Se guarda la dirección de la instrucción `call` en `%r15`, es decir, `%r15 = 16`.
+    
+- Se salta a la dirección de la etiqueta `sumar`, es decir, 40.
+    
+
+## **2. ¿Qué hace** `jmpl %r15+4, %r0`**?**
+
+Cuando termina la subrutina, necesitamos volver a la instrucción que está inmediatamente después del `call`.
+
+Como cada instrucción ocupa 4 bytes:
+
+\[ \%r15+4=16+4=20 \]
+
+Por lo tanto, se salta a la dirección 20.
+
+● Llamada● Retorno
+
+## **3. ¿Por qué se utiliza** `%r0`**?**
+
+La instrucción `jmpl` realiza dos operaciones:
+
+- Guarda la dirección de la propia instrucción `jmpl` en el registro destino.
+    
+- Salta a la dirección calculada por el primer operando.
+    
+
+Como no nos interesa guardar la dirección del `jmpl`, utilizamos `%r0` como destino. Este registro siempre vale 0 y no permite modificar su contenido, por lo que se descarta ese valor.
+
+## **4. ¿Qué pasaría si no sumamos 4?**
+
+Si escribiéramos:
+
+```
+jmpl %r15, %r0
+```
+
+Volveríamos a la dirección 16, donde está el `call sumar`, y llamaríamos nuevamente a la subrutina, repitiendo el proceso indefinidamente.
+
+Por eso se suma 4.
+
+**En resumen:**
+
+```
+call sumar          ! Llama a la subrutina
+jmpl %r15+4, %r0    ! Retorna de la subrutina
+```
+
+Podés pensar en `jmpl %r15+4, %r0` como el equivalente a un `return` de una función en C, pero a nivel de instrucciones del procesador.
+
+
+![[Pasted image 20261126010724.png]]
+
+Casi, pero es al revés. En este ejercicio, **la pila crece hacia las direcciones de memoria más bajas**.
+
+El registro `%r14` efectivamente apunta al tope de la pila (Stack Pointer).
+
+- `%r14 - 4`**:** reserva espacio para un nuevo elemento en la pila.
+    
+- `%r14 + 4`**:** libera el espacio del elemento que está en el tope de la pila.
+    
+
+Ninguna de estas operaciones escribe ni elimina físicamente datos de la memoria. Solamente modifica el puntero.
+
+## **Ejemplo práctico**
+
+Supongamos que inicialmente `%r14 = 1000`.
+
+1. Estado inicial
+
+2. Restamos 4 y almacenamos el número 15
+
+```
+addcc %r14,-4,%r14
+st %r1,%r14
+```
+
+Ahora %r14 = 996. Tenemos un elemento en la pila.
+
+3. Sumamos 4 al puntero
+
+```
+addcc %r14,4,%r14
+```
+
+Ahora %r14 = 1000. El número 15 sigue en memoria, pero ya no pertenece a la pila activa.
+
+## **PUSH y POP**
+
+Para agregar un elemento a la pila (**PUSH**):
+
+```
+addcc %r14,-4,%r14
+st %r1,%r14
+```
+
+Primero reservás espacio y después almacenás el dato.
+
+Para retirar un elemento de la pila (**POP**):
+
+```
+ld %r14,%r1
+addcc %r14,4,%r14
+```
+
+Primero recuperás el dato y después liberás el espacio.
+
+**Lo importante es que liberar espacio no significa borrar el dato.** El dato sigue estando en memoria hasta que otra operación lo sobrescriba.
+
+Podés pensarlo de manera similar a manejar un puntero en C: modificar el puntero no modifica el contenido de la memoria a la que apuntaba anteriormente.
