@@ -560,6 +560,314 @@ Por lo tanto, la variable `z` se encuentra almacenada físicamente en la posici�
 
 
 
+# Macros y Subrutinas - Arquitectura ARC
+
+Tanto las macros como las subrutinas permiten reutilizar código, pero funcionan de maneras diferentes.
+
+> [!important] Diferencia principal
+> Una macro se expande durante el ensamblado del programa, mientras que una subrutina se invoca durante la ejecución del programa.
+
+---
+
+## 1. Macro
+
+Una macro es un conjunto de instrucciones al que se le asigna un nombre. Cada vez que se utiliza ese nombre, el ensamblador lo reemplaza por las instrucciones que contiene.
+
+Es equivalente a realizar un copiar y pegar de las instrucciones.
+
+### Sintaxis
+
+```asm
+.macro nombre parametro1, parametro2
+    instrucciones
+.endmacro
+```
+
+### Ejemplo
+
+```asm
+.macro incrementar registro
+    add registro, 1, registro
+.endmacro
+
+main:
+    incrementar %r1
+    incrementar %r2
+    incrementar %r1
+```
+
+Durante el ensamblado, el código anterior se transforma en:
+
+```asm
+main:
+    add %r1, 1, %r1
+    add %r2, 1, %r2
+    add %r1, 1, %r1
+```
+
+El ensamblador reemplaza los parámetros de la macro por los argumentos recibidos, respetando el orden en el que fueron pasados.
+
+### Características
+
+- Se expande durante el ensamblado.
+- Las instrucciones se duplican por cada aparición de la macro en el código fuente.
+- No necesita utilizar `call`.
+- No necesita utilizar `jmpl` para retornar.
+- No necesita guardar una dirección de retorno en `%r15`.
+- No requiere saltos adicionales para invocarla.
+- Permite recibir parámetros mediante sustitución de argumentos.
+- Puede aumentar el tamaño del programa en memoria.
+
+> [!note]
+> El procesador no sabe que está ejecutando una macro. Solamente ejecuta las instrucciones que generó el ensamblador.
+
+---
+
+## 2. Subrutina
+
+Una subrutina es un bloque de instrucciones almacenado en una determinada dirección de memoria, al que podemos saltar para ejecutar una tarea y posteriormente regresar al programa principal.
+
+Para llamar a una subrutina utilizamos `call` y para regresar utilizamos `jmpl`.
+
+### Ejemplo
+
+```asm
+main:
+    call incrementar
+    call incrementar
+    call incrementar
+    ba fin
+
+incrementar:
+    add %r1, 1, %r1
+    jmpl %r15+4, %r0
+
+fin:
+    ba fin
+```
+
+### Funcionamiento de CALL
+
+```asm
+call incrementar
+```
+
+La instrucción `call` realiza dos operaciones:
+
+1. Guarda la dirección de la propia instrucción `call` en `%r15`.
+2. Modifica el Program Counter (PC) con la dirección de la subrutina.
+
+$$
+R_{15} = PC
+$$
+
+$$
+PC = dirección\ de\ la\ subrutina
+$$
+
+De esta manera, el procesador comienza a ejecutar las instrucciones de la subrutina.
+
+### Funcionamiento del retorno
+
+```asm
+jmpl %r15+4, %r0
+```
+
+La instrucción `jmpl` modifica el PC para regresar a la instrucción siguiente al `call`.
+
+$$
+PC = R_{15} + 4
+$$
+
+Se suma 4 porque cada instrucción en ARC ocupa 32 bits, es decir, 4 bytes.
+
+Se utiliza `%r0` como registro destino porque no necesitamos guardar la dirección de la instrucción `jmpl`.
+
+### Características
+
+- Se invoca durante la ejecución.
+- El código de la subrutina existe una sola vez en memoria.
+- Utiliza `call` para realizar la llamada.
+- Utiliza `jmpl` para retornar.
+- Utiliza `%r15` para guardar la dirección de la llamada.
+- Puede recibir parámetros mediante registros, memoria o la pila.
+- Permite reducir el tamaño del programa cuando se reutilizan bloques grandes de código.
+- Tiene un costo adicional de ejecución debido a la llamada y al retorno.
+
+> [!warning] Subrutinas anidadas
+> Si una subrutina llama a otra subrutina, el nuevo `call` sobrescribe `%r15`.
+>
+> Para no perder la dirección de retorno original, debemos guardarla previamente, por ejemplo, en la pila utilizando `%r14` como Stack Pointer.
+
+---
+
+## 3. Diferencia en el flujo de ejecución
+
+### Macro
+
+Las instrucciones se encuentran directamente en el lugar donde se utilizó la macro.
+
+```text
+Programa principal
+        |
+        v
+Instrucciones de la macro
+        |
+        v
+Programa principal
+        |
+        v
+Instrucciones de la macro
+        |
+        v
+Programa principal
+```
+
+Cada aparición de la macro genera una copia de sus instrucciones.
+
+### Subrutina
+
+El programa salta a un bloque de instrucciones que se encuentra en otra dirección de memoria y luego regresa.
+
+```text
+Programa principal          Subrutina
+        |                       |
+       call ------------------> |
+        |                 Instrucciones
+        |                       |
+        | <------------------- jmpl
+        v
+Siguiente instrucción
+```
+
+Todas las llamadas utilizan el mismo bloque de instrucciones almacenado en memoria.
+
+---
+
+## 4. Diferencias principales
+
+| Característica | Macro | Subrutina |
+|---|---|---|
+| Momento de resolución | Ensamblado | Ejecución |
+| Código en memoria | Se duplica por cada aparición | Existe una sola vez |
+| Utiliza CALL | No es necesario | Sí |
+| Utiliza JMPL para retornar | No es necesario | Sí |
+| Utiliza R15 para retornar | No | Sí |
+| Saltos adicionales | No requiere | Sí |
+| Parámetros | Sustitución de argumentos | Registros, pila o memoria |
+| Tamaño del programa | Puede ser mayor | Generalmente menor |
+| Sobrecosto de llamada | Ninguno | Llamada y retorno |
+
+---
+
+## 5. Ocupación de memoria
+
+Supongamos que tenemos un bloque de 10 instrucciones que aparece 5 veces en el programa.
+
+Cada instrucción ocupa 4 bytes.
+
+### Utilizando una macro
+
+Se generan 5 copias del bloque de instrucciones.
+
+$$
+10 \cdot 5 = 50\ instrucciones
+$$
+
+$$
+50 \cdot 4 = 200\ bytes
+$$
+
+Ocupación total: **200 bytes**.
+
+### Utilizando una subrutina
+
+Tenemos:
+
+- 10 instrucciones del cuerpo de la subrutina.
+- 5 instrucciones `call`.
+- 1 instrucción `jmpl` para retornar.
+
+$$
+10 + 5 + 1 = 16\ instrucciones
+$$
+
+$$
+16 \cdot 4 = 64\ bytes
+$$
+
+Ocupación total: **64 bytes**.
+
+En este ejemplo no se consideran instrucciones adicionales para pasar parámetros o preservar registros.
+
+> [!tip]
+> Una macro puede ser más rápida porque evita las instrucciones de llamada y retorno, pero una subrutina puede ocupar menos memoria porque no duplica el código.
+
+---
+
+## 6. ¿Cuándo conviene utilizar cada una?
+
+### Macro
+
+Conviene utilizar una macro cuando:
+
+- El bloque contiene pocas instrucciones.
+- Queremos evitar el costo de una llamada y un retorno.
+- Necesitamos reutilizar código sencillo.
+- Queremos parametrizar instrucciones durante el ensamblado.
+
+### Subrutina
+
+Conviene utilizar una subrutina cuando:
+
+- El bloque contiene muchas instrucciones.
+- Necesitamos invocar el mismo bloque desde distintos lugares.
+- Queremos reducir la ocupación de memoria.
+- Necesitamos pasar parámetros durante la ejecución.
+- Queremos dividir el programa en funciones independientes.
+
+---
+
+## 7. Relación con el lenguaje C
+
+Una macro de ARC es similar a una macro definida mediante `#define` en C.
+
+```c
+#define INCREMENTAR(x) ((x) + 1)
+```
+
+Una subrutina de ARC es similar a una función en C.
+
+```c
+int incrementar(int x) {
+    return x + 1;
+}
+```
+
+La macro se reemplaza por su contenido durante el procesamiento del código fuente, mientras que la función normalmente se invoca durante la ejecución, salvo optimizaciones del compilador como el inlining.
+
+---
+
+## Resumen
+
+> [!summary] Macro
+> - Se resuelve durante el ensamblado.
+> - El ensamblador copia y pega las instrucciones.
+> - El código se duplica por cada aparición.
+> - No necesita CALL ni JMPL para invocarla.
+> - Evita el costo de llamada y retorno.
+> - Puede ocupar más memoria.
+
+> [!summary] Subrutina
+> - Se invoca durante la ejecución.
+> - El procesador salta a otra dirección de memoria.
+> - El código existe una sola vez.
+> - CALL guarda la dirección de llamada en R15.
+> - JMPL permite regresar mediante R15 + 4.
+> - Puede ocupar menos memoria, pero tiene un costo adicional de llamada y retorno.
+
+> [!important] Concepto fundamental
+> La macro reutiliza código fuente mediante su expansión durante el ensamblado, mientras que la subrutina reutiliza un mismo bloque de instrucciones almacenado en memoria durante la ejecución.
 
 
 
