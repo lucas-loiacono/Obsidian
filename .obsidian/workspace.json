@@ -223,12 +223,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Orga Musso/Assembler/Guia 4.md",
+                "file": "Orga Musso/Clase 8.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Guia 4"
+              "title": "Clase 8"
             }
           }
         ],
@@ -408,15 +408,16 @@
   },
   "active": "85f5c7325a0c8ef1",
   "lastOpenFiles": [
+    "Orga Musso/Clase 9.md",
+    "Orga Musso/Assembler/TP.md",
+    "Orga Musso/Assembler/Practica.md",
+    "Orga Musso/Assembler/Guia 4.md",
     "!imagenes/Pasted image 20261126012535.png",
     "!imagenes/Pasted image 20261126012237.png",
     "!imagenes/Pasted image 20261126010724.png",
     "!imagenes/Pasted image 20261126004752.png",
-    "Orga Musso/Assembler/Practica.md",
-    "Orga Musso/Assembler/Guia 4.md",
     "!imagenes/Pasted image 20261126002741.png",
     "!imagenes/Pasted image 20261126001735.png",
-    "Orga Musso/Assembler/TP.md",
     "Algo Juarez/Ejercicios practica/Grafos/Teoria Dijsktra, Floyd y A.md",
     "Algo Juarez/Ejercicios practica/Grafos/Teoria.md",
     "Algo Juarez/Ejercicios practica/Grafos/Ejercicios Grafos.md",
@@ -429,7 +430,6 @@
     "Orga Musso/clase 6.md",
     "Orga Musso/clase 7.md",
     "Orga Musso/Clase 8.md",
-    "Orga Musso/Clase 9.md",
     "Algo Juarez/clase 8.md",
     "Algo Juarez/Ejercicios practica/Hashing/Teoria.md",
     "Algo Juarez/Ejercicios practica/Hashing/Ejercicios.md",
@@ -445,7 +445,6 @@
     "!imagenes/Pasted image 20261108204227.png",
     "!imagenes/Pasted image 20261108204204.png",
     "!imagenes/Pasted image 20261108203446.png",
-    "!imagenes/Pasted image 20261108203302.png",
     "Algo Juarez/Ejercicios practica/Grafos",
     "Algo Juarez/Ejercicios practica/Poo y Java",
     "Algo Juarez/Ejercicios practica/Hashing",

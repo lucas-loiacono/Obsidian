@@ -725,3 +725,337 @@ ld %r1,%r7         ! Funciona: %r1 tiene 32 bits
 ```
 
 Podés pensarlo como un puntero en C: `%r1` almacena la dirección de memoria y `ld` permite acceder al contenido de esa dirección.
+
+
+
+
+
+
+
+
+
+
+
+# Sethi
+
+Exactamente. En lugar de pasarle la dirección directamente a la instrucción, primero la cargás en un registro y después trabajás con ese registro.
+
+**Si la dirección entra en los 13 bits**, podés hacer directamente:
+
+```
+ld [var], %r1
+```
+
+**Si la dirección no entra en los 13 bits**, primero la construís en un registro:
+
+```
+sethi %hi(var), %r2
+or %r2, %lo(var), %r2
+ld %r2, %r1
+```
+
+En este último caso:
+
+- `%r2` contiene la dirección de memoria de `var`.
+    
+- `%r1` recibe el contenido almacenado en esa dirección.
+    
+
+El procesador solamente necesita codificar el identificador de `%r2` (5 bits) dentro de la instrucción y luego puede acceder a sus 32 bits de contenido.
+
+Es prácticamente el mismo concepto que un puntero en C: **guardás una dirección en un registro y después accedés a la memoria mediante ese registro.**
+
+
+# SETHI - Arquitectura ARC
+
+## ¿Para qué sirve?
+
+La instrucción `sethi` permite construir números o direcciones de memoria de 32 bits dentro de un registro cuando estos no pueden representarse directamente en el campo inmediato de una instrucción.
+
+Instrucciones como `ld`, `st`, `add`, `addcc`, `and` y `or` utilizan un campo inmediato de 13 bits con signo.
+
+El rango de valores que pueden representar es:
+
+$$
+-2^{12} \leq x \leq 2^{12}-1
+$$
+
+$$
+-4096 \leq x \leq 4095
+$$
+
+Si necesitamos utilizar un valor fuera de este rango, podemos construirlo previamente en un registro mediante `sethi` y `or`.
+
+> [!important]
+> La limitación está en el espacio disponible dentro de la instrucción, no en la capacidad de los registros, ya que estos poseen 32 bits.
+
+---
+
+## Funcionamiento de SETHI
+
+### Sintaxis
+
+```asm
+sethi inmediato, registro_destino
+```
+
+La instrucción `sethi` recibe un inmediato de 22 bits y lo coloca en los 22 bits más significativos del registro destino, completando los 10 bits menos significativos con ceros.
+
+```text
+| 22 bits superiores   | 10 bits inferiores |
+|      Inmediato       |     0000000000     |
+31                    10 9                  0
+```
+
+Es equivalente a desplazar el inmediato 10 posiciones hacia la izquierda:
+
+$$
+R_d = inmediato \cdot 2^{10}
+$$
+
+### Características
+
+- Recibe un inmediato de 22 bits.
+- Lo coloca en los 22 bits más significativos.
+- Completa los 10 bits menos significativos con ceros.
+- Sobrescribe completamente el registro destino.
+- No modifica los códigos de condición.
+- No accede a la memoria.
+
+---
+
+## Operadores %hi y %lo
+
+Son operadores del ensamblador que permiten dividir un valor de 32 bits en dos partes.
+
+- `%hi(valor)`: obtiene los 22 bits más significativos.
+- `%lo(valor)`: obtiene los 10 bits menos significativos.
+
+Matemáticamente, para un valor sin signo:
+
+$$
+hi(x) = \left\lfloor \frac{x}{1024} \right\rfloor
+$$
+
+$$
+lo(x) = x \bmod 1024
+$$
+
+Para construir un valor completo de 32 bits:
+
+```asm
+sethi %hi(valor), %r1
+or %r1, %lo(valor), %r1
+```
+
+### Paso 1: SETHI
+
+Coloca los 22 bits superiores y completa con ceros.
+
+```text
+|      %hi(valor)      |     0000000000     |
+```
+
+### Paso 2: OR
+
+Completa los 10 bits inferiores sin modificar los superiores.
+
+```text
+|      %hi(valor)      |     0000000000     |
+                      OR
+| 0000000000000000000000 |   %lo(valor)     |
+------------------------------------------------
+|      %hi(valor)      |     %lo(valor)     |
+```
+
+De esta manera obtenemos el valor completo de 32 bits.
+
+> [!note]
+> Si los 10 bits inferiores del valor son cero, la instrucción `or` puede omitirse.
+
+---
+
+## ¿Por qué funciona utilizando un registro?
+
+Todas las instrucciones de ARC ocupan 32 bits. Dentro de esos 32 bits deben codificarse diferentes campos, como la operación, los registros y el inmediato.
+
+Cuando utilizamos un inmediato, el número debe almacenarse directamente dentro de la instrucción.
+
+Por ejemplo:
+
+```asm
+add %r1, 8192, %r3
+```
+
+Esta instrucción no puede codificarse porque 8192 no entra en los 13 bits con signo disponibles.
+
+En cambio, podemos hacer:
+
+```asm
+sethi %hi(8192), %r2
+or %r2, %lo(8192), %r2
+add %r1, %r2, %r3
+```
+
+Ahora la instrucción `add` no necesita almacenar el número 8192 directamente, sino solamente el identificador del registro `%r2`.
+
+Como ARC posee 32 registros, solamente se necesitan 5 bits para identificar un registro.
+
+$$
+2^5 = 32
+$$
+
+El identificador de `%r2` es:
+
+```text
+00010
+```
+
+El procesador identifica el registro y luego obtiene sus 32 bits de contenido para realizar la operación.
+
+> [!important]
+> Cuando pasamos un registro a una instrucción, no estamos codificando su contenido dentro de la instrucción, sino solamente su identificador.
+
+---
+
+## Ejemplo 1: Cargar una dirección de memoria
+
+```asm
+.begin
+.org 8192
+
+valor .equ 5
+var: valor
+
+main:
+    sethi %hi(var), %r1
+    or %r1, %lo(var), %r1
+    ld %r1, %r7
+
+.end
+```
+
+La variable `var` se encuentra en la dirección de memoria 8192 y contiene el número 5.
+
+### ¿Por qué no podemos utilizar LD directamente?
+
+```asm
+ld [var], %r7
+```
+
+La dirección 8192 no entra en los 13 bits del campo inmediato de `ld`.
+
+El problema no es el valor 5 almacenado en memoria, sino la dirección 8192 donde se encuentra.
+
+### Pasos de ejecución
+
+1. `sethi %hi(var), %r1`
+
+   Carga los 22 bits superiores de la dirección 8192 en `%r1`.
+
+   Como `%hi(8192) = 8`:
+
+   $$
+   r1 = 8 \cdot 1024 = 8192
+   $$
+
+2. `or %r1, %lo(var), %r1`
+
+   Completa los 10 bits inferiores de la dirección.
+
+   Como `%lo(8192) = 0`:
+
+   $$
+   r1 = 8192
+   $$
+
+3. `ld %r1, %r7`
+
+   Accede a la dirección de memoria almacenada en `%r1` y carga su contenido en `%r7`.
+
+### Resultado final
+
+```text
+%r1 = 8192  (dirección de memoria)
+%r7 = 5     (contenido de esa dirección)
+```
+
+Es un concepto similar al de los punteros en C: almacenamos una dirección y luego accedemos al contenido de esa dirección.
+
+---
+
+## Ejemplo 2: Construir el número 8200
+
+```asm
+sethi %hi(8200), %r1
+or %r1, %lo(8200), %r1
+```
+
+Calculamos ambas partes:
+
+$$
+hi(8200) = 8
+$$
+
+$$
+lo(8200) = 8
+$$
+
+### Primera instrucción
+
+```asm
+sethi %hi(8200), %r1
+```
+
+$$
+r1 = 8 \cdot 1024 = 8192
+$$
+
+### Segunda instrucción
+
+```asm
+or %r1, %lo(8200), %r1
+```
+
+$$
+r1 = 8192 \text{ OR } 8 = 8200
+$$
+
+En binario:
+
+```text
+8192 = 00000000 00000000 00100000 00000000
+   8 = 00000000 00000000 00000000 00001000
+                     OR
+-----------------------------------------
+8200 = 00000000 00000000 00100000 00001000
+```
+
+Resultado final: `%r1 = 8200`.
+
+---
+
+## Diferencia entre inmediato y registro
+
+| Característica | Inmediato | Registro |
+|---|---|---|
+| Tamaño del valor | 13 bits con signo | 32 bits |
+| Qué se codifica | El valor directamente | El identificador del registro |
+| Bits del identificador | No corresponde | 5 bits |
+| Permite utilizar 8192 | No | Sí |
+
+---
+
+## Resumen
+
+> [!summary] SETHI
+> - Permite construir valores y direcciones de 32 bits.
+> - Se utiliza cuando un valor no entra en el campo inmediato de 13 bits.
+> - `sethi` carga los 22 bits superiores.
+> - `%hi` obtiene los 22 bits superiores.
+> - `%lo` obtiene los 10 bits inferiores.
+> - `or` completa los 10 bits inferiores.
+> - El valor completo queda almacenado en un registro.
+> - Luego podemos utilizar ese registro en instrucciones como `ld`, `st`, `add`, `and`, etc.
+
+La idea principal es no pasarle un número o una dirección demasiado grande directamente a una instrucción, sino construirlo previamente en un registro y trabajar con dicho registro.
