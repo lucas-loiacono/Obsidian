@@ -46,3 +46,6 @@ como no tengo el org empieza en la direccion 0
         - `main:`
             
         - `array:`
+
+
+![[Pasted image 20261126002741.png]]
