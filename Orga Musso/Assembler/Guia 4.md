@@ -457,3 +457,271 @@ Representa la cantidad de bytes que ocupan los cinco elementos que se van a suma
 - `be fin` realiza el salto a la etiqueta `fin`.
     
 - `st %r3,[varResult]` almacena el valor 12 en la variable `resultado`.
+
+
+
+
+Los parámetros de una macro funcionan de manera similar a los parámetros de una función en C, pero con una diferencia importante: **el ensamblador reemplaza los parámetros por los argumentos que le pasamos antes de ejecutar el programa.**
+
+## **1. Definición de la macro**
+
+La estructura general de una macro en ARC es:
+
+```
+.macro nombre_macro parametro1, parametro2, parametro3
+
+    ! Instrucciones
+
+.endmacro
+```
+
+En tu ejercicio tenemos:
+
+```
+.macro mcr_suma_array pos_array, pos_length, varResult
+```
+
+La macro recibe tres parámetros:
+
+- `pos_array`: dirección de memoria donde comienza el arreglo.
+    
+- `pos_length`: dirección de memoria donde está almacenada la longitud del arreglo en bytes.
+    
+- `varResult`: dirección de memoria donde se almacenará el resultado.
+    
+
+## **2. Invocación de la macro**
+
+En el programa principal tenemos:
+
+```
+main: mcr_suma_array array, length, resultado
+```
+
+Los argumentos se pasan **por orden de posición**, separados por comas.
+
+En este caso, le estamos pasando las etiquetas que representan las direcciones de memoria, no directamente los valores almacenados en ellas.
+
+## **3. ¿Qué hace el ensamblador?**
+
+Cuando encuentra la invocación de la macro, copia todas sus instrucciones y reemplaza los parámetros por los argumentos correspondientes.
+
+Por ejemplo, esta instrucción de la macro:
+
+```
+ld [pos_length],%r1
+```
+
+Se transforma en:
+
+```
+ld [length],%r1
+```
+
+Y esta instrucción:
+
+```
+st %r3,[varResult]
+```
+
+Se transforma en:
+
+```
+st %r3,[resultado]
+```
+
+## **4. ¿Cómo queda el código después del reemplazo?**
+
+El ensamblador transforma la invocación de la macro en el siguiente código:
+
+```
+main:
+    ld [length],%r1
+    and %r0,%r0,%r3
+
+sumar:
+    add %r1,-4,%r1
+    ld %r1,[array],%r2
+    add %r2,%r3,%r3
+    andcc %r1,%r1,%r0
+    be fin
+    ba sumar
+
+fin:
+    st %r3,[resultado]
+```
+
+Es como si hubieras escrito directamente todas esas instrucciones en `main`.
+
+## **5. Diferencia entre una macro y una subrutina**
+
+|Característica|Macro|Subrutina|
+|---|---|---|
+|Invocación|Nombre de la macro|`call etiqueta`|
+|Parámetros|Reemplazados por el ensamblador|Mediante registros, memoria o pila|
+|Utiliza `%r15`|No es necesario|Sí, para retornar|
+|Necesita `jmpl` para retornar|No|Normalmente sí|
+|Código|Se copia en cada invocación|Se reutiliza el mismo bloque|
+|Momento del reemplazo o llamada|Ensamblado|Ejecución|
+
+**Lo importante:** una macro no realiza un salto a otro bloque de código. Simplemente reemplaza su invocación por las instrucciones que contiene, sustituyendo sus parámetros por los argumentos que le pasaste.
+
+
+
+![[Pasted image 20261126012535.png]]
+
+
+## **a) ¿Por qué el código no funciona?**
+
+```
+.begin
+.org 8192
+
+valor .equ 5
+
+var:    valor
+        ld [var], %r1
+.end
+```
+
+Primero, tenemos que entender las siguientes directivas:
+
+- `.org 8192`**:** indica que el código y los datos comienzan en la dirección de memoria 8192.
+    
+- `valor .equ 5`**:** define una constante llamada `valor` que equivale a 5. No reserva espacio en memoria.
+    
+- `var: valor`**:** almacena el número 5 en la dirección de memoria 8192.
+    
+
+El problema aparece en la instrucción:
+
+```
+ld [var], %r1
+```
+
+Esta instrucción intenta cargar el contenido de la dirección 8192 en `%r1`.
+
+Sin embargo, el campo inmediato de la instrucción `ld` dispone de solamente **13 bits con signo**, por lo que puede representar valores comprendidos entre:
+
+\[ -2^{12}\leq x\leq 2^{12}-1 \]
+
+\[ -4096\leq x\leq4095 \]
+
+Como la dirección 8192 supera el máximo valor representable (4095), no puede codificarse directamente en el campo inmediato de la instrucción.
+
+Formato de la instrucción ld (32 bits)
+
+**Conclusión del inciso A:** el código no funciona porque la dirección de memoria de `var` es demasiado grande para representarse en el campo inmediato de 13 bits de la instrucción `ld`.
+
+## **b) ¿Por qué el siguiente código resuelve el problema?**
+
+```
+.begin
+.org 8192
+
+valor .equ 5
+
+var:    valor
+        and %r1,%r0,%r1
+        sethi %hi(var),%r1
+        or %r1,%lo(var),%r1
+        ld %r1,%r7
+.end
+```
+
+La solución consiste en construir la dirección de memoria de 8192 dentro de un registro de 32 bits y luego utilizar ese registro para acceder a memoria.
+
+### **Conceptos nuevos:** `sethi`**,** `%hi` **y** `%lo`
+
+Una dirección de 32 bits se puede dividir en dos partes:
+
+Representación de la dirección 8192 en 32 bits.
+
+- `%hi(var)`**:** obtiene los 22 bits más significativos de la dirección.
+    
+- `%lo(var)`**:** obtiene los 10 bits menos significativos de la dirección.
+    
+- `sethi`**:** coloca un valor en los 22 bits superiores del registro destino y pone en 0 los 10 bits inferiores.
+    
+
+## **Pasos de ejecución del programa**
+
+**1.** `and %r1,%r0,%r1`
+
+Realiza un AND bit a bit entre `%r1` y 0, inicializando `%r1` en 0.
+
+```
+%r1 = 0
+```
+
+Esta instrucción es redundante, ya que `sethi` sobrescribe todo el registro.
+
+**2.** `sethi %hi(var),%r1`
+
+Obtiene los 22 bits superiores de la dirección de `var` (8192) y los coloca en los 22 bits superiores de `%r1`.
+
+En este caso:
+
+\[ \%hi(8192)=8 \]
+
+La instrucción `sethi` desplaza ese valor 10 posiciones hacia la izquierda:
+
+\[ 8\cdot 2^{10}=8192 \]
+
+```
+%r1 = 8192
+```
+
+**3.** `or %r1,%lo(var),%r1`
+
+Realiza un OR bit a bit entre el contenido de `%r1` y los 10 bits inferiores de la dirección de `var`.
+
+Como los 10 bits inferiores de 8192 son todos cero:
+
+```
+    00000000 00000000 00100000 00000000
+OR  00000000 00000000 00000000 00000000
+    -----------------------------------
+    00000000 00000000 00100000 00000000
+```
+
+El registro `%r1` contiene ahora la dirección completa de `var`.
+
+```
+%r1 = 8192
+```
+
+**4.** `ld %r1,%r7`
+
+Accede a la posición de memoria apuntada por `%r1` (8192) y carga su contenido (5) en `%r7`.
+
+```
+%r7 = 5
+```
+
+## **Resultado final**
+
+```
+%r1 = 8192
+%r7 = 5
+```
+
+**Conclusión del inciso B:** el código resuelve el problema utilizando `sethi` y `or` para construir la dirección completa de 32 bits dentro del registro `%r1`. De esta manera, la instrucción `ld` puede acceder a la dirección 8192 sin estar limitada por el campo inmediato de 13 bits.
+
+## **Diferencia entre ambos códigos**
+
+El primero intenta acceder directamente a la dirección:
+
+```
+ld [var],%r1       ! No funciona: 8192 no entra en 13 bits
+```
+
+El segundo guarda previamente la dirección en un registro:
+
+```
+sethi %hi(var),%r1
+or %r1,%lo(var),%r1
+ld %r1,%r7         ! Funciona: %r1 tiene 32 bits
+```
+
+Podés pensarlo como un puntero en C: `%r1` almacena la dirección de memoria y `ld` permite acceder al contenido de esa dirección.
