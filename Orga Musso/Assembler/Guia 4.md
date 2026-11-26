@@ -219,6 +219,48 @@ Podés pensar en `jmpl %r15+4, %r0` como el equivalente a un `return` de una fun
 
 ![[Pasted image 20261126010724.png]]
 
+## **Pasos de ejecución del programa**
+
+Como `x = 15` e `y = 9`, el programa sigue el siguiente camino:
+
+1. `ld [x], %r1`**:** carga el número 15 en el registro `%r1`.
+
+2. `ld [y], %r2`**:** carga el número 9 en el registro `%r2`.
+
+3. `addcc %r14,-4,%r14`**:** decrementa el puntero de la pila en 4 bytes. Ahora `%r14 = SP - 4`.
+
+4. `st %r1,%r14`**:** almacena el contenido de `%r1` (15) en la posición de memoria apuntada por `%r14`.
+
+5. `addcc %r14,-4,%r14`**:** decrementa nuevamente el puntero de la pila en 4 bytes. Ahora `%r14 = SP - 8`.
+
+6. `st %r2,%r14`**:** almacena el contenido de `%r2` (9) en la posición de memoria apuntada por `%r14`.
+
+7. `call sbr_add`**:** guarda la dirección de la instrucción actual en `%r15` y salta a la subrutina `sbr_add`.
+
+8. `ld %r14,%r8`**:** carga el valor ubicado en el tope de la pila (9) en el registro `%r8`.
+
+9. `addcc %r14,4,%r14`**:** incrementa el puntero de la pila en 4 bytes. Ahora `%r14 = SP - 4`.
+
+10. `ld %r14,%r9`**:** carga el valor ubicado en el tope de la pila (15) en el registro `%r9`.
+
+11. `addcc %r8,%r9,%r10`**:** suma 9 y 15, almacena el resultado 24 en `%r10` y actualiza los códigos de condición.
+
+12. `st %r10,%r14`**:** almacena el resultado de la suma (24) en la posición de memoria apuntada por `%r14`, sobrescribiendo el valor 15.
+
+13. `jmpl %r15+4,%r0`**:** retorna de la subrutina, saltando a la instrucción inmediatamente posterior al `call sbr_add`.
+
+14. `ld %r14,%r3`**:** carga el resultado de la suma (24), ubicado en el tope de la pila, en el registro `%r3`.
+
+15. `addcc %r14,4,%r14`**:** incrementa el puntero de la pila en 4 bytes, recuperando su posición inicial. Ahora `%r14 = SP`.
+
+16. `st %r3,[z]`**:** almacena el contenido de `%r3` (24) en la variable `z`.
+
+17. `ba final`**:** realiza un salto incondicional a la etiqueta `final`.
+
+18. `final: ba final`**:** salta hacia su propia dirección de memoria, generando un bucle infinito.
+
+
+
 Casi, pero es al revés. En este ejercicio, **la pila crece hacia las direcciones de memoria más bajas**.
 
 El registro `%r14` efectivamente apunta al tope de la pila (Stack Pointer).
@@ -276,3 +318,142 @@ Primero recuperás el dato y después liberás el espacio.
 **Lo importante es que liberar espacio no significa borrar el dato.** El dato sigue estando en memoria hasta que otra operación lo sobrescriba.
 
 Podés pensarlo de manera similar a manejar un puntero en C: modificar el puntero no modifica el contenido de la memoria a la que apuntaba anteriormente.
+
+
+
+El registro `%r15` se utiliza como **registro de enlace (Link Register)**. Su función es guardar la dirección de memoria de la instrucción `call`, para que posteriormente podamos regresar de una subrutina.
+
+A diferencia de `%r14`, no se utiliza para manejar la pila.
+
+## **Ejemplo con el ejercicio 4.16**
+
+Tenemos las siguientes instrucciones y direcciones de memoria:
+
+```
+2072: call sbr_add
+2076: ld %r14,%r3
+...
+2092: sbr_add: ld %r14,%r8
+...
+2112: jmpl %r15+4,%r0
+```
+
+Cuando se ejecuta `call sbr_add`:
+
+- Se guarda 2072 en `%r15`.
+    
+- Se salta a la dirección 2092, donde comienza la subrutina.
+    
+
+Cuando se ejecuta `jmpl %r15+4,%r0`:
+
+- Se calcula `2072 + 4 = 2076`.
+    
+- Se salta a la dirección 2076, continuando con el programa principal.
+    
+
+**%r15 = 2072**
+
+Se conserva la dirección del call durante la subrutina.
+
+## **Diferencia entre los registros especiales**
+
+|Registro|Función|
+|---|---|
+|`%r0`|Siempre contiene 0.|
+|`%r14`|Stack Pointer: apunta al tope de la pila.|
+|`%r15`|Link Register: guarda la dirección de la instrucción `call`.|
+|`PC`|Program Counter: contiene la dirección de la instrucción que se está ejecutando.|
+
+**Importante:** cada vez que ejecutás un `call`, se sobrescribe `%r15`. Por eso, si una subrutina llama a otra subrutina, normalmente se guarda previamente `%r15` en la pila para no perder la dirección de retorno original.
+
+
+![[Pasted image 20261126012237.png]]
+
+
+## **Conceptos nuevos**
+
+`.macro` **y** `.endmacro`
+
+Indican el comienzo y el final de una macro. Una macro es un conjunto de instrucciones que el ensamblador reemplaza directamente en el lugar donde se la invoca.
+
+A diferencia de una subrutina, no necesita utilizar `call`, `jmpl` ni `%r15`.
+
+`.dwb 5`
+
+Reserva cinco palabras adicionales de memoria, es decir, 20 bytes.
+
+`length: 20`
+
+Representa la cantidad de bytes que ocupan los cinco elementos que se van a sumar. Como cada elemento ocupa 4 bytes:
+
+\[ 5\cdot4=20\text{ bytes} \]
+
+## **Pasos de ejecución del programa**
+
+1. `mcr_suma_array array, length, resultado`**:** invoca la macro, reemplazando sus parámetros `pos_array`, `pos_length` y `varResult` por `array`, `length` y `resultado`, respectivamente.
+
+2. `ld [pos_length],%r1`**:** carga el valor 20 en el registro `%r1`.
+
+3. `and %r0,%r0,%r3`**:** realiza un AND entre 0 y 0, inicializando el acumulador `%r3` en 0.
+
+### **Primera iteración**
+
+4. `add %r1,-4,%r1`**:** resta 4 al contenido de `%r1`, quedando `%r1 = 16`.
+
+5. `ld %r1,[pos_array],%r2`**:** carga en `%r2` el elemento ubicado en la dirección base del arreglo más el desplazamiento 16. En este caso, `%r2 = 21`.
+
+6. `add %r2,%r3,%r3`**:** suma 21 y 0, almacenando el resultado 21 en `%r3`.
+
+7. `andcc %r1,%r1,%r0`**:** realiza un AND entre 16 y 16. Como el resultado es distinto de cero, el flag Z queda en 0. El resultado del AND se descarta porque el destino es `%r0`.
+
+8. `be fin`**:** como Z vale 0, no realiza el salto.
+
+9. `ba sumar`**:** salta incondicionalmente a la etiqueta `sumar`, comenzando una nueva iteración.
+
+### **Segunda iteración**
+
+- Se resta 4 a `%r1`, quedando `%r1 = 12`.
+    
+- Se carga el elemento -5 en `%r2`.
+    
+- Se suma -5 al acumulador, quedando `%r3 = 16`.
+    
+- Como `%r1` es distinto de 0, Z vale 0 y se vuelve a `sumar`.
+    
+
+### **Tercera iteración**
+
+- Se resta 4 a `%r1`, quedando `%r1 = 8`.
+    
+- Se carga el elemento 3 en `%r2`.
+    
+- Se suma 3 al acumulador, quedando `%r3 = 19`.
+    
+- Como `%r1` es distinto de 0, Z vale 0 y se vuelve a `sumar`.
+    
+
+### **Cuarta iteración**
+
+- Se resta 4 a `%r1`, quedando `%r1 = 4`.
+    
+- Se carga el elemento -32 en `%r2`.
+    
+- Se suma -32 al acumulador, quedando `%r3 = -13`.
+    
+- Como `%r1` es distinto de 0, Z vale 0 y se vuelve a `sumar`.
+    
+
+### **Quinta iteración**
+
+- Se resta 4 a `%r1`, quedando `%r1 = 0`.
+    
+- Se carga el elemento 25 en `%r2`.
+    
+- Se suma 25 al acumulador, quedando `%r3 = 12`.
+    
+- Se realiza el AND entre 0 y 0, dejando el flag Z en 1.
+    
+- `be fin` realiza el salto a la etiqueta `fin`.
+    
+- `st %r3,[varResult]` almacena el valor 12 en la variable `resultado`.
