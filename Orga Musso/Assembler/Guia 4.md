@@ -49,3 +49,69 @@ como no tengo el org empieza en la direccion 0
 
 
 ![[Pasted image 20261126002741.png]]
+
+Como la variable `valor` contiene el número 25, el programa sigue el siguiente camino:
+
+1. `ld [valor], %r1`**:** carga el número 25 en el registro `%r1`.
+
+2. `andcc %r1,1,%r1`**:** realiza un AND bit a bit entre 25 y 1. El resultado es 1, que se almacena en `%r1`. Como el resultado es distinto de cero, el flag Z queda en 0.
+
+3. `be espar`**:** verifica si el flag Z vale 1. Como Z vale 0, no realiza el salto y continúa con la siguiente instrucción.
+
+4. `ba esimpar`**:** realiza un salto incondicional a la etiqueta `esimpar`, omitiendo las instrucciones del bloque `espar`.
+
+5. `or %r0,0,%r2`**:** realiza un OR entre 0 y 0, almacenando el resultado 0 en `%r2`.
+
+6. `or %r0,1,%r3`**:** realiza un OR entre 0 y 1, almacenando el resultado 1 en `%r3`.
+
+7. `ba fin`**:** realiza un salto incondicional a la etiqueta `fin`.
+
+8. `fin: ba fin`**:** salta hacia su propia dirección de memoria, generando un bucle infinito.
+
+**Conclusión:** el programa determina que 25 es impar, dejando el registro `%r2` en 0 y el registro `%r3` en 1.
+
+
+### **Inicio del programa**
+
+- `.begin`**:** directiva que indica al ensamblador el comienzo del programa.
+    
+- `main:` etiqueta que identifica el comienzo del código principal.
+    
+- `ld [valor], %r1`**:** carga el contenido de la posición de memoria `valor` (25) en el registro `%r1`.
+    
+- `andcc %r1,1,%r1`**:** realiza una operación AND bit a bit entre `%r1` y 1, almacena el resultado en `%r1` y actualiza los códigos de condición. Si el resultado es 0, el flag Z se activa; de lo contrario, queda en 0.
+    
+- `be espar`**:** realiza un salto a la etiqueta `espar` si el flag Z vale 1.
+    
+- `ba esimpar`**:** realiza un salto incondicional a la etiqueta `esimpar`.
+    
+
+### **Bloque espar**
+
+- `espar:` etiqueta que identifica el bloque que se ejecuta si el número es par.
+    
+- `or %r0,1,%r2`**:** realiza un OR bit a bit entre 0 y 1, almacenando 1 en `%r2`.
+    
+- `or %r0,0,%r3`**:** realiza un OR bit a bit entre 0 y 0, almacenando 0 en `%r3`.
+    
+- `ba fin`**:** realiza un salto incondicional a la etiqueta `fin`.
+    
+
+### **Bloque esimpar**
+
+- `esimpar:` etiqueta que identifica el bloque que se ejecuta si el número es impar.
+    
+- `or %r0,0,%r2`**:** realiza un OR bit a bit entre 0 y 0, almacenando 0 en `%r2`.
+    
+- `or %r0,1,%r3`**:** realiza un OR bit a bit entre 0 y 1, almacenando 1 en `%r3`.
+    
+- `ba fin`**:** realiza un salto incondicional a la etiqueta `fin`.
+    
+
+### **Datos y finalización**
+
+- `valor: 25`**:** etiqueta que identifica una posición de memoria donde se almacena el número 25.
+    
+- `fin: ba fin`**:** realiza un salto incondicional hacia su propia dirección de memoria, generando un bucle infinito.
+    
+- `.end`**:** directiva que indica al ensamblador el final del programa.
